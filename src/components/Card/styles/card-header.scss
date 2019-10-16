@@ -1,0 +1,36 @@
+
+$card-header-top-offset: 22px;
+$card-header-left-offset: 24px;
+
+$card-header: #{$prefix}card-header;
+
+.#{$card-header} {
+  position: relative;
+  padding: $card-header-top-offset $card-header-left-offset;
+  font-size: 32px;
+  line-height: 1.375em;
+  color: $color-text-base;
+  font-weight: 400;
+  &__extra {
+    @include center(y);
+    right: $card-header-left-offset;
+    color: $color-text-minor;
+    font-size: 32px;
+  }
+  &.is-bold {
+    font-size: 36px;
+    line-height: 1.38888889em;
+    font-weight: 500;
+  }
+  // ================== state ==================
+  &.is-error {
+    .#{$card-header}__extra {
+      color: $color-text-error;
+    }
+  }
+  &.is-success {
+    .#{$card-header}__extra {
+      color: $color-text-highlight;
+    }
+  }
+}

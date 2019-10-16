@@ -1,0 +1,36 @@
+// tag
+$tag-bg-orange: rgba(255, 185, 76, 0.149 );
+$tag-bg-blue: rgba(47, 131, 255, 0.102);
+// corner-marker
+$cmarker-bg-grey: rgba(135, 147, 174, 0.302);
+$cmarker-bg-red: rgba(255, 72, 77, 0.149);
+$cmarker-bg-gold: #DBB46E;
+$cmarker-text-red: rgba(255, 45, 49, 0.75);
+
+:export {
+  $cmarkerBgGrey: $cmarker-bg-grey;
+  $cmarkerBgRed: $cmarker-bg-red;
+  $cmarkerBgGold: $cmarker-bg-gold;
+  $cmarkerTextRed: $cmarker-text-red;
+}
+
+// button
+$button-color-primary-disabled: rgba(47, 131, 255, .3);
+$button-color-default-active: #F5F5F5;
+$button-color-primary-active: #2773E3;
+$button-color-primary-plain-active: #73ABFF;
+$button-color-plain-disabled: #CCC;
+$button-color-translucent-active: $button-color-primary-plain-active;
+$button-color-translucent-bg-active: #C1DBFF;
+$button-color-translucent-disabled: rgba(47, 131, 255, 0.1);
+
+$btn-size-normal: 96px;
+$btn-size-md: 80px;
+$btn-size-sm: 64px;
+
+
+// card
+$card-bg: #FFF;
+
+// skeleton
+$skeleton-bg: $color-bg-base;

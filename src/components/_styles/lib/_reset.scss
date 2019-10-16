@@ -1,0 +1,22 @@
+/// @group reset
+@mixin clean {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/// @group reset
+@mixin reset-list {
+  list-style: none;
+  @include clean;
+  li {
+    @include clean;
+    @content;
+  }
+}
+
+/// @group reset
+@mixin reset-link($color: inherit, $decoration: none) {
+  text-decoration: $decoration;
+  color: $color;
+}

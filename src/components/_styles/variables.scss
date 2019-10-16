@@ -1,0 +1,32 @@
+$prefix: 'ohu-';
+
+
+//color
+
+$color-primary: #2d7eff;
+
+// text color
+$color-text-base: #333;
+$color-text-base-inverse: #fff;
+
+$color-text-head: $color-text-base;
+$color-text-minor: #999;
+$color-text-link: $color-primary;
+
+$color-text-disabled: #ccc;
+
+$color-text-warn: #ff9434;
+$color-text-error: #ff2d31;
+$color-text-highlight: #36b365;
+
+// background/border color
+$color-bg-base: #f5f5f5;
+$color-bg-component: #f8f8f8;
+$color-divider: #eee;
+$color-mask: rgba(0, 0, 0, 0.639 );
+$color-border-base: #ccc;
+
+
+// font
+$font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,微软雅黑,Arial,sans-serif;
+

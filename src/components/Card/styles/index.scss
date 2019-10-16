@@ -1,0 +1,13 @@
+
+.#{$prefix}card {
+  background: $card-bg;
+  &__content {
+    padding: 24px;
+  }
+  &.has-radius {
+    border-radius: 8px;
+  }
+  &.has-shadow {
+    box-shadow: 0px 4px 20px 0px rgba(153,153,153,0.2);
+  }
+}

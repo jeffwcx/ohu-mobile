@@ -1,0 +1,11 @@
+import { SVGIconDef } from '../global';
+
+export const {{fileName}}: SVGIconDef = {
+  name: '{{name}}',
+  theme: '{{theme}}',
+  attrs: {
+    viewBox: '{{viewBox}}',
+  },
+  children: '{{@children}}',
+};
+

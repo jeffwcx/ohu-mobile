@@ -1,0 +1,20 @@
+
+.#{$prefix}tag {
+  display: inline-block;
+  height: 34px;
+  @include padding(_ 12px _ 12px);
+  font-size: 24px;
+  line-height: 1.416666667em;
+  border-radius: 4px;
+  text-align: center;
+  // ================= size =================
+  &.is-md {
+    height: 40px;
+    line-height: 1.45em;
+    @include padding(4px 12px _ 12px);
+  }
+  // ================= shape =================
+  &.is-fillet {
+    border-radius: 0 8px;
+  }
+}
