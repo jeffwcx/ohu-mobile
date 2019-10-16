@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeffwcx/ohu.git"
+    "url": "git+https://github.com/jeffwcx/ohu-mobile.git"
   },
   "keywords": [
     "components",
@@ -25,9 +25,9 @@
   "author": "jeffwcx",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jeffwcx/ohu/issues"
+    "url": "https://github.com/jeffwcx/ohu-mobile/issues"
   },
-  "homepage": "https://github.com/jeffwcx/ohu#readme",
+  "homepage": "https://github.com/jeffwcx/ohu-mobile#readme",
   "peerDependencies": {
     "vue": "^2.6.10"
   },
