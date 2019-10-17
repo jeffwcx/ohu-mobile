@@ -1,16 +1,14 @@
-import mdx from './DetailItem.mdx';
 import DetailItem from '.';
 import Card from '../Card';
 import Button from '../Button';
+import docs from './README.md';
 
 
 export default {
   title: '🧩Components|DataDisplay/DetailItem',
   parameters: {
     component: DetailItem,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs }
   },
 };
 

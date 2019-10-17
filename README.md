@@ -1,4 +1,11 @@
 # ohu-mobile
 
-### Fantastic UI Toolkit
+UI toolkit, design for medical senarios.
+
+
+## Install & Usage
+
+```shell
+npm i -S ohu-mobile
+```
 

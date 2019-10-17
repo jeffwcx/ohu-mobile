@@ -1,13 +1,14 @@
-import Icon from './Icon';
-import mdx from './Icon.mdx';
+import Icon from '.';
+import docs from './README.md';
+
 
 
 export default {
   title: '🧩Components|Basic/Icon',
   parameters: {
     component: Icon,
-    docs: {
-      page: mdx,
+    notes: {
+      markdown: docs,
     },
   },
 };

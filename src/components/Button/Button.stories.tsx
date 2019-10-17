@@ -1,15 +1,13 @@
 import Vue from 'vue';
-import mdx from './Button.mdx';
 import Button from './index';
+import docs from './README.md';
 
 
 export default {
   title: '🧩Components|Basic/Button',
   parameters: {
     component: Button,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs }
   },
 };
 

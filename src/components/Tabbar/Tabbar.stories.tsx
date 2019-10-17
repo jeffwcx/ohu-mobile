@@ -1,14 +1,12 @@
-import mdx from './Tabbar.mdx';
 import Vue from 'vue';
 import Tabbar from '.';
+import docs from './README.md';
 
 export default {
   title: '🧩Components|Navigation/Tabbar',
   parameters: {
     component: Tabbar,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs },
   },
 };
 

@@ -1,12 +1,12 @@
 import Tag from '.';
-import mdx from './Tag.mdx';
+import docs from './README.md';
 
 export default {
   title: '🧩Components|Basic/Tag',
   parameters: {
     component: Tag,
-    docs: {
-      page: mdx,
+    notes: {
+      markdown: docs,
     },
   },
 };

@@ -1,15 +1,13 @@
 import Card, { CardHeader } from '.';
-import mdx from './Card.mdx';
 import Button from '../Button';
 import DetailItem from '../DetailItem';
+import docs from './README.md';
 
 export default {
   title: '🧩Components|DataDisplay/Card',
   parameters: {
     component: Card,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs }
   },
 };
 

@@ -58,6 +58,6 @@ module.exports = ({ config }) => {
       }
     )
   );
-  config.resolve.extensions.push('.ts', '.tsx');
+  config.resolve.extensions.push('.ts', '.tsx', '.md');
   return config;
 };

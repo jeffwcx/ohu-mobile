@@ -1,14 +1,13 @@
-import mdx from './Divider.mdx';
 import Divider from '.';
+import docs from './README.md';
+
 
 
 export default {
   title: '🧩Components|DataDisplay/Divider',
   parameters: {
     component: Divider,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs }
   },
 };
 

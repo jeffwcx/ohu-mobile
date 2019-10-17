@@ -1,14 +1,12 @@
 import CornerMarker from '.';
-import mdx from './CornerMarker.mdx';
 import { CreateElement } from 'vue';
+import docs from './README.md';
 
 export default {
   title: '🧩Components|DataDisplay/CornerMarker',
   parameters: {
     component: CornerMarker,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs }
   },
 };
 

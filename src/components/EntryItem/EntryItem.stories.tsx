@@ -1,5 +1,4 @@
 import EntryItem from './index';
-import mdx from './EntryItem.mdx';
 import Vue from 'vue';
 import Card, { CardHeader } from '../Card';
 import {
@@ -12,14 +11,14 @@ import {
 import { WdghFilled, WdzxFilled, WdcfFilled, WdtjFilled } from './assets';
 import Button from '../Button';
 import VueRouter from 'vue-router';
+import docs from './README.md';
+
 
 export default {
   title: '🧩Components|Navigation/EntryItem',
   parameters: {
     component: EntryItem,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs }
   },
 };
 

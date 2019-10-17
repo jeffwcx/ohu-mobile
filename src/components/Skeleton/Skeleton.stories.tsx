@@ -1,15 +1,13 @@
 import Skeleton from '.';
-import mdx from './Skeleton.mdx';
 import Card, { CardHeader } from '../Card';
 import Vue from 'vue';
+import docs from './README.md';
 
 export default {
   title: '🧩Components|DataDisplay/Skeleton',
   parameters: {
     component: Skeleton,
-    docs: {
-      page: mdx,
-    },
+    notes: { markdown: docs }
   },
 };
 
