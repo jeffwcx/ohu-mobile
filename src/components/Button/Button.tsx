@@ -43,6 +43,16 @@ const Button = componentFactoryOf<ButtonEvents>().create({
       return clsMap;
     },
   },
+  methods: {
+    onClick(e: Event) {
+      if (!this.disabled) {
+        this.$emit('click', e);
+      }
+    },
+    onTouchstart(e: TouchEvent) {
+      this.$emit('touchstart', e);
+    }
+  },
   render(h) {
     let {
       disabled,
@@ -51,7 +61,6 @@ const Button = componentFactoryOf<ButtonEvents>().create({
       loading,
       $attrs,
       $slots,
-      $listeners,
     } = this;
     if (loading) {
       icon = 'loading';
@@ -63,7 +72,8 @@ const Button = componentFactoryOf<ButtonEvents>().create({
         disabled,
       },
       on: {
-        ...$listeners,
+        click: this.onClick,
+        touchstart: this.onTouchstart,
       },
       class: cls,
     };

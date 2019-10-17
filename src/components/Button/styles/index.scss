@@ -24,6 +24,7 @@ $btn-base-cls: #{$prefix}btn;
   line-height: 1.375em;
   border-radius: 3Px;
   font-weight: 400;
+  background: $color-text-base-inverse;
   @include hair-border($color-border-base, all, 6Px);
   .#{$prefix}icon {
     pointer-events: none;

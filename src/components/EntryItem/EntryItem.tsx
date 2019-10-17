@@ -7,7 +7,7 @@ import Icon from '../Icon';
 import { Location } from 'vue-router';
 
 export interface EntryItemEvents {
-  click: Event;
+  onClick: Event;
 }
 
 const entryItemBaseName = `${prefix}menu-item`;

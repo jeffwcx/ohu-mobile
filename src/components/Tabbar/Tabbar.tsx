@@ -3,7 +3,7 @@ import { prefix } from '../_utils/shared';
 import './styles/index.scss';
 
 export interface TabbarEvents {
-  change: Event;
+  onChange: Event;
 }
 
 const tabbarBaseName = `${prefix}tabbar`;
