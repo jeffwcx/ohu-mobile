@@ -1,0 +1,18 @@
+$tabbar-bg: rgba(255,255,255,0.9);
+$tabbar-border-color: rgba(0, 0, 0, .25);
+
+.#{$prefix}tabbar {
+  box-sizing: border-box;
+  height: 98px;
+  display: flex;
+  flex-flow: row nowrap;
+  &.has-border {
+    border-color: $tabbar-border-color;
+    border-style: solid;
+    border-width: 0;
+    @include hair-border(inherit);
+  }
+  .#{$prefix}entry-item {
+    flex: auto;
+  }
+}

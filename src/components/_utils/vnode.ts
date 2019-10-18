@@ -1,5 +1,5 @@
 import { filterEmpty, parseStyleText } from './props-util';
-import { VNode } from 'vue';
+import Vue, { VNode } from 'vue';
 export function cloneVNode(vnode: any, deep: boolean) {
   const componentOptions = vnode.componentOptions;
   const data = vnode.data;
@@ -147,4 +147,32 @@ export function getVNodesByName(children: VNode[], name: string | ((name: string
     }
     return name === cname;
   });
+}
+
+export function isTargetComponent(vnode: VNode, name: string) {
+  const options = vnode.componentOptions;
+  if (options&& options.Ctor) {
+    const ctor = options.Ctor as any;
+    if (ctor.options && ctor.options.name) {
+      return name === ctor.options.name;
+    }
+  }
+  return false;
+}
+
+export function transformSlotsContext(slots: { [key: string]: VNode[] | undefined }, context?: Vue) {
+  const result: VNode[][] = [];
+  Object.keys(slots).reduce((arr, slot) => {
+    const currentSlot = slots[slot];
+    if (currentSlot) {
+      if (context) {
+        currentSlot.map((vnode) => {
+          vnode.context = context;
+        });
+      }
+      arr.push(currentSlot);
+    }
+    return arr;
+  }, result);
+  return result;
 }

@@ -5,29 +5,32 @@ import './styles/index.scss';
 import { SVGIconDef } from '../../global';
 import Icon from '../Icon';
 import { Location } from 'vue-router';
+import { VNode } from 'vue';
 
 export interface EntryItemEvents {
   onClick: Event;
 }
 
-const entryItemBaseName = `${prefix}menu-item`;
+export const entryItemProps = {
+  icon: props<string, SVGIconDef>(String, Object).optional,
+  image: String,
+  iconSize: String,
+  iconAreaSize: props.ofStringLiterals('sm', 'md', 'lg').default('md'),
+  text: String,
+  textSize: props.ofStringLiterals('xsm', 'sm', 'md', 'lg').default('md'),
+  minorText: String,
+  to: props<string, Location>(String, Object).optional,
+  url: String,
+  replace: props(Boolean).default(false),
+}
+
+const entryItemBaseName = `${prefix}entry-item`;
 const entryItemIconCls = `${entryItemBaseName}__icon`;
 const entryItemTextCls = `${entryItemBaseName}__text`;
 const entryItemMinorTextCls = `${entryItemBaseName}__minor-text`;
 const EntryItem = componentFactoryOf<EntryItemEvents>().create({
   name: entryItemBaseName,
-  props: {
-    icon: props<string, SVGIconDef>(String, Object).optional,
-    image: String,
-    iconSize: String,
-    iconAreaSize: props.ofStringLiterals('sm', 'md', 'lg').default('md'),
-    text: String,
-    textSize: props.ofStringLiterals('xsm', 'sm', 'md', 'lg').default('md'),
-    minorText: String,
-    to: props<string, Location>(String, Object).optional,
-    url: String,
-    replace: props(Boolean).default(false),
-  },
+  props: entryItemProps,
   computed: {
     cls() {
       return {
@@ -56,12 +59,22 @@ const EntryItem = componentFactoryOf<EntryItemEvents>().create({
       iconStyle.height = iconSize;
     }
     const textContent = $slots.default || text;
+    let iconArea: VNode[] | VNode | undefined = $slots.icon;
+    if (!iconArea) {
+      if (icon) {
+        iconArea = <Icon type={icon} style={iconStyle}></Icon>;
+      }
+      if (image) {
+        iconArea = <img style={iconStyle} src={image} alt="icon" />;
+      }
+    }
     return (
       <div class={cls} onClick={this.onClick}>
-        <div class={entryItemIconCls}>
-          { icon && <Icon type={icon} style={iconStyle}></Icon> }
-          { image && <img style={iconStyle} src={image} alt="icon" /> }
-        </div>
+        {
+          iconArea
+          &&
+          <div class={entryItemIconCls}>{ iconArea }</div>
+        }
         { textContent && <span class={entryItemTextCls}>{ textContent }</span> }
         { minorText && <span class={entryItemMinorTextCls}>{ minorText }</span> }
       </div>
