@@ -3,6 +3,8 @@ import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
 import { cloneVNode } from '../_utils/vnode';
+import vars from '../_styles/variables';
+import componentVars from '../_styles/component.variables';
 import './styles/index.scss';
 
 const cMarkerBaseName = `${prefix}corner-marker`;
@@ -11,16 +13,16 @@ const cMarkerTriangleCls = `${cMarkerBaseName}__triangle`;
 
 const themes = {
   gold: {
-    color: '#FFF',
-    fillColor: '#DBB46E',
+    color: vars.colorTextBaseInverse,
+    fillColor: componentVars.cmarkerBgGold,
   },
   red: {
-    color: 'rgba(255, 45, 49, 0.75)',
-    fillColor: 'rgba(255, 72, 77, 0.149)',
+    color: componentVars.cmarkerTextRed,
+    fillColor: componentVars.cmarkerBgRed,
   },
   grey: {
-    color: '#FFF',
-    fillColor: 'rgba(135, 147, 174, 0.302)',
+    color: vars.colorTextBaseInverse,
+    fillColor: componentVars.cmarkerBgGrey,
   },
 };
 

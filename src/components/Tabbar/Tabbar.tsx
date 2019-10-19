@@ -1,8 +1,10 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import './styles/index.scss';
+import vars from '../_styles/variables';
+import componentVars from '../_styles/component.variables';
 import { VNodeData } from 'vue';
+import './styles/index.scss';
 
 export interface TabbarEvents {
   onChange: string | number;
@@ -16,8 +18,8 @@ export const Tabbar = componentFactoryOf<TabbarEvents>().create({
     value: props(String, Number).optional,
     border: props(Boolean).default(true),
     activeColor: props(String).default('primary'),
-    inActiveColor: props(String).default('#333'),
-    barColor: props(String).default('rgba(255,255,255,0.9)'),
+    inActiveColor: props(String).default(vars.colorTextBase),
+    barColor: props(String).default(componentVars.tabbarBg),
   },
   data() {
     return {

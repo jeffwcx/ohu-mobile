@@ -1,10 +1,12 @@
-
 {
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
+    "allowJs": true,
+    "outDir": "./dist",
+    "checkJs": true,
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
@@ -37,6 +39,9 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "src/**/*.js",
+    "node_modules",
+    "dist",
+    "scripts"
   ]
 }

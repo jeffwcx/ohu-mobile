@@ -12,5 +12,6 @@
     "sourceMap": true,
     "baseUrl": "./scripts"
   },
+  "include": ["scripts"],
   "exclude": ["node_modules"]
 }

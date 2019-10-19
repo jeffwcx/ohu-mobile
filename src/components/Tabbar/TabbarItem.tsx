@@ -1,11 +1,10 @@
 import { tabbarBaseName } from './Tabbar';
 import { componentFactoryOf } from 'vue-tsx-support';
-import Tabbar from './Tabbar';
 import EntryItem from '../EntryItem';
 import { entryItemProps, EntryItemEvents } from '../EntryItem/EntryItem';
 import { VNodeData } from 'vue';
 import { transformSlotsContext, isTargetComponent } from '../_utils/vnode';
-
+import vars from '../_styles/variables';
 
 export interface TabbarItemEvents extends EntryItemEvents {}
 
@@ -38,7 +37,7 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
       let { activeColor, inActiveColor, stateValue } = this.$parent as any;
       if (activeColor && inActiveColor) {
         if (activeColor === 'primary') {
-          activeColor = '#2d7eff';
+          activeColor = vars.colorPrimary;
         }
         style.color = (name || this.index) === stateValue ? activeColor : inActiveColor;
       }
