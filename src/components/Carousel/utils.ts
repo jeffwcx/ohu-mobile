@@ -1,0 +1,22 @@
+import { CSSValue, CarouselSlideDirection } from './interface';
+
+export function computeCSSValue(cssValue: string | number, defaultUnit = 'px'): CSSValue {
+  let unit = defaultUnit;
+  let value = 0;
+  if (typeof cssValue === 'string') {
+    cssValue.replace(/([0-9]+)([a-zA-Z]+)?/g, (_, v, u) => {
+      if (v) value = parseInt(v, 10);
+      if (u) unit = u;
+      return '';
+    });
+  }
+  return { unit, value };
+}
+
+export function getClientRectByDirection(el: Element, direction: CarouselSlideDirection) {
+  const { width, height } = el.getBoundingClientRect();
+  if (direction === 'horizontal') {
+    return width;
+  }
+  return height;
+}
