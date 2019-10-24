@@ -9,7 +9,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "gen-icons": "ts-node --project tsconfig.scripts.json scripts/generate-svg-icons.ts -o \"src/icons\" -t src/svg-icons/svg-template.art \"src/svg-icons/**/*.svg\""
+    "gen-icons": "ts-node --project tsconfig.scripts.json scripts/generate-svg-icons.ts -o \"src/icons\" -t src/svg-icons/svg-template.art \"src/svg-icons/**/*.svg\"",
+    "gen-result-assets": "ts-node --project tsconfig.scripts.json scripts/generate-svg-icons.ts -o \"src/components/Result/assets\" -t src/svg-icons/svg-template.art \"src/illustration/**/*.svg\""
   },
   "repository": {
     "type": "git",

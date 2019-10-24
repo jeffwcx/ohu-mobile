@@ -1,0 +1,44 @@
+
+.#{$prefix}result {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  &__icon {
+    font-size: 80px;
+    pointer-events: none;
+  }
+  &__title {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    line-height: (44/32) * 1em;
+    font-size: 32px;
+    margin: 48px 0 8px 0;
+    font-weight: 400;
+    padding: 0 20px;
+    color: $color-text-base;
+  }
+  &__subtitle {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 400;
+    color: $color-text-minor;
+    margin: 0 0 10px 0;
+  }
+  &__extra {
+    width: 100%;
+    text-align: center;
+    margin-top: 70px;
+    > .#{$prefix}btn {
+      width: 40%;
+    }
+    > * {
+      margin-right: 50px;
+    }
+    > *:last-child {
+      margin-right: 0;
+    }
+  }
+}
