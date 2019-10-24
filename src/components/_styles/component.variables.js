@@ -26,6 +26,8 @@ const skeletonBg = base.colorBgBase;
 // tabbar
 const tabbarBg = 'rgba(255,255,255,0.9)';
 const tabbarBorderColor = 'rgba(0, 0, 0, .25)';
+// loading
+const loadingTextColor = base.colorTextMinor;
 
 
 module.exports = {
@@ -56,4 +58,5 @@ module.exports = {
   // tabbar
   tabbarBg,
   tabbarBorderColor,
+  loadingTextColor,
 };
