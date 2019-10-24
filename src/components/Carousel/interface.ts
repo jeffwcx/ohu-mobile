@@ -11,9 +11,18 @@ export interface CarouselPageInfo {
 }
 export type CarouselSlideDirection = 'horizontal' | 'vertical';
 
-export interface CarouselSlideOptions {
+export type RenderStageItemFunc = (props: VNodeData, children: VNode[]) => VNode;
+export type RenderStageFunc = RenderStageItemFunc;
+export interface CarouselModeOptions {
   stage: HTMLElement;
   pageIndex: number;
+  renderChild: RenderStageItemFunc;
+  renderStage: RenderStageFunc;
+  loop?: boolean;
+  rewind?: boolean;
+}
+
+export interface CarouselSlideOptions extends CarouselModeOptions {
   direction: CarouselSlideDirection;
   autoSize: boolean;
   perPage: number;
@@ -23,17 +32,44 @@ export interface CarouselSlideOptions {
   easing: string;
 }
 
+export interface CarouselFadeOptions extends CarouselModeOptions {
+
+}
+
+export interface CarouselGoOptions<E extends CarouselChangeEvent = CarouselChangeEvent> {
+  pageIndex: number;
+  callback?: (args: E) => void;
+  [key: string]: any;
+}
 
 export interface CarouselInitConstuctor<T> {
   new (options: T): CarouselInitLifeCycle;
 }
 
-export type StageChildrenFunc = (props: VNodeData, children: VNode[]) => VNode;
-export type StageFunc = StageChildrenFunc;
-export interface CarouselInitLifeCycle {
-  getPagination: (page: number) => CarouselPageInfo;
-  createStage: (children: VNode[], createChild: StageChildrenFunc, createStage: StageFunc) => any;
-  createStepAction: () => any;
+
+export interface CarouselInitLifeCycle<E extends CarouselChangeEvent = CarouselChangeEvent> {
+  disable: boolean;
+  currentPage: number;
+  lastPage: number;
+  currentIndex: number;
+  lastIndex: number;
+  slideNum: number;
+  totalPage: number;
+  getPagination(page: number): CarouselPageInfo;
+  render(children: VNode[]): VNode[] | VNode;
+  go(options: CarouselGoOptions<E>): any;
+}
+
+export interface CarouselChangeEvent {
+  from: number;
+  to: number;
+  fromIndex: number;
+  toIndex: number;
+  [key: string]: any;
+}
+
+export interface CarouselSlideChangeEvent extends CarouselChangeEvent {
+  transformOffset: number;
 }
 
 export interface CarouselChangeInfo {

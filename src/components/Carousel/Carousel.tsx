@@ -1,16 +1,10 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import { VNode } from 'vue';
-import SlideInit from './SlideInit';
+import SlideRenderer from './renderer/SlideRenderer';
 import './styles/index.scss';
-
-export interface CarouselChangeEvent {
-  from: number;
-  to: number;
-  fromIndex: number;
-  toIndex: number;
-};
+import { CarouselChangeEvent, CarouselInitLifeCycle } from './interface';
+import FadeRenderer from './renderer/FadeRenderer';
 
 export interface CarouselEvents {
   onChange: CarouselChangeEvent;
@@ -19,6 +13,8 @@ export interface CarouselEvents {
 
 export const carouselBaseName = `${prefix}carousel`;
 export const carouselStageCls = `${carouselBaseName}__stage`;
+export const carouselIndicatorCls = `${carouselBaseName}__indicator`;
+export const carouselIndicatorDotCls = `${carouselIndicatorCls}__dot`;
 export const carouselStageWrapper = `${carouselStageCls}-wrapper`;
 export const carouselItemCls = `${carouselBaseName}-item`;
 
@@ -29,11 +25,14 @@ const Carousel = componentFactoryOf<CarouselEvents>().create({
     loop: props(Boolean).default(false),
     autoplay: props(Boolean).default(false),
     interval: props(Number).default(3000),
-    indicator: props(Boolean).default(false),
+    indicator: props(Boolean).default(true),
+    indicatorDarkMode: props(Boolean).default(false),
+    width: String,
     height: String,
-    mode: props.ofStringLiterals('slide', 'fade', 'cover').default('slide'),
+    mode: props.ofStringLiterals('slide', 'fade').default('slide'),
     // ---- only works in 'slide' mode
     direction: props.ofStringLiterals('vertical', 'horizontal').default('horizontal'),
+    rewind: props(Boolean).default(false),
     autoSize: props(Boolean).default(false),
     cover: props(Boolean).default(false),
     perPage: props(Number).validator(v => v > 0).default(1),
@@ -47,12 +46,12 @@ const Carousel = componentFactoryOf<CarouselEvents>().create({
   },
   data() {
     return {
-      showStageContent: false,
-      stageContent: [],
+      renderInstance: null,
+      stageStyle: {},
       stepChange: () => {},
     } as {
-      showStageContent: boolean;
-      stageContent: VNode[] | VNode;
+      renderInstance: CarouselInitLifeCycle | null;
+      stageStyle: object;
       stepChange: Function;
     };
   },
@@ -62,55 +61,105 @@ const Carousel = componentFactoryOf<CarouselEvents>().create({
   methods: {
     initStage() {
       const stage = this.$refs.stage as HTMLElement;
-      const { $slots } = this;
+      const { loop, $slots } = this;
       if (!stage || !$slots.default || ($slots.default && $slots.default.length === 0) ) return;
+      const callback = (event: CarouselChangeEvent) => {
+        this.$emit('change', event);
+        this.$emit('input', event);
+      }
       if (this.mode === 'slide') {
-        const { perPage, gap, moveStep, center, easing, direction, autoSize } = this;
-        const initInstance = new SlideInit({
+        const { perPage, gap, moveStep, center, easing, direction, autoSize, rewind } = this;
+        this.renderInstance = new SlideRenderer({
           perPage, gap,
           center, easing,
           direction, autoSize,
           moveStep,
           pageIndex: this.value,
           stage,
-        });
-        this.stageContent = initInstance.createStage(
-          $slots.default,
-          (props, children) => {
+          loop: !autoSize ? loop : false,
+          rewind,
+          renderChild: (props, children) => {
             props.class = carouselItemCls;
             return <div {...props}>{children}</div>
           },
-          (props, children) => {
+          renderStage: (props, children) => {
             props.class = {
               [carouselStageCls]: true,
               [`is-${direction}`]: true,
             };
-            props.ref = 'stageContent';
+            if (props.style) {
+              this.stageStyle = props.style as object;
+            }
             return <div {...props}>{children}</div>;
           }
-        );
-        this.stepChange = (stage: HTMLElement, pageIndex: number) => {
-          const event = initInstance.createStepAction()(stage, pageIndex);
-          this.$emit('change', event);
-          this.$emit('input', event);
+        });
+        this.stepChange = (pageIndex: number) => {
+          if (this.renderInstance) {
+            this.renderInstance.go({ pageIndex, callback, style: this.stageStyle });
+          }
         };
-        this.showStageContent = true;
+      } else if (this.mode === 'fade') {
+        this.renderInstance = new FadeRenderer({
+          stage,
+          loop,
+          pageIndex: this.value,
+          renderChild: (props, children) => {
+            props.class = carouselItemCls;
+            return (
+              <div{...props}>{children}</div>
+            );
+          },
+          renderStage: (props, children) => {
+            props.class = {
+              [carouselStageCls]: true,
+              'is-overlay': true
+            };
+            return (
+              <div{...props}>{children}</div>
+            );
+          },
+        });
+        this.stepChange = (pageIndex: number) => {
+          if (this.renderInstance) {
+            this.renderInstance.go({ pageIndex, callback });
+          }
+        };
       }
     },
     action() {
-      const stage = this.$refs.stageContent as HTMLElement;
-      if (stage) {
-        this.stepChange(stage, this.value);
-      }
+      this.stepChange(this.value);
     }
   },
   render() {
-    const { showStageContent, stageContent, height } = this;
+    const { width, height, $slots } = this;
     return (
-      <div class={carouselBaseName} style={{ height }}>
+      <div class={carouselBaseName} style={{ height, width }}>
         <div class={carouselStageWrapper} ref="stage">
-          { showStageContent && stageContent }
+          {
+            this.renderInstance
+            && $slots.default
+            && this.renderInstance.render($slots.default)
+          }
         </div>
+        {
+          this.renderInstance
+          && this.indicator
+          &&
+          <div class={[carouselIndicatorCls, `is-${this.direction}`]}>
+            {
+              new Array(this.renderInstance.totalPage)
+                .fill(0)
+                .map((_, index) => {
+                  const cls: {[key: string]: boolean} = {
+                    [carouselIndicatorDotCls]: true,
+                    'is-active': !!(this.renderInstance && this.renderInstance.currentPage === index),
+                    'is-dark': this.indicatorDarkMode,
+                  };
+                  return <span class={cls} tabindex={0} role="button"></span>
+                })
+            }
+          </div>
+        }
       </div>
     );
   },

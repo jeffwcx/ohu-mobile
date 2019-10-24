@@ -20,3 +20,16 @@ export function getClientRectByDirection(el: Element, direction: CarouselSlideDi
   }
   return height;
 }
+
+
+export function setTransformByDirection(
+  style: Partial<CSSStyleDeclaration>,
+  direction: CarouselSlideDirection,
+  offset: number
+) {
+  if (direction === 'horizontal') {
+    style.transform = `translate3d(${offset}px, 0, 0)`;
+  } else {
+    style.transform = `translate3d(0, ${offset}px, 0)`;
+  }
+}
