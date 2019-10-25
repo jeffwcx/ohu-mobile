@@ -1,0 +1,82 @@
+
+@mixin nav-bar-btns($color) {
+  > .#{$prefix}btn {
+    padding: 0 20px;
+    color: $color;
+    @content;
+  }
+  > .is-icon-only {
+    font-size: 36px;
+  }
+}
+
+$nav-bar-base-cls: #{$prefix}nav-bar;
+
+.#{$nav-bar-base-cls} {
+  &.is-primary {
+    background: $color-primary;
+    .#{$nav-bar-base-cls}__left {
+      @include nav-bar-btns($color-text-base-inverse) {
+        &:active {
+          background: transparent;
+        }
+      };
+    }
+    .#{$nav-bar-base-cls}__right {
+      @include nav-bar-btns($color-text-base-inverse) {
+        &:active {
+          background: transparent;
+        }
+      };
+    }
+    .#{$nav-bar-base-cls}__center {
+      color: $color-text-base-inverse;
+    }
+  }
+  &-inner {
+    display: flex;
+    height: 98px;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+  &__left {
+    height: 100%;
+    flex: 1;
+    padding-left: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    @include nav-bar-btns($color-text-base) {
+      &:active {
+        color: $color-text-base;
+      }
+    };
+  }
+  &__center {
+    flex: 1;
+    height: 100%;
+    color: $color-text-base;
+  }
+  &__title {
+    box-sizing: border-box;
+    padding: 24px 0;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: (50/36) * 1em;
+  }
+  &__right {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+    @include nav-bar-btns($color-text-base) {
+      &:active {
+        color: $color-text-base;
+      }
+    };
+  }
+}
