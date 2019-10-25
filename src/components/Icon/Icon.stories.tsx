@@ -4,7 +4,7 @@ import docs from './README.md';
 
 
 export default {
-  title: '🧩Components|Basic/Icon',
+  title: 'Components|Basic/Icon',
   parameters: {
     component: Icon,
     notes: {

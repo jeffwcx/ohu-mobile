@@ -5,7 +5,7 @@ import { MedicalMessageOutlined, CheckupOutlined, UserOutlined } from '../../ico
 import Button from '../Button';
 
 export default {
-  title: '🧩Components|Navigation/Tabbar',
+  title: 'Components|Navigation/Tabbar',
   parameters: {
     component: Tabbar,
     notes: { markdown: docs },

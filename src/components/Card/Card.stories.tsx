@@ -4,7 +4,7 @@ import DetailItem from '../DetailItem';
 import docs from './README.md';
 
 export default {
-  title: '🧩Components|DataDisplay/Card',
+  title: 'Components|DataDisplay/Card',
   parameters: {
     component: Card,
     notes: { markdown: docs }

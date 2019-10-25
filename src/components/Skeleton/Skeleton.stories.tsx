@@ -4,7 +4,7 @@ import Vue from 'vue';
 import docs from './README.md';
 
 export default {
-  title: '🧩Components|DataDisplay/Skeleton',
+  title: 'Components|DataDisplay/Skeleton',
   parameters: {
     component: Skeleton,
     notes: { markdown: docs }

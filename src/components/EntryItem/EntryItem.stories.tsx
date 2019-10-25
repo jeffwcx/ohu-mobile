@@ -15,7 +15,7 @@ import docs from './README.md';
 
 
 export default {
-  title: '🧩Components|Navigation/EntryItem',
+  title: 'Components|Navigation/EntryItem',
   parameters: {
     component: EntryItem,
     notes: { markdown: docs }

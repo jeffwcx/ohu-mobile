@@ -6,7 +6,7 @@ import Button from '../../Button';
 import { CarouselChangeEvent } from '../interface';
 
 export default {
-  title: '🧩Components|DataDisplay/Carousel',
+  title: 'Components|DataDisplay/Carousel',
   parameters: {
     component: Carousel,
     notes: { markdown: docs }

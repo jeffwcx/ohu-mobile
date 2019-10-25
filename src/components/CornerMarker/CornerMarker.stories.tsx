@@ -3,7 +3,7 @@ import { CreateElement } from 'vue';
 import docs from './README.md';
 
 export default {
-  title: '🧩Components|DataDisplay/CornerMarker',
+  title: 'Components|DataDisplay/CornerMarker',
   parameters: {
     component: CornerMarker,
     notes: { markdown: docs }

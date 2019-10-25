@@ -5,7 +5,7 @@ import Button from '../../Button';
 import Icon from '../../Icon';
 
 export default {
-  title: '🧩Components|Navigation/NavBar',
+  title: 'Components|Navigation/NavBar',
   parameters: {
     component: NavBar,
     notes: { markdown: docs }

@@ -3,7 +3,7 @@ import Vue from 'vue';
 import docs from '../README.md';
 
 export default {
-  title: '🧩Components|FeedBack/Loading',
+  title: 'Components|FeedBack/Loading',
   parameters: {
     component: Loading,
     notes: { markdown: docs }

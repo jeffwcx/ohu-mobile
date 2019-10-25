@@ -2,7 +2,7 @@ import Tag from '.';
 import docs from './README.md';
 
 export default {
-  title: '🧩Components|Basic/Tag',
+  title: 'Components|Basic/Tag',
   parameters: {
     component: Tag,
     notes: {

@@ -4,7 +4,7 @@ import docs from './README.md';
 
 
 export default {
-  title: '🧩Components|DataDisplay/Divider',
+  title: 'Components|DataDisplay/Divider',
   parameters: {
     component: Divider,
     notes: { markdown: docs }

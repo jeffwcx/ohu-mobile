@@ -6,7 +6,7 @@ import Divider from '../../Divider';
 import { Icon } from '../..';
 
 export default {
-  title: '🧩Components|FeedBack/Result',
+  title: 'Components|FeedBack/Result',
   parameters: {
     component: Result,
     notes: { markdown: docs }

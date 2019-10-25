@@ -4,7 +4,7 @@ import docs from './README.md';
 
 
 export default {
-  title: '🧩Components|Basic/Button',
+  title: 'Components|Basic/Button',
   parameters: {
     component: Button,
     notes: { markdown: docs }

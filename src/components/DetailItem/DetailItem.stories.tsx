@@ -5,7 +5,7 @@ import docs from './README.md';
 
 
 export default {
-  title: '🧩Components|DataDisplay/DetailItem',
+  title: 'Components|DataDisplay/DetailItem',
   parameters: {
     component: DetailItem,
     notes: { markdown: docs }
