@@ -10,7 +10,7 @@ import vars from '../_styles/variables';
 
 
 export interface NavBarEvents {
-
+  onClickLeft: Event;
 }
 
 const baseNavBarName = `${prefix}nav-bar`;
@@ -38,6 +38,11 @@ const NavBar = componentFactoryOf<NavBarEvents>().create({
         props: {
           type: 'link',
           inline: true,
+        },
+        on: {
+          click: (e: Event) => {
+            this.$emit('clickLeft', e);
+          },
         },
       };
       if (leftArrow && btnProps.props) {

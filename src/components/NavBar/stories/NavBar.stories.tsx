@@ -46,9 +46,14 @@ export const leftSlot = () => Vue.extend({
 });
 
 export const rightSlot = () => Vue.extend({
+  methods: {
+    back(e: Event) {
+      console.log('back', e);
+    },
+  },
   render() {
     return (
-      <NavBar leftArrow title="预约挂号" divider>
+      <NavBar leftArrow title="预约挂号" divider onClickLeft={this.back}>
         <template slot="right">
           <Button type="link" inline icon="menu"></Button>
           <Button type="link" inline icon="back-home"></Button>
