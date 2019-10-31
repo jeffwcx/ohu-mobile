@@ -1,0 +1,31 @@
+
+.#{$prefix}popup-header {
+  padding: 20px 14px 20px 30px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  .#{$prefix}btn {
+    flex-shrink: 0;
+    flex-grow: 0;
+    color: $popup-header-close-btn-color;
+    &:active {
+      color: $popup-header-close-btn-color;
+    }
+  }
+  &__text {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: $color-text-base;
+    &__title {
+      font-size: 32px;
+      font-weight: 500;
+      line-height: (50 / 32) * 1em;
+    }
+    &__minor-title {
+      color: $color-text-minor;
+      font-size: 28px;
+      font-weight: normal;
+      line-height: (40 / 28) * 1em;
+    }
+  }
+}

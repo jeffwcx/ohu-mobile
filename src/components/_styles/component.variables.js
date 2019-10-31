@@ -28,6 +28,9 @@ const tabbarBg = 'rgba(255,255,255,0.9)';
 const tabbarBorderColor = 'rgba(0, 0, 0, .25)';
 // loading
 const loadingTextColor = base.colorTextMinor;
+// popup
+// header
+const popupHeaderCloseBtnColor = '#848C95';
 
 
 module.exports = {
@@ -59,4 +62,6 @@ module.exports = {
   tabbarBg,
   tabbarBorderColor,
   loadingTextColor,
+  // popup
+  popupHeaderCloseBtnColor,
 };

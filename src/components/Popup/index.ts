@@ -1,3 +1,3 @@
-import Popup from './Popup';
+import Popup from './PopupWrapper';
 
 export default Popup;

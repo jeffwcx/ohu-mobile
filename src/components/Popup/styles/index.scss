@@ -1,0 +1,133 @@
+
+.#{$prefix}mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-mask;
+  z-index: 3000;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  // need compatible
+  &.is-frosted {
+    backdrop-filter: blur(20Px);
+  }
+}
+
+.#{$prefix}mask-fade-enter-active, .#{$prefix}mask-fade-leave-active {
+  transition: all 250ms;
+}
+.#{$prefix}mask-fade-enter, .#{$prefix}mask-fade-leave-to {
+  opacity: 0;
+}
+
+.#{$prefix}popup {
+  &.is-fullscreen {
+    width: 100%;
+    height: 100%;
+  }
+  &-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30001;
+    &.is-center {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &.is-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &.is-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  &.is-up {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &.is-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+$slide-animate-duration: 240ms;
+$slide-animate-timing-function: easing(out-cubic);
+$slide-leave-animate-timing-function: easing(out-quart);
+
+// slide-left transition
+.slide-left-enter-active {
+  transition: transform $slide-animate-duration $slide-animate-timing-function;
+}
+.slide-left-leave-active {
+  transition: transform $slide-animate-duration $slide-leave-animate-timing-function;
+}
+.slide-left-enter, .slide-left-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+
+// slide-right transition
+.slide-right-enter-active {
+  transition: transform $slide-animate-duration $slide-animate-timing-function;
+}
+.slide-right-leave-active {
+  transition: transform $slide-animate-duration $slide-leave-animate-timing-function;
+}
+.slide-right-enter, .slide-right-leave-to {
+  transform: translate3d(100%, 0, 0);
+}
+
+// slide-up transition
+.slide-up-enter-active {
+  transition: transform $slide-animate-duration $slide-animate-timing-function;
+}
+.slide-up-leave-active {
+  transition: transform $slide-animate-duration $slide-leave-animate-timing-function;
+}
+.slide-up-enter, .slide-up-leave-to {
+  transform: translate3d(0, -100%, 0);
+}
+
+// slide-down transition
+.slide-down-enter-active {
+  transition: transform $slide-animate-duration $slide-animate-timing-function;
+}
+.slide-down-leave-active {
+  transition: transform $slide-animate-duration $slide-leave-animate-timing-function;
+}
+.slide-down-enter, .slide-down-leave-to {
+  transform: translate3d(0, 100%, 0);
+}
+
+// zoom transition
+.zoom-enter-active, .zoom-leave-active {
+  transition: all 330ms easing(out-quint);
+}
+.zoom-enter {
+  transform: scale3d(3, 3, 1);
+  opacity: 0;
+}
+.zoom-leave-to {
+  transform: scale3d(0.1, 0.1, 1);
+  opacity: 0;
+}
+// fade transition
+.fade-enter-active, .fade-leave-active {
+  transition: all 300ms easing(out-quart);
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
