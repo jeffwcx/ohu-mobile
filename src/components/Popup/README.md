@@ -5,6 +5,14 @@
 import { Popup } from 'ohu-mobile';
 ```
 
+## Function call
+
+```ts
+Popup.open();
+
+Popup.close();
+```
+
 # Design Goals
 
 + ✅Can pop up in any area (include top, bottom, center, left, right).

@@ -8,7 +8,7 @@ export type GetContainerFunc = (() => HTMLElement) | HTMLElement;
 
 
 const basePopupWrapperName = `${prefix}popup`;
-const PopupWrapper = componentFactoryOf<PopupEvents>().create({
+const PopupWrapper = componentFactoryOf<Omit<PopupEvents, 'onAfterLeave'>>().create({
   name: basePopupWrapperName,
   model: {
     prop: 'visible',
@@ -16,6 +16,7 @@ const PopupWrapper = componentFactoryOf<PopupEvents>().create({
   },
   props: {
     getContainer: props.ofType<GetContainerFunc>().default(() => document.body),
+    lazyRender: props(Boolean).default(false),
     ...PopupProps,
   },
   render() {
@@ -28,7 +29,14 @@ const PopupWrapper = componentFactoryOf<PopupEvents>().create({
     } = this;
     const popupNodeData: VNodeData = {
       props: $props,
-      on: $listeners,
+      on: {
+        ...$listeners,
+        afterLeave: () => {
+          if (this.lazyRender) {
+            (this.$refs.portal as any).remove();
+          }
+        },
+      },
       attrs: $attrs,
     };
     const container = getContainer instanceof Function
@@ -36,6 +44,7 @@ const PopupWrapper = componentFactoryOf<PopupEvents>().create({
       : getContainer;
     return (
       <PortalRender
+        ref="portal"
         visible={visible}
         container={container}
         children={() => <Popup {...popupNodeData}>{ this.$slots.default }</Popup>}>

@@ -6,7 +6,6 @@
   width: 100%;
   height: 100%;
   background: $color-mask;
-  z-index: 3000;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
   // need compatible
@@ -33,7 +32,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 30001;
+    &.is-scrollable {
+      // overscroll-behavior-y: contain;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     &.is-center {
       display: flex;
       flex-flow: row nowrap;

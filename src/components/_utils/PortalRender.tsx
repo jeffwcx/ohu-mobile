@@ -56,7 +56,7 @@ export default component({
           mounted() {
             self._wrapper = this.$el;
           },
-          render(h) {
+          render() {
             return self.children();
           },
         });

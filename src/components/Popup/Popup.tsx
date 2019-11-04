@@ -1,10 +1,13 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
+import { getScrollEventTarget } from '../_utils/dom';
 import './styles/index.scss';
+import manager from './manager';
 
 export interface PopupEvents {
   onVisibleChange: boolean;
+  onAfterLeave: boolean;
 }
 
 type VerticalPosition = 'top' | 'bottom' | 'center';
@@ -40,7 +43,7 @@ export const PopupProps = {
   visible: Boolean,
   anchor: props.ofType<HTMLElement>().optional,
   transformOrigin: props.ofType<TransformOrigin>().optional,
-  marginThreshold: props(Number).default(16),
+  marginThreshold: props(Number).default(12),
   edgeDetect: props(Boolean).default(true),
   lockScroll: props(Boolean).default(true),
   position: props.ofType<Position>().default('center'),
@@ -92,15 +95,31 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       wrapperVisible: this.visible,
       documentVisible: false,
       docRect: null,
+      maskZIndex: 0,
+      documentZIndex: 0,
+      touchData: {
+        scrollY: 0,
+        pageY: 0,
+        scrollEl: null,
+        maxHeight: 0,
+      },
     } as {
       wrapperVisible: boolean,
       documentVisible: boolean,
       docRect: ClientRect | DOMRect | null,
+      maskZIndex: number,
+      documentZIndex: number,
+      touchData: {
+        scrollY: number,
+        pageY: number,
+        scrollEl: HTMLElement | null,
+        maxHeight: number,
+      },
     };
   },
   watch: {
     visible(newValue) {
-      this.documentVisible = newValue;
+      newValue ? this.open() : this.close();
     },
   },
   computed: {
@@ -109,7 +128,12 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     },
   },
   mounted() {
-    this.documentVisible = this.visible;
+    this.visible ? this.open() : this.close();
+  },
+  beforeDestroy() {
+    if (this.documentVisible) {
+      this.close();
+    }
   },
   methods: {
     // ⬇️ open api
@@ -117,9 +141,32 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       if (this.documentVisible) {
         this.documentVisible = false;
         this.$emit(POPUP_EVENT, this.documentVisible);
+        this.startScroll();
       }
     },
+    open() {
+      const { maskZIndex, documentZIndex } = manager.getPopupZIndex();
+      this.maskZIndex = maskZIndex;
+      this.documentZIndex = documentZIndex;
+      this.documentVisible = true;
+      this.stopScroll();
+    },
     // ⬆️ open api
+    stopScroll() {
+      if (this.lockScroll) {
+        manager.isLock += 1;
+        document.body.style.overflow = 'hidden';
+      }
+    },
+    startScroll() {
+      if (manager.isLock === 0) return;
+      if (this.lockScroll) {
+        manager.isLock -= 1;
+        if (manager.isLock <= 0) {
+          document.body.style.overflow = '';
+        }
+      }
+    },
     onMaskClick(e: Event) {
       e.stopPropagation();
       if (this.maskClosable) {
@@ -128,12 +175,48 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     },
     onAfterDocumentLeave() {
       this.wrapperVisible = false;
+      this.$emit('afterLeave', this.wrapperVisible);
     },
     onBeforeDocumentEnter() {
       this.wrapperVisible = true;
     },
     onDocumentClick(e: Event) {
       e.stopPropagation();
+    },
+    onWrapperTouchstart(e: TouchEvent) {
+      const event = e.touches[0];
+      const el = e.target as HTMLElement;
+      const rootEl = this.$refs.document as HTMLElement;
+      if (rootEl) {
+        const scrollEl = getScrollEventTarget(el, rootEl) as HTMLElement;
+        this.touchData.scrollEl = scrollEl;
+        this.touchData.pageY = event.pageY;
+        this.touchData.scrollY = scrollEl.scrollTop;
+        this.touchData.maxHeight = scrollEl.scrollHeight - scrollEl.clientHeight;
+      }
+    },
+    onWrapperTouchmove(e: TouchEvent) {
+      const scrollEl = this.touchData.scrollEl;
+      const event = e.touches[0];
+      if (scrollEl) {
+        const { pageY, maxHeight } = this.touchData;
+        const scrollTop = scrollEl.scrollTop;
+        const distanceY = event.pageY - pageY;
+        if (distanceY > 0 && scrollTop <= 0) {
+          e.cancelable && e.preventDefault();
+          return;
+        }
+        if (distanceY < 0 && scrollTop + 1 >= maxHeight) {
+          e.cancelable && e.preventDefault();
+          return;
+        }
+      }
+    },
+    onWrapperTouchend() {
+      this.touchData.maxHeight = 0;
+      this.touchData.pageY = 0;
+      this.touchData.scrollEl = null;
+      this.touchData.scrollY = 0;
     },
     onDocumentEnter(doc: Element) {
       this.$nextTick(() => {
@@ -153,10 +236,13 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         [baseMaskName]: true,
         'is-frosted': this.maskFrosted
       };
+      const maskStyle = {
+        zIndex: this.maskZIndex,
+      };
       if (this.mask) {
         return (
           <transition name={prefix + 'mask-fade'}>
-            <div v-show={this.documentVisible} class={maskCls}></div>
+            <div v-show={this.documentVisible} class={maskCls} style={maskStyle}></div>
           </transition>
         );
       }
@@ -289,19 +375,28 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         [popupWrapperCls]: true,
         'is-center': this.position === 'center',
       };
+      const wrapperStyle = {
+        zIndex: this.documentZIndex,
+      };
       return (
         <div v-show={this.wrapperVisible}
           class={wrapperCls}
+          style={wrapperStyle}
           role="dialog"
           onClick={this.onMaskClick}
+          onTouchstart={this.onWrapperTouchstart}
+          onTouchmove={this.onWrapperTouchmove}
+          onTouchend={this.onWrapperTouchend}
           tabindex={-1}>
           <transition
+            appear
             name={this.getDocumentTransition()}
             onBeforeEnter={this.onBeforeDocumentEnter}
             onEnter={this.onDocumentEnter}
             onAfterLeave={this.onAfterDocumentLeave}>
             <div v-show={this.documentVisible}
               role="document"
+              ref="document"
               class={this.getDocumentClass()}
               style={this.getDocumentStyle()}
               onClick={this.onDocumentClick}>

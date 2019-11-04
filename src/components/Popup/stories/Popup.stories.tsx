@@ -54,17 +54,23 @@ export const basic = () => Vue.extend({
         <Popup
           v-model={this.v3}
           position="bottom"
-          targetStyle={{ width: '100%', height: '6rem', background: '#fff' }}>
+          targetStyle={{ width: '100%', height: '6rem', overflow: 'scroll', background: '#fff' }}>
+          <div style="height: 1000px;">
+            <input onBlur={() => window.scrollTo(0, 0)} type="text" style="width: 60px; font-size: 18px;" />
+          </div>
         </Popup>
         <Popup
           v-model={this.v4}
           position="left"
           targetStyle={{ width: '6rem', height: '100%', background: '#fff' }}>
+          <Button type="primary" onClick={() => this.v5 = true}>打开right</Button>
         </Popup>
         <Popup
           v-model={this.v5}
           position="right"
           targetStyle={{ width: '6rem', height: '100%', background: '#fff' }}>
+          <Button type="primary" onClick={() => this.v4 = true}>打开left</Button>
+          <Button type="primary" onClick={() => this.v4 = false}>关闭left</Button>
         </Popup>
         <Card shadow>
           <CardHeader>position</CardHeader>
