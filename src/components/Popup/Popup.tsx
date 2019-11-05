@@ -4,64 +4,29 @@ import { prefix } from '../_utils/shared';
 import { getScrollEventTarget } from '../_utils/dom';
 import './styles/index.scss';
 import manager from './manager';
-
-export interface PopupEvents {
-  onVisibleChange: boolean;
-  onAfterLeave: boolean;
-}
-
-type VerticalPosition = 'top' | 'bottom' | 'center';
-type HorizontalPosition = 'left' | 'right' | 'center';
-export type Position = AnyPosition | AnchorPosition | VerticalPosition | HorizontalPosition;
-interface AnyPosition {
-  top?: number;
-  left?: number;
-};
-
-interface AnchorPosition {
-  vertical?: VerticalPosition;
-  horizontal?: HorizontalPosition;
-}
-
-export interface TransformOrigin {
-  vertical?: VerticalPosition;
-  horizontal?: HorizontalPosition;
-}
-
-function isAnyPosition(position: Position): position is AnyPosition {
-  return (position as AnyPosition).left !== undefined
-    || (position as AnyPosition).top !== undefined;
-}
-
-function isAnchorPosition(position: Position): position is AnchorPosition {
-  return (position as AnchorPosition).horizontal !== undefined
-    || (position as AnchorPosition).vertical !== undefined;
-}
+import debounce from '../_utils/debounce';
+import { PopupTransformOrigin, PopupPosition,
+  PopupAnimateType, PopupEvents, PopupHorizontalPosition,
+  PopupVerticalPosition, PopupAnchorPosition,
+} from './types';
+import { isAnchorPosition, isAnyPosition } from './utils';
 
 
-export const PopupProps = {
+export const popupProps = {
   visible: Boolean,
   anchor: props.ofType<HTMLElement>().optional,
-  transformOrigin: props.ofType<TransformOrigin>().optional,
+  transformOrigin: props.ofType<PopupTransformOrigin>().optional,
   marginThreshold: props(Number).default(12),
   edgeDetect: props(Boolean).default(true),
   lockScroll: props(Boolean).default(true),
-  position: props.ofType<Position>().default('center'),
+  position: props.ofType<PopupPosition>().default('center'),
   mask: props(Boolean).default(true),
   maskFrosted: props(Boolean).default(false),
   maskClosable: props(Boolean).default(true),
   fullscreen: props(Boolean).default(false),
-  animate: props.ofStringLiterals(
-    'none',
-    'fade',
-    'zoom',
-    'zoom-big',
-    'slide-up',
-    'slide-down',
-    'slide-left',
-    'slide-right'
-  ).default('none'),
+  animate: props.ofType<PopupAnimateType>().default('none'),
   targetStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
+  scrollBody: props(Boolean).default(false),
 }
 
 const positionTransitionMap = {
@@ -89,12 +54,13 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     prop: 'visible',
     event: POPUP_EVENT,
   },
-  props: PopupProps,
+  props: popupProps,
   data() {
     return {
       wrapperVisible: this.visible,
       documentVisible: false,
       docRect: null,
+      docEl: null,
       maskZIndex: 0,
       documentZIndex: 0,
       touchData: {
@@ -103,12 +69,15 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         scrollEl: null,
         maxHeight: 0,
       },
+      resizeHandler: null,
     } as {
       wrapperVisible: boolean,
       documentVisible: boolean,
-      docRect: ClientRect | DOMRect | null,
+      docEl: HTMLElement | null,
+      docRect: { width: number, height: number } | null,
       maskZIndex: number,
       documentZIndex: number,
+      resizeHandler: ((this: Window, ev: any) => any) | null,
       touchData: {
         scrollY: number,
         pageY: number,
@@ -129,10 +98,18 @@ const Popup = componentFactoryOf<PopupEvents>().create({
   },
   mounted() {
     this.visible ? this.open() : this.close();
+    const resizeHandler = this.updatePosition();
+    if (resizeHandler) {
+      this.resizeHandler = resizeHandler;
+      window.addEventListener('resize', resizeHandler);
+    }
   },
   beforeDestroy() {
     if (this.documentVisible) {
       this.close();
+    }
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler);
     }
   },
   methods: {
@@ -141,15 +118,18 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       if (this.documentVisible) {
         this.documentVisible = false;
         this.$emit(POPUP_EVENT, this.documentVisible);
+        this.$emit('close', this.documentVisible);
         this.startScroll();
       }
     },
     open() {
+      if (this.documentVisible) return;
       const { maskZIndex, documentZIndex } = manager.getPopupZIndex();
       this.maskZIndex = maskZIndex;
       this.documentZIndex = documentZIndex;
       this.documentVisible = true;
       this.stopScroll();
+      this.$emit('open', this.documentVisible);
     },
     // ⬆️ open api
     stopScroll() {
@@ -167,21 +147,18 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         }
       }
     },
+    updatePosition() {
+      if (this.documentVisible) {
+        return debounce(() => {
+          this.computeDocumentRect();
+        });
+      }
+    },
     onMaskClick(e: Event) {
       e.stopPropagation();
       if (this.maskClosable) {
         this.close();
       }
-    },
-    onAfterDocumentLeave() {
-      this.wrapperVisible = false;
-      this.$emit('afterLeave', this.wrapperVisible);
-    },
-    onBeforeDocumentEnter() {
-      this.wrapperVisible = true;
-    },
-    onDocumentClick(e: Event) {
-      e.stopPropagation();
     },
     onWrapperTouchstart(e: TouchEvent) {
       const event = e.touches[0];
@@ -218,17 +195,20 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       this.touchData.scrollEl = null;
       this.touchData.scrollY = 0;
     },
+    onAfterDocumentLeave() {
+      this.wrapperVisible = false;
+      this.$emit('afterLeave', this.wrapperVisible);
+    },
+    onBeforeDocumentEnter() {
+      this.wrapperVisible = true;
+    },
+    onDocumentClick(e: Event) {
+      e.stopPropagation();
+    },
     onDocumentEnter(doc: Element) {
+      this.docEl = doc as HTMLElement;
       this.$nextTick(() => {
-        const rect =  doc.getBoundingClientRect();
-        this.docRect = {
-          width: rect.width / 0.75,
-          height: rect.height / 0.5623,
-          top: rect.top,
-          left: rect.left,
-          bottom: rect.bottom,
-          right: rect.right,
-        };
+        this.computeDocumentRect();
       });
     },
     renderMask() {
@@ -255,6 +235,14 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       }
       return this.animate;
     },
+    computeDocumentRect() {
+      if (this.docEl) {
+        this.docRect = {
+          width: this.docEl.offsetWidth,
+          height: this.docEl.offsetHeight,
+        };
+      }
+    },
     computeDocumentPosition() {
       const { position } = this;
       let top = 0;
@@ -265,7 +253,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         if (anchor) {
           const anchorRect = anchor.getBoundingClientRect();
           // transform anchor position
-          let anchorPos: AnchorPosition = {};
+          let anchorPos: PopupAnchorPosition = {};
           if (typeof position === 'string') {
             if (position === 'top' || position === 'bottom') {
               anchorPos.vertical = position;
@@ -291,13 +279,13 @@ const Popup = componentFactoryOf<PopupEvents>().create({
             anchorTop = anchorTop + anchorRect.height;
           }
 
-          let transformOrigin: TransformOrigin = this.transformOrigin || {};
+          let transformOrigin: PopupTransformOrigin = this.transformOrigin || {};
           // preset transform origin
           if (anchorPos.horizontal !== undefined) {
-            transformOrigin.horizontal = positionReverseMap[anchorPos.horizontal] as HorizontalPosition;
+            transformOrigin.horizontal = positionReverseMap[anchorPos.horizontal] as PopupHorizontalPosition;
           }
           if (anchorPos.vertical !== undefined) {
-            transformOrigin.vertical = positionReverseMap[anchorPos.vertical] as VerticalPosition;
+            transformOrigin.vertical = positionReverseMap[anchorPos.vertical] as PopupVerticalPosition;
           }
           transformOriginStr = transformOrigin.vertical || 'top' + ' ' + transformOrigin.horizontal || 'left';
           let docOffsetX = 0;
@@ -371,10 +359,14 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       return cls;
     },
     renderDocument() {
-      const wrapperCls = {
+      const wrapperCls: { [key: string]: boolean } = {
         [popupWrapperCls]: true,
-        'is-center': this.position === 'center',
       };
+      if (this.scrollBody) {
+        wrapperCls['is-scrollable'] = true;
+      } else {
+        wrapperCls['is-center'] = this.position === 'center';
+      }
       const wrapperStyle = {
         zIndex: this.documentZIndex,
       };
@@ -389,7 +381,6 @@ const Popup = componentFactoryOf<PopupEvents>().create({
           onTouchend={this.onWrapperTouchend}
           tabindex={-1}>
           <transition
-            appear
             name={this.getDocumentTransition()}
             onBeforeEnter={this.onBeforeDocumentEnter}
             onEnter={this.onDocumentEnter}

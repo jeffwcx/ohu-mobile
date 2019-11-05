@@ -4,7 +4,6 @@ import './styles/popup-header.scss';
 import Button from '../Button';
 import { CircleCloseFilled } from '../../icons';
 import Divider from '../Divider';
-import Popup from './Popup';
 
 
 export const basePopupHeaderName = `${prefix}popup-header`;

@@ -22,3 +22,11 @@ Popup.close();
 + ❌Can use component by a function.
 
 
+# TODO
+
++ support tap through.
++ add title-bar component.
++ dymanic width and height in anchor mode.
++ round radius + gesture suport.
+
+

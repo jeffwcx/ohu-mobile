@@ -4,7 +4,7 @@ import docs from '../README.md';
 import Button from '../../Button';
 import Card, { CardHeader } from '../../Card';
 import PopupHeader from '../PopupHeader';
-import { Position } from '../Popup';
+import { PopupPosition } from '../types';
 
 export default {
   title: 'Components|FeedBack/Popup',
@@ -18,16 +18,6 @@ export const basic = () => Vue.extend({
   data() {
     return {
       v1: false,
-      v2: false,
-      v3: false,
-      v4: false,
-      v5: false,
-      vz: false,
-      vf: false,
-      vm: false,
-      vmf: false,
-      vfs: false,
-      va: false,
     };
   },
   methods: {
@@ -46,6 +36,23 @@ export const basic = () => Vue.extend({
           <CardHeader>Basic</CardHeader>
           <Button type="primary" onClick={() => this.v1 = true}>open</Button>
         </Card>
+      </div>
+    );
+  }
+});
+
+export const position = () => Vue.extend({
+  data() {
+    return {
+      v2: false,
+      v3: false,
+      v4: false,
+      v5: false,
+    };
+  },
+  render() {
+    return (
+      <div style="padding: 8px;">
         <Popup
           v-model={this.v2}
           position="top"
@@ -79,9 +86,30 @@ export const basic = () => Vue.extend({
           <Button type="primary" onClick={() => this.v4 = true}>left</Button>
           <Button onClick={() => this.v5 = true}>right</Button>
         </Card>
+      </div>
+    );
+  },
+});
+
+export const animate = () => Vue.extend({
+  data() {
+    return {
+      vz: false,
+      vf: false,
+      vzs: false,
+    };
+  },
+  render() {
+    return (
+      <div style="padding: 8px;">
         <Popup
           v-model={this.vz}
           animate="zoom"
+          targetStyle={{ width: '8rem', height: '8rem', background: '#fff' }}>
+        </Popup>
+        <Popup
+          v-model={this.vzs}
+          animate="zoom-scale"
           targetStyle={{ width: '8rem', height: '8rem', background: '#fff' }}>
         </Popup>
         <Popup
@@ -93,14 +121,27 @@ export const basic = () => Vue.extend({
           <CardHeader>animate</CardHeader>
           <Button type="primary" onClick={() => this.vf = true}>fade</Button>
           <Button onClick={() => this.vz = true}>zoom</Button>
-          <Button type="primary" onClick={this.open}>slide-up</Button>
-          <Button onClick={this.open}>slide-down</Button>
-          <Button type="primary" onClick={this.open}>slide-left</Button>
-          <Button onClick={this.open}>slide-right</Button>
+          <Button type="primary" onClick={() => this.vzs = true}>zoom-scale</Button>
         </Card>
+      </div>
+    );
+  },
+});
+
+
+export const mask = () => Vue.extend({
+  data() {
+    return {
+      vm: false,
+      vmf: false,
+    };
+  },
+  render() {
+    return (
+      <div style="padding: 8px;">
         <Popup
           v-model={this.vm}
-          animate="slide-down"
+          animate="zoom"
           mask={false}
           targetStyle={{ width: '8rem', height: '8rem', background: 'grey' }}>
         </Popup>
@@ -115,6 +156,20 @@ export const basic = () => Vue.extend({
           <Button type="primary" onClick={() => this.vm = true}>without mask</Button>
           <Button type="translucent" onClick={() => this.vmf = true}>frosted mask</Button>
         </Card>
+      </div>
+    );
+  },
+});
+
+export const fullscreen = () => Vue.extend({
+  data() {
+    return {
+      vfs: false,
+    };
+  },
+  render() {
+    return (
+      <div style="padding: 8px;">
         <Popup
           v-model={this.vfs}
           animate="slide-down"
@@ -128,7 +183,27 @@ export const basic = () => Vue.extend({
         </Card>
       </div>
     );
-  }
+  },
+});
+
+export const scroll = () => Vue.extend({
+  data() {
+    return {
+      v: false,
+    };
+  },
+  render() {
+    return (
+      <div style="padding: 8px;">
+        <Popup v-model={this.v} scrollBody targetStyle={{ width: '80vw', height: '120vh', background: '#FFF', margin: '30px 20px' }}>
+          <Card>
+            <CardHeader>title</CardHeader>
+          </Card>
+        </Popup>
+        <Button type="primary" onClick={() => this.v = true}>open</Button>
+      </div>
+    );
+  },
 });
 
 export const anchor = () => Vue.extend({
@@ -137,10 +212,10 @@ export const anchor = () => Vue.extend({
       va: false,
       anchorEl: null,
       position: { vertical: 'bottom', horizontal: 'left' },
-    } as { va: boolean, anchorEl: HTMLElement | null, position: Position };
+    } as { va: boolean, anchorEl: HTMLElement | null, position: PopupPosition };
   },
   methods: {
-    setAnchor(e: Event, position?: Position) {
+    setAnchor(e: Event, position?: PopupPosition) {
       this.anchorEl = (e.target || e.srcElement) as HTMLElement;
       this.va = Boolean(this.anchorEl);
       if (position) {
@@ -155,9 +230,9 @@ export const anchor = () => Vue.extend({
           v-model={this.va}
           anchor={this.anchorEl as HTMLElement}
           mask={false}
-          animate="zoom-big"
+          animate="zoom"
           position={this.position}
-          targetStyle={{ background: '#FFF', padding: '10px', boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)' }}>
+          targetStyle={{ background: '#FFF', width: '200px', padding: '10px', boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)' }}>
           <h2>This is PopOver</h2>
           <p>Here is description.</p>
         </Popup>
@@ -183,4 +258,35 @@ export const anchor = () => Vue.extend({
       </div>
     );
   }
+});
+
+export const functionCall = () => Vue.extend({
+  methods: {
+    openModal() {
+      Popup.open({
+        parent: this,
+        animate: 'zoom',
+        maskClosable: false,
+        targetStyle: {
+          width: '100px',
+          height: '100px',
+          background: '#FFF',
+        },
+        render() {
+          return (
+            <div style="text-align: center;">
+              <Button inline type="primary" onClick={() => Popup.close()}>关闭</Button>
+            </div>
+          );
+        },
+      });
+    },
+  },
+  render() {
+    return (
+      <div>
+        <Button type="primary" onClick={this.openModal}>function call</Button>
+      </div>
+    );
+  },
 });

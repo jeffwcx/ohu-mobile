@@ -1,23 +1,24 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import PortalRender from '../_utils/PortalRender';
-import Popup, { PopupProps, POPUP_EVENT, PopupEvents } from './Popup';
+import Popup, { popupProps, POPUP_EVENT } from './Popup';
 import { VNodeData } from 'vue';
 import { prefix } from '../_utils/shared';
-export type GetContainerFunc = (() => HTMLElement) | HTMLElement;
+import { PopupWrapperEvents, PopupGetContainerFunc } from './types';
 
 
 const basePopupWrapperName = `${prefix}popup`;
-const PopupWrapper = componentFactoryOf<Omit<PopupEvents, 'onAfterLeave'>>().create({
+
+const PopupWrapper = componentFactoryOf<PopupWrapperEvents>().create({
   name: basePopupWrapperName,
   model: {
     prop: 'visible',
     event: POPUP_EVENT,
   },
   props: {
-    getContainer: props.ofType<GetContainerFunc>().default(() => document.body),
-    lazyRender: props(Boolean).default(false),
-    ...PopupProps,
+    getContainer: props.ofType<PopupGetContainerFunc>().default(() => document.body),
+    dynamic: props(Boolean).default(false),
+    ...popupProps,
   },
   render() {
     const {
@@ -32,8 +33,9 @@ const PopupWrapper = componentFactoryOf<Omit<PopupEvents, 'onAfterLeave'>>().cre
       on: {
         ...$listeners,
         afterLeave: () => {
-          if (this.lazyRender) {
+          if (this.dynamic) {
             (this.$refs.portal as any).remove();
+            this.$emit('afterClose');
           }
         },
       },
