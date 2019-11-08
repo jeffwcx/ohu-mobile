@@ -1,6 +1,6 @@
-import { component } from 'vue-tsx-support';
+import { component, extendFrom } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import Vue, { VNode } from 'vue';
+import Vue, { VNode, VueConstructor } from 'vue';
 
 export type PortalRenderChildren = () => VNode;
 
@@ -10,7 +10,12 @@ const portalRenderProps = {
   visible: props(Boolean).default(false),
 }
 
-export default component({
+const PortalVue = Vue as VueConstructor<Vue & {
+  _component: Vue | null,
+  _wrapper: HTMLElement | null,
+}>
+
+export default extendFrom(PortalVue).create({
   name: 'portal-render',
   props: portalRenderProps,
   watch: {
