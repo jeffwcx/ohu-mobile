@@ -32,6 +32,10 @@ const loadingTextColor = base.colorTextMinor;
 // header
 const popupHeaderCloseBtnColor = '#848C95';
 
+// popover
+
+const popoverContentBg = '#4C4C4C';
+
 
 module.exports = {
   // tag
@@ -64,4 +68,6 @@ module.exports = {
   loadingTextColor,
   // popup
   popupHeaderCloseBtnColor,
+  // popover
+  popoverContentBg,
 };

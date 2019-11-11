@@ -237,6 +237,11 @@ export const anchor = () => Vue.extend({
           <p>Here is description.</p>
         </Popup>
         <Card shadow>
+          <CardHeader>transformOrigin</CardHeader>
+          <div style="display: flex; min-height: 200px; flex-flow: row wrap; justify-content: space-between; align-content: space-around;">
+          </div>
+        </Card>
+        <Card shadow>
           <CardHeader>position</CardHeader>
           <div style="display: flex; min-height: 200px; flex-flow: row wrap; justify-content: space-between; align-content: space-around;">
             <Button inline type="primary" onClick={(e) => this.setAnchor(e, 'top')}>top</Button>
@@ -248,11 +253,6 @@ export const anchor = () => Vue.extend({
             <Button inline type="primary" onClick={(e) => this.setAnchor(e, { vertical: 'bottom', horizontal: 'left' })}>bl</Button>
             <Button inline type="primary" onClick={(e) => this.setAnchor(e, { vertical: 'bottom', horizontal: 'right' })}>br</Button>
             <Button inline type="primary" onClick={(e) => this.setAnchor(e, 'center')}>center</Button>
-          </div>
-        </Card>
-        <Card shadow>
-          <CardHeader>transformOrigin</CardHeader>
-          <div style="display: flex; min-height: 200px; flex-flow: row wrap; justify-content: space-between; align-content: space-around;">
           </div>
         </Card>
       </div>

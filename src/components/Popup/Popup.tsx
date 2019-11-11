@@ -7,14 +7,14 @@ import manager from './manager';
 import debounce from '../_utils/debounce';
 import { PopupTransformOrigin, PopupPosition,
   PopupAnimateType, PopupEvents, PopupHorizontalPosition,
-  PopupVerticalPosition, PopupAnchorPosition,
+  PopupVerticalPosition, PopupAnchorPosition, PopupEnterEvent,
 } from './types';
-import { isAnchorPosition, isAnyPosition } from './utils';
+import { isAnyPosition, computeRect, getAnchorPosition, getTransformOrigin } from './utils';
 
 
 export const popupProps = {
   visible: Boolean,
-  anchor: props.ofType<HTMLElement>().optional,
+  anchor: props.ofType<HTMLElement | (() => HTMLElement)>().optional,
   transformOrigin: props.ofType<PopupTransformOrigin>().optional,
   marginThreshold: props(Number).default(12),
   edgeDetect: props(Boolean).default(true),
@@ -36,14 +36,6 @@ const positionTransitionMap = {
   right: 'slide-right',
 };
 
-const positionReverseMap = {
-  top: 'bottom',
-  bottom: 'top',
-  left: 'right',
-  right: 'left',
-  center: 'center',
-};
-
 const basePopupName = `${prefix}popup`;
 const baseMaskName = `${prefix}mask`;
 const popupWrapperCls = `${basePopupName}-wrapper`;
@@ -61,6 +53,9 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       documentVisible: false,
       docRect: null,
       docEl: null,
+      docPos: null,
+      anchorEl: null,
+      anchorRect: null,
       maskZIndex: 0,
       documentZIndex: 0,
       touchData: {
@@ -75,6 +70,9 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       documentVisible: boolean,
       docEl: HTMLElement | null,
       docRect: { width: number, height: number } | null,
+      anchorEl: HTMLElement | null,
+      docPos: { top: number, left: number, transformOrigin: string } | null,
+      anchorRect: DOMRect | ClientRect | null,
       maskZIndex: number,
       documentZIndex: number,
       resizeHandler: ((this: Window, ev: any) => any) | null,
@@ -102,6 +100,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     if (resizeHandler) {
       this.resizeHandler = resizeHandler;
       window.addEventListener('resize', resizeHandler);
+      window.addEventListener('scroll', resizeHandler);
     }
   },
   beforeDestroy() {
@@ -110,6 +109,8 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     }
     if (this.resizeHandler) {
       window.removeEventListener('resize', this.resizeHandler);
+      window.removeEventListener('scroll', this.resizeHandler);
+      this.resizeHandler = null;
     }
   },
   methods: {
@@ -150,7 +151,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     updatePosition() {
       if (this.documentVisible) {
         return debounce(() => {
-          this.computeDocumentRect();
+          this.computeDocAndAnchorRect();
         });
       }
     },
@@ -208,8 +209,32 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     onDocumentEnter(doc: Element) {
       this.docEl = doc as HTMLElement;
       this.$nextTick(() => {
-        this.computeDocumentRect();
+        this.computeDocAndAnchorRect();
+        const enterEvent: PopupEnterEvent = {};
+        if (this.docRect) {
+          enterEvent.doc = Object.assign({}, this.docPos, this.docRect);
+        }
+        if (this.anchorRect) {
+          enterEvent.anchor = this.anchorRect;
+        }
+        this.$emit('enter', enterEvent);
       });
+    },
+    computeDocAndAnchorRect() {
+      if (this.docEl) {
+        this.docRect = computeRect(this.docEl);
+      }
+      if (this.anchor) {
+        if (this.anchor instanceof Function) {
+          this.anchorEl = this.anchor();
+        } else {
+          this.anchorEl = this.anchor;
+        }
+        if (this.anchorEl) {
+          this.anchorRect = this.anchorEl.getBoundingClientRect();
+        }
+      }
+      this.docPos = this.computeDocumentPosition();
     },
     renderMask() {
       const maskCls = {
@@ -235,37 +260,16 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       }
       return this.animate;
     },
-    computeDocumentRect() {
-      if (this.docEl) {
-        this.docRect = {
-          width: this.docEl.offsetWidth,
-          height: this.docEl.offsetHeight,
-        };
-      }
-    },
     computeDocumentPosition() {
-      const { position } = this;
+      const { position, isAnchorMode } = this;
       let top = 0;
       let left = 0;
       let transformOriginStr = '';
-      if (this.isAnchorMode) {
-        const { anchor, docRect } = this;
-        if (anchor) {
-          const anchorRect = anchor.getBoundingClientRect();
+      if (isAnchorMode) {
+        const { anchorRect, docRect } = this;
+        if (anchorRect) {
           // transform anchor position
-          let anchorPos: PopupAnchorPosition = {};
-          if (typeof position === 'string') {
-            if (position === 'top' || position === 'bottom') {
-              anchorPos.vertical = position;
-              anchorPos.horizontal = 'center';
-            } else {
-              anchorPos.horizontal = position;
-              anchorPos.vertical = 'center';
-            }
-          } else if (isAnchorPosition(position)) {
-            anchorPos = position;
-          }
-
+          let anchorPos: PopupAnchorPosition = getAnchorPosition(position);
           let anchorTop = anchorRect.top;
           let anchorLeft = anchorRect.left;
           if (anchorPos.horizontal === 'center') {
@@ -278,16 +282,8 @@ const Popup = componentFactoryOf<PopupEvents>().create({
           } else if (anchorPos.vertical === 'bottom') {
             anchorTop = anchorTop + anchorRect.height;
           }
-
-          let transformOrigin: PopupTransformOrigin = this.transformOrigin || {};
-          // preset transform origin
-          if (anchorPos.horizontal !== undefined) {
-            transformOrigin.horizontal = positionReverseMap[anchorPos.horizontal] as PopupHorizontalPosition;
-          }
-          if (anchorPos.vertical !== undefined) {
-            transformOrigin.vertical = positionReverseMap[anchorPos.vertical] as PopupVerticalPosition;
-          }
-          transformOriginStr = transformOrigin.vertical || 'top' + ' ' + transformOrigin.horizontal || 'left';
+          const transformOrigin = getTransformOrigin(anchorPos, this.transformOrigin);
+          transformOriginStr = (transformOrigin.vertical || 'top') + ' ' + (transformOrigin.horizontal || 'left');
           let docOffsetX = 0;
           let docOffsetY = 0
           if (docRect) {
@@ -329,8 +325,8 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         }
       }
       return {
-        top: `${top}px`,
-        left: `${left}px`,
+        top,
+        left,
         transformOrigin: transformOriginStr,
       };
     },
@@ -339,8 +335,12 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       if (this.isAnchorMode) {
         docStyle = {
           position: 'absolute',
-          ...this.computeDocumentPosition(),
         };
+        if (this.docPos) {
+          docStyle.top = `${this.docPos.top}px`;
+          docStyle.left = `${this.docPos.left}px`;
+          docStyle.transformOrigin = this.docPos.transformOrigin;
+        }
       }
       if (this.targetStyle) {
         docStyle = {

@@ -1,8 +1,21 @@
 import Vue, { CreateElement, VNode } from 'vue';
 
+interface PopupSimpleRect {
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+}
+
+export interface PopupEnterEvent {
+  doc?: PopupSimpleRect;
+  anchor?: PopupSimpleRect;
+}
+
 export interface PopupEvents {
   onVisibleChange: boolean;
   onAfterLeave: boolean;
+  onEnter: PopupEnterEvent;
   onOpen: boolean;
   onClose: boolean;
 }
@@ -32,7 +45,7 @@ export type PopupPosition = PopupAnyPosition | PopupAnchorPosition | PopupVertic
 
 export interface PopupProps {
   visible?: boolean;
-  anchor?: HTMLElement;
+  anchor?: HTMLElement | (() => HTMLElement);
   transformOrigin?: PopupTransformOrigin;
   marginThreshold?: number;
   edgeDetect?: boolean;
@@ -59,7 +72,14 @@ export interface PopupOutSideProps extends PopupProps {
   dynamic: boolean;
 };
 
-export type PopupOpenOptions = PopupProps & {
+type VueEventWrapper<E> = {
+  [K in keyof E]?: (event: E[K]) => any;
+}
+
+export type PopupOpenOptions = PopupProps
+&
+VueEventWrapper<PopupWrapperEvents>
+& {
   parent?: Vue;
   render?: (h?: CreateElement) => (VNode | VNode[]);
 };

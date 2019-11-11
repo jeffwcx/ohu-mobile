@@ -4,12 +4,17 @@ import { CombinedVueInstance } from 'vue/types/vue';
 import { PopupOpenOptions } from './types';
 
 let instance: CombinedVueInstance<{ visible: boolean } & Vue, object, object, object, Record<keyof object, any>>;
-
+let noop = (e: any) => {};
 const Popup = Object.assign(PopupWrapper, {
   open: (props: PopupOpenOptions) => {
     const {
       parent,
       render,
+      onEnter,
+      onOpen,
+      onAfterClose,
+      onVisibleChange,
+      onClose,
       ...popupProps
     } = props;
     instance = new Vue({
@@ -28,7 +33,12 @@ const Popup = Object.assign(PopupWrapper, {
             dynamic: true,
           },
           on: {
-            afterClose: () => {
+            enter: onEnter || noop,
+            open: onOpen || noop,
+            visibleChange: onVisibleChange || noop,
+            close: onClose || noop,
+            afterClose: (e: any) => {
+              if (onAfterClose) onAfterClose(e);
               this.$destroy();
             },
           },
