@@ -2,10 +2,12 @@ import PopupWrapper from './PopupWrapper';
 import Vue, { VNodeData } from 'vue';
 import { CombinedVueInstance } from 'vue/types/vue';
 import { PopupOpenOptions } from './types';
+import PopupHeader from './PopupHeader';
 
 let instance: CombinedVueInstance<{ visible: boolean } & Vue, object, object, object, Record<keyof object, any>>;
 let noop = (e: any) => {};
 const Popup = Object.assign(PopupWrapper, {
+  Header: PopupHeader,
   open: (props: PopupOpenOptions) => {
     const {
       parent,
@@ -58,3 +60,4 @@ const Popup = Object.assign(PopupWrapper, {
 export default Popup;
 
 export * from './types';
+export { PopupHeader };

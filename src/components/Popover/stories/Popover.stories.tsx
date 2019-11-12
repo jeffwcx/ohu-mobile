@@ -3,6 +3,7 @@ import Vue from 'vue';
 import docs from '../README.md';
 import Button from '../../Button';
 import Icon from '../../Icon';
+import Divider from '../../Divider';
 
 export default {
   title: 'Components|FeedBack/Popover',
@@ -13,80 +14,96 @@ export default {
 };
 
 export const basic = () => Vue.extend({
+  data() {
+    return {
+      vl: true,
+    };
+  },
   render() {
     return (
       <div style="height: 1600px; display: flex; flex-flow: column nowrap; justify-content: space-around; align-items: center;">
-        <Popover position="left">
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+        <Popover v-model={this.vl} position="left">
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">left</Button>
         </Popover>
 
         <Popover position="right">
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">right</Button>
         </Popover>
         <Popover position="top">
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">top</Button>
         </Popover>
 
         <Popover position="bottom">
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">bottom</Button>
         </Popover>
         <Popover position={{ vertical: 'top', horizontal: 'left' }}>
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">tl</Button>
         </Popover>
         <Popover position={{ vertical: 'top', horizontal: 'right' }}>
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">tr</Button>
         </Popover>
         <Popover position={{ vertical: 'bottom', horizontal: 'left' }}>
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">bl</Button>
         </Popover>
         <Popover position={{ vertical: 'bottom', horizontal: 'right' }}>
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">br</Button>
         </Popover>
         <Popover position={{ vertical: 'top', horizontal: 'left' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">origin-tr</Button>
         </Popover>
         <Popover position={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'left' }}>
-          <template slot="content">
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
-            <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
-          </template>
-          <Button icon="menu-f" inline size="md" type="primary"></Button>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item1</div>
+          <div style="height: 40px; line-height: 40px; padding: 0 10px;"><Icon type="message"></Icon> Item2</div>
+          <Button inline size="md" type="primary" slot="anchor">origin-tl</Button>
+        </Popover>
+      </div>
+    );
+  },
+});
+
+export const noArrow = () => Vue.extend({
+  render() {
+    return (
+      <div style="height: 200px; display: flex; flex-flow: column nowrap; justify-content: space-around; align-items: center;">
+        <Popover animate="fade" position="left" noArrow>
+          <div style="padding: 10px;">
+            no arrow
+          </div>
+          <Button inline size="md" type="primary" slot="anchor">hello</Button>
+        </Popover>
+      </div>
+    );
+  },
+});
+
+
+export const item = () => Vue.extend({
+  render() {
+    return (
+      <div style="height: 200px; display: flex; flex-flow: column nowrap; justify-content: space-around; align-items: center;">
+        <Popover contentStyle={{ width: '130px' }} position={{ vertical: 'bottom', horizontal: 'right' }} onSelect={(e) => { console.log(e) }}>
+          <Popover.Item key="message" icon="message">messages</Popover.Item>
+          <Popover.Item key="customer-service" icon="customer-service">center</Popover.Item>
+          <Popover.Item key="scan-code" disabled icon="scan-code">scan</Popover.Item>
+          <Button icon="menu" inline size="md" type="link" slot="anchor"></Button>
         </Popover>
       </div>
     );

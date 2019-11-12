@@ -1,9 +1,8 @@
-import Popup from '..';
+import Popup, { PopupHeader } from '..';
 import Vue from 'vue';
 import docs from '../README.md';
 import Button from '../../Button';
 import Card, { CardHeader } from '../../Card';
-import PopupHeader from '../PopupHeader';
 import { PopupPosition } from '../types';
 
 export default {

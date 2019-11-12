@@ -1,37 +1,39 @@
 $base-popover-cls: #{$prefix}popover;
-$popup-arrow-size: 10px;
 
 .#{$base-popover-cls} {
   position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
   &__arrow {
     position: absolute;
   }
   &.is-top {
-    margin-left: -10px;
-    padding-bottom: $popup-arrow-size;
+    padding-bottom: $popover-arrow-size;
     .#{$base-popover-cls}__arrow {
-      @include triangle(up, $popup-arrow-size, $popover-content-bg);
+      margin-left: -$popover-arrow-size;
+      @include triangle(up, $popover-arrow-size, $popover-content-bg);
     }
   }
   &.is-center-left {
-    margin-top: -10px;
-    padding-right: $popup-arrow-size;
+    padding-right: $popover-arrow-size;
     .#{$base-popover-cls}__arrow {
-      @include triangle(left, $popup-arrow-size, $popover-content-bg);
+      margin-top: -$popover-arrow-size;
+      @include triangle(left, $popover-arrow-size, $popover-content-bg);
     }
   }
   &.is-center-right {
-    margin-top: -10px;
-    padding-left: $popup-arrow-size;
+    padding-left: $popover-arrow-size;
     .#{$base-popover-cls}__arrow {
-      @include triangle(right, $popup-arrow-size, $popover-content-bg);
+      margin-top: -$popover-arrow-size;
+      @include triangle(right, $popover-arrow-size, $popover-content-bg);
     }
   }
   &.is-bottom {
-    margin-left: -10px;
-    padding-top: $popup-arrow-size;
+    padding-top: $popover-arrow-size;
     .#{$base-popover-cls}__arrow {
-      @include triangle(down, $popup-arrow-size, $popover-content-bg);
+      margin-left: -$popover-arrow-size;
+      @include triangle(down, $popover-arrow-size, $popover-content-bg);
     }
   }
   &__content {

@@ -22,6 +22,7 @@
 }
 
 .#{$prefix}popup {
+  -webkit-tap-highlight-color: transparent;
   &.is-fullscreen {
     width: 100%;
     height: 100%;

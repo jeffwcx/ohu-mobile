@@ -9,17 +9,19 @@ import { PopupWrapperEvents, PopupGetContainerFunc } from './types';
 
 const basePopupWrapperName = `${prefix}popup`;
 
+export const popupOutSideProps = {
+  getContainer: props.ofType<PopupGetContainerFunc>().default(() => document.body),
+  dynamic: props(Boolean).default(false),
+  ...popupProps,
+};
+
 const PopupWrapper = componentFactoryOf<PopupWrapperEvents>().create({
   name: basePopupWrapperName,
   model: {
     prop: 'visible',
     event: POPUP_EVENT,
   },
-  props: {
-    getContainer: props.ofType<PopupGetContainerFunc>().default(() => document.body),
-    dynamic: props(Boolean).default(false),
-    ...popupProps,
-  },
+  props: popupOutSideProps,
   render() {
     const {
       getContainer,

@@ -19,7 +19,7 @@ Popup.close();
 + ✅Can pop up around an element.
 + ✅Can be mounted on any element.
 + ✅Bulit-in multiple animation effects.
-+ ❌Can use component by a function.
++ ✅Can use component by a function.
 
 
 # TODO

@@ -6,8 +6,8 @@ import './styles/index.scss';
 import manager from './manager';
 import debounce from '../_utils/debounce';
 import { PopupTransformOrigin, PopupPosition,
-  PopupAnimateType, PopupEvents, PopupHorizontalPosition,
-  PopupVerticalPosition, PopupAnchorPosition, PopupEnterEvent,
+  PopupAnimateType, PopupEvents,
+  PopupAnchorPosition, PopupEnterEvent,
 } from './types';
 import { isAnyPosition, computeRect, getAnchorPosition, getTransformOrigin } from './utils';
 
@@ -23,9 +23,11 @@ export const popupProps = {
   mask: props(Boolean).default(true),
   maskFrosted: props(Boolean).default(false),
   maskClosable: props(Boolean).default(true),
+  closeOnMaskTouched: props(Boolean).default(false),
   fullscreen: props(Boolean).default(false),
   animate: props.ofType<PopupAnimateType>().default('none'),
   targetStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
+  targetClass: String,
   scrollBody: props(Boolean).default(false),
 }
 
@@ -96,7 +98,11 @@ const Popup = componentFactoryOf<PopupEvents>().create({
   },
   mounted() {
     this.visible ? this.open() : this.close();
-    const resizeHandler = this.updatePosition();
+    const resizeHandler = debounce(() => {
+      if (this.documentVisible) {
+        this.computeDocAndAnchorRect();
+      }
+    });
     if (resizeHandler) {
       this.resizeHandler = resizeHandler;
       window.addEventListener('resize', resizeHandler);
@@ -148,13 +154,6 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         }
       }
     },
-    updatePosition() {
-      if (this.documentVisible) {
-        return debounce(() => {
-          this.computeDocAndAnchorRect();
-        });
-      }
-    },
     onMaskClick(e: Event) {
       e.stopPropagation();
       if (this.maskClosable) {
@@ -162,6 +161,10 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       }
     },
     onWrapperTouchstart(e: TouchEvent) {
+      if (this.closeOnMaskTouched) {
+        this.close();
+        return;
+      }
       const event = e.touches[0];
       const el = e.target as HTMLElement;
       const rootEl = this.$refs.document as HTMLElement;
@@ -174,6 +177,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       }
     },
     onWrapperTouchmove(e: TouchEvent) {
+      if (this.scrollBody) return;
       const scrollEl = this.touchData.scrollEl;
       const event = e.touches[0];
       if (scrollEl) {
@@ -206,6 +210,11 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     onDocumentClick(e: Event) {
       e.stopPropagation();
     },
+    onDocumentTouch(e: TouchEvent) {
+      if (this.closeOnMaskTouched) {
+        e.stopPropagation();
+      }
+    },
     onDocumentEnter(doc: Element) {
       this.docEl = doc as HTMLElement;
       this.$nextTick(() => {
@@ -222,6 +231,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     },
     computeDocAndAnchorRect() {
       if (this.docEl) {
+        // use offsetWidth and offsetHeight, when getBoudingClientRect is not correct.
         this.docRect = computeRect(this.docEl);
       }
       if (this.anchor) {
@@ -298,8 +308,8 @@ const Popup = componentFactoryOf<PopupEvents>().create({
               docOffsetY = docRect.height / 2;
             }
           }
-          top = (anchorTop - docOffsetY);
-          left = (anchorLeft - docOffsetX);
+          top = anchorTop - docOffsetY;
+          left = anchorLeft - docOffsetX;
         }
       } else if(isAnyPosition(position)) {
         position.left !== undefined && (left = position.left);
@@ -315,7 +325,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
           if (top < this.marginThreshold) {
             top = this.marginThreshold;
           } else if (bottom > heightThreshold) {
-            top = heightThreshold;
+            top = heightThreshold - this.docRect.height;
           }
           if (left < this.marginThreshold) {
             left = this.marginThreshold;
@@ -356,6 +366,9 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         cls['is-' + this.position] = true;
         cls['is-fullscreen'] = this.fullscreen;
       }
+      if (this.targetClass) {
+        cls[this.targetClass] = true;
+      }
       return cls;
     },
     renderDocument() {
@@ -390,6 +403,9 @@ const Popup = componentFactoryOf<PopupEvents>().create({
               ref="document"
               class={this.getDocumentClass()}
               style={this.getDocumentStyle()}
+              onTouchstart={this.onDocumentTouch}
+              onTouchmove={this.onDocumentTouch}
+              onTouchend={this.onDocumentTouch}
               onClick={this.onDocumentClick}>
               { this.$slots.default }
             </div>

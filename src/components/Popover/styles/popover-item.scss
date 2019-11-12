@@ -1,0 +1,42 @@
+$popover-item-height: 102px;
+.#{$prefix}popover-item {
+  @include mobile-btn-init();
+  box-sizing: border-box;
+  position: relative;
+  font-size: 32px;
+  line-height: (44/32) * 1em;
+  font-weight: 400;
+  &:active {
+    opacity: .5;
+  }
+  &.is-disabled {
+    color: $color-text-minor;
+  }
+  > .#{$prefix}divider {
+    margin-left: 100px;
+  }
+  &__content {
+    position: relative;
+    padding-left: $popover-item-height;
+    height: $popover-item-height;
+    z-index: 1;
+  }
+  &__icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: $popover-item-height;
+    height: 100%;
+    font-size: 38px;
+    text-align: center;
+    line-height: $popover-item-height;
+    > .#{$prefix}icon {
+      vertical-align: -.2em;
+    }
+  }
+  &__text {
+    padding: 30px 30px 30px 0;
+    position: relative;
+    @include ellipsis();
+  }
+}

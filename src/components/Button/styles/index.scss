@@ -1,18 +1,3 @@
-
-@mixin mobile-btn-init {
-  user-select: none;
-  white-space: nowrap;
-  cursor: pointer;
-  border: none;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  // for mobile outline is useless
-  outline: none;
-  transition: all .3s;
-  overflow: visible;
-  font-family: $font-family;
-}
-
 $btn-base-cls: #{$prefix}btn;
 
 .#{$btn-base-cls} {

@@ -33,8 +33,9 @@ const loadingTextColor = base.colorTextMinor;
 const popupHeaderCloseBtnColor = '#848C95';
 
 // popover
-
 const popoverContentBg = '#4C4C4C';
+const popoverArrowSize = '12px';
+const popoverDividerColor = '#6D6D6D';
 
 
 module.exports = {
@@ -70,4 +71,6 @@ module.exports = {
   popupHeaderCloseBtnColor,
   // popover
   popoverContentBg,
+  popoverArrowSize,
+  popoverDividerColor,
 };
