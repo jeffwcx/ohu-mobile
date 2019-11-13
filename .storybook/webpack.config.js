@@ -68,5 +68,6 @@ module.exports = ({ config }) => {
     )
   );
   config.resolve.extensions.push('.ts', '.tsx', '.md');
+  config.resolve.alias['@'] = resolve('../src');
   return config;
 };
