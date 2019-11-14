@@ -5,8 +5,14 @@
   border-style: solid;
   border-width: 0;
   border-color: $color-divider;
-  @include divider(inherit, hair) {
-    font-size: 28px;
-    @include padding(_ 20px _ 20px);
-  };
+  &.is-horizontal {
+    @include divider(inherit, hair) {
+      font-size: 28px;
+      @include padding(_ 20px _ 20px);
+    };
+  }
+  &.is-vertical {
+    width: 0;
+    @include hair-border(inherit, left);
+  }
 }

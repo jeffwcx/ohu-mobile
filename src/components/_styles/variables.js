@@ -18,7 +18,7 @@ const colorMask = 'rgba(0, 0, 0, 0.639 )';
 const colorBorderBase = '#ccc';
 
 // font
-const fontFamily = '"Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,微软雅黑,Arial,sans-serif"';
+const fontFamily = 'Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,微软雅黑,Arial,sans-serif';
 
 module.exports = {
   prefix,

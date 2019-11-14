@@ -1,3 +1,5 @@
+import { VueConstructor, VNodeData } from 'vue';
+
 export interface SVGIconDef {
   name: string;
   theme: 'outlined' | 'filled' | 'multi-color' | 'illustration';
@@ -6,3 +8,7 @@ export interface SVGIconDef {
   },
   children?: string;
 }
+
+export type PickProperty<T, K extends keyof T> = T[K];
+export type TsxProps<T extends VueConstructor> = Omit<PickProperty<InstanceType<T>, '_tsxattrs'>,
+'style' | 'domPropsInnerHTML' | 'id' | 'key' | 'class' | 'ref' | 'refInFor' | 'scopedSlots' | 'staticClass' | 'slot'>;

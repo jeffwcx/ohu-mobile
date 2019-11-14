@@ -1,5 +1,5 @@
-import Divider from '.';
-import docs from './README.md';
+import Divider from '..';
+import docs from '../README.md';
 
 
 
@@ -50,5 +50,15 @@ export const selfDefined = () => ({
       </div>
     );
   }
+});
+
+export const vertical = () => ({
+  render() {
+    return (
+      <div style="padding: 10px;">
+        <Divider vertical style="height: 100px;"></Divider>
+      </div>
+    );
+  },
 });
 

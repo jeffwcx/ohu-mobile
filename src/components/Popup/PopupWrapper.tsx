@@ -22,6 +22,14 @@ const PopupWrapper = componentFactoryOf<PopupWrapperEvents>().create({
     event: POPUP_EVENT,
   },
   props: popupOutSideProps,
+  methods: {
+    close() {
+      (this.$refs.popup as any).close();
+    },
+    open() {
+      (this.$refs.popup as any).open();
+    },
+  },
   render() {
     const {
       getContainer,
@@ -42,6 +50,7 @@ const PopupWrapper = componentFactoryOf<PopupWrapperEvents>().create({
         },
       },
       attrs: $attrs,
+      ref: 'popup',
     };
     const container = getContainer instanceof Function
       ? getContainer()

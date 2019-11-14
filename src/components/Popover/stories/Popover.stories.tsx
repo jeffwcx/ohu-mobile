@@ -3,7 +3,6 @@ import Vue from 'vue';
 import docs from '../README.md';
 import Button from '../../Button';
 import Icon from '../../Icon';
-import Divider from '../../Divider';
 
 export default {
   title: 'Components|FeedBack/Popover',

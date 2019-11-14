@@ -126,11 +126,11 @@
       );
       $index-prop: top right bottom left;
       $positions: map-get($map, $position);
+      border-style: inherit;
       @if $position == left or $position == right {
-        border-style: inherit;
-        border-width: 0 0 1Px 0;
+        border-width: 0;
+        border-#{$position}-width: 1Px;
       } @else {
-        border-style: inherit;
         border-width: 1Px 0 0;
       }
       $index: 1;

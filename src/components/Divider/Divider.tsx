@@ -12,10 +12,13 @@ const Divider = componentFactory.create({
     color: String,
     dashed: props(Boolean).default(false),
     text: String,
+    vertical: props(Boolean).default(false),
   },
-  render(h) {
+  render() {
     const cls = {
       [dividerBaseName]: true,
+      'is-vertical': this.vertical,
+      'is-horizontal': !this.vertical,
     };
     const {
       text,
