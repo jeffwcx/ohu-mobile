@@ -1,6 +1,6 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import Popup, { PopupOutSideProps, PopupEnterEvent, PopupWrapperEvents } from '../Popup';
+import Popup, { PopupOutSideProps, PopupEnterEvent, PopupOutSideEvents } from '../Popup';
 import './styles/index.scss';
 import { cloneElement, getVNodesByName } from '../_utils/vnode';
 import { VNodeData, VNode } from 'vue';
@@ -15,7 +15,7 @@ interface PopoverSelectEvent {
   index: number;
 }
 
-export interface PopoverEvents extends PopupWrapperEvents {
+export interface PopoverEvents extends PopupOutSideEvents {
   onSelect: PopoverSelectEvent;
 }
 

@@ -10,6 +10,7 @@ import { PopupTransformOrigin, PopupPosition,
   PopupAnchorPosition, PopupEnterEvent,
 } from './types';
 import { isAnyPosition, computeRect, getAnchorPosition, getTransformOrigin } from './utils';
+import { addTargetClass } from '../_utils/targetClass';
 
 
 export const popupProps = {
@@ -27,7 +28,7 @@ export const popupProps = {
   fullscreen: props(Boolean).default(false),
   animate: props.ofType<PopupAnimateType>().default('none'),
   targetStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
-  targetClass: String,
+  targetClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
   scrollBody: props(Boolean).default(false),
 }
 
@@ -367,7 +368,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         cls['is-fullscreen'] = this.fullscreen;
       }
       if (this.targetClass) {
-        cls[this.targetClass] = true;
+        addTargetClass(cls, this.targetClass);
       }
       return cls;
     },

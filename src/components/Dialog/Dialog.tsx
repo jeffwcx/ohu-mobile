@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
@@ -7,13 +6,26 @@ import vars from '../_styles/variables';
 import { popupOutSideProps } from '../Popup/PopupWrapper';
 import deepMerge from 'deepmerge';
 import { SVGIconDef } from '@/global';
-import './styles/index.scss';
 import { DialogActionOptions, DialogEvents } from './types';
 import { createActionOptions, isIconProps } from './utils';
 import Button from '../Button';
 import { VNodeData, VNode } from 'vue';
 import Divider from '../Divider';
 import Icon, { IconProps } from '../Icon';
+import './styles/index.scss';
+import { addTargetClass } from '../_utils/targetClass';
+
+const defaultOKOptions: DialogActionOptions = {
+  type: 'ok',
+  text: 'OK',
+  disabled: false,
+};
+const defaultCancelOptions: DialogActionOptions = {
+  type: 'cancel',
+  text: 'Cancel',
+  disabled: false,
+  color: vars.colorTextMinor,
+};
 
 export type DialogIconOption = string | SVGIconDef | IconProps;
 
@@ -21,15 +33,18 @@ export const dialogProps = deepMerge({
   icon: props<string, SVGIconDef, IconProps>(String, Object).optional,
   title: String,
   content: String,
-  cancelBtn: props<string, DialogActionOptions>(String, Object).optional,
-  okBtn: props<string, DialogActionOptions>(String, Object).optional,
+  cancelBtn: props<string, DialogActionOptions, null>(String, Object).optional,
+  okBtn: props<string, DialogActionOptions, null>(String, Object).optional,
   actions: props.ofType<DialogActionOptions[] | null>().default(() => []),
+  layout: props.ofStringLiterals('row', 'column').default('row'),
+  closeAfterAsyncTaskCompleted: props(Boolean).default(false),
 }, popupOutSideProps);
 
 dialogProps.animate.default = 'zoom';
 dialogProps.maskClosable.default = false;
 
 const baseDialogName = `${prefix}dialog`;
+const dialogFooterCls = `${baseDialogName}__footer`;
 const dialogActionsCls = `${baseDialogName}__actions`;
 const dialogBodyCls = `${baseDialogName}__body`;
 const dialogBodyTitleCls = `${dialogBodyCls}__title`;
@@ -46,8 +61,10 @@ export default componentFactoryOf<DialogEvents>().create({
   data() {
     return {
       actionBtns: [],
+      asyncActions: [],
     } as {
       actionBtns: DialogActionOptions[],
+      asyncActions: DialogActionOptions[],
     };
   },
   watch: {
@@ -59,15 +76,28 @@ export default componentFactoryOf<DialogEvents>().create({
     this.actionBtns = this.getActionBtns();
   },
   methods: {
+    close() {
+      if (this.asyncActions.length > 0 && this.closeAfterAsyncTaskCompleted) return;
+      this.asyncActions.map((action) => {
+        if (action.loading === true) {
+          this.$emit('abort', action);
+        }
+        this.$set(action, 'loading', false);
+      });
+      this.asyncActions = [];
+      (this.$refs.popup as any).close();
+    },
     getOKAction() {
+      if (this.okBtn === null) return;
       return createActionOptions(
-        { type: 'ok', text: 'OK', disabled: false },
+        defaultOKOptions,
         this.okBtn,
       );
     },
     getCancelAction() {
+      if (this.cancelBtn === null) return;
       return createActionOptions(
-        {  type: 'cancel', text: 'Cancel', disabled: false, color:  vars.colorTextMinor },
+        defaultCancelOptions,
         this.cancelBtn,
       );
     },
@@ -75,64 +105,78 @@ export default componentFactoryOf<DialogEvents>().create({
       if (this.actions === null) return [];
       let actionBtns = this.actions;
       if (actionBtns.length === 0) {
-        actionBtns = [
-          this.getCancelAction(),
-          this.getOKAction(),
-        ];
+        const btns = [];
+        const cancelAction = this.getCancelAction();
+        if (cancelAction) btns.push(cancelAction);
+        const okAction = this.getOKAction();
+        if (okAction) btns.push(okAction);
+        actionBtns = btns;
       }
-      return actionBtns.map(action => {
-        return Object.assign({}, action, {
-          loading: action.loading !== undefined,
-          handle: this.createActionHandler(action),
-        });
-      });
+      return actionBtns;
     },
     createActionHandler(action: DialogActionOptions) {
       const defaultHandler = () => {
-        (this.$refs.popup as any).close();
         action.type && this.$emit(action.type);
+        this.close();
       };
       if (action.type && !action.handle) return defaultHandler;
-      return function() {
+      return () => {
+        action.type && this.$emit(action.type);
         if (action.handle instanceof Function) {
-          Vue.set(action, 'loading', true);
+          this.asyncActions.push(action);
           const returnValue = action.handle();
           if (returnValue instanceof Promise) {
-            returnValue.then(() => {
-              Vue.set(action, 'loading', false);
-              defaultHandler();
+            this.$set(action, 'loading', true);
+            returnValue.then((value) => {
+              const index = this.asyncActions.indexOf(action);
+              if (index >= 0) {
+                this.$set(action, 'loading', false);
+                this.asyncActions.splice(index, 1);
+                if (value !== false) {
+                  this.close();
+                }
+              }
             });
           } else {
-            defaultHandler();
+            if (returnValue !== false) {
+              this.close();
+            }
           }
         }
       };
     },
     renderActions() {
-      const actionBtns = this.actionBtns;
       const eles: VNode[] = [];
-      actionBtns.forEach((action, index) => {
+      this.actionBtns.forEach((action, index) => {
         const style: Partial<CSSStyleDeclaration> = {
           color: action.color,
         };
+        const handler = this.createActionHandler(action);
         eles.push(
-          <Button inline
+          <Button
+            inline={this.layout === 'row'}
             type="link"
             loading={action.loading}
-            disabled={action.disabled}
+            disabled={action.loading ? true : action.disabled}
             style={style}
-            onClick={action.handle}>
+            onClick={handler}>
             {action.text}
           </Button>
         );
-        if (index < actionBtns.length - 1) {
-          eles.push(<Divider vertical></Divider>);
+        if (index < this.actionBtns.length - 1) {
+          eles.push(<Divider vertical={this.layout === 'row'}></Divider>);
         }
       });
-      return [
-        <Divider></Divider>,
-        <div class={dialogActionsCls}>{eles}</div>
-      ];
+      const actionCls = {
+        [dialogActionsCls]: true,
+        [`is-${this.layout}`]: true,
+      };
+      return (
+        <div class={dialogFooterCls}>
+          <Divider></Divider>
+          <div class={actionCls}>{eles}</div>
+        </div>
+      );
     },
     renderBody() {
       let icon;
@@ -146,14 +190,23 @@ export default componentFactoryOf<DialogEvents>().create({
           icon = <Icon type={this.icon}></Icon>
         }
       }
+      const { $slots, title, content } = this;
+      let titleNode = $slots.title ? $slots.title : title;
+      let contentNode = $slots.default ? $slots.default : content;
       return (
         <div class={dialogBodyCls}>
           {
             icon &&
             <div class={dialogBodyIconCls}>{icon}</div>
           }
-          {this.title && <h1 class={dialogBodyTitleCls}>{this.title}</h1>}
-          {this.content && <p class={dialogBodyContentCls}>{this.content}</p>}
+          {
+            titleNode &&
+            <h1 class={dialogBodyTitleCls}>{titleNode}</h1>
+          }
+          {
+            contentNode &&
+            <p class={dialogBodyContentCls}>{contentNode}</p>
+          }
         </div>
       );
     },
@@ -170,7 +223,9 @@ export default componentFactoryOf<DialogEvents>().create({
     const popupNodeData: VNodeData = {
       props: {
         ...popupProps,
-        targetClass: baseDialogName,
+        targetClass: addTargetClass({
+          [baseDialogName]: true,
+        }, popupProps.targetClass),
       },
       on: this.$listeners,
       ref: 'popup'

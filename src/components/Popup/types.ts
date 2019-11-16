@@ -1,4 +1,5 @@
 import Vue, { CreateElement, VNode } from 'vue';
+import { VueEventWrapper } from '@/global';
 
 interface PopupSimpleRect {
   width: number;
@@ -57,28 +58,25 @@ export interface PopupProps {
   fullscreen?: boolean;
   animate?: PopupAnimateType;
   targetStyle?: Partial<CSSStyleDeclaration>;
+  targetClass?: string | Record<string, boolean> | Array<string>;
   scrollBody?: boolean;
 };
 
 
-export type PopupWrapperEvents = Omit<PopupEvents, 'onAfterLeave'> & {
+export type PopupOutSideEvents = Omit<PopupEvents, 'onAfterLeave'> & {
   onAfterClose: any,
 };
 
 export type PopupGetContainerFunc = (() => HTMLElement) | HTMLElement;
 
 export interface PopupOutSideProps extends PopupProps {
-  getContainer: PopupGetContainerFunc;
-  dynamic: boolean;
+  getContainer?: PopupGetContainerFunc;
+  dynamic?: boolean;
 };
-
-type VueEventWrapper<E> = {
-  [K in keyof E]?: (event: E[K]) => any;
-}
 
 export type PopupOpenOptions = PopupProps
 &
-VueEventWrapper<PopupWrapperEvents>
+VueEventWrapper<PopupOutSideEvents>
 & {
   parent?: Vue;
   render?: (h?: CreateElement) => (VNode | VNode[]);

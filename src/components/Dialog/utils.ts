@@ -6,7 +6,7 @@ export function createActionOptions(
   defaultOptions: DialogActionOptions,
   btn?: DialogActionOptions | string)
 {
-  const action: DialogActionOptions = defaultOptions;
+  const action: DialogActionOptions = Object.assign({}, defaultOptions);
   if (typeof btn === 'string') {
     action.text = btn;
   } else {

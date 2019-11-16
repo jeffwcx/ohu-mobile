@@ -1,10 +1,10 @@
 import PopupWrapper from './PopupWrapper';
 import Vue, { VNodeData } from 'vue';
-import { CombinedVueInstance } from 'vue/types/vue';
+import { VueConstructor } from 'vue/types/vue';
 import { PopupOpenOptions } from './types';
 import PopupHeader from './PopupHeader';
 
-let instance: CombinedVueInstance<{ visible: boolean } & Vue, object, object, object, Record<keyof object, any>>;
+let instance: InstanceType<VueConstructor> & { visible: boolean };
 let noop = (e: any) => {};
 const Popup = Object.assign(PopupWrapper, {
   Header: PopupHeader,

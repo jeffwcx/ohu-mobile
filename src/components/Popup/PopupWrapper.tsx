@@ -4,7 +4,7 @@ import PortalRender from '../_utils/PortalRender';
 import Popup, { popupProps, POPUP_EVENT } from './Popup';
 import { VNodeData } from 'vue';
 import { prefix } from '../_utils/shared';
-import { PopupWrapperEvents, PopupGetContainerFunc } from './types';
+import { PopupOutSideEvents, PopupGetContainerFunc } from './types';
 
 
 const basePopupWrapperName = `${prefix}popup`;
@@ -15,7 +15,7 @@ export const popupOutSideProps = {
   ...popupProps,
 };
 
-const PopupWrapper = componentFactoryOf<PopupWrapperEvents>().create({
+const PopupWrapper = componentFactoryOf<PopupOutSideEvents>().create({
   name: basePopupWrapperName,
   model: {
     prop: 'visible',
@@ -45,8 +45,8 @@ const PopupWrapper = componentFactoryOf<PopupWrapperEvents>().create({
         afterLeave: () => {
           if (this.dynamic) {
             (this.$refs.portal as any).remove();
-            this.$emit('afterClose');
           }
+          this.$emit('afterClose');
         },
       },
       attrs: $attrs,
