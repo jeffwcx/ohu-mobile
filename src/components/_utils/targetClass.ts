@@ -1,3 +1,4 @@
+import isPlainObject from './isPlainObject';
 
 
 export type TargetClass = string | Record<string, boolean> | Array<string>;
@@ -8,7 +9,7 @@ export function addTargetClass(currentClass: Record<string, boolean>, targetClas
     currentClass[targetClass] = true;
   } else if (targetClass instanceof Array) {
     targetClass.map(classStr => currentClass[classStr] = true);
-  } else if (Object.prototype.toString.call(targetClass) === '[object Object]') {
+  } else if (isPlainObject(targetClass)) {
     Object.keys(targetClass).map(key => {
       currentClass[key] = targetClass[key];
     });

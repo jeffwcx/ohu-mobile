@@ -30,6 +30,7 @@ export const popupProps = {
   targetStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
   targetClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
   scrollBody: props(Boolean).default(false),
+  tapThrough: props(Boolean).default(false),
 }
 
 const positionTransitionMap = {
@@ -375,6 +376,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     renderDocument() {
       const wrapperCls: { [key: string]: boolean } = {
         [popupWrapperCls]: true,
+        'is-tap-through': this.tapThrough,
       };
       if (this.scrollBody) {
         wrapperCls['is-scrollable'] = true;

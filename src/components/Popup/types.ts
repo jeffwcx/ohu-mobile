@@ -60,6 +60,7 @@ export interface PopupProps {
   targetStyle?: Partial<CSSStyleDeclaration>;
   targetClass?: string | Record<string, boolean> | Array<string>;
   scrollBody?: boolean;
+  tapThrough?: boolean;
 };
 
 

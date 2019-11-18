@@ -33,6 +33,9 @@
     left: 0;
     width: 100%;
     height: 100%;
+    &.is-tap-through {
+      pointer-events: none;
+    }
     &.is-scrollable {
       overscroll-behavior-y: contain;
       overflow: auto;

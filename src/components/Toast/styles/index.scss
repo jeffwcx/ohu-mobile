@@ -1,0 +1,26 @@
+.#{$prefix}toast {
+  box-sizing: border-box;
+  background: $color-mask;
+  font-size: 32px;
+  font-weight: 400;
+  color: $color-text-base-inverse;
+  padding: 18px 24px;
+  border-radius: 8px;
+  max-width: 72%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  &__text {
+    line-height: (44/32) * 1em;
+  }
+  >.#{$prefix}loading {
+    font-size: 32px;
+    flex: 0 0 auto;
+  }
+  >.#{$prefix}icon {
+    margin-right: 16px;
+    font-size: 42px;
+    flex: 0 0 auto;
+  }
+}

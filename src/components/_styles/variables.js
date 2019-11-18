@@ -14,7 +14,7 @@ const colorTextHighlight = '#36b365';
 const colorBgBase = '#f5f5f5';
 const colorBgComponent = '#f8f8f8';
 const colorDivider = '#eee';
-const colorMask = 'rgba(0, 0, 0, 0.639 )';
+const colorMask = 'rgba(0, 0, 0, 0.639)';
 const colorBorderBase = '#ccc';
 
 // font
