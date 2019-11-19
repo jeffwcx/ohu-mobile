@@ -82,12 +82,6 @@ const svgo = new SVGO({
   }]
 });
 
-export function transformToCamelCase(name: string) {
-  return name.split('-').map(str => {
-    return str[0].toUpperCase() + str.substring(1);
-  }).join('');
-}
-
 export function upperCaseFirstLetter(str: string) {
   if (str) {
     return str[0].toUpperCase() + str.substring(1);
@@ -95,12 +89,43 @@ export function upperCaseFirstLetter(str: string) {
   return '';
 }
 
-async function genIcons(svgPath: string, outputPath: string, template: string, useSvgo?: boolean) {
+export function transformToCamelCase(name: string) {
+  return name.split('-').map(str => {
+    return upperCaseFirstLetter(str);
+  }).join('');
+}
+
+async function genIcons(
+  svgPath: string,
+  outputPath: string,
+  template: string,
+  useSvgo?: boolean,
+  themeByFile?: boolean,
+) {
   const { name, dir } = path.parse(svgPath);
-  const dirNameArr = dir.split(path.sep);
-  const theme = dirNameArr[dirNameArr.length - 1];
-  const themeInFileName = transformToCamelCase(theme);
-  const fileName = transformToCamelCase(name) + upperCaseFirstLetter(themeInFileName);
+  let iconTheme: string;
+  let iconName: string;
+  if (!themeByFile) {
+    const dirNameArr = dir.split(path.sep);
+    const theme = dirNameArr[dirNameArr.length - 1];
+    iconTheme = theme;
+    iconName = name;
+  } else {
+    const nameArr = name.split('-');
+    const lastOne = nameArr[nameArr.length - 1];
+    let result;
+    if (lastOne && (result = lastOne.match(/.*(line)|(fill)|(multi).*/))) {
+      const [_, l, f, m] = result;
+      if (l) iconTheme = 'outlined';
+      if (f) iconTheme = 'filled';
+      if (m) iconTheme = 'multi-color';
+      iconName = nameArr.slice(0, nameArr.length - 1).join('-');
+    } else {
+      iconName = name;
+      iconTheme = 'outlined';
+    }
+  }
+  const fileName = transformToCamelCase(iconName) + transformToCamelCase(iconTheme);
   let fileContent = await fs.readFile(svgPath, 'utf8');
   if (useSvgo) {
     const { data } = await svgo.optimize(fileContent, { path: svgPath });
@@ -126,17 +151,17 @@ async function genIcons(svgPath: string, outputPath: string, template: string, u
   });
   const outputFileData = art.render(template, {
     ...attrs,
-    name,
+    name: iconName,
     fileName,
-    theme,
+    theme: iconTheme,
     children,
   });
   await fs.writeFile(outputFilePath, outputFileData);
   return {
     outputPath: outputFilePath,
     fileName,
-    theme,
-    name,
+    theme: iconTheme,
+    name: iconName,
   };
 }
 
@@ -158,9 +183,10 @@ interface Options {
   _: string[];
   svgTemplate: string;
   useSvgo: boolean;
+  themeByFile: boolean;
 }
 
-async function main ({ outputDir, _, svgTemplate, useSvgo }: Options) {
+async function main ({ outputDir, _, svgTemplate, useSvgo, themeByFile }: Options) {
   if (!path.isAbsolute(outputDir)) {
     outputDir = path.join(process.cwd(), outputDir);
   }
@@ -188,7 +214,7 @@ async function main ({ outputDir, _, svgTemplate, useSvgo }: Options) {
   const iconFileNames = [];
   await Promise.all(svgPaths.map(
     (svgPath) =>
-      genIcons(svgPath, outputDir, templateStr, useSvgo)
+      genIcons(svgPath, outputDir, templateStr, useSvgo, themeByFile)
         .then(({ outputPath, fileName }) => {
           iconFileNames.push(fileName);
           console.log(chalk.green(outputPath, '生成成功'));
@@ -222,6 +248,12 @@ const options = yargs
       alias: 's',
       type: 'boolean',
       description: '是否使用svgo',
+      default: false,
+    },
+    themeByFile: {
+      alias: 'f',
+      type: 'boolean',
+      description: '是否通过文件名区分主题',
       default: false,
     },
   })

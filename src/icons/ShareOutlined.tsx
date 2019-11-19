@@ -1,11 +1,14 @@
-import { SVGIconDef } from '../global';
+/**
+ * License https://github.com/Remix-Design/RemixIcon/blob/master/License
+ */
+import { SVGIconDef } from '@/global';
 
 export const ShareOutlined: SVGIconDef = {
   name: 'share',
   theme: 'outlined',
   attrs: {
-    viewBox: '0 0 19 20',
+    viewBox: '0 0 24 24',
   },
-  children: '<g><path d="M15 8a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4zM15 20a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4zM4 14a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4z"/><path d="M7.086 9.446l5.401-3.013-.974-1.747L6.11 7.7zM6.002 12.414l5.484 3.287 1.028-1.715-5.484-3.288z"/></g>',
+  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M13.12 17.023l-4.199-2.29a4 4 0 1 1 0-5.465l4.2-2.29a4 4 0 1 1 .959 1.755l-4.2 2.29a4.008 4.008 0 0 1 0 1.954l4.199 2.29a4 4 0 1 1-.959 1.755zM6 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm11-6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />',
 };
 

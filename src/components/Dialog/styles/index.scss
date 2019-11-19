@@ -63,7 +63,8 @@
       font-size: 28px;
       word-wrap: break-word;
       white-space: pre-wrap;
-      overflow-y: scroll;
+      overflow-x: hidden;
+      overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       flex: 1 1 auto;
     }

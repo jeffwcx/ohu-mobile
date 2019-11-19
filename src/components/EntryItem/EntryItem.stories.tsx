@@ -2,10 +2,10 @@ import EntryItem from './index';
 import Vue from 'vue';
 import Card, { CardHeader } from '../Card';
 import {
-  SmileFaceOutlined, LocationOutlined, DoctorOutlined,
-  SmileStarOutlined, WalletOutlined, TicketOutlined,
-  CustomerServiceOutlined, HelpOutlined, ForwardOutlined,
-  HomeOutlined, MedicalBoxOutlined, CheckupOutlined,
+  UserSmileOutlined, MapPinOutlined, EmotionOutlined,
+  StarOutlined, WalletOutlined, CouponOutlined,
+  CustomerServiceOutlined, QuestionOutlined, ReplyOutlined,
+  HomeOutlined, InboxOutlined, CheckOutlined,
   UserOutlined, MessageOutlined
 } from '../../icons';
 import { WdghFilled, WdzxFilled, WdcfFilled, WdtjFilled } from './assets';
@@ -28,15 +28,15 @@ export const basic = () => Vue.extend({
       <Card>
         <CardHeader bold>常用工具</CardHeader>
         <div style="display: flex; flex-flow: row wrap;">
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={SmileFaceOutlined} text="家人管理"></EntryItem>
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={LocationOutlined} text="常用地址"></EntryItem>
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={DoctorOutlined} text="我的医生"></EntryItem>
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={SmileStarOutlined} text="关注收藏"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={UserSmileOutlined} text="家人管理"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={MapPinOutlined} text="常用地址"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={EmotionOutlined} text="我的医生"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={StarOutlined} text="关注收藏"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={WalletOutlined} text="消费明细"></EntryItem>
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={TicketOutlined} text="我的礼券"></EntryItem>
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={ForwardOutlined} text="推荐分享"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={CouponOutlined} text="我的礼券"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={ReplyOutlined} text="推荐分享"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={CustomerServiceOutlined} text="电话客服"></EntryItem>
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={HelpOutlined} text="帮助反馈"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={QuestionOutlined} text="帮助反馈"></EntryItem>
         </div>
       </Card>
     );
@@ -61,8 +61,8 @@ export const size = () => Vue.extend({
         </Card>
         <Card>
           <EntryItem style="width: 25%;" textSize="xsm" icon={HomeOutlined}>首页</EntryItem>
-          <EntryItem style="width: 25%;" textSize="xsm" icon={MedicalBoxOutlined}>就医</EntryItem>
-          <EntryItem style="width: 25%;" textSize="xsm" icon={CheckupOutlined}>体检</EntryItem>
+          <EntryItem style="width: 25%;" textSize="xsm" icon={InboxOutlined}>就医</EntryItem>
+          <EntryItem style="width: 25%;" textSize="xsm" icon={CheckOutlined}>体检</EntryItem>
           <EntryItem style="width: 25%;" textSize="xsm" icon={UserOutlined}>我的</EntryItem>
         </Card>
         <EntryItem icon={MessageOutlined} textSize="xsm" iconAreaSize="sm" iconSize="1.1875em">消息</EntryItem>

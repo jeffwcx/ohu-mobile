@@ -1,11 +1,14 @@
-import { SVGIconDef } from '../global';
+/**
+ * License https://github.com/Remix-Design/RemixIcon/blob/master/License
+ */
+import { SVGIconDef } from '@/global';
 
 export const SearchOutlined: SVGIconDef = {
   name: 'search',
   theme: 'outlined',
   attrs: {
-    viewBox: '0 0 20 20',
+    viewBox: '0 0 24 24',
   },
-  children: '<g transform="translate(-2 -2)" fill-rule="evenodd"><path d="M11.25 20.25a9 9 0 100-18 9 9 0 000 18zm0-2a7 7 0 110-14 7 7 0 010 14z" fill-rule="nonzero"/><rect transform="rotate(45 19 19)" x="16" y="18" width="6" height="2" rx="1"/></g>',
+  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z" />',
 };
 

@@ -1,11 +1,14 @@
-import { SVGIconDef } from '../global';
+/**
+ * License https://github.com/Remix-Design/RemixIcon/blob/master/License
+ */
+import { SVGIconDef } from '@/global';
 
 export const CheckOutlined: SVGIconDef = {
   name: 'check',
   theme: 'outlined',
   attrs: {
-    viewBox: '0 0 10 8',
+    viewBox: '0 0 24 24',
   },
-  children: '<path d="M1.38 3.931a.5.5 0 00-.76.649l2.338 2.744a.5.5 0 00.744.02l5.662-6a.5.5 0 10-.728-.687L3.358 6.25 1.38 3.931z" />',
+  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z" />',
 };
 

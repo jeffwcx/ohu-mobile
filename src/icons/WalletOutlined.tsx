@@ -1,11 +1,14 @@
-import { SVGIconDef } from '../global';
+/**
+ * License https://github.com/Remix-Design/RemixIcon/blob/master/License
+ */
+import { SVGIconDef } from '@/global';
 
 export const WalletOutlined: SVGIconDef = {
   name: 'wallet',
   theme: 'outlined',
   attrs: {
-    viewBox: '0 0 22 20',
+    viewBox: '0 0 24 24',
   },
-  children: '<g><path d="M2.814 0h16.372A2.817 2.817 0 0122 2.82v14.36c0 1.557-1.26 2.82-2.814 2.82H2.814A2.817 2.817 0 010 17.18V2.82C0 1.264 1.26 0 2.814 0zm.402 2C2.545 2 2 2.543 2 3.212v13.576C2 17.458 2.545 18 3.216 18h15.568c.671 0 1.216-.543 1.216-1.212V3.212C20 2.542 19.455 2 18.784 2H3.216z"  /><path d="M11.889 6H22v8H11.889C9.74 14 8 12.21 8 10s1.741-4 3.889-4zM20 8h-7.857C10.959 8 10 8.895 10 10s.96 2 2.143 2H20V8z" /><circle cx="13" cy="10" r="1"/></g>',
+  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M22 7h1v10h-1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v3zm-2 10h-6a5 5 0 0 1 0-10h6V5H4v14h16v-2zm1-2V9h-7a3 3 0 0 0 0 6h7zm-7-4h3v2h-3v-2z" />',
 };
 

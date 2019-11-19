@@ -1,8 +1,8 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import * as icons from '../../icons';
-import { SVGIconDef } from '../../global';
+import * as icons from '@/icons';
+import { SVGIconDef } from '@/global';
 import { VNodeData } from 'vue';
 import { transformToCamelCase } from './utils';
 import './styles/index.scss';

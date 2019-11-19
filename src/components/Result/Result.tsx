@@ -5,7 +5,7 @@ import './styles/index.scss';
 import Icon from '../Icon';
 import vars from '../_styles/variables';
 import { NoDataIllustration, NoNetworkIllustration, NoNewsIllustration, NoQueryDataIllustration } from './assets';
-import { CircleCheckFilled, CircleCloseFilled } from '../../icons';
+import { CheckboxCircleFilled, CloseCircleFilled } from '../../icons';
 
 const resultBaseName = `${prefix}result`;
 const resultIconCls = `${resultBaseName}__icon`;
@@ -18,8 +18,8 @@ const statusMap = {
   'empty': NoDataIllustration,
   'no-message': NoNewsIllustration,
   'not-queried': NoQueryDataIllustration,
-  'success': CircleCheckFilled,
-  'error': CircleCloseFilled,
+  'success': CheckboxCircleFilled,
+  'error': CloseCircleFilled,
 };
 
 const Result = componentFactory.create({

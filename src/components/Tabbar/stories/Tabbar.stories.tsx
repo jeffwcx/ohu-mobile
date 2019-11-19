@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Tabbar, { TabbarItem } from '..';
 import docs from '../README.md';
-import { MedicalMessageOutlined, CheckupOutlined, UserOutlined } from '@/icons';
+import { UserOutlined, TrainOutlined, CheckOutlined } from '@/icons';
 import Button from '../../Button';
 
 export default {
@@ -43,8 +43,8 @@ export const basic = () => Vue.extend({
           <TabbarItem iconAreaSize="lg">
             <img slot="icon" style={style} src={require('@/assets/logo.svg')} />
           </TabbarItem>
-          <TabbarItem textSize="xsm" icon={MedicalMessageOutlined}>就医</TabbarItem>
-          <TabbarItem textSize="xsm" icon={CheckupOutlined}>体检</TabbarItem>
+          <TabbarItem textSize="xsm" icon={TrainOutlined}>就医</TabbarItem>
+          <TabbarItem textSize="xsm" icon={CheckOutlined}>体检</TabbarItem>
           <TabbarItem textSize="xsm" icon={UserOutlined}>我的</TabbarItem>
         </Tabbar>
       </div>
@@ -63,8 +63,8 @@ export const noBorder = () => Vue.extend({
           <TabbarItem name="1" iconAreaSize="lg">
             <img slot="icon" style="width: 100%; box-shadow:0px 0px 20px 0px rgba(47,131,255,0.14);" src={require('@/assets/logo.svg')} />
           </TabbarItem>
-          <TabbarItem name="2" icon={MedicalMessageOutlined}>就医</TabbarItem>
-          <TabbarItem name="3" icon={CheckupOutlined}>体检</TabbarItem>
+          <TabbarItem name="2" icon={TrainOutlined}>就医</TabbarItem>
+          <TabbarItem name="3" icon={CheckOutlined}>体检</TabbarItem>
           <TabbarItem name="4" icon={UserOutlined}>我的</TabbarItem>
         </Tabbar>
       </div>
@@ -79,8 +79,8 @@ export const activeColor = () => Vue.extend({
         <TabbarItem name="1" iconAreaSize="lg">
           <img slot="icon" style="width: 100%; box-shadow:0px 0px 20px 0px rgba(47,131,255,0.14);" src={require('@/assets/logo.svg')} />
         </TabbarItem>
-        <TabbarItem name="2" icon={MedicalMessageOutlined}>就医</TabbarItem>
-        <TabbarItem name="3" icon={CheckupOutlined}>体检</TabbarItem>
+        <TabbarItem name="2" icon={TrainOutlined}>就医</TabbarItem>
+        <TabbarItem name="3" icon={CheckOutlined}>体检</TabbarItem>
         <TabbarItem name="4" icon={UserOutlined}>我的</TabbarItem>
       </Tabbar>
     );
@@ -94,8 +94,8 @@ export const barColor = () => Vue.extend({
         <TabbarItem name="1" iconAreaSize="lg">
           <img slot="icon" style="width: 100%; box-shadow:0px 0px 20px 0px rgba(47,131,255,0.14);" src={require('@/assets/logo.svg')} />
         </TabbarItem>
-        <TabbarItem name="2" icon={MedicalMessageOutlined}>就医</TabbarItem>
-        <TabbarItem name="3" icon={CheckupOutlined}>体检</TabbarItem>
+        <TabbarItem name="2" icon={TrainOutlined}>就医</TabbarItem>
+        <TabbarItem name="3" icon={CheckOutlined}>体检</TabbarItem>
         <TabbarItem name="4" icon={UserOutlined}>我的</TabbarItem>
       </Tabbar>
     );

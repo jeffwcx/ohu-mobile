@@ -2,7 +2,7 @@ import { component } from 'vue-tsx-support';
 import { prefix } from '../_utils/shared';
 import './styles/popup-header.scss';
 import Button from '../Button';
-import { CircleCloseFilled } from '../../icons';
+import { CloseCircleFilled } from '../../icons';
 import Divider from '../Divider';
 
 
@@ -39,7 +39,7 @@ export default component({
           <Button type="link"
             size="md"
             inline
-            icon={CircleCloseFilled}
+            icon={CloseCircleFilled}
             onClick={this.closeParent}>
           </Button>
         </div>

@@ -1,11 +1,14 @@
-import { SVGIconDef } from '../global';
+/**
+ * License https://github.com/Remix-Design/RemixIcon/blob/master/License
+ */
+import { SVGIconDef } from '@/global';
 
 export const UserOutlined: SVGIconDef = {
   name: 'user',
   theme: 'outlined',
   attrs: {
-    viewBox: '0 0 22 22',
+    viewBox: '0 0 24 24',
   },
-  children: '<g><g fill-rule="nonzero"><path d="M4.304 16.5c-1.584 0-2.87 1.343-2.87 3v2h19.131v-2c0-1.657-1.285-3-2.87-3H4.306zm0-1.5h13.392C20.073 15 22 17.015 22 19.5V23H0v-3.5C0 17.015 1.927 15 4.304 15zM11 12.385a5.385 5.385 0 100-10.77 5.385 5.385 0 000 10.77zM11 14a7 7 0 110-14 7 7 0 010 14z"/></g></g>',
+  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />',
 };
 

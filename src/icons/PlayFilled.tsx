@@ -1,11 +1,14 @@
-import { SVGIconDef } from '../global';
+/**
+ * License https://github.com/Remix-Design/RemixIcon/blob/master/License
+ */
+import { SVGIconDef } from '@/global';
 
 export const PlayFilled: SVGIconDef = {
   name: 'play',
   theme: 'filled',
   attrs: {
-    viewBox: '0 0 9 12',
+    viewBox: '0 0 24 24',
   },
-  children: '<g><path fill="none" d="M-4-2h16v16H-4z"/><path d="M8.57 6.857l-7.056 4.234A1 1 0 010 10.234V1.766A1 1 0 011.514.91l7.057 4.234a1 1 0 010 1.714z"/></g>',
+  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M19.376 12.416L8.777 19.482A.5.5 0 0 1 8 19.066V4.934a.5.5 0 0 1 .777-.416l10.599 7.066a.5.5 0 0 1 0 .832z" />',
 };
 

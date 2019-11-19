@@ -2,7 +2,7 @@ import { componentFactory } from 'vue-tsx-support';
 import { prefix } from '../_utils/shared';
 import Icon from '../Icon';
 import props from 'vue-strict-prop';
-import { LoadingFilled } from '../../icons';
+import { LoaderFilled } from '../../icons';
 import './styles/index.scss';
 
 
@@ -32,7 +32,7 @@ const Loading = componentFactory.create({
     };
     return (
       <div class={loadingCls}>
-        <Icon type={LoadingFilled} spin style={loadingStyle}></Icon>
+        <Icon type={LoaderFilled} spin style={loadingStyle}></Icon>
         <span class={loadingTextCls} style={textStyle}>{loadingText}</span>
       </div>
     );
