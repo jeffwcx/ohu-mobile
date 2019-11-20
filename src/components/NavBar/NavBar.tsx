@@ -3,7 +3,7 @@ import { prefix } from '../_utils/shared';
 import props from 'vue-strict-prop';
 import './styles/index.scss';
 import Button from '../Button';
-import { ArrowLeftSOutlined } from '@/icons';
+import { ArrowLeftOutlined } from '@/icons';
 import { VNodeData } from 'vue';
 import Divider from '../Divider';
 import vars from '../_styles/variables';
@@ -46,7 +46,7 @@ const NavBar = componentFactoryOf<NavBarEvents>().create({
         },
       };
       if (leftArrow && btnProps.props) {
-        btnProps.props.icon = ArrowLeftSOutlined;
+        btnProps.props.icon = ArrowLeftOutlined;
       }
       leftArea = <Button {...btnProps}>{ leftText }</Button>
     }

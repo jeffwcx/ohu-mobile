@@ -35,7 +35,7 @@ export const leftSlot = () => Vue.extend({
   render() {
     return (
       <NavBar divider>
-        <img slot="left" src={require('../../../assets/logo.svg')} />
+        <img slot="left" src={require('@/assets/logo.svg')} />
         <div style="width: 250px; height: 100%;background:rgba(248,248,248,1);"></div>
         <template slot="right">
           <Button type="link" inline icon="menu-o"></Button>
@@ -56,7 +56,7 @@ export const rightSlot = () => Vue.extend({
       <NavBar leftArrow title="预约挂号" divider onClickLeft={this.back}>
         <template slot="right">
           <Button type="link" inline icon="menu"></Button>
-          <Button type="link" inline icon="back-home"></Button>
+          <Button type="link" inline icon="home"></Button>
         </template>
       </NavBar>
     );
@@ -67,7 +67,7 @@ export const primary = () => Vue.extend({
   render() {
     return (
       <NavBar type="primary">
-        <img slot="left" src={require('../../../assets/logo--white.svg')} />
+        <img slot="left" src={require('@/assets/logo--white.svg')} />
         <div style="width: 250px; height: 100%;"></div>
         <template slot="right">
           <Button type="link" inline icon="menu"></Button>

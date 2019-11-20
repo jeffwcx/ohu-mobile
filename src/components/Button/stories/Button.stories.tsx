@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Button from './index';
-import docs from './README.md';
+import Button from '..';
+import docs from '../README.md';
 
 
 export default {
@@ -85,10 +85,12 @@ export const withIcon = () => Vue.extend({
       <div style="padding: 10px;">
         <p>lg</p>
         <Button type="primary" icon="save">保存</Button>
+        <Button type="primary" icon="save" round></Button>
         <p>md</p>
-        <Button type="link" icon="left" size="md">返回</Button>
+        <Button type="link" icon="arrow-left" size="md">返回</Button>
+        <Button type="primary" icon="arrow-left" size="md" round></Button>
         <p>sm</p>
-        <Button type="link" icon="left" size="sm">返回</Button>
+        <Button type="link" icon="arrow-left" size="sm">返回</Button>
         <Button type="primary" icon="check" size="sm" round></Button>
       </div>
     );

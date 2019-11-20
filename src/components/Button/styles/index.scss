@@ -6,12 +6,18 @@ $btn-base-cls: #{$prefix}btn;
   @include padding(_ 56px _ 56px);
   color: $color-text-base;
   font-size: 32px;
-  line-height: 1.375em;
+  line-height: $btn-size-normal;
   border-radius: 3Px;
   font-weight: 400;
   background: $color-text-base-inverse;
   @include hair-border($color-border-base, all, 6Px);
-  .#{$prefix}icon {
+  > span {
+    display: inline-block;
+    vertical-align: top;
+  }
+  > i {
+    display: inline-block;
+    font-size: 1.2em;
     pointer-events: none;
     + span {
       margin-left: 16px;
@@ -117,6 +123,8 @@ $btn-base-cls: #{$prefix}btn;
     }
   }
   &.is-icon-only {
+    padding: 0;
+    width: $btn-size-normal;
     &.is-sm {
       padding: 0;
       width: $btn-size-sm;

@@ -63,7 +63,7 @@ const Button = componentFactoryOf<ButtonEvents>().create({
       $slots,
     } = this;
     if (loading) {
-      icon = 'loading';
+      icon = 'loader';
     }
     const buttonProps: VNodeData = {
       attrs: {
@@ -79,7 +79,7 @@ const Button = componentFactoryOf<ButtonEvents>().create({
     };
     return (
       <button {...buttonProps}>
-        { icon && <Icon type={icon} spin={loading}></Icon> }
+        { icon && <i><Icon type={icon} spin={loading}></Icon></i> }
         {
           icon ? ($slots.default ? <span>{$slots.default}</span> : '') : $slots.default
         }
