@@ -1,10 +1,9 @@
 import { PopupOutSideProps, PopupOutSideEvents } from '../Popup';
 import { MethodBaseOptions, PopupDepositComponent } from '../_utils/createPopupMethodApi';
-import { SVGIconDef } from '@/global';
-import { IconProps } from '../Icon';
+import { IconProperty } from '@/global';
 
 export interface ToastProps extends PopupOutSideProps {
-  icon?: string | SVGIconDef | IconProps;
+  icon?: IconProperty;
   duration?: number;
   content?: string;
   loading?: boolean;

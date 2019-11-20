@@ -13,7 +13,7 @@ import Loading, { LoadingProps } from '../Loading';
 import vars from '../_styles/variables';
 import './styles/index.scss';
 import isPlainObject from '../_utils/isPlainObject';
-import { isIconProps } from '../Dialog/utils';
+import { getIcon } from '../_utils/icon-utils';
 
 export const toastProps = deepmerge({
   icon: props<string, SVGIconDef, IconProps>(String, Object).optional,
@@ -95,14 +95,7 @@ export default extendFrom(ToastVue).create({
     }
     let iconNode;
     if (this.icon) {
-      if (isIconProps(this.icon))  {
-        const iconData: VNodeData = {
-          props: this.icon
-        };
-        iconNode = this.$createElement(Icon, iconData);
-      } else {
-        iconNode = <Icon type={this.icon}></Icon>
-      }
+      iconNode = getIcon(this.$createElement, this.icon);
     }
     return (
       <Popup {...popupNodeData}>

@@ -5,15 +5,16 @@ import Popup from '../Popup';
 import vars from '../_styles/variables';
 import { popupOutSideProps } from '../Popup/PopupWrapper';
 import deepMerge from 'deepmerge';
-import { SVGIconDef } from '@/global';
+import { SVGIconDef, IconProperty } from '@/global';
 import { DialogActionOptions, DialogEvents } from './types';
-import { createActionOptions, isIconProps } from './utils';
+import { createActionOptions } from './utils';
 import Button from '../Button';
 import { VNodeData, VNode } from 'vue';
 import Divider from '../Divider';
 import Icon, { IconProps } from '../Icon';
 import './styles/index.scss';
 import { addTargetClass } from '../_utils/targetClass';
+import { getIcon } from '../_utils/icon-utils';
 
 const defaultOKOptions: DialogActionOptions = {
   type: 'ok',
@@ -27,7 +28,7 @@ const defaultCancelOptions: DialogActionOptions = {
   color: vars.colorTextMinor,
 };
 
-export type DialogIconOption = string | SVGIconDef | IconProps;
+export type DialogIconOption = IconProperty;
 
 export const dialogProps = deepMerge({
   icon: props<string, SVGIconDef, IconProps>(String, Object).optional,
@@ -181,14 +182,7 @@ export default componentFactoryOf<DialogEvents>().create({
     renderBody() {
       let icon;
       if (this.icon) {
-        if (isIconProps(this.icon))  {
-          const iconData: VNodeData = {
-            props: this.icon
-          };
-          icon = this.$createElement(Icon, iconData);
-        } else {
-          icon = <Icon type={this.icon}></Icon>
-        }
+        icon = getIcon(this.$createElement, this.icon);
       }
       const { $slots, title, content } = this;
       let titleNode = $slots.title ? $slots.title : title;

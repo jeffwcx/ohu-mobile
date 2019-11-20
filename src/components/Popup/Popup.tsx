@@ -24,6 +24,7 @@ export const popupProps = {
   mask: props(Boolean).default(true),
   maskFrosted: props(Boolean).default(false),
   maskClosable: props(Boolean).default(true),
+  maskAnimate: props.ofStringLiterals('mask-fade', 'none').default('mask-fade'),
   closeOnMaskTouched: props(Boolean).default(false),
   fullscreen: props(Boolean).default(false),
   animate: props.ofType<PopupAnimateType>().default('none'),
@@ -138,7 +139,11 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       this.documentZIndex = documentZIndex;
       this.documentVisible = true;
       this.stopScroll();
-      this.$emit('open', this.documentVisible);
+      this.$emit('open', {
+        visible: this.documentVisible,
+        documentZIndex: this.documentZIndex,
+        maskZIndex: this.maskZIndex,
+      });
     },
     // ⬆️ open api
     stopScroll() {
@@ -256,12 +261,16 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       const maskStyle = {
         zIndex: this.maskZIndex,
       };
-      if (this.mask) {
-        return (
-          <transition name={prefix + 'mask-fade'}>
-            <div v-show={this.documentVisible} class={maskCls} style={maskStyle}></div>
+      let maskNode = <div v-show={this.documentVisible} class={maskCls} style={maskStyle}></div>;
+      if (this.maskAnimate !== 'none') {
+        maskNode = (
+          <transition name={prefix + this.maskAnimate}>
+            {maskNode}
           </transition>
         );
+      }
+      if (this.mask) {
+        return maskNode;
       }
     },
     getDocumentTransition() {

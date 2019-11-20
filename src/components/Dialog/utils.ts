@@ -14,7 +14,3 @@ export function createActionOptions(
   }
   return action;
 }
-
-export function isIconProps(icon: DialogIconOption): icon is IconProps {
-  return !!(icon as IconProps).type;
-}

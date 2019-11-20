@@ -3,6 +3,7 @@ import Vue, { VNodeData } from 'vue';
 import { VueConstructor } from 'vue/types/vue';
 import { PopupOpenOptions } from './types';
 import PopupHeader from './PopupHeader';
+import manager from './manager';
 
 let instance: InstanceType<VueConstructor> & { visible: boolean };
 let noop = (e: any) => {};
@@ -60,4 +61,5 @@ const Popup = Object.assign(PopupWrapper, {
 export default Popup;
 
 export * from './types';
-export { PopupHeader };
+
+export { PopupHeader, manager };

@@ -13,11 +13,17 @@ export interface PopupEnterEvent {
   anchor?: PopupSimpleRect;
 }
 
+export interface PopupOpenEvent {
+  visible: boolean;
+  documentZIndex: number;
+  maskZIndex: number;
+}
+
 export interface PopupEvents {
   onVisibleChange: boolean;
   onAfterLeave: boolean;
   onEnter: PopupEnterEvent;
-  onOpen: boolean;
+  onOpen: PopupOpenEvent;
   onClose: boolean;
 }
 
@@ -40,7 +46,7 @@ export interface PopupTransformOrigin {
 }
 
 export type PopupAnimateType = 'none' | 'fade' | 'zoom' | 'zoom-scale' |
-'slide-up' | 'slide-down' | 'slide-left' | 'slide-right' | string;
+'slide-up' | 'slide-down' | 'slide-left' | 'slide-right' | 'scale-up' | 'scale-down';
 
 export type PopupPosition = PopupAnyPosition | PopupAnchorPosition | PopupVerticalPosition | PopupHorizontalPosition;
 
@@ -55,6 +61,7 @@ export interface PopupProps {
   mask?: boolean;
   maskFrosted?: boolean;
   maskClosable?: boolean;
+  maskAnimate?: 'mask-fade' | 'none';
   fullscreen?: boolean;
   animate?: PopupAnimateType;
   targetStyle?: Partial<CSSStyleDeclaration>;

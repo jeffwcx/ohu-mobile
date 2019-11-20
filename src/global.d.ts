@@ -1,4 +1,5 @@
 import { VueConstructor, VNodeData } from 'vue';
+import { IconProps } from './components/Icon';
 
 export interface SVGIconDef {
   name: string;
@@ -8,6 +9,8 @@ export interface SVGIconDef {
   },
   children?: string;
 }
+
+export type IconProperty = string | SVGIconDef | IconProps;
 
 export type VueEventWrapper<E> = {
   [K in keyof E]?: (event: E[K]) => any;

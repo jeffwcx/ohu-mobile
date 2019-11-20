@@ -1,6 +1,5 @@
 import { PopupOutSideEvents, PopupOutSideProps } from '../Popup';
-import { SVGIconDef, VueEventWrapper } from '@/global';
-import { IconProps } from '../Icon';
+import { VueEventWrapper, IconProperty } from '@/global';
 import { CreateElement, VNode } from 'vue';
 import { MethodBaseOptions } from '../_utils/createPopupMethodApi';
 
@@ -20,7 +19,7 @@ export interface DialogActionOptions {
 }
 
 export interface DialogProps extends PopupOutSideProps {
-  icon?: string | SVGIconDef | IconProps;
+  icon?: IconProperty;
   title?: string;
   content?: string,
   cancelBtn?: string | DialogActionOptions | null;
