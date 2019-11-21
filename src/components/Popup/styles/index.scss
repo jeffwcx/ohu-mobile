@@ -1,8 +1,6 @@
 
 .#{$prefix}mask {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: $color-mask;
@@ -15,7 +13,7 @@
 }
 
 .#{$prefix}mask-fade-enter-active, .#{$prefix}mask-fade-leave-active {
-  transition: all 250ms;
+  transition: opacity 250ms;
 }
 .#{$prefix}mask-fade-enter, .#{$prefix}mask-fade-leave-to {
   opacity: 0;

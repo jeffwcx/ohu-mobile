@@ -13,6 +13,9 @@
   align-items: center;
   &__text {
     line-height: (44/32) * 1em;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
   >.#{$prefix}loading {
     font-size: 32px;

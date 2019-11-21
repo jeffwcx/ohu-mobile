@@ -62,12 +62,14 @@ export interface PopupProps {
   maskFrosted?: boolean;
   maskClosable?: boolean;
   maskAnimate?: 'mask-fade' | 'none';
+  partialMask?: 'top' | 'bottom';
   fullscreen?: boolean;
   animate?: PopupAnimateType;
   targetStyle?: Partial<CSSStyleDeclaration>;
   targetClass?: string | Record<string, boolean> | Array<string>;
   scrollBody?: boolean;
   tapThrough?: boolean;
+  zIndex?: number;
 };
 
 

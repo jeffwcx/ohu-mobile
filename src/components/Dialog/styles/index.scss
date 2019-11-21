@@ -21,10 +21,6 @@
       > .#{$prefix}btn {
         flex: 1;
       }
-      > .#{$prefix}divider {
-        width: 1Px;
-        flex-shrink: 0;
-      }
     }
     &.is-column {
       flex-flow: column wrap;

@@ -15,16 +15,18 @@ const Divider = componentFactory.create({
     vertical: props(Boolean).default(false),
   },
   render() {
-    const cls = {
-      [dividerBaseName]: true,
-      'is-vertical': this.vertical,
-      'is-horizontal': !this.vertical,
-    };
     const {
       text,
       $slots,
       $attrs,
     } = this;
+    const textContent = text || $slots.default;
+    const cls = {
+      [dividerBaseName]: true,
+      'is-vertical': this.vertical,
+      'is-horizontal': !this.vertical,
+      'has-text': !!textContent,
+    };
     const dividerProps: VNodeData = {
       attrs: {
         ...$attrs,
@@ -40,7 +42,6 @@ const Divider = componentFactory.create({
       style.borderStyle = 'dashed';
     }
     dividerProps.style = style;
-    const textContent = text || $slots.default;
     return (
       <div {...dividerProps}>
         { textContent && <span class={dividerTextCls}>{textContent}</span> }

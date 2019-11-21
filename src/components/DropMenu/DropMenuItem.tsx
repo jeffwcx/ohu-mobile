@@ -1,12 +1,11 @@
 import DropMenu, { baseDropMenuItemName } from './DropMenu';
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { DropMenuEvents, DropMenuItemOptions, DropMenuChangeEvent } from './types';
-import Icon from '../Icon';
+import { DropMenuEvents, DropMenuItemOptions, DropMenuChangeEvent, DropMenuDataModel } from './types';
 import { ArrowDownSOutlined, CheckOutlined } from '@/icons';
 import Popup, { PopupOpenEvent } from '../Popup';
 import Divider from '../Divider';
-import { VNode } from 'vue';
+import { VNode, PropOptions } from 'vue';
 import { IconProperty } from '@/global';
 import { getIcon } from '../_utils/icon-utils';
 import isPlainObject from '../_utils/isPlainObject';
@@ -17,6 +16,13 @@ const dropMenuItemTextCls = `${baseDropMenuItemName}__text`;
 const dropMenuItemIconCls = `${baseDropMenuItemName}__icon`;
 
 type DropMenuType = InstanceType<typeof DropMenu>;
+const defaultCheckedFunc = function (checkedOption?: DropMenuItemOptions, option?: DropMenuItemOptions) {
+  if (checkedOption && !option) return true;
+  if (checkedOption && option) {
+    return checkedOption.value === option.value;
+  }
+  return false;
+}
 
 const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
   name: baseDropMenuItemName,
@@ -26,6 +32,10 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
     options: props.ofType<DropMenuItemOptions[]>().default(() => []),
     checkIcon: props.ofType<IconProperty>().default(() => CheckOutlined),
     dropDownIcon: props.ofType<IconProperty>().default(() => ArrowDownSOutlined),
+    checkedFunc: {
+      type: Function,
+      default: defaultCheckedFunc,
+    } as PropOptions<typeof defaultCheckedFunc>,
   },
   computed: {
     icon() {
@@ -43,11 +53,11 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
   },
   methods: {
     getCheckedOption() {
-      let checkedOption: DropMenuItemOptions | null = null;
+      let checkedOption: DropMenuItemOptions | undefined = undefined;
       const key = this.getKey();
       const index = this.getIndex();
-      if (!this.$scopedSlots.default) {
-        const checkedValue = this.getCheckedValue();
+      const checkedValue = this.getCheckedValue();
+      if (this.options.length > 0) {
         this.options.some((option) => {
           if (option.value === checkedValue) {
             checkedOption = Object.assign({
@@ -77,7 +87,7 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
       const key = this.$vnode.key;
       if (currentValue instanceof Array) {
         return currentValue[this.getIndex()];
-      } else if (isPlainObject<Record<string | number, any>>(currentValue) && key) {
+      } else if (isPlainObject<DropMenuDataModel>(currentValue) && key) {
         return currentValue[key];
       }
     },
@@ -100,7 +110,7 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
       this.getParent().triggerChange(event);
     },
     handlePopupOpen({ documentZIndex }: PopupOpenEvent) {
-      (this.$parent as DropMenuType).zIndex = documentZIndex + 2;
+      this.getParent().zIndex = documentZIndex + 1;
     },
   },
   render() {
@@ -114,14 +124,14 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
     if ($scopedSlots.default) {
       popupContent = $scopedSlots.default({ checked: checkedOption });
       if (checkedOption) {
-        hasCheckedOption = true;
+        hasCheckedOption = this.checkedFunc(checkedOption);
         if (checkedOption.label) {
           checkedText = checkedOption.label;
         }
       }
     } else {
       popupContent = options.reduce((result, option, index) => {
-        const isCheck = checkedOption && checkedOption.value === option.value;
+        const isCheck = this.checkedFunc(checkedOption, option);
         if (isCheck) {
           hasCheckedOption = true;
         }
@@ -168,15 +178,18 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
         </i>
         <Popup visible={this.popupVisible}
           targetClass={dropMenuItemOptionsCls}
+          onOpen={this.handlePopupOpen}
           getContainer={() => {
+            // todo: turn to use optional chain
             return this.$parent.$refs.dropMenu as HTMLElement;
           }}
           position={ direction === 'up' ? 'top' : 'bottom' }
           marginThreshold={0}
-          lockScroll={false}
-          anchor={() => this.$refs.dropItem as HTMLElement}
+          // todo: turn to use optional chain
+          anchor={() => this.$parent.$refs.dropMenu as HTMLElement}
           onVisibleChange={this.handleVisibleChange}
-          animate={direction === 'up' ? 'scale-down' : 'scale-up'}>
+          animate={direction === 'up' ? 'scale-down' : 'scale-up'}
+          partialMask={direction === 'up' ? 'top' : 'bottom'}>
           {popupContent}
         </Popup>
       </div>

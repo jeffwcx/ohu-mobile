@@ -6,8 +6,11 @@ export interface DropMenuProps {
   divider?: boolean;
 }
 
+export type DropMenuDataModel = Record<string | number, any>;
+
 export interface DropMenuEvents {
-  onChange: DropMenuChangeEvent;
+  onChange: DropMenuDataModel;
+  onItemChange: DropMenuChangeEvent;
 }
 
 
@@ -26,6 +29,8 @@ export interface DropMenuItemProps {
   disabled?: boolean;
   options?: DropMenuItemOptions[];
   checkIcon?: IconProperty;
+  dropDownIcon?: IconProperty;
 }
 
 export interface DropMenuItemEvents {}
+

@@ -25,6 +25,7 @@ export const popupProps = {
   maskFrosted: props(Boolean).default(false),
   maskClosable: props(Boolean).default(true),
   maskAnimate: props.ofStringLiterals('mask-fade', 'none').default('mask-fade'),
+  partialMask: props.ofStringLiterals('top', 'bottom').optional,
   closeOnMaskTouched: props(Boolean).default(false),
   fullscreen: props(Boolean).default(false),
   animate: props.ofType<PopupAnimateType>().default('none'),
@@ -32,6 +33,7 @@ export const popupProps = {
   targetClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
   scrollBody: props(Boolean).default(false),
   tapThrough: props(Boolean).default(false),
+  zIndex: Number,
 }
 
 const positionTransitionMap = {
@@ -76,7 +78,13 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       docEl: HTMLElement | null,
       docRect: { width: number, height: number } | null,
       anchorEl: HTMLElement | null,
-      docPos: { top: number, left: number, transformOrigin: string } | null,
+      docPos: {
+        top: number,
+        bottom: number,
+        left: number,
+        right: number,
+        transformOrigin: string,
+      } | null,
       anchorRect: DOMRect | ClientRect | null,
       maskZIndex: number,
       documentZIndex: number,
@@ -134,7 +142,16 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     },
     open() {
       if (this.documentVisible) return;
-      const { maskZIndex, documentZIndex } = manager.getPopupZIndex();
+      let maskZIndex;
+      let documentZIndex;
+      if (this.zIndex !== undefined) {
+        maskZIndex = this.zIndex;
+        documentZIndex = this.zIndex + 1;
+      } else {
+        const result = manager.getPopupZIndex();
+        maskZIndex = result.maskZIndex;
+        documentZIndex = result.documentZIndex;
+      }
       this.maskZIndex = maskZIndex;
       this.documentZIndex = documentZIndex;
       this.documentVisible = true;
@@ -258,9 +275,22 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         [baseMaskName]: true,
         'is-frosted': this.maskFrosted
       };
-      const maskStyle = {
-        zIndex: this.maskZIndex,
+      const maskStyle: Partial<CSSStyleDeclaration> = {
+        zIndex: this.maskZIndex.toString(),
+        top: '0px',
+        left: '0px',
       };
+      if (this.docPos) {
+        if (this.partialMask === 'bottom') {
+          maskStyle.height = 'auto';
+          maskStyle.top = `${this.docPos.top}px`;
+          maskStyle.bottom = '0';
+        } else if (this.partialMask === 'top') {
+          maskStyle.height = 'auto';
+          maskStyle.bottom = `${this.docPos.bottom}px`;
+          maskStyle.top = '0';
+        }
+      }
       let maskNode = <div v-show={this.documentVisible} class={maskCls} style={maskStyle}></div>;
       if (this.maskAnimate !== 'none') {
         maskNode = (
@@ -326,6 +356,13 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         position.left !== undefined && (left = position.left);
         position.top !== undefined && (top = position.top);
       }
+      let lowerEdge = window.innerHeight - top;
+      let rightEdge = window.innerWidth - left;
+      if (this.docRect) {
+        lowerEdge = lowerEdge - this.docRect.height;
+        rightEdge = rightEdge - this.docRect.width;
+      }
+
       // container edge detect
       if (this.edgeDetect) {
         const widthThreshold = window.innerWidth - this.marginThreshold;
@@ -348,6 +385,8 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       return {
         top,
         left,
+        bottom: lowerEdge,
+        right: rightEdge,
         transformOrigin: transformOriginStr,
       };
     },

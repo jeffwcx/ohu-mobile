@@ -1,6 +1,6 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { DropMenuEvents, DropMenuChangeEvent } from './types';
+import { DropMenuEvents, DropMenuChangeEvent, DropMenuDataModel } from './types';
 import { prefix } from '../_utils/shared';
 import Divider from '../Divider';
 import { getVNodesByName, isTargetComponent } from '../_utils/vnode';
@@ -14,16 +14,17 @@ import isPlainObject from '../_utils/isPlainObject';
 export const baseDropMenuName = `${prefix}dropmenu`;
 export const baseDropMenuItemName = `${baseDropMenuName}-item`;
 const dropMenuInnerCls = `${baseDropMenuName}__inner`;
+
 const DropMenu = componentFactoryOf<DropMenuEvents>().create({
   name: baseDropMenuName,
   props: {
-    defaultValue: props<Record<string | number, any>, Array<any>>(Object, Array).default(() => ({})),
+    defaultValue: props<DropMenuDataModel, Array<any>>(Object, Array).default(() => ({})),
     direction: props.ofStringLiterals('up', 'down').default('down'),
     divider: props(Boolean).default(true),
   },
   computed: {
     isObjectValue() {
-      return isPlainObject<Record<string | number, any>>(this.defaultValue);
+      return isPlainObject<DropMenuDataModel>(this.defaultValue);
     },
   },
   data() {
@@ -33,14 +34,20 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       selectedOptions: {},
     } as {
       zIndex: number,
-      currentValue: Record<string | number, any> | Array<any>,
-      selectedOptions: Record<string | number, any>,
+      currentValue: DropMenuDataModel | Array<any>,
+      selectedOptions: DropMenuDataModel,
     };
   },
   mounted() {
     this.initSelectedOptions();
   },
   methods: {
+    getSelectedOptions() {
+      return this.selectedOptions;
+    },
+    getSelectedValues() {
+      return this.currentValue;
+    },
     initSelectedOptions() {
       this.getMenuItems().map((item) => {
         const option = item.getCheckedOption();
@@ -70,12 +77,13 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       if (this.currentValue instanceof Array) {
         this.$set(this.currentValue, index, value);
         this.selectedOptions[index] = event;
-      } else if(isPlainObject<Record<string | number, any>>(this.currentValue) && key) {
+      } else if(isPlainObject<DropMenuDataModel>(this.currentValue) && key) {
         this.currentValue[key] = value;
         this.selectedOptions[key] = event;
       }
       this.closeAllPopup();
-      this.$emit('change', event);
+      this.$emit('itemChange', event);
+      this.$emit('change', this.currentValue);
     }
   },
   render() {
