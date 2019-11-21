@@ -25,10 +25,14 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
     disabled: props(Boolean).default(false),
     options: props.ofType<DropMenuItemOptions[]>().default(() => []),
     checkIcon: props.ofType<IconProperty>().default(() => CheckOutlined),
+    dropDownIcon: props.ofType<IconProperty>().default(() => ArrowDownSOutlined),
   },
   computed: {
     icon() {
       return getIcon(this.$createElement, this.checkIcon);
+    },
+    icon2() {
+      return getIcon(this.$createElement, this.dropDownIcon);
     },
   },
   data() {
@@ -38,8 +42,44 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
     };
   },
   methods: {
+    getCheckedOption() {
+      let checkedOption: DropMenuItemOptions | null = null;
+      const key = this.getKey();
+      const index = this.getIndex();
+      if (!this.$scopedSlots.default) {
+        const checkedValue = this.getCheckedValue();
+        this.options.some((option) => {
+          if (option.value === checkedValue) {
+            checkedOption = Object.assign({
+              key,
+              index,
+            }, option);
+            return true;
+          }
+          return false;
+        });
+      } else {
+        checkedOption = this.getParent().selectedOptions[key || index];
+      }
+      return checkedOption;
+    },
     getParent() {
       return this.$parent as DropMenuType;
+    },
+    getIndex() {
+      return this.getParent().getMenuItemIndex(this);
+    },
+    getKey() {
+      return this.$vnode.key;
+    },
+    getCheckedValue() {
+      const { currentValue } = this.getParent();
+      const key = this.$vnode.key;
+      if (currentValue instanceof Array) {
+        return currentValue[this.getIndex()];
+      } else if (isPlainObject<Record<string | number, any>>(currentValue) && key) {
+        return currentValue[key];
+      }
     },
     close() {
       if (this.popupVisible) {
@@ -64,23 +104,24 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
     },
   },
   render() {
-    const { $slots, title, options, disabled, icon } = this;
-    const { direction, currentValue } = this.$parent as DropMenuType;
+    const { $scopedSlots, title, options, disabled, icon, icon2 } = this;
+    const { direction } = this.getParent();
     let popupContent;
     let checkedText = title;
     let hasCheckedOption = false;
-    if ($slots.default) {
-      popupContent = $slots.default;
+    let key = this.getKey();
+    let checkedOption = this.getCheckedOption();
+    if ($scopedSlots.default) {
+      popupContent = $scopedSlots.default({ checked: checkedOption });
+      if (checkedOption) {
+        hasCheckedOption = true;
+        if (checkedOption.label) {
+          checkedText = checkedOption.label;
+        }
+      }
     } else {
       popupContent = options.reduce((result, option, index) => {
-        const key = this.$vnode.key;
-        let checkValue;
-        if (currentValue instanceof Array) {
-          checkValue = currentValue[index];
-        } else if (isPlainObject(currentValue) && key) {
-          checkValue = currentValue[key];
-        }
-        const isCheck = checkValue && checkValue === option.value;
+        const isCheck = checkedOption && checkedOption.value === option.value;
         if (isCheck) {
           hasCheckedOption = true;
         }
@@ -123,7 +164,7 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents>().create({
         ref="dropItem">
         <span class={dropMenuItemTextCls}>{checkedText}</span>
         <i class={iconCls}>
-          <Icon type={ArrowDownSOutlined} />
+          { icon2 }
         </i>
         <Popup visible={this.popupVisible}
           targetClass={dropMenuItemOptionsCls}

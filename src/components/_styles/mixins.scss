@@ -37,16 +37,19 @@
   }
 }
 
-
-@mixin mobile-btn-init {
+@mixin tap-component {
   user-select: none;
-  white-space: nowrap;
   cursor: pointer;
-  border: none;
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
   // for mobile outline is useless
   outline: none;
+}
+
+@mixin mobile-btn-init {
+  @include tap-component();
+  white-space: nowrap;
+  border: none;
   transition: all .3s;
   overflow: visible;
   font-family: $font-family;

@@ -16,6 +16,6 @@ export type ToastOptions = MethodBaseOptions & ToastProps;
 export declare function toastInfo(content: string, duration?: number, options?: PopupOutSideProps & MethodBaseOptions): PopupDepositComponent;
 export declare function toastLoading(content: string, options?: PopupOutSideProps & MethodBaseOptions): PopupDepositComponent;
 
-export type ToastInfoOptions = Parameters<typeof toastInfo>;
+export type ToastInfoOptions = Parameters<typeof toastInfo> | Parameters<typeof toastLoading>;
 
-export type ToastLoadingOptions = ToastInfoOptions | Parameters<typeof toastLoading>;
+export type ToastLoadingOptions = ToastInfoOptions;

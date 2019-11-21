@@ -11,11 +11,11 @@
     }
   }
   &-item {
+    @include tap-component();
     box-sizing: border-box;
     flex: 1;
     text-align: center;
     font-size: 28px;
-    cursor: pointer;
     line-height: (36/28) * 1em;
     color: $color-text-base;
     padding: 30px;
@@ -23,8 +23,6 @@
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
     background: $color-text-base-inverse;
     @include ellipsis();
     &:active {
@@ -66,6 +64,7 @@
       flex-flow: nowrap;
       justify-content: space-between;
       align-items: center;
+      @include tap-component();
       &:active {
         background: #F5F5F5;
       }
@@ -74,7 +73,8 @@
       }
       &.is-disabled {
         opacity: .3;
-        .#{$prefix}dropmenu-item-option:active {
+        &:active {
+          background: $color-text-base-inverse;
           color: $color-text-base;
         }
       }

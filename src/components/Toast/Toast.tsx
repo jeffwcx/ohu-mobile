@@ -88,7 +88,7 @@ export default extendFrom(ToastVue).create({
         color: vars.colorTextBaseInverse,
         textColor: vars.colorTextBaseInverse,
       };
-      if (isPlainObject(this.loading)) {
+      if (isPlainObject<LoadingProps>(this.loading)) {
         Object.assign(props, this.loading);
       }
       loadingNode = <Loading {...{ props }}>{content}</Loading>
