@@ -3,6 +3,7 @@ import docs from '../README.md';
 import Vue from 'vue';
 import Card from '../../Card';
 import Button from '../../Button';
+import { PopupPosition } from '../../Popup';
 export default {
   title: 'Components|FeedBack/Toast',
   parameters: {
@@ -84,6 +85,49 @@ export const icon = () => Vue.extend({
             content: '图标',
           });
         }}>Icon</Button>
+      </Card>
+    );
+  },
+});
+
+export const position = () => Vue.extend({
+  data() {
+    return {
+      positions: [
+        'center',
+        'left',
+        'right',
+        'top',
+        'bottom',
+        { horizontal: 'left', vertical: 'top' },
+        { horizontal: 'left', vertical: 'bottom' },
+        { horizontal: 'right', vertical: 'top' },
+        { horizontal: 'right', vertical: 'bottom' }
+      ],
+    } as {
+      positions: PopupPosition[],
+    };
+  },
+  render() {
+    return (
+      <Card>
+        {
+          this.positions.map((pos, index) => {
+            const content = typeof pos === 'string' ? pos : Object.values(pos).join('-');
+            return (
+              <Button style="margin-top: 10px; margin-bottom: 10px;"
+                type={index % 2 ? 'default' : 'primary'}
+                onClick={() => {
+                  Toast.open({
+                    content,
+                    position: pos,
+                  });
+                }}>
+                {content}
+              </Button>
+            );
+          })
+        }
       </Card>
     );
   },

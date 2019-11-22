@@ -412,10 +412,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     },
     getDocumentClass() {
       const cls = { [basePopupName]: true };
-      if (typeof this.position === 'string' && !this.isAnchorMode) {
-        cls['is-' + this.position] = true;
-        cls['is-fullscreen'] = this.fullscreen;
-      }
+      cls['is-fullscreen'] = this.fullscreen;
       if (this.targetClass) {
         addTargetClass(cls, this.targetClass);
       }
@@ -428,8 +425,18 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       };
       if (this.scrollBody) {
         wrapperCls['is-scrollable'] = true;
-      } else {
-        wrapperCls['is-center'] = this.position === 'center';
+      }
+      if (!this.isAnchorMode) {
+        const { horizontal, vertical } = getAnchorPosition(this.position);
+        if (horizontal || vertical) {
+          wrapperCls['has-position'] = true;
+        }
+        if (horizontal) {
+          wrapperCls[`is-x-${horizontal}`] = true;
+        }
+        if (vertical) {
+          wrapperCls[`is-y-${vertical}`] = true;
+        }
       }
       const wrapperStyle = {
         zIndex: this.documentZIndex,
