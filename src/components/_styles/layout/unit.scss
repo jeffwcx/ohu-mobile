@@ -1,0 +1,58 @@
+// unit module
+
+$units: 12 !default;
+$level: 10 !default;
+$rate: 8px !default;
+
+@mixin unit ($n) {
+  @if $n < 2 {
+    @error "$unit variable can not < 2!";
+  }
+  @for $i from 1 through $n {
+    &.is-#{$i}-#{$n} {
+      flex-basis: percentage($number: $i / $n);
+    }
+    $commonDivisor: getCommonDivisor($i, $n);
+    @if $commonDivisor != 1 {
+      $ix: $i / $commonDivisor;
+      $nx: $n / $commonDivisor;
+      &.is-#{$ix}-#{$nx} {
+        flex-basis: percentage($number: $ix / $nx);
+      }
+    }
+  }
+}
+
+@mixin gap ($rate, $level) {
+  @for $i from 1 through $level {
+    @if $i == 1 {
+      .#{$prefix}units-gap {
+        margin-left: -$rate;
+        margin-right: -$rate;
+        >.#{$prefix}unit {
+          box-sizing: border-box;
+          padding-left: $rate;
+          padding-right: $rate;
+        }
+      }
+    }
+    $gap: $i * $rate;
+    .#{$prefix}units-gap-#{$i} {
+      margin-left: -$gap;
+      margin-right: -$gap;
+      >.#{$prefix}unit {
+        box-sizing: border-box;
+        padding-left: $gap;
+        padding-right: $gap;
+      }
+    }
+  }
+}
+
+.#{$prefix}unit {
+  flex-grow: 0;
+  flex-shrink: 1;
+  @include unit($units);
+}
+
+@include gap($rate, $level);

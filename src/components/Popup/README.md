@@ -27,5 +27,6 @@ Popup.close();
 + add title-bar component.
 + dymanic width and height in anchor mode.
 + round radius + gesture suport.
++ bounce build animation.
 
 

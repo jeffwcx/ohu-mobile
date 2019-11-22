@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Card from '../../Card';
 import Button from '../../Button';
 import { PopupPosition } from '../../Popup';
+import { CheckboxCircleFilled } from '@/icons';
 export default {
   title: 'Components|FeedBack/Toast',
   parameters: {
@@ -79,7 +80,7 @@ export const icon = () => Vue.extend({
         <Button onClick={() => {
           Toast.open({
             icon: {
-              type: 'circle-check-f',
+              type: CheckboxCircleFilled,
               color: '#36b365',
             },
             content: '图标',

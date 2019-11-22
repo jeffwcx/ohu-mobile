@@ -53,7 +53,7 @@ const Button = componentFactoryOf<ButtonEvents>().create({
       this.$emit('touchstart', e);
     }
   },
-  render(h) {
+  render() {
     let {
       disabled,
       cls,
@@ -63,7 +63,7 @@ const Button = componentFactoryOf<ButtonEvents>().create({
       $slots,
     } = this;
     if (loading) {
-      icon = 'loader';
+      icon = 'loader-tail';
     }
     const buttonProps: VNodeData = {
       attrs: {

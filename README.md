@@ -12,6 +12,7 @@ npm i -S ohu-mobile
 
 ## TODO
 
-❎ i18 (dialog `cancel` and `ok` text)
-❎ a11y
-
++ ❎ i18 (such as `Ok`, `Cancel`, `loading...`)
++ ❎ a11y
++ ❎
++ ❎ using new document framework (ohu-book)
