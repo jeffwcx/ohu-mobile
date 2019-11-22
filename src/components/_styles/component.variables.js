@@ -36,6 +36,9 @@ const popupHeaderCloseBtnColor = '#848C95';
 const popoverContentBg = '#4C4C4C';
 const popoverArrowSize = '12px';
 const popoverDividerColor = '#6D6D6D';
+// DropMenu
+const dropMenuItemOptionActiveColor = '#F5F5F5';
+const dropMenuItemOptionsBoxShadow = '0px 2px 8px 0px rgba(153,153,153,0.2)';
 
 
 module.exports = {
@@ -73,4 +76,7 @@ module.exports = {
   popoverContentBg,
   popoverArrowSize,
   popoverDividerColor,
+  // dropMenu
+  dropMenuItemOptionActiveColor,
+  dropMenuItemOptionsBoxShadow,
 };

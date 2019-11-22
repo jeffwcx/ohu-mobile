@@ -37,7 +37,6 @@
     &.is-scrollable {
       overscroll-behavior-y: contain;
       overflow: auto;
-      -webkit-overflow-scrolling: touch;
       text-align: center;
       &::after {
         content: '';

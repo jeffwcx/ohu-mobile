@@ -54,6 +54,7 @@
     &-options {
       width: 100%;
       background: $color-text-base-inverse;
+      box-shadow: $drop-menu-item-options-box-shadow;
     }
     &-option {
       padding: 30px;
@@ -66,7 +67,7 @@
       align-items: center;
       @include tap-component();
       &:active {
-        background: #F5F5F5;
+        background: $drop-menu-item-option-active-color;
       }
       &.is-active {
         color: $color-primary;

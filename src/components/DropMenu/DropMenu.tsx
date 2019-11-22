@@ -9,6 +9,8 @@ import { manager } from '../Popup';
 import './styles/index.scss';
 import { DropMenuItemType } from './DropMenuItem';
 import isPlainObject from '../_utils/isPlainObject';
+import { IconProperty } from '../../global';
+import { CheckOutlined, ArrowDownSOutlined } from '../../icons';
 
 
 export const baseDropMenuName = `${prefix}dropmenu`;
@@ -21,6 +23,12 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
     defaultValue: props<DropMenuDataModel, Array<any>>(Object, Array).default(() => ({})),
     direction: props.ofStringLiterals('up', 'down').default('down'),
     divider: props(Boolean).default(true),
+    itemActive: props(Boolean).default(true),
+    mask: props(Boolean).default(true),
+    popupClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
+    popupStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
+    checkIcon: props.ofType<IconProperty>().default(() => CheckOutlined),
+    dropDownIcon: props.ofType<IconProperty>().default(() => ArrowDownSOutlined),
   },
   computed: {
     isObjectValue() {
@@ -32,13 +40,21 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       zIndex: manager.zIndex + 10000,
       currentValue: this.defaultValue,
       selectedOptions: {},
+      menuItems: [],
     } as {
       zIndex: number,
       currentValue: DropMenuDataModel | Array<any>,
       selectedOptions: DropMenuDataModel,
+      menuItems: DropMenuItemType[],
     };
   },
+  watch: {
+    $children() {
+      this.menuItems = this.getMenuItems();
+    },
+  },
   mounted() {
+    this.menuItems = this.getMenuItems();
     this.initSelectedOptions();
   },
   methods: {
@@ -49,8 +65,8 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       return this.currentValue;
     },
     initSelectedOptions() {
-      this.getMenuItems().map((item) => {
-        const option = item.getCheckedOption();
+      this.menuItems.map((item) => {
+        const option = item.checkedOption;
         if (option) {
           if (this.isObjectValue && item.$vnode.key) {
             this.selectedOptions[item.$vnode.key] = option;
