@@ -8,7 +8,8 @@ $row-x-dirs: (
   right: flex-end,
   center: center,
   between: space-between,
-  around: space-around
+  around: space-around,
+  evenly: space-evenly
 );
 $row-y-dirs: (
   top: flex-start,
@@ -23,7 +24,8 @@ $row-m-dirs: (
   center: center,
   between: space-between,
   around:space-around,
-  stretch: stretch
+  stretch: stretch,
+  evenly: space-evenly
 );
 
 $col-x-dirs: (
@@ -38,7 +40,8 @@ $col-y-dirs: (
   bottom: flex-end,
   center: center,
   between: space-between,
-  around: space-around
+  around: space-around,
+  evenly: space-evenly
 );
 $col-m-dirs: (
   left: flex-start,
@@ -46,7 +49,8 @@ $col-m-dirs: (
   center: center,
   between: space-between,
   around:space-around,
-  stretch: stretch
+  stretch: stretch,
+  evenly: space-evenly
 );
 
 // mapping flex property to normal property
@@ -59,8 +63,10 @@ $col-m-dirs: (
 }
 
 @mixin row () {
+  box-sizing: border-box;
   display: flex;
-  flex-flow: row nowrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 @mixin row-x ($normalProp) {
@@ -79,6 +85,9 @@ $col-m-dirs: (
 }
 
 .#{$prefix}row {
+  &.is-reverse {
+    flex-direction: row-reverse;
+  }
   @include row();
   @include mapDir(x, $row-x-dirs, justify-content);
   @include mapDir(y, $row-y-dirs, align-items);
@@ -86,8 +95,10 @@ $col-m-dirs: (
 }
 
 @mixin col () {
+  box-sizing: border-box;
   display: flex;
-  flex-flow: column nowrap;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 @mixin col-x ($normalProp) {
@@ -106,6 +117,9 @@ $col-m-dirs: (
 }
 
 .#{$prefix}col {
+  &.is-reverse {
+    flex-direction: column-reverse;
+  }
   @include col();
   @include mapDir(x, $col-x-dirs, align-items);
   @include mapDir(y, $col-y-dirs, justify-content);

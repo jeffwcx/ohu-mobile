@@ -4,6 +4,7 @@
 @mixin isMulti () {
   flex-wrap: wrap;
 }
+
 .is-multi{
   @include isMulti();
 }
