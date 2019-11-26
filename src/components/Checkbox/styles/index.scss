@@ -1,0 +1,44 @@
+$checkbox-color: #ccc;
+.#{$prefix}checkbox {
+  position: relative;
+  &-wrapper {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-size: 28px;
+    &.is-disabled {
+      cursor: not-allowed;
+      input {
+        cursor: not-allowed;
+      }
+      .#{$prefix}icon {
+        opacity: .3;
+      }
+      .#{$prefix}checkbox__label {
+        color: #ccc;
+      }
+    }
+  }
+  > input {
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+  }
+  > .#{$prefix}icon {
+    color: $checkbox-color;
+    font-size: 1.4em;
+  }
+  &__label {
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 1em;
+    font-weight: 400;
+    color: $color-text-base;
+  }
+}
