@@ -40,6 +40,11 @@ const popoverDividerColor = '#6D6D6D';
 const dropMenuItemOptionActiveColor = '#F5F5F5';
 const dropMenuItemOptionsBoxShadow = '0px 2px 8px 0px rgba(153,153,153,0.2)';
 
+// Radio
+const radioColor = '#ccc';
+
+// Checkbox
+const checkboxColor = '#ccc';
 
 module.exports = {
   // tag
@@ -79,4 +84,8 @@ module.exports = {
   // dropMenu
   dropMenuItemOptionActiveColor,
   dropMenuItemOptionsBoxShadow,
+  // radio
+  radioColor,
+  // checkbox
+  checkboxColor,
 };
