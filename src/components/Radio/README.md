@@ -2,7 +2,7 @@
 # Usage
 
 ```js
-import { Radio } from 'ohu-mobile';
+import { RadioGroup, Radio } from 'ohu-mobile';
 ```
 
 

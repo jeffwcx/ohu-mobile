@@ -4,8 +4,18 @@ import vars from '../_styles/variables';
 import { InputHTMLAttributes, SyntheticEvent } from 'vue-tsx-support/types/dom';
 import { IconProperty, SVGIconDef } from '@/global';
 import { VNode, CreateElement, PropOptions } from 'vue';
-import RadioGroup from '../RadioGroup';
 
+export interface CommonGroupProps {
+  disabled: boolean;
+  name?: string;
+}
+
+export interface CommmonGroupMethods {
+  childrenChange: (value: any, checked: boolean) => void;
+  isChildChecked: (value: any) => boolean;
+}
+
+export type CommonGroup = CommonGroupProps & CommmonGroupMethods;
 
 export interface CheckBaseEvents {
   onChange: boolean;
@@ -72,11 +82,20 @@ export default function<
     props: componentProps,
     inject: {
       parent: {
-        from: role === 'checkbox' ? 'checkBoxGroup' : 'radioGroup',
+        from: role === 'checkbox' ? 'checkboxGroup' : 'radioGroup',
         default: null,
       },
     },
+    watch: {
+      checked(nv) {
+        this.changedValue = nv;
+      },
+    },
     computed: {
+      disabledState() {
+        const instance = this as any;
+        return instance.getCurrentDisabledState(instance.parent);
+      },
       checkedState() {
         const instance = this as any;
         return instance.getCurrentCheckedState(instance.parent);
@@ -85,11 +104,11 @@ export default function<
     data() {
       const instance = this as any;
       return {
-        changedValue: undefined,
+        changedValue: this.checked,
         currentParent: instance.parent,
       } as {
         changedValue?: boolean,
-        currentParent: InstanceType<typeof RadioGroup>,
+        currentParent: CommonGroup,
       };
     },
     model: {
@@ -97,21 +116,33 @@ export default function<
       event: 'change',
     },
     methods: {
-      getCurrentCheckedState(currentParernt: InstanceType<typeof RadioGroup>) {
-        // What am i doing?
+      toggle() {
+        this.createChange(!this.checkedState);
+      },
+      check() {
+        this.createChange(true);
+      },
+      uncheck() {
+        this.createChange(false);
+      },
+      getCurrentDisabledState(currentParent: CommonGroup) {
+        return currentParent ? currentParent.disabled : this.disabled;
+      },
+      getCurrentCheckedState(currentParernt: CommonGroup) {
         return currentParernt
-          ? currentParernt.valueState === this.value
+          ? currentParernt.isChildChecked(this.value)
           : (this.checked === undefined
             ? this.defaultChecked
-            : (this.changedValue !== undefined
-              ? this.changedValue
-              :  this.checked));
+            : this.changedValue);
+      },
+      createChange(checked: boolean) {
+        this.changedValue = checked;
+        this.currentParent && this.currentParent.childrenChange(this.value, checked);
+        this.$emit('change', checked);
       },
       handleCheckBaseChange(e: SyntheticEvent<InputHTMLAttributes, Event>) {
         if (e.target.checked !== undefined) {
-          this.changedValue = e.target.checked;
-          this.currentParent && this.currentParent.childrenChange(this.value);
-          this.$emit('change', e.target.checked, e);
+          this.createChange(e.target.checked);
         }
       },
       handleCheckBaseInput(e: Event) {
@@ -119,12 +150,12 @@ export default function<
       },
     },
     render() {
-      const { $slots, $props, name, disabled, value, currentParent } = this;
+      const { $slots, $props, name, disabledState, value, currentParent } = this;
       const checked = this.checkedState;
       const cls = {
         [wrapperCls]: true,
         'is-checked': checked,
-        'is-disabled': disabled,
+        'is-disabled': disabledState,
         'is-group-item': currentParent !== null,
       };
       const inputName = (currentParent && currentParent.name) || name;
@@ -137,7 +168,7 @@ export default function<
               name={inputName}
               value={value}
               checked={checked}
-              disabled={disabled}
+              disabled={disabledState}
               onChange={this.handleCheckBaseChange}
               data-indeterminate={$props.indeterminate} />
             {iconNode}

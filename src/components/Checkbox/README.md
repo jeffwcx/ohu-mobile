@@ -2,7 +2,7 @@
 # Usage
 
 ```js
-import { CheckBox } from 'ohu-mobile';
+import { Checkbox, CheckboxGroup } from 'ohu-mobile';
 ```
 
 

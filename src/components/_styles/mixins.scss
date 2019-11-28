@@ -62,9 +62,10 @@
       display: inline-flex;
       flex-flow: row nowrap;
       align-items: center;
+      cursor: pointer;
       @include tap-component;
       &.is-group-item {
-        margin-right: 12px;
+        margin-right: 16px;
       }
       &.is-disabled {
         cursor: not-allowed;
@@ -74,7 +75,7 @@
         .#{$prefix}icon {
           opacity: .4;
         }
-        .#{$prefix}checkbox__label {
+        .#{$prefix}#{$name}__label {
           color: $color;
         }
       }
