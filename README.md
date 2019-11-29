@@ -12,6 +12,7 @@ npm i -S ohu-mobile
 
 ## TODO
 
++ ❎ using `hook:<>`
 + ❎ lerna manager multiple packages
 + ❎ i18 (such as `Ok`, `Cancel`, `loading...`)
 + ❎ a11y

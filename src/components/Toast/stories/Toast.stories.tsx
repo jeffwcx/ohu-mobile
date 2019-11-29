@@ -79,6 +79,7 @@ export const icon = () => Vue.extend({
       <Card>
         <Button onClick={() => {
           Toast.open({
+            duration: 100000,
             icon: {
               type: CheckboxCircleFilled,
               color: '#36b365',

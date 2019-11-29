@@ -22,8 +22,10 @@
     flex: 0 0 auto;
   }
   >.#{$prefix}icon {
-    margin-right: 16px;
-    font-size: 42px;
+    font-size: 1.4em;
     flex: 0 0 auto;
+    ~.#{$prefix}toast__text {
+      margin-left: 16px;
+    }
   }
 }

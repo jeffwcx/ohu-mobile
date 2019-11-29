@@ -69,6 +69,9 @@
       }
       &.is-disabled {
         cursor: not-allowed;
+        >.#{$prefix}#{$name} {
+          cursor: not-allowed;
+        }
         input {
           cursor: not-allowed;
         }

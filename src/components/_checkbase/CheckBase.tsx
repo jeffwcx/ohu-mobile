@@ -29,6 +29,7 @@ export interface CheckBaseOptions {
   labelCls: string;
   defaultCheckedIcon: SVGIconDef;
   defaultUnCheckedIcon: SVGIconDef;
+  labelClickable?: boolean;
   icon: (h: CreateElement, checked: boolean, props: {
     indeterminate?: boolean;
     indeterminateIcon?: IconProperty;
@@ -63,6 +64,7 @@ export default function<
     icon,
     defaultCheckedIcon,
     defaultUnCheckedIcon,
+    labelClickable,
   }: CheckBaseOptions
 ) {
   const componentProps = {
@@ -77,6 +79,7 @@ export default function<
     unCheckedIcon: props.ofType<IconProperty>().default(() => defaultUnCheckedIcon),
     ...addProps,
   };
+  const wrapperTag = labelClickable === false ? 'div' : 'label';
   return ofType<Props, Events>().convert(component({
     name: baseName,
     props: componentProps,
@@ -160,23 +163,47 @@ export default function<
       };
       const inputName = (currentParent && currentParent.name) || name;
       const iconNode = icon(this.$createElement, checked, $props as any);
+      // return this.$createElement(wrapperTag, { class: cls, attrs: { tabindex: 0 } }, [
+      //   <span class={baseName}>
+      //     <input type={role}
+      //       onInput={this.handleCheckBaseInput}
+      //       name={inputName}
+      //       value={value}
+      //       checked={checked}
+      //       disabled={disabledState}
+      //       onChange={this.handleCheckBaseChange}
+      //       data-indeterminate={$props.indeterminate} />
+      //     {iconNode}
+      //   </span>,
+      //   $slots.default &&
+      //     <span class={labelCls}>{$slots.default}</span>
+      // ]);
+      const input = (
+        <span class={baseName}>
+          <input type={role}
+            onInput={this.handleCheckBaseInput}
+            name={inputName}
+            value={value}
+            checked={checked}
+            disabled={disabledState}
+            onChange={this.handleCheckBaseChange}
+            data-indeterminate={$props.indeterminate} />
+          {iconNode}
+        </span>
+      );
+      const label = $slots.default && <span class={labelCls}>{$slots.default}</span>;
+      if (labelClickable === false) {
+        return (
+          <div class={cls} tabindex={0}>
+            {input}
+            {label}
+          </div>
+        );
+      }
       return (
         <label class={cls} tabindex={0}>
-          <span class={baseName}>
-            <input type={role}
-              onInput={this.handleCheckBaseInput}
-              name={inputName}
-              value={value}
-              checked={checked}
-              disabled={disabledState}
-              onChange={this.handleCheckBaseChange}
-              data-indeterminate={$props.indeterminate} />
-            {iconNode}
-          </span>
-          {
-            $slots.default &&
-            <span class={labelCls}>{$slots.default}</span>
-          }
+          {input}
+          {label}
         </label>
       );
     },
