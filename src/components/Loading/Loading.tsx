@@ -4,11 +4,12 @@ import Icon from '../Icon';
 import props from 'vue-strict-prop';
 import { LoaderFilled } from '@/icons';
 import './styles/index.scss';
+import localeMixin from '../_utils/localeMixin';
 
 
 const loadingBaseName = `${prefix}loading`;
 const loadingTextCls = `${loadingBaseName}__text`;
-const Loading = componentFactory.create({
+const Loading = componentFactory.mixin(localeMixin('OhuLoading')).create({
   name: loadingBaseName,
   props: {
     color: String,
@@ -19,7 +20,7 @@ const Loading = componentFactory.create({
   },
   render() {
     const { color, vertical, size, textColor, textSize, $slots } = this;
-    const loadingText = $slots.default || 'loading...';
+    const loadingText = $slots.default || this.$l.defaultText;
     const loadingStyle: Partial<CSSStyleDeclaration> = {};
     if (color) loadingStyle.color = color;
     if (size) loadingStyle.fontSize = size;

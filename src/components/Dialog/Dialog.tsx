@@ -11,22 +11,28 @@ import { createActionOptions } from './utils';
 import Button from '../Button';
 import { VNodeData, VNode } from 'vue';
 import Divider from '../Divider';
-import Icon, { IconProps } from '../Icon';
+import { IconProps } from '../Icon';
 import './styles/index.scss';
 import { addTargetClass } from '../_utils/targetClass';
 import { getIcon } from '../_utils/icon-utils';
+import localeMixin from '../_utils/localeMixin';
 
-const defaultOKOptions: DialogActionOptions = {
-  type: 'ok',
-  text: 'OK',
-  disabled: false,
-};
-const defaultCancelOptions: DialogActionOptions = {
-  type: 'cancel',
-  text: 'Cancel',
-  disabled: false,
-  color: vars.colorTextMinor,
-};
+function defaultOKOptions(text?: string): DialogActionOptions {
+  return {
+    type: 'ok',
+    text,
+    disabled: false,
+  }
+}
+
+function defaultCancelOptions(text?: string): DialogActionOptions {
+  return {
+    type: 'cancel',
+    text,
+    disabled: false,
+    color: vars.colorTextMinor,
+  };
+}
 
 export type DialogIconOption = IconProperty;
 
@@ -52,7 +58,7 @@ const dialogBodyTitleCls = `${dialogBodyCls}__title`;
 const dialogBodyContentCls = `${dialogBodyCls}__content`;
 const dialogBodyIconCls = `${dialogBodyCls}__icon`;
 // todo i18
-export default componentFactoryOf<DialogEvents>().create({
+export default componentFactoryOf<DialogEvents>().mixin(localeMixin('OhuDialog')).create({
   name: baseDialogName,
   model: {
     prop: 'visible',
@@ -91,14 +97,14 @@ export default componentFactoryOf<DialogEvents>().create({
     getOKAction() {
       if (this.okBtn === null) return;
       return createActionOptions(
-        defaultOKOptions,
+        defaultOKOptions(this.$l.defaultOKText),
         this.okBtn,
       );
     },
     getCancelAction() {
       if (this.cancelBtn === null) return;
       return createActionOptions(
-        defaultCancelOptions,
+        defaultCancelOptions(this.$l.defaultCancelText),
         this.cancelBtn,
       );
     },

@@ -163,21 +163,6 @@ export default function<
       };
       const inputName = (currentParent && currentParent.name) || name;
       const iconNode = icon(this.$createElement, checked, $props as any);
-      // return this.$createElement(wrapperTag, { class: cls, attrs: { tabindex: 0 } }, [
-      //   <span class={baseName}>
-      //     <input type={role}
-      //       onInput={this.handleCheckBaseInput}
-      //       name={inputName}
-      //       value={value}
-      //       checked={checked}
-      //       disabled={disabledState}
-      //       onChange={this.handleCheckBaseChange}
-      //       data-indeterminate={$props.indeterminate} />
-      //     {iconNode}
-      //   </span>,
-      //   $slots.default &&
-      //     <span class={labelCls}>{$slots.default}</span>
-      // ]);
       const input = (
         <span class={baseName}>
           <input type={role}

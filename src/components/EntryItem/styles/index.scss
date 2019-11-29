@@ -8,6 +8,7 @@ $base-entry-item-cls: #{$prefix}entry-item;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   color: $color-text-base;
+  transition: all .3s easing(out-quint);
   .#{$prefix}icon {
     width: 1.375em;
     height: 1.375em;

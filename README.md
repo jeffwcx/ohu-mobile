@@ -13,7 +13,6 @@ npm i -S ohu-mobile
 ## TODO
 
 + ❎ using `hook:<>`
-+ ❎ lerna manager multiple packages
-+ ❎ i18 (such as `Ok`, `Cancel`, `loading...`)
++ ❎ lerna manage multiple packages
 + ❎ a11y
 + ❎ using new document framework (ohu-book)
