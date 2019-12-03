@@ -1,0 +1,15 @@
+
+.#{$prefix}form-field {
+  font-size: 32px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-flow: column wrap;
+  &__label {
+    color: $color-text-base;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  &__control {}
+}

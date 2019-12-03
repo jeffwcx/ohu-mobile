@@ -3,7 +3,7 @@ import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
 import { RadioProps } from '../Radio/types';
 import Radio from '../Radio';
-import checkGroupMixin from '../_checkbase/checkGroupMixin';
+import ancestorMixin from '../_utils/ancestorMixin';
 
 const baseRadioGroupName = `${prefix}radio-group`;
 
@@ -14,7 +14,7 @@ export interface RadioGroupEvents {
 export type RadioOption = (RadioProps & { label?: string }) | string;
 
 export default componentFactoryOf<RadioGroupEvents>().mixin(
-  checkGroupMixin('radioGroup')
+  ancestorMixin('radioGroup')
 ).create({
   name: baseRadioGroupName,
   model: {
@@ -26,6 +26,11 @@ export default componentFactoryOf<RadioGroupEvents>().mixin(
     value: props.ofType<any>().default(null),
     disabled: props(Boolean).default(false),
     options: props.ofArray<RadioOption>().optional,
+  },
+  watch: {
+    value(nv) {
+      this.valueState = nv;
+    },
   },
   data() {
     return {

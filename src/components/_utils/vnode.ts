@@ -1,5 +1,5 @@
 import { filterEmpty, parseStyleText } from './props-util';
-import Vue, { VNode } from 'vue';
+import Vue, { VNode, Component } from 'vue';
 export function cloneVNode(vnode: any, deep: boolean) {
   const componentOptions = vnode.componentOptions;
   const data = vnode.data;
@@ -175,4 +175,15 @@ export function transformSlotsContext(slots: { [key: string]: VNode[] | undefine
     return arr;
   }, result);
   return result;
+}
+
+
+export function getVModelOption(vnode: VNode) {
+  const Ctor = vnode.componentOptions?.Ctor as any;
+  const { model } = Ctor.extendOptions;
+  if (model) return model;
+  return {
+    event: 'input',
+    prop: 'value',
+  };
 }

@@ -1,9 +1,9 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import checkGroupMixin from '../_checkbase/checkGroupMixin';
 import { CheckboxProps } from '../Checkbox/types';
 import Checkbox from '../Checkbox';
+import ancestorMixin from '../_utils/ancestorMixin';
 
 const baseCheckboxGroupName = `${prefix}checkbox-group`;
 
@@ -14,7 +14,7 @@ export interface CheckboxGroupEvents {
 export type CheckboxOption = (CheckboxProps & { label?: string }) | string;
 
 export default componentFactoryOf<CheckboxGroupEvents>().mixin(
-  checkGroupMixin('checkboxGroup')
+  ancestorMixin('checkboxGroup')
 ).create({
   name: baseCheckboxGroupName,
   model: {
@@ -27,6 +27,11 @@ export default componentFactoryOf<CheckboxGroupEvents>().mixin(
     disabled: props(Boolean).default(false),
     options: props.ofArray<CheckboxOption>().optional,
     max: props(Number).default(Infinity),
+  },
+  watch: {
+    value(nv) {
+      this.result = nv;
+    },
   },
   data() {
     return {

@@ -9,6 +9,8 @@
   width: 1.7em;
   height: 1.7em;
   align-self: flex-start;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
   &-wrapper {
     font-size: 28px;
     display: flex;
