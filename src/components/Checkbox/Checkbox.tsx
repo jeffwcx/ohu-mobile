@@ -35,6 +35,7 @@ export default CheckBase<CheckboxProps>({
     const iconType = indeterminate ? indeterminateIcon : (
       checked ? checkedIcon : unCheckedIcon
     );
+    if (!iconType) return h('i');
     return getIcon(
       h,
       iconType,

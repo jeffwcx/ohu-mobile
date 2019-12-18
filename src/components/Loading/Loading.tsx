@@ -15,12 +15,13 @@ const Loading = componentFactory.mixin(localeMixin('OhuLoading')).create({
     color: String,
     vertical: props(Boolean).default(false),
     size: String,
+    text: String,
     textSize: String,
     textColor: String,
   },
   render() {
-    const { color, vertical, size, textColor, textSize, $slots } = this;
-    const loadingText = $slots.default || this.$l.defaultText;
+    const { color, vertical, size, text, textColor, textSize, $slots } = this;
+    const loadingText = ($slots.default || text) || this.$l.defaultText;
     const loadingStyle: Partial<CSSStyleDeclaration> = {};
     if (color) loadingStyle.color = color;
     if (size) loadingStyle.fontSize = size;

@@ -1,19 +1,21 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import { CheckboxProps } from '../Checkbox/types';
 import Checkbox from '../Checkbox';
 import ancestorMixin from '../_utils/ancestorMixin';
+import { CheckboxGroupEvents, CheckboxOption, CheckboxGroupScopedSlots } from './types';
+
+export const checkboxGroupProps = {
+  name: props(String).optional,
+  value: props.ofArray().default(() => []),
+  disabled: props.ofType<Boolean | undefined>().default(undefined),
+  options: props.ofArray<CheckboxOption | string>().optional,
+  max: props(Number).default(Infinity),
+};
 
 const baseCheckboxGroupName = `${prefix}checkbox-group`;
 
-export interface CheckboxGroupEvents {
-  onChange: any;
-}
-
-export type CheckboxOption = (CheckboxProps & { label?: string }) | string;
-
-export default componentFactoryOf<CheckboxGroupEvents>().mixin(
+export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>().mixin(
   ancestorMixin('checkboxGroup')
 ).create({
   name: baseCheckboxGroupName,
@@ -21,13 +23,7 @@ export default componentFactoryOf<CheckboxGroupEvents>().mixin(
     prop: 'value',
     event: 'change',
   },
-  props: {
-    name: props(String).optional,
-    value: props.ofArray().default(() => []),
-    disabled: props(Boolean).default(false),
-    options: props.ofArray<CheckboxOption>().optional,
-    max: props(Number).default(Infinity),
-  },
+  props: checkboxGroupProps,
   watch: {
     value(nv) {
       this.result = nv;
@@ -55,18 +51,33 @@ export default componentFactoryOf<CheckboxGroupEvents>().mixin(
     isChildChecked(value: any) {
       return this.result.indexOf(value) >= 0;
     },
-    renderOptions(options: CheckboxOption[]) {
+    renderOptions(options: (CheckboxOption | string)[]) {
       return options.map(option => {
         if (typeof option === 'string') {
           return <Checkbox value={option}>{option}</Checkbox>
         }
-        return <Checkbox {...{ props: option }}>{option.label}</Checkbox>
+        const {
+          attach,
+          label,
+          ...props
+        } = option;
+        return <Checkbox {...{ props }}>{label}</Checkbox>
       });
     },
   },
   render() {
-    const { $slots, options } = this;
-    const content = options ? this.renderOptions(options) : $slots.default;
+    const { $slots, $scopedSlots, options } = this;
+    const content = options
+      ? (
+        $scopedSlots.renderOption
+          ? options.map(option => {
+            if ($scopedSlots.renderOption) {
+              return $scopedSlots.renderOption(option);
+            }
+          })
+          : this.renderOptions(options)
+      )
+      : $slots.default;
     return (
       <div class={baseCheckboxGroupName} role="checkboxgroup">
         {content}

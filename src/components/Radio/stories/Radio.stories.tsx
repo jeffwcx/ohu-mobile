@@ -58,6 +58,7 @@ export const options = () => Vue.extend({
       <div>
         <RadioGroup v-model={this.f} options={['apple', 'banana', 'chestnut']}>
         </RadioGroup>
+        {this.f}
       </div>
     );
   },

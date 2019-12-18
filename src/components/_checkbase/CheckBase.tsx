@@ -8,6 +8,11 @@ import { VNode, CreateElement, PropOptions } from 'vue';
 export interface CommonGroupProps {
   disabled: boolean;
   name?: string;
+  color?: string;
+  unCheckedColor?: string;
+  checkedIcon?: IconProperty;
+  unCheckedIcon?: IconProperty | null;
+  indeterminateIcon?: IconProperty;
 }
 
 export interface CommmonGroupMethods {
@@ -49,7 +54,7 @@ export interface CheckBaseProps {
   color?: string;
   unCheckedColor?: string;
   checkedIcon?: IconProperty;
-  unCheckedIcon?: IconProperty;
+  unCheckedIcon?: IconProperty | null;
 }
 
 export default function<
@@ -76,10 +81,9 @@ export default function<
     color: props(String).default(vars.colorPrimary),
     unCheckedColor: props(String).default(vars.colorTextDisabled),
     checkedIcon: props.ofType<IconProperty>().default(() => defaultCheckedIcon),
-    unCheckedIcon: props.ofType<IconProperty>().default(() => defaultUnCheckedIcon),
+    unCheckedIcon: props.ofType<IconProperty | null>().default(() => defaultUnCheckedIcon),
     ...addProps,
   };
-  const wrapperTag = labelClickable === false ? 'div' : 'label';
   return ofType<Props, Events>().convert(component({
     name: baseName,
     props: componentProps,
@@ -94,6 +98,17 @@ export default function<
         this.changedValue = nv;
       },
     },
+    data() {
+      const instance = this as any;
+      const currentParent = instance.parent as CommonGroup;
+      return {
+        changedValue: this.checked,
+        currentParent,
+      } as {
+        changedValue?: boolean,
+        currentParent: CommonGroup,
+      };
+    },
     computed: {
       disabledState() {
         const instance = this as any;
@@ -103,16 +118,19 @@ export default function<
         const instance = this as any;
         return instance.getCurrentCheckedState(instance.parent);
       },
-    },
-    data() {
-      const instance = this as any;
-      return {
-        changedValue: this.checked,
-        currentParent: instance.parent,
-      } as {
-        changedValue?: boolean,
-        currentParent: CommonGroup,
-      };
+      // Todo, totally because fucking ts supporting of vue2.
+      commonProps() {
+        const instance = this as any;
+        const currentParent = instance.currentParent;
+        return {
+          color: currentParent.color || instance.color,
+          unCheckedColor: currentParent.unCheckedColor || instance.unCheckedColor,
+          checkedIcon: currentParent.checkedIcon || instance.checkedIcon,
+          unCheckedIcon: currentParent.unCheckedIcon !== undefined ? currentParent.unCheckedIcon : instance.unCheckedIcon,
+          indeterminateIcon: currentParent.indeterminateIcon || instance.indeterminateIcon,
+          indeterminate: instance.indeterminate,
+        };
+      },
     },
     model: {
       prop: 'checked',
@@ -129,7 +147,9 @@ export default function<
         this.createChange(false);
       },
       getCurrentDisabledState(currentParent: CommonGroup) {
-        return currentParent ? currentParent.disabled : this.disabled;
+        return (currentParent && currentParent.disabled !== undefined)
+          ? currentParent.disabled
+          : this.disabled;
       },
       getCurrentCheckedState(currentParernt: CommonGroup) {
         return currentParernt
@@ -162,7 +182,7 @@ export default function<
         'is-group-item': currentParent !== null,
       };
       const inputName = (currentParent && currentParent.name) || name;
-      const iconNode = icon(this.$createElement, checked, $props as any);
+      const iconNode = icon(this.$createElement, checked, this.commonProps);
       const input = (
         <span class={baseName}>
           <input type={role}

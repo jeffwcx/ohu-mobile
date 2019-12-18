@@ -94,6 +94,14 @@
       z-index: 1;
       opacity: 0;
     }
+    > i {
+      display: inline-block;
+      font-size: 1.4em;
+      vertical-align: -.125em;
+      width: 1em;
+      height: 1em;
+      transition: all .4s easing(out-expo);
+    }
     > .#{$prefix}icon {
       color: $color;
       font-size: 1.4em;

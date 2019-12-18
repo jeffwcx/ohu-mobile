@@ -9,4 +9,7 @@ export default {
   OhuLoading: {
     defaultText: 'loading...',
   },
+  OhuList: {
+    defaultFinishedText: 'No more',
+  },
 } as LocaleDef;

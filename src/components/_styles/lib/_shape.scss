@@ -116,6 +116,7 @@
       // no matter how you config the `postcss-pxtorem`
       border: 1Px solid $color;
       border-radius: $border-radius;
+      @content;
       @media only screen and (-webkit-min-device-pixel-ratio: 2) {
         width: 200%;
         height: 200%;
@@ -150,6 +151,7 @@
       @if $color != _ {
         border-color: $color;
       }
+      @content;
       @media screen and (-webkit-min-device-pixel-ratio: 2) {
         @if $position == left or $position == right {
           transform: scaleX(.5);

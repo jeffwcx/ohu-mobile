@@ -1,17 +1,26 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import { RadioProps } from '../Radio/types';
 import Radio from '../Radio';
 import ancestorMixin from '../_utils/ancestorMixin';
+import { RadioOption, RadioGroupEvents } from './types';
+import { IconProperty } from '../../global';
 
 const baseRadioGroupName = `${prefix}radio-group`;
 
-export interface RadioGroupEvents {
-  onChange: any;
-}
 
-export type RadioOption = (RadioProps & { label?: string }) | string;
+
+export const radioGroupProps = {
+  name: props(String).optional,
+  value: props.ofType<any>().default(null),
+  disabled: props.ofType<Boolean | undefined>().default(undefined),
+  options: props.ofArray<RadioOption | string>().optional,
+  color: String,
+  unCheckedColor: String,
+  checkedIcon: props.ofType<IconProperty>().optional,
+  unCheckedIcon: props.ofType<IconProperty | null>().optional,
+};
+
 
 export default componentFactoryOf<RadioGroupEvents>().mixin(
   ancestorMixin('radioGroup')
@@ -21,12 +30,7 @@ export default componentFactoryOf<RadioGroupEvents>().mixin(
     prop: 'value',
     event: 'change',
   },
-  props: {
-    name: props(String).optional,
-    value: props.ofType<any>().default(null),
-    disabled: props(Boolean).default(false),
-    options: props.ofArray<RadioOption>().optional,
-  },
+  props: radioGroupProps,
   watch: {
     value(nv) {
       this.valueState = nv;
@@ -49,12 +53,17 @@ export default componentFactoryOf<RadioGroupEvents>().mixin(
     isChildChecked(value: any) {
       return this.valueState === value;
     },
-    renderOptions(options: RadioOption[]) {
+    renderOptions(options: (RadioOption | string)[]) {
       return options.map(option => {
         if (typeof option === 'string') {
           return <Radio value={option}>{option}</Radio>
         }
-        return <Radio {...{ props: option }}>{option.label}</Radio>
+        const {
+          attach,
+          label,
+          ...props
+        } = option;
+        return <Radio {...{ props }}>{label}</Radio>
       });
     },
   },

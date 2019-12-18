@@ -57,7 +57,7 @@ const dialogBodyCls = `${baseDialogName}__body`;
 const dialogBodyTitleCls = `${dialogBodyCls}__title`;
 const dialogBodyContentCls = `${dialogBodyCls}__content`;
 const dialogBodyIconCls = `${dialogBodyCls}__icon`;
-// todo i18
+
 export default componentFactoryOf<DialogEvents>().mixin(localeMixin('OhuDialog')).create({
   name: baseDialogName,
   model: {
