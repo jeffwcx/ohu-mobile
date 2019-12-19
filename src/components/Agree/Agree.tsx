@@ -24,6 +24,7 @@ export default CheckBase({
     unCheckedColor,
   }) => {
     const iconType = checked ? checkedIcon : unCheckedIcon;
+    if (!iconType) return h('i');
     return getIcon(
       h,
       iconType,

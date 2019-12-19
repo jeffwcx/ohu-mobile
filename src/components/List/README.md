@@ -2,7 +2,7 @@
 # Usage
 
 ```js
-import { List } from 'ohu-mobile';
+import { List, CheckList, RadioList } from 'ohu-mobile';
 ```
 
 # Design Goals

@@ -123,11 +123,11 @@ export default function<
         const instance = this as any;
         const currentParent = instance.currentParent;
         return {
-          color: currentParent.color || instance.color,
-          unCheckedColor: currentParent.unCheckedColor || instance.unCheckedColor,
-          checkedIcon: currentParent.checkedIcon || instance.checkedIcon,
-          unCheckedIcon: currentParent.unCheckedIcon !== undefined ? currentParent.unCheckedIcon : instance.unCheckedIcon,
-          indeterminateIcon: currentParent.indeterminateIcon || instance.indeterminateIcon,
+          color: currentParent?.color || instance.color,
+          unCheckedColor: currentParent?.unCheckedColor || instance.unCheckedColor,
+          checkedIcon: currentParent?.checkedIcon || instance.checkedIcon,
+          unCheckedIcon: currentParent?.unCheckedIcon !== undefined ? currentParent?.unCheckedIcon : instance.unCheckedIcon,
+          indeterminateIcon: currentParent?.indeterminateIcon || instance.indeterminateIcon,
           indeterminate: instance.indeterminate,
         };
       },
