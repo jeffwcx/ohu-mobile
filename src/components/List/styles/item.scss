@@ -1,3 +1,4 @@
+$list-item-padding: 30px;
 .#{$prefix}list-item {
   display: flex;
   flex-flow: row nowrap;
@@ -5,6 +6,10 @@
   border-width: 0;
   border-style: solid;
   border-color: $color-divider;
+  padding: $list-item-padding;
+  font-size: 28px;
+  line-height: (36/28) * 1em;
+  color: $color-text-base;
   &.has-divider {
     @include hair-border(inherit, bottom);
   }

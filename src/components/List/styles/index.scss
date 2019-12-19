@@ -1,15 +1,7 @@
-$list-item-padding: 30px;
-
 .#{$prefix}list {
   list-style: none;
   margin: 0;
   padding: 0;
-  > li {
-    padding: $list-item-padding;
-    font-size: 28px;
-    line-height: (36/28) * 1em;
-    color: $color-text-base;
-  }
   &__bottom {
     padding-bottom: 20px;
     line-height: 70px;

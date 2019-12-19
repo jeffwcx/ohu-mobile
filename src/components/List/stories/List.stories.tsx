@@ -6,6 +6,8 @@ import { CheckboxOption } from '../../CheckboxGroup';
 import CheckList from '../../CheckList';
 import RadioList from '../../RadioList';
 import { RadioOption } from '../../RadioGroup';
+import Sticky from '../../Sticky';
+import Button from '../../Button';
 
 export default {
   title: 'Components|DataDisplay/List',
@@ -122,36 +124,37 @@ export const icon = () => Vue.extend({
 export const sticky = () => Vue.extend({
   data() {
     return {
-      list: new Array(30).fill({
+      list: new Array(4).fill(new Array(8).fill({
         text: '张斌 | 副主任医师',
         minorText: '擅长：肺结核、肺癌、胸腔积液、慢性咳嗽'
-      }),
+      })),
+      top: 0,
     };
   },
   render() {
     return (
       <List>
         {
-          this.list.map((item, index) => {
-            const d = Math.floor(index / 8);
-            const i = index % 8;
-            const nodes: VNode[] = [];
-            if (i === 0) {
-              nodes.push(
-                <div style="position: sticky; top: 0; background: #FFF; z-index: 1;">{index}-{index + 7}</div>
-              );
-            }
-            nodes.push(
-              <List.Item button
-                text={item.text}
-                paddingDivider={false}
-                minorText={item.minorText}>
-                <img slot="avatar" style="object-fit: contain;" src={require('@/assets/logo.svg')} />
-                <Icon slot="action" type="arrow-right" />
-              </List.Item>
+          this.list.map((items: any[], index: number) => {
+            return (
+              <ul style="position: relative; padding: 0;">
+                {
+                  items.map((item) => {
+                    return (
+                      <List.Item button
+                        text={item.text}
+                        paddingDivider={false}
+                        minorText={item.minorText}>
+                        <img slot="avatar" style="object-fit: contain;" src={require('@/assets/logo.svg')} />
+                        <Icon slot="action" type="arrow-right" />
+                      </List.Item>
+                    );
+                  })
+                }
+                <Sticky bottom={0}>{index * 7 + 1}-{(index + 1) * 8}</Sticky>
+              </ul>
             );
-            return nodes;
-          }).flat()
+          })
         }
       </List>
     );

@@ -103,6 +103,7 @@
   "dependencies": {
     "@types/yup": "^0.26.26",
     "deepmerge": "^4.2.2",
+    "stickybits": "^3.7.2",
     "vue-strict-prop": "^0.3.6",
     "vue-tsx-support": "^2.3.2",
     "yup": "^0.27.0"
