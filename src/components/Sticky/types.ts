@@ -9,7 +9,7 @@ export interface StickyProps {
 
 
 export interface StickyEvents {
-  onFixed: void;
-  onStuck: void;
-  onNormal: void;
+  onFixed: string;
+  onStuck: string;
+  onNormal: string;
 }

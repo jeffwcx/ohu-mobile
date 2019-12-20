@@ -19,16 +19,19 @@ export default componentFactory.mixin(localeMixin('OhuList')).create({
   name: baseListName,
   props: listProps,
   render() {
-    const { $slots, loading, loadingProps, finished, finishedText } = this;
+    const {
+      $slots,
+      loading,
+      loadingProps,
+      finished,
+      finishedText,
+    } = this;
+    const loadingNode = $slots.loading || <Loading {...{props: loadingProps}} />;
     return (
       <ul class={baseListName}>
         {$slots.default}
         <div class={listBottomCls}>
-          {
-            loading
-            &&
-            <Loading {...{props: loadingProps}} />
-          }
+          {loading && loadingNode}
           {
             finished
             &&

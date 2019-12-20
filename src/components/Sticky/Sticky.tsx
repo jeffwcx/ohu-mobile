@@ -29,7 +29,7 @@ export default componentFactoryOf<StickyEvents>().create({
         applyStyle: (_, instance) => {
           const state = instance.state;
           if (state && eventMap[state]) {
-            this.$emit(eventMap[state]);
+            this.$emit(eventMap[state], state);
           }
         },
       };

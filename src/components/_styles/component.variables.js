@@ -45,6 +45,10 @@ const radioColor = '#ccc';
 
 // Checkbox
 const checkboxColor = '#ccc';
+// List
+const listItemPadding = '30px';
+const listSubheaderBgd = '#EEE';
+const listSubheaderColor = '#999';
 
 module.exports = {
   // tag
@@ -88,4 +92,8 @@ module.exports = {
   radioColor,
   // checkbox
   checkboxColor,
+  // list
+  listItemPadding,
+  listSubheaderBgd,
+  listSubheaderColor,
 };

@@ -100,3 +100,13 @@ export const selfDefined = () => Vue.extend({
   },
 });
 
+export const duration = () => Vue.extend({
+  render() {
+    return (
+      <Card>
+        <Skeleton rows={3} duration={3000}></Skeleton>
+      </Card>
+    );
+  },
+});
+

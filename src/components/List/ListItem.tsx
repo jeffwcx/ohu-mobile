@@ -1,12 +1,9 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import './styles/item.scss';
 import { VNodeData } from 'vue';
-
-export interface ListItemEvents {
-  onClick: Event;
-}
+import { ListItemEvents } from './types';
+import './styles/item.scss';
 
 const baseListItemName = `${prefix}list-item`;
 const listItemAvatarCls = `${baseListItemName}-avatar`;

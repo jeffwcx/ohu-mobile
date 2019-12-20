@@ -1,4 +1,4 @@
-import Vue, { VNode } from 'vue';
+import Vue from 'vue';
 import docs from '../README.md';
 import List from '..';
 import Icon from '../../Icon';
@@ -6,8 +6,8 @@ import { CheckboxOption } from '../../CheckboxGroup';
 import CheckList from '../../CheckList';
 import RadioList from '../../RadioList';
 import { RadioOption } from '../../RadioGroup';
-import Sticky from '../../Sticky';
-import Button from '../../Button';
+import Skeleton from '../../Skeleton';
+import Grid from '../../Grid';
 
 export default {
   title: 'Components|DataDisplay/List',
@@ -76,14 +76,72 @@ export const minorText = () => Vue.extend({
   },
 });
 
-export const thumb = () => Vue.extend({
+export const finished = () => Vue.extend({
+  render() {
+    return (
+      <List finished>
+        <List.Item button
+          text="解放院区"
+          minorText="浙江杭州市解放路88号">
+          <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
+          <Icon slot="action" type="arrow-right-s" />
+        </List.Item>
+      </List>
+    );
+  },
+});
+
+export const loading = () => Vue.extend({
   render() {
     return (
       <List loading>
         <List.Item button
           text="解放院区"
           minorText="浙江杭州市解放路88号">
-          <img slot="thumb" style="object-fit: contain;" src="http://via.placeholder.com/240x144/EEEEEE" />
+          <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
+          <Icon slot="action" type="arrow-right-s" />
+        </List.Item>
+      </List>
+    );
+  },
+});
+
+export const loadingSlot = () => Vue.extend({
+  render() {
+    return (
+      <List loading>
+        <Skeleton title rows={2} slot="loading">
+          <Skeleton style="width: 120px; height: 72px;" slot="left"></Skeleton>
+          <Grid slot="content" style="height: 72px;" column x="left" y="center">
+            <Skeleton row rowWidth="30%"></Skeleton>
+            <Skeleton row rowWidth="70%"></Skeleton>
+          </Grid>
+        </Skeleton>
+        <List.Item button
+          text="解放院区"
+          minorText="浙江杭州市解放路88号">
+          <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
+          <Icon slot="action" type="arrow-right-s" />
+        </List.Item>
+        <List.Item button
+          text="解放院区"
+          minorText="浙江杭州市解放路88号">
+          <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
+          <Icon slot="action" type="arrow-right-s" />
+        </List.Item>
+      </List>
+    );
+  },
+});
+
+export const thumb = () => Vue.extend({
+  render() {
+    return (
+      <List>
+        <List.Item button
+          text="解放院区"
+          minorText="浙江杭州市解放路88号">
+          <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
           <Icon slot="action" type="arrow-right-s" />
         </List.Item>
         <List.Item button
@@ -121,7 +179,7 @@ export const icon = () => Vue.extend({
   },
 });
 
-export const sticky = () => Vue.extend({
+export const subheader = () => Vue.extend({
   data() {
     return {
       list: new Array(4).fill(new Array(8).fill({
@@ -138,6 +196,7 @@ export const sticky = () => Vue.extend({
           this.list.map((items: any[], index: number) => {
             return (
               <ul style="position: relative; padding: 0;">
+                <List.Subheader sticky>{index * 7 + 1}-{(index + 1) * 8}</List.Subheader>
                 {
                   items.map((item) => {
                     return (
@@ -151,7 +210,6 @@ export const sticky = () => Vue.extend({
                     );
                   })
                 }
-                <Sticky bottom={0}>{index * 7 + 1}-{(index + 1) * 8}</Sticky>
               </ul>
             );
           })

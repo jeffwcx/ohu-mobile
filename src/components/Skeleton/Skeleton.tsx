@@ -23,15 +23,22 @@ const Skeleton = componentFactory.create({
     avatarSize: props(String).default(''),
     animateDisable: props(Boolean).default(false),
     animate: props.ofStringLiterals('blink', 'scan').default('scan'),
+    duration: props(Number).default(1800),
   },
-  render(h) {
+  render() {
     const {
       animate, animateDisable, loading, shape,
       row, rows, rowWidth,
       avatar, avatarSize,
       title, titleWidth,
+      duration,
       $slots
     } = this;
+    const animationDuration = `${duration}ms`;
+    const style = {
+      webkitAnimationDuration: animationDuration,
+      animationDuration,
+    };
     const currentShape = avatar ? 'circle' : shape;
     const cls = {
       [skeletonBaseName]: true,
@@ -46,7 +53,7 @@ const Skeleton = componentFactory.create({
     let hasRows = rows > 0;
     const isCompound = hasRows || (title && avatar);
     if (!isCompound) {
-      const singleElStyle: Partial<CSSStyleDeclaration> = {};
+      const singleElStyle: Partial<CSSStyleDeclaration> = style;
       if (title) {
         singleElStyle.width = titleWidth;
       }
@@ -64,10 +71,10 @@ const Skeleton = componentFactory.create({
       content = <div class={cls} style={singleElStyle}></div>;
     } else {
       const avatarProps: VNodeData = {
-        props: { animate, animateDisable, avatar: true, avatarSize },
+        props: { animate, animateDisable, avatar: true, avatarSize, duration },
       };
       const titleProps: VNodeData = {
-        props: { animate, animateDisable, title: true, titleWidth },
+        props: { animate, animateDisable, title: true, titleWidth, duration },
       };
       const leftContent = $slots.left
         ? $slots.left
@@ -90,7 +97,7 @@ const Skeleton = componentFactory.create({
                     currentRowWidth = rowWidth[index % rowWidth.length];
                   }
                   const rowProps: VNodeData = {
-                    props: { animate, animateDisable, row: true, rowWidth: currentRowWidth },
+                    props: { animate, animateDisable, row: true, rowWidth: currentRowWidth, duration },
                   };
                   return <Skeleton {...rowProps}></Skeleton>;
                 })

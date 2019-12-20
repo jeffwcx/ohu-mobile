@@ -10,7 +10,7 @@ $skeleton-scan-end-color: $skeleton-bg;
   }
 }
 
-$skeleton-blink-start-color: darken($skeleton-bg, 3%);
+$skeleton-blink-start-color: darken($skeleton-bg, 5%);
 $skeleton-blink-end-color: $skeleton-bg;
 @keyframes skeleton-blink-loading {
   0% {
@@ -60,10 +60,13 @@ $skeleton-base-cls: #{$prefix}skeleton;
   &.is-scan {
     background-image: linear-gradient(90deg, $skeleton-scan-end-color 8%, $skeleton-scan-start-color 28%, $skeleton-scan-end-color 50%);
     background-size: 200% 100%;
-    animation: skeleton-scan-loading 2s infinite;
+    animation-name: skeleton-scan-loading;
+    animation-iteration-count: infinite;
     animation-timing-function: easing(in-cubic);
   }
   &.is-blink {
-    animation: skeleton-blink-loading 2s ease infinite;
+    animation-name: skeleton-blink-loading;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
   }
 }

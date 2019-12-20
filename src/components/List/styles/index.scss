@@ -1,9 +1,10 @@
+
 .#{$prefix}list {
   list-style: none;
   margin: 0;
   padding: 0;
   &__bottom {
-    padding-bottom: 20px;
+    padding: $list-item-padding;
     line-height: 70px;
     text-align: center;
     font-size: 28px;
@@ -11,6 +12,20 @@
     .#{$prefix}loading {
       vertical-align: middle;
       font-size: 28px;
+    }
+  }
+  &-subheader {
+    padding: 0 $list-item-padding;
+    color: $list-subheader-color;
+    background: $list-subheader-bgd;
+    z-index: 2;
+    line-height: 2em;
+    font-size: 28px;
+    transition: all .5s ease;
+    &.is-sticky {
+      color: $color-text-highlight;
+      background: $color-text-base-inverse;
+      box-shadow: 0 1Px 10Px 0 #eee;
     }
   }
 }

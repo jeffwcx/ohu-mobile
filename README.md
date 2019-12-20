@@ -12,25 +12,26 @@ npm i -S ohu-mobile
 
 ## TODO
 
-+ ❎ Form
-+ ❎ List
++ ⛔️ Form
++ ⛔️ List
++ ❎ LazyLoad
 + ❎ Search
++ ❎ TextField
 + ❎ Tabs
 + ❎ Image
-+ ❎ TextField
-+ ❎ Sticky
-+ ❎ LazyLoad
 + ❎ NoticeBar
 + ❎ Cascader
++ ❎ Collapse
++ ❎ IndexBar
++ ❎ ActionBar
++ ❎ ActionSheet
 -------------------------------------------
 + ❎ Switch
 + ❎ Rate
 + ❎ Calendar
 + ❎ Picker
 + ❎ ImageViewer
-+ ❎ Collapse
 + ❎ RecycleList
-+ ❎ ActionSheet
 + ❎ Uploader
 + ❎ Unit Test
 + ❎ E2E Test
@@ -38,3 +39,4 @@ npm i -S ohu-mobile
 + ❎ lerna manage multiple packages
 + ❎ a11y
 + ❎ using new document framework (ohu-book)
++ ❎ `dark` mode
