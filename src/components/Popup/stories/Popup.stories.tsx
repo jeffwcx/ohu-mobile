@@ -194,7 +194,7 @@ export const scroll = () => Vue.extend({
   render() {
     return (
       <div style="padding: 8px;">
-        <Popup v-model={this.v} scrollBody targetStyle={{ width: '80vw', height: '120vh', margin: '32px', background: '#FFF' }}>
+        <Popup v-model={this.v} position="left" scrollBody targetStyle={{ width: '80vw', height: '120vh', margin: '32px', background: '#FFF' }}>
           <Card>
             <CardHeader>title</CardHeader>
           </Card>

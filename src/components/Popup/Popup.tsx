@@ -434,7 +434,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         if (horizontal) {
           wrapperCls[`is-x-${horizontal}`] = true;
         }
-        if (vertical) {
+        if (vertical && !this.scrollBody) {
           wrapperCls[`is-y-${vertical}`] = true;
         }
       }

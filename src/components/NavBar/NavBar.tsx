@@ -38,7 +38,7 @@ const NavBar = componentFactoryOf<NavBarEvents>().create({
         props: {
           type: 'link',
           inline: true,
-          round: true,
+          round: leftText === undefined,
         },
         on: {
           click: (e: Event) => {
