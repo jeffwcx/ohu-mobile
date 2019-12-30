@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   &__bottom {
-    padding: $list-item-padding;
     line-height: 70px;
     text-align: center;
     font-size: 28px;
@@ -12,6 +11,9 @@
     .#{$prefix}loading {
       vertical-align: middle;
       font-size: 28px;
+    }
+    > .#{$prefix}skeleton, > .#{$prefix}skeleton--compound {
+      padding: $list-item-padding;
     }
   }
   &-subheader {

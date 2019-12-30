@@ -1,0 +1,15 @@
+.#{$prefix}lazyload {
+  position: relative;
+  &-fade-enter-active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity .4s .3s;
+  }
+  &-fade-leave-active {
+    transition: opacity .7s;
+  }
+  &-fade-enter, &-fade-leave-to {
+    opacity: 0;
+  }
+}
