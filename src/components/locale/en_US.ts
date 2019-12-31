@@ -12,4 +12,7 @@ export default {
   OhuList: {
     defaultFinishedText: 'No more',
   },
+  OhuImage: {
+    defaultErrorTip: 'Retry?'
+  },
 } as LocaleDef;

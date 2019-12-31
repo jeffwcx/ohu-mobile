@@ -10,6 +10,15 @@ function resolve(relativeUrl) {
 }
 module.exports = ({ config }) => {
   config.module.rules.push({
+    test: /\.stories\.(ts|tsx)$/,
+    use: [
+      {
+        loader: require.resolve('@storybook/source-loader'),
+        options: { parser: 'typescript' },
+      },
+    ],
+    enforce: 'pre',
+  }, {
     test: /\.(ts|tsx)$/,
     use: [
       {

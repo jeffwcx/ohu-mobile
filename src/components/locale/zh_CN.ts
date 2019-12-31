@@ -12,4 +12,7 @@ export default {
   OhuList: {
     defaultFinishedText: '没有更多了',
   },
+  OhuImage: {
+    defaultErrorTip: '加载失败，点击重试'
+  },
 } as LocaleDef;

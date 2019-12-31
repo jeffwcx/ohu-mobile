@@ -14,7 +14,6 @@ npm i -S ohu-mobile
 
 + ⛔️ Form
 + ⛔️ List
-+ ❎ LazyLoad
 + ❎ Search
 + ❎ TextField
 + ❎ Tabs

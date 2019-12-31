@@ -1,8 +1,8 @@
 
 .#{$prefix}result {
   display: flex;
-  flex-flow: column wrap;
-  align-items: center;
+  flex-flow: row wrap;
+  justify-content: center;
   &__icon {
     font-size: 80px;
     pointer-events: none;
