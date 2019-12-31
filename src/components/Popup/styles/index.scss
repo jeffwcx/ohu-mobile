@@ -38,6 +38,7 @@
       overscroll-behavior-y: contain;
       overflow: auto;
       text-align: center;
+      align-items: flex-start;
       &::after {
         content: '';
         width: 0;
@@ -155,7 +156,7 @@ $slide-leave-animate-timing-function: easing(out-quart);
   opacity: 0;
 }
 .zoom-scale-leave-to {
-  transform: scale3d(0.1, 0.1, 1);
+  transform: scale3d(1.5, 1.5, 1);
   opacity: 0;
 }
 
