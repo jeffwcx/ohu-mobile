@@ -17,7 +17,6 @@ npm i -S ohu-mobile
 + ❎ Search
 + ❎ TextField
 + ❎ Tabs
-+ ❎ Image
 + ❎ NoticeBar
 + ❎ Cascader
 + ❎ Collapse
