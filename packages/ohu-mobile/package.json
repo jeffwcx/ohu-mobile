@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@ohu-mobile/icons": "^0.9.3",
+    "@ohu-mobile/styles": "^0.9.4",
     "@types/yup": "^0.26.27",
     "deepmerge": "^4.2.2",
     "intersection-observer": "^0.7.0",

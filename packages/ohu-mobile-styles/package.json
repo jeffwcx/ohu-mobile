@@ -14,9 +14,9 @@
   "scripts": {
     "doc": "sassdoc lib"
   },
-  "main": "lib/index.scss",
+  "main": "mixins/_all.scss",
   "files": [
-    "lib",
+    "mixins",
     "flex"
   ],
   "repository": {

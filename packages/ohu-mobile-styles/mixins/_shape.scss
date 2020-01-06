@@ -1,0 +1,167 @@
+
+/// @group shape
+/// size can be 3 values to ensure triangle __|___
+@mixin triangle($direction, $size, $color) {
+  $height: 0;
+  $left-base-line: 0;
+  $right-base-line: 0;
+  $color-map: (
+    up: 1,
+    down: 3,
+    left: 4,
+    right: 2,
+  );
+  @if type-of($size) == list {
+    $height: nth($size, 1);
+    $left-base-line: nth($size, 2);
+    $right-base-line: nth($size, 3);
+  } @else {
+    $height: $size;
+    $left-base-line: $size;
+    $right-base-line: $size;
+  }
+  $width-map: (
+    up: ($height, $right-base-line, 0, $left-base-line),
+    down: (0, $right-base-line, $height, $left-base-line),
+    left: ($left-base-line, 0, $right-base-line, $height),
+    right: ($right-base-line, $height, $left-base-line, 0)
+  );
+  $dash-index: str-index($direction, "-");
+  $border-width: 0, 0, 0, 0;
+  $border-color: transparent transparent transparent transparent;
+  @if $dash-index != null and $dash-index >= 1 {
+    $vertical-direction: str-slice($direction, 1, $dash-index - 1);
+    $horizontal-direction: str-slice($direction, $dash-index + 1);
+    $vnth: map-get($color-map, $vertical-direction);
+    $hnth: map-get($color-map, $horizontal-direction);
+    $border-color: set-nth($border-color, $vnth, $color);
+    $border-color: set-nth($border-color, $hnth , $color);
+    $border-width: $height, $right-base-line, $height, $left-base-line;
+  } @else {
+    $nth: map-get($color-map, $direction);
+    $border-color: set-nth($border-color, $nth, $color);
+    $border-width: map-get($width-map, $direction);
+  }
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: join($border-color, (), $separator: space);
+  border-width: join($border-width, (), $separator: space);
+}
+
+/// @group shape
+/// circle
+@mixin circle($width, $height: 0) {
+  @if $height == 0 {
+    $height: $width;
+  }
+  border-radius: unquote("#{$width}/#{$height}");
+  width: $width;
+  height: $height;
+}
+
+/// @group shape
+@mixin size($width, $height: _) {
+  @if $height == _ {
+    $height: $width;
+  }
+  width: $width;
+  height: $height;
+}
+
+/// @group shape
+@mixin divider($color, $width: 1px) {
+  > span {
+    position: relative;
+    background-color: #fff;
+    z-index: 2;
+    @content;
+  }
+  @if $width != hair {
+    position: relative;
+    &::before {
+      content: '';
+      @include center;
+      width: 100%;
+      border-color: $color;
+      border-style: inherit;
+      border-width: $width 0 0;
+    }
+  } @else {
+    @include hair-border($color, center);
+  }
+}
+
+/// @group shape
+@mixin hair-border($color: _, $position: top, $border-radius: 0) {
+  position: relative;
+  @if ($position == center) {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+  $pseudo: if($position == top or $position == left or $position == center, before, after);
+  &::#{$pseudo} {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    @if $position == all {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      // no matter how you config the `postcss-pxtorem`
+      border: 1Px solid $color;
+      border-radius: $border-radius;
+      @content;
+      @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+        width: 200%;
+        height: 200%;
+        transform: scale(.5);
+        transform-origin: 0 0;
+      }
+    } @else {
+      $map: (
+        top: 0 0 _ 0,
+        bottom: _ 0 0 0,
+        left: 0 _ 0 0,
+        right: 0 0 0 _,
+        center: _ 0 _ 0
+      );
+      $index-prop: top right bottom left;
+      $positions: map-get($map, $position);
+      border-style: inherit;
+      @if $position == left or $position == right {
+        border-width: 0;
+        border-#{$position}-width: 1Px;
+      } @else {
+        border-width: 1Px 0 0;
+      }
+      $index: 1;
+      @each $value in $positions {
+        @if $value != _ {
+          $prop: nth($index-prop, $index);
+          #{$prop}: $value;
+        }
+        $index: $index + 1;
+      }
+      @if $color != _ {
+        border-color: $color;
+      }
+      @content;
+      @media screen and (-webkit-min-device-pixel-ratio: 2) {
+        @if $position == left or $position == right {
+          transform: scaleX(.5);
+          transform-origin: left center;
+        } @else {
+          transform: scaleY(.5);
+          transform-origin: center top;
+        }
+      }
+    }
+  }
+}
+
