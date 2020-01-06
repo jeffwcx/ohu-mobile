@@ -29,5 +29,8 @@
   "devDependencies": {
     "sass": "^1.24.2",
     "sassdoc": "^2.7.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
