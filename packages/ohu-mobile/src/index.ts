@@ -140,7 +140,6 @@ export * from './CheckList';
 export * from './RadioList';
 export * from './CheckboxGroup';
 export * from './RadioGroup';
-export * from './types';
 
 export default {
   install,

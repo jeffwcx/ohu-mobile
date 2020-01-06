@@ -1,41 +1,4 @@
-@import './lib/all';
-
-@mixin rem-vw-responsive(
-  $design-width: 750px,
-  $root-value: 75px,
-  $breakpoints: (0, 320px, 375px, 393px, 411px, 414px, 480px, 540px, 640px, 720px, 768px),
-) {
-  $breaknums: length($breakpoints);
-  $max-width: nth($breakpoints, $breaknums);
-  $units: $design-width / $root-value;
-  $base-font-size: $units * 1vw;
-  html {
-    font-size: $base-font-size;
-    $index: 1;
-    @media screen {
-      @each $bk in $breakpoints {
-        @if $index < $breaknums {
-          $next-bk: nth($breakpoints, $index + 1);
-          $min: if($bk == 0, 1, $bk + 1);
-          @include between($min, $next-bk) {
-            font-size: $next-bk / 10;
-            font-size: $base-font-size;
-          }
-        } @else {
-          @include above($bk + 1) {
-            font-size: $bk / 10;
-          }
-        }
-        $index: $index + 1;
-      }
-    }
-  }
-  body {
-    max-width: $max-width;
-    font-size: 16px;
-    margin: 0 auto;
-  }
-}
+@import '~@ohu-mobile/styles';
 
 @mixin tap-component {
   user-select: none;
