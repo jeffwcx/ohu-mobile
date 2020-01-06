@@ -1,0 +1,58 @@
+{
+  "name": "@ohu-mobile/icons",
+  "version": "0.9.0",
+  "description": "Ohu Mobile SVG Icons.",
+  "keywords": [
+    "icons",
+    "svg",
+    "ohu-mobile"
+  ],
+  "author": "jeffwcx <cunxuanwang@163.com>",
+  "homepage": "https://github.com/jeffwcx/ohu-mobile/tree/master/packages/ohu-mobile-icons#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "bin": {
+    "generate-icons": "bin/generate-svg-icons.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "es/**/*.js",
+    "lib/**/*.js",
+    "bin/**/*.js",
+    "typings/**/*.d.ts",
+    "scripts/**/*.art"
+  ],
+  "typings": "typings/**/*.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffwcx/ohu-mobile.git",
+    "directory": "packages/ohu-mobile-icons"
+  },
+  "scripts": {
+    "build:cli": "rm -rf ./bin & tsc --project tsconfig.scripts.json",
+    "build:es": "rm -rf ./es & tsc --project tsconfig.json --module esnext --outDir es --declarationDir es",
+    "build:lib": "rm -rf ./lib & tsc --project tsconfig.json --module commonjs --outDir lib --declarationDir lib",
+    "g": "npm run generate",
+    "generate": "rm -rf ./icons && node ./bin/generate-svg-icons -o \"./icons\" -t \"./scripts/svg-template.art\" \"./remixicon/**/*.svg\" -f --types \"./scripts/svg-types.art\""
+  },
+  "bugs": {
+    "url": "https://github.com/jeffwcx/ohu-mobile/issues"
+  },
+  "dependencies": {
+    "@types/fs-extra": "^8.0.1",
+    "@types/rimraf": "^2.0.3",
+    "@types/svgo": "^1.3.0",
+    "art-template": "^4.13.2",
+    "chalk": "^3.0.0",
+    "glob": "^7.1.6",
+    "rimraf": "^3.0.0",
+    "svgo": "^1.3.2"
+  },
+  "devDependencies": {
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  }
+}

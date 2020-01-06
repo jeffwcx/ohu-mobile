@@ -5,7 +5,6 @@
     "strict": true,
     "jsx": "preserve",
     "allowJs": true,
-    "outDir": "./dist",
     "checkJs": true,
     "importHelpers": true,
     "moduleResolution": "node",
@@ -14,34 +13,11 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "baseUrl": ".",
-    "types": [
-      "webpack-env",
-      "jest"
-    ],
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
     "lib": [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
     ]
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
-  "exclude": [
-    "src/**/*.js",
-    "node_modules",
-    "dist",
-    "scripts"
-  ]
+  }
 }
