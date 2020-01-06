@@ -10,7 +10,6 @@ storybook-static
 .env.*.local
 
 # lock
-package-lock.json
 yarn.lock
 
 # Log files
