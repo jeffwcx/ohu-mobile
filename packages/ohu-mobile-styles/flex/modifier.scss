@@ -1,0 +1,34 @@
+
+// modifier module
+
+@mixin isMulti () {
+  flex-wrap: wrap;
+}
+
+.is-multi{
+  @include isMulti();
+}
+
+@mixin isNoShrink () {
+  flex-shrink: 0;
+}
+
+.is-no-shrink {
+  @include isNoShrink();
+}
+
+@mixin isGrow () {
+  flex-grow: 1;
+}
+.is-grow {
+  @include isGrow();
+}
+
+@mixin isOrigin () {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.is-origin {
+  @include isOrigin();
+}

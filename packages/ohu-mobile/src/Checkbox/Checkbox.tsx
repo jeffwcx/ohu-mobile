@@ -1,6 +1,6 @@
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import { CheckboxFilled, CheckboxBlankOutlined, CheckboxIndeterminateFilled } from '../../../ohu-mobile-icons/es';
+import { CheckboxFilled, CheckboxBlankOutlined, CheckboxIndeterminateFilled } from '@ohu-mobile/icons';
 import { getIcon } from '../_utils/icon-utils';
 import CheckBase from '../_checkbase/CheckBase';
 import { CreateElement } from 'vue';

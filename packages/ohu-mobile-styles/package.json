@@ -1,0 +1,33 @@
+{
+  "name": "@ohu-mobile/styles",
+  "version": "0.9.2",
+  "description": "ohu-mobile style helpers.",
+  "keywords": [
+    "styles",
+    "sass",
+    "mixins",
+    "helpers"
+  ],
+  "author": "jeffwcx <cunxuanwang@163.com>",
+  "homepage": "https://github.com/jeffwcx/ohu-mobile/tree/master/packages/ohu-mobile-styles#readme",
+  "license": "MIT",
+  "scripts": {
+    "doc": "sassdoc lib"
+  },
+  "main": "lib/index.scss",
+  "files": [
+    "lib",
+    "flex"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffwcx/ohu-mobile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jeffwcx/ohu-mobile/issues"
+  },
+  "devDependencies": {
+    "sass": "^1.24.2",
+    "sassdoc": "^2.7.1"
+  }
+}

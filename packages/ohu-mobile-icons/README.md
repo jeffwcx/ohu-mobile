@@ -1,4 +1,4 @@
-# `@ohu-mobile/icons`
+# @ohu-mobile/icons
 
 > Icon package for `ohu-mobile`
 

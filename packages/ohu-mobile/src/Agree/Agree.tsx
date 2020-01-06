@@ -1,6 +1,6 @@
 import CheckBase from '../_checkbase/CheckBase';
 import { prefix } from '../_utils/shared';
-import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '../../../ohu-mobile-icons/es';
+import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '@ohu-mobile/icons';
 import { CreateElement } from 'vue';
 import { getIcon } from '../_utils/icon-utils';
 import './styles/index.scss';

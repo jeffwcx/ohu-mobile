@@ -19,13 +19,12 @@
     "access": "public"
   },
   "files": [
-    "es/**/*.js",
-    "lib/**/*.js",
-    "bin/**/*.js",
-    "typings/**/*.d.ts",
+    "es",
+    "lib",
+    "bin",
     "scripts/**/*.art"
   ],
-  "typings": "typings/**/*.d.ts",
+  "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeffwcx/ohu-mobile.git",

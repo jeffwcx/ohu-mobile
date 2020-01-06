@@ -1,17 +1,42 @@
-# `ohu-mobile`
+# ohu-mobile
 
-> TODO: description
+> Mobile UI Component Library.
+
+## Installation
+
+```shell
+npm install @ohu-mobile/core
+
+# or
+
+yarn add @ohu-mobile/core
+```
+
 
 ## Usage
 
+1. Import on Demand
+
+    Strongly Recommand👇
+    ```ts
+    import { Button } from '@ohu-mobile/core';
+    ```
+    Or Manually import
+
+    ```ts
+    import Button from '@ohu-mobile/core/lib/Button';
+    ```
+
+
 2. Import all components
 
-```
-import Ohu from 'ohu-mobile';
-import 'ohu-mobile/dist/ohu-mobile.css';
-import Vue from 'vue';
-Vue.use(Ohu);
-```
+    ```ts
+    import Vue from 'vue';
+    import Ohu from '@ohu-mobile/core';
+    import '@ohu-mobile/core/dist/ohu-mobile.css';
+
+    Vue.use(Ohu);
+    ```
 
 
 

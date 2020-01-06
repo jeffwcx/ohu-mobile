@@ -2,7 +2,7 @@ import { componentFactory } from 'vue-tsx-support';
 import { prefix } from '../_utils/shared';
 import Icon from '../Icon';
 import props from 'vue-strict-prop';
-import { LoaderFilled } from '../../../ohu-mobile-icons/es';
+import { LoaderFilled } from '@ohu-mobile/icons';
 import './styles/index.scss';
 import localeMixin from '../_utils/localeMixin';
 

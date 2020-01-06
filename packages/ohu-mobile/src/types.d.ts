@@ -1,6 +1,6 @@
 import { VueConstructor, VNodeData } from 'vue';
 import { IconProps } from './Icon';
-import { SVGIconDef } from '../../ohu-mobile-icons/es/types';
+import { SVGIconDef } from '@ohu-mobile/icons/lib/types';
 
 export type IconDef = SVGIconDef;
 

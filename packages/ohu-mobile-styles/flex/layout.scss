@@ -1,0 +1,127 @@
+
+// layout module
+
+$prefix: "ohu-" !default;
+
+$row-x-dirs: (
+  left: flex-start,
+  right: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly
+);
+$row-y-dirs: (
+  top: flex-start,
+  bottom: flex-end,
+  center: center,
+  baseline: baseline,
+  stretch: stretch
+);
+$row-m-dirs: (
+  top: flex-start,
+  bottom: flex-end,
+  center: center,
+  between: space-between,
+  around:space-around,
+  stretch: stretch,
+  evenly: space-evenly
+);
+
+$col-x-dirs: (
+  left: flex-start,
+  right: flex-end,
+  center: center,
+  baseline: baseline,
+  stretch: stretch
+);
+$col-y-dirs: (
+  top: flex-start,
+  bottom: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly
+);
+$col-m-dirs: (
+  left: flex-start,
+  right: flex-end,
+  center: center,
+  between: space-between,
+  around:space-around,
+  stretch: stretch,
+  evenly: space-evenly
+);
+
+// mapping flex property to normal property
+@mixin mapDir ($direction, $dirmap, $prop) {
+  @each $dirname, $dir in $dirmap {
+    &.#{$direction}-#{$dirname} {
+      #{$prop}: $dir;
+    }
+  }
+}
+
+@mixin row () {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+@mixin row-x ($normalProp) {
+  @include row();
+  justify-content: map-get($row-x-dirs, $normalProp);
+}
+
+@mixin row-y ($normalProp) {
+  @include row();
+  align-items: map-get($row-y-dirs, $normalProp);
+}
+
+@mixin row-m ($normalProp) {
+  @include row();
+  align-content: map-get($row-m-dirs, $normalProp);
+}
+
+.#{$prefix}row {
+  &.is-reverse {
+    flex-direction: row-reverse;
+  }
+  @include row();
+  @include mapDir(x, $row-x-dirs, justify-content);
+  @include mapDir(y, $row-y-dirs, align-items);
+  @include mapDir(m, $row-m-dirs, align-content);
+}
+
+@mixin col () {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+@mixin col-x ($normalProp) {
+  @include col();
+  align-items: map-get($col-x-dirs, $normalProp);
+}
+
+@mixin col-y ($normalProp) {
+  @include col();
+  justify-content: map-get($col-y-dirs, $normalProp);
+}
+
+@mixin col-m ($normalProp) {
+  @include col();
+  align-content: map-get($col-m-dirs, $normalProp);
+}
+
+.#{$prefix}col {
+  &.is-reverse {
+    flex-direction: column-reverse;
+  }
+  @include col();
+  @include mapDir(x, $col-x-dirs, align-items);
+  @include mapDir(y, $col-y-dirs, justify-content);
+  @include mapDir(m, $col-m-dirs, align-content);
+}

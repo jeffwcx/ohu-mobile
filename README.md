@@ -1,12 +1,39 @@
 # ohu-mobile
 
-UI toolkit, design for medical senarios.
+Mobile UI Toolkit include components, style helpers.
 
 
 ## Install & Usage
 
-```shell
-npm i -S ohu-mobile
+### Install Components
+
+```bash
+npm install @ohu-mobile/core
+
+# or
+
+yarn add @ohu-mobile/core
+```
+
+### Install SVG Icons
+
+```bash
+npm install @ohu-mobile/icons
+
+# or
+
+yarn add @ohu-mobile/icons
+```
+
+
+### Install Sass Mixins Library
+
+```bash
+npm install @ohu-mobile/styles
+
+# or
+
+yarn add @ohu-mobile/styles
 ```
 
 
@@ -23,7 +50,6 @@ npm i -S ohu-mobile
 + ❎ IndexBar
 + ❎ ActionBar
 + ❎ ActionSheet
--------------------------------------------
 + ❎ Switch
 + ❎ Rate
 + ❎ Calendar
@@ -34,7 +60,6 @@ npm i -S ohu-mobile
 + ❎ Unit Test
 + ❎ E2E Test
 + ❎ using `hook:<>`
-+ ❎ lerna manage multiple packages
 + ❎ a11y
 + ❎ using new document framework (ohu-book)
 + ❎ `dark` mode

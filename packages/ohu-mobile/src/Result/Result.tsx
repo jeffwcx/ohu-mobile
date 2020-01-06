@@ -4,7 +4,7 @@ import { prefix } from '../_utils/shared';
 import Icon from '../Icon';
 import vars from '../_styles/variables';
 import { NoDataIllustration, NoNetworkIllustration, NoNewsIllustration, NoQueryDataIllustration } from './assets';
-import { CheckboxCircleFilled, CloseCircleFilled } from '../../../ohu-mobile-icons/es';
+import { CheckboxCircleFilled, CloseCircleFilled } from '@ohu-mobile/icons';
 import './styles/index.scss';
 
 const resultBaseName = `${prefix}result`;

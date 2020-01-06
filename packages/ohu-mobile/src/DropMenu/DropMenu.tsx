@@ -9,7 +9,7 @@ import { manager } from '../Popup';
 import './styles/index.scss';
 import { DropMenuItemType } from './DropMenuItem';
 import isPlainObject from '../_utils/isPlainObject';
-import { CheckOutlined, ArrowDownSOutlined } from '../../../ohu-mobile-icons/es';
+import { CheckOutlined, ArrowDownSOutlined } from '@ohu-mobile/icons';
 import { IconProperty } from '../types';
 
 

@@ -30,6 +30,8 @@ import Tabbar from './Tabbar';
 import Popup from './Popup';
 import CheckList from './CheckList';
 import RadioList from './RadioList';
+import CheckboxGroup from './CheckboxGroup';
+import RadioGroup from './RadioGroup';
 
 const components = [
   Icon,
@@ -62,6 +64,8 @@ const components = [
   Tabbar,
   CheckList,
   RadioList,
+  CheckboxGroup,
+  RadioGroup,
 ];
 
 // global use ui library
@@ -102,6 +106,8 @@ export {
   Tabbar,
   CheckList,
   RadioList,
+  CheckboxGroup,
+  RadioGroup,
 };
 
 export * from './Icon';
@@ -132,6 +138,9 @@ export * from './NavBar';
 export * from './Tabbar';
 export * from './CheckList';
 export * from './RadioList';
+export * from './CheckboxGroup';
+export * from './RadioGroup';
+export * from './types';
 
 export default {
   install,

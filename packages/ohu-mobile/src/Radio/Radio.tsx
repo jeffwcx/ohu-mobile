@@ -1,10 +1,10 @@
 import { prefix } from '../_utils/shared';
-import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '../../../ohu-mobile-icons/es';
-import './styles/index.scss';
+import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '@ohu-mobile/icons';
 import { getIcon } from '../_utils/icon-utils';
 import CheckBase from '../_checkbase/CheckBase';
 import { CreateElement } from 'vue';
 import { RadioProps } from './types';
+import './styles/index.scss';
 
 
 const baseRadioName = `${prefix}radio`;

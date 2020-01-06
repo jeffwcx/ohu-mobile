@@ -2,7 +2,7 @@ import { componentFactoryOf } from 'vue-tsx-support';
 import { prefix } from '../_utils/shared';
 import props from 'vue-strict-prop';
 import Button from '../Button';
-import { ArrowLeftOutlined } from '../../../ohu-mobile-icons/es';
+import { ArrowLeftOutlined } from '@ohu-mobile/icons';
 import { VNodeData } from 'vue';
 import Divider from '../Divider';
 import vars from '../_styles/variables';
