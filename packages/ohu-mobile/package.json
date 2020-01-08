@@ -1,6 +1,6 @@
 {
   "name": "@ohu-mobile/core",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Mobile UI Toolkit",
   "keywords": [
     "ohu-mobile",
@@ -90,7 +90,7 @@
     "vue": "^2.6.11"
   },
   "dependencies": {
-    "@ohu-mobile/icons": "^0.9.3",
+    "@ohu-mobile/icons": "^0.9.4",
     "@ohu-mobile/styles": "^0.9.5",
     "@types/yup": "^0.26.27",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
