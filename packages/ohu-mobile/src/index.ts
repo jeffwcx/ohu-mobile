@@ -19,7 +19,7 @@ import DropMenu from './DropMenu';
 import Loading from './Loading';
 import Popover from './Popover';
 import Result from './Result';
-import Toast from './Toast/Toast';
+import Toast from './Toast';
 import Agree from './Agree';
 import Checkbox from './Checkbox';
 import Form from './Form';
@@ -108,6 +108,7 @@ export {
   RadioList,
   CheckboxGroup,
   RadioGroup,
+  Skeleton,
 };
 
 export * from './Icon';
@@ -140,6 +141,7 @@ export * from './CheckList';
 export * from './RadioList';
 export * from './CheckboxGroup';
 export * from './RadioGroup';
+export * from './Skeleton';
 export * from './types';
 
 export default {

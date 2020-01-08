@@ -1,12 +1,12 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { prefix } from '../_utils/shared';
-import './styles/index.scss';
 import Icon from '../Icon';
 import { Location } from 'vue-router';
 import { VNode } from 'vue';
 import { IconDef } from '../types';
 import { EntryItemEvents } from './types';
+import './styles/index.scss';
 
 export const entryItemProps = {
   icon: props<string, IconDef>(String, Object).optional,

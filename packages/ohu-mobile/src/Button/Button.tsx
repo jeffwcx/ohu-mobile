@@ -4,8 +4,8 @@ import props from 'vue-strict-prop';
 import { VNodeData } from 'vue';
 import Icon from '../Icon';
 import { IconDef } from '../types';
-import './styles/index.scss';
 import { ButtonEvents } from './types';
+import './styles/index.scss';
 
 const baseBtnCls = `${prefix}btn`;
 

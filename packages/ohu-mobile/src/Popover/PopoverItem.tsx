@@ -1,12 +1,12 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import { prefix } from '../_utils/shared';
 import props from 'vue-strict-prop';
-import './styles/popover-item.scss';
 import Icon from '../Icon';
 import Divider from '../Divider';
 import * as componentVars from '../_styles/component.variables';
 import { IconDef } from '../types';
 import { PopoverItemEvents } from './types';
+import './styles/popover-item.scss';
 
 export const basePopoverItemName = `${prefix}popover-item`;
 const popoverItemContentCls = `${basePopoverItemName}__content`;

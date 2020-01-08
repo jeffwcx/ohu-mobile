@@ -21,8 +21,7 @@
     "es",
     "lib",
     "lib-rem",
-    "dist",
-    "typings"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -36,7 +35,7 @@
     "build:loose": "rollup -c ./scripts/rollup.config.js --exports named",
     "build": "npm run build:min && npm run build:min-rem && npm run build:rem && npm run build:loose",
     "prebuild:lib-rem": "rm -rf ./lib-rem && tsc --sourceMap false --outDir ./lib-rem",
-    "build:lib-rem": "ts-node --project tsconfig.scripts.json scripts/build-lib.ts -t src/ -o lib-rem/ -b ../../babel.config.js",
+    "build:lib-rem": "ts-node --project tsconfig.scripts.json scripts/build-lib.ts -t src/ -o lib-rem/ -b ../../babel.config.js --useRem",
     "prebuild:lib": "rm -rf ./lib && tsc --sourceMap false",
     "build:lib": "ts-node --project tsconfig.scripts.json scripts/build-lib.ts -t src/ -o lib/ -b ../../babel.config.js",
     "build:components": "npm run build:lib && npm run build:lib-rem"

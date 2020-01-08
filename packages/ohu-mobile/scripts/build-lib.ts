@@ -249,7 +249,8 @@ const options = yargs
     },
     useRem: {
       type: 'boolean',
-      description: 'using rem?（default is false） | 是否使用rem（默认不使用）'
+      description: 'using rem?（default is false） | 是否使用rem（默认不使用）',
+      default: false,
     },
     // tsconfig: {
     //   alias: 'p',

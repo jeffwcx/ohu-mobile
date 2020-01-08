@@ -6,11 +6,11 @@ import Divider from '../Divider';
 import { getVNodesByName, isTargetComponent } from '../_utils/vnode';
 import { VNode } from 'vue';
 import { manager } from '../Popup';
-import './styles/index.scss';
 import { DropMenuItemType } from './DropMenuItem';
 import isPlainObject from '../_utils/isPlainObject';
 import { CheckOutlined, ArrowDownSOutlined } from '@ohu-mobile/icons';
 import { IconProperty } from '../types';
+import './styles/index.scss';
 
 
 export const baseDropMenuName = `${prefix}dropmenu`;

@@ -5,8 +5,8 @@ import { getIcon } from '../_utils/icon-utils';
 import CheckBase from '../_checkbase/CheckBase';
 import { CreateElement } from 'vue';
 import { CheckboxProps } from './types';
-import './styles/index.scss';
 import { IconProperty } from '../types';
+import './styles/index.scss';
 
 
 const baseCheckboxName = `${prefix}checkbox`;
