@@ -35,9 +35,9 @@
     "build:loose": "rollup -c ./scripts/rollup.config.js --exports named",
     "build": "npm run build:min && npm run build:min-rem && npm run build:rem && npm run build:loose",
     "prebuild:lib-rem": "rm -rf ./lib-rem && tsc --sourceMap false --outDir ./lib-rem",
-    "build:lib-rem": "ts-node --project tsconfig.scripts.json scripts/build-lib.ts -t src/ -o lib-rem/ -b ../../babel.config.js --useRem",
+    "build:lib-rem": "ts-node --project tsconfig.scripts.json scripts/build-lib.ts -t src/ -o lib-rem/ -b ./babel.config.js --useRem",
     "prebuild:lib": "rm -rf ./lib && tsc --sourceMap false",
-    "build:lib": "ts-node --project tsconfig.scripts.json scripts/build-lib.ts -t src/ -o lib/ -b ../../babel.config.js",
+    "build:lib": "ts-node --project tsconfig.scripts.json scripts/build-lib.ts -t src/ -o lib/ -b ./babel.config.js",
     "build:components": "npm run build:lib && npm run build:lib-rem"
   },
   "bugs": {
@@ -57,6 +57,7 @@
     "@types/yargs": "^13.0.4",
     "@vue/babel-preset-jsx": "^1.1.2",
     "autoprefixer": "^9.7.3",
+    "babel-plugin-import": "^1.13.0",
     "chalk": "^3.0.0",
     "cross-env": "^6.0.3",
     "dart-sass": "^1.24.2",

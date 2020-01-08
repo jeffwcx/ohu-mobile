@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const CheckboxBlankCircleFilled: SVGIconDef = {
+const CheckboxBlankCircleFilled: SVGIconDef = {
   name: 'checkbox-blank-circle',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const CheckboxBlankCircleFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="undefined"/>',
 };
+
+export default CheckboxBlankCircleFilled;
 

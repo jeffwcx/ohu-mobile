@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const ReplyFilled: SVGIconDef = {
+const ReplyFilled: SVGIconDef = {
   name: 'reply',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const ReplyFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M11 14v5L1 11l10-8v5c5.523 0 10 4.477 10 10 0 .273-.01.543-.032.81A8.999 8.999 0 0 0 13 14h-2z" />',
 };
+
+export default ReplyFilled;
 

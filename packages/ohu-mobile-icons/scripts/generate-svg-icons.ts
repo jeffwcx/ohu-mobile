@@ -169,7 +169,7 @@ async function genIcons(
 async function genIndex(outputPath: string, iconFileNames: string[]) {
   let result = ''
   iconFileNames.map((icon) => {
-    result += `export * from './${icon}';\n`;
+    result += `export { default as ${icon} } from './${icon}';\n`;
   });
   const outputFilePath = path.format({
     dir: outputPath,

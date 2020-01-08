@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const SubtractOutlined: SVGIconDef = {
+const SubtractOutlined: SVGIconDef = {
   name: 'subtract',
   theme: 'outlined',
   attrs: {
@@ -11,4 +11,6 @@ export const SubtractOutlined: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z" />',
 };
+
+export default SubtractOutlined;
 

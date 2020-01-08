@@ -33,12 +33,20 @@ module.exports = ({ config }) => {
           happyPackMode: false,
           getCustomTransformers: () => ({
             before: [
-              tsImportPluginFactory({
-                libraryName: '@ohu-mobile/core',
-                libraryDirectory: 'lib-rem',
-                style: false,
-                camel2DashComponentName: false,
-              }),
+              tsImportPluginFactory([
+                {
+                  libraryName: '@ohu-mobile/core',
+                  libraryDirectory: 'lib-rem',
+                  style: false,
+                  camel2DashComponentName: false,
+                },
+                {
+                  libraryName: '@ohu-mobile/icon',
+                  libraryDirectory: 'lib',
+                  style: false,
+                  camel2DashComponentName: false,
+                },
+              ]),
             ],
           }),
           appendTsxSuffixTo: [

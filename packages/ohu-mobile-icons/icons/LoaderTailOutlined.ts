@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const LoaderTailOutlined: SVGIconDef = {
+const LoaderTailOutlined: SVGIconDef = {
   name: 'loader-tail',
   theme: 'outlined',
   attrs: {
@@ -11,4 +11,6 @@ export const LoaderTailOutlined: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z" />',
 };
+
+export default LoaderTailOutlined;
 

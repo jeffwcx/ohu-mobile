@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const FlagFilled: SVGIconDef = {
+const FlagFilled: SVGIconDef = {
   name: 'flag',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const FlagFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M2 3h19.138a.5.5 0 0 1 .435.748L18 10l3.573 6.252a.5.5 0 0 1-.435.748H4v5H2V3z" />',
 };
+
+export default FlagFilled;
 

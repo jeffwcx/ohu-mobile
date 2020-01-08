@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const {{fileName}}: SVGIconDef = {
+const {{fileName}}: SVGIconDef = {
   name: '{{name}}',
   theme: '{{theme}}',
   attrs: {
@@ -11,4 +11,6 @@ export const {{fileName}}: SVGIconDef = {
   },
   children: '{{@children}}',
 };
+
+export default {{fileName}};
 

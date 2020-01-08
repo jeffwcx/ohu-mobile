@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const ArrowLeftFilled: SVGIconDef = {
+const ArrowLeftFilled: SVGIconDef = {
   name: 'arrow-left',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const ArrowLeftFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M12 13v7l-8-8 8-8v7h8v2z" />',
 };
+
+export default ArrowLeftFilled;
 

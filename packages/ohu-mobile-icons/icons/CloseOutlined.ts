@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const CloseOutlined: SVGIconDef = {
+const CloseOutlined: SVGIconDef = {
   name: 'close',
   theme: 'outlined',
   attrs: {
@@ -11,4 +11,6 @@ export const CloseOutlined: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />',
 };
+
+export default CloseOutlined;
 

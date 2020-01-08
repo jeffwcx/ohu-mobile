@@ -170,7 +170,7 @@ function genIndex(outputPath, iconFileNames) {
     return __awaiter(this, void 0, void 0, function* () {
         let result = '';
         iconFileNames.map((icon) => {
-            result += `export * from './${icon}';\n`;
+            result += `export { default as ${icon} } from './${icon}';\n`;
         });
         const outputFilePath = path.format({
             dir: outputPath,

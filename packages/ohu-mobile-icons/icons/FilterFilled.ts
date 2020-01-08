@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const FilterFilled: SVGIconDef = {
+const FilterFilled: SVGIconDef = {
   name: 'filter',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const FilterFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M10 14L4 5V3h16v2l-6 9v6l-4 2z" />',
 };
+
+export default FilterFilled;
 

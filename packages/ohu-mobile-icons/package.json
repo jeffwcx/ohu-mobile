@@ -34,6 +34,8 @@
     "build:cli": "rm -rf ./bin & tsc --project tsconfig.scripts.json",
     "build:es": "rm -rf ./es & tsc --project tsconfig.json --module esnext --outDir es --declarationDir es",
     "build:lib": "rm -rf ./lib & tsc --project tsconfig.json --module commonjs --outDir lib --declarationDir lib",
+    "build": "npm run build:es && npm run build:lib",
+    "preg": "npm run build:cli",
     "g": "npm run generate",
     "generate": "rm -rf ./icons && node ./bin/generate-svg-icons -o \"./icons\" -t \"./scripts/svg-template.art\" \"./remixicon/**/*.svg\" -f --types \"./scripts/svg-types.art\""
   },

@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const SaveFilled: SVGIconDef = {
+const SaveFilled: SVGIconDef = {
   name: 'save',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const SaveFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M18 21v-8H6v8H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h13l4 4v13a1 1 0 0 1-1 1h-2zm-2 0H8v-6h8v6z" />',
 };
+
+export default SaveFilled;
 

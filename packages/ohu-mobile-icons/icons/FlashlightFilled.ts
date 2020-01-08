@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const FlashlightFilled: SVGIconDef = {
+const FlashlightFilled: SVGIconDef = {
   name: 'flashlight',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const FlashlightFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M13 10h7l-9 13v-9H4l9-13z" />',
 };
+
+export default FlashlightFilled;
 

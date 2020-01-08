@@ -5,4 +5,5 @@ dist
 bin
 es
 lib
+lib-rem
 types

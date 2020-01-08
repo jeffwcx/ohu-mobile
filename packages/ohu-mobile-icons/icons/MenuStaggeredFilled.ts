@@ -3,7 +3,7 @@
  */
 import { SVGIconDef } from './types';
 
-export const MenuStaggeredFilled: SVGIconDef = {
+const MenuStaggeredFilled: SVGIconDef = {
   name: 'menu-staggered',
   theme: 'filled',
   attrs: {
@@ -11,4 +11,6 @@ export const MenuStaggeredFilled: SVGIconDef = {
   },
   children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm6 7h12v2H9v-2zm-6 7h18v2H3v-2z" />',
 };
+
+export default MenuStaggeredFilled;
 
