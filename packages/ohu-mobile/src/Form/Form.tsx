@@ -8,7 +8,6 @@ import { SyntheticEvent, FormHTMLAttributes } from 'vue-tsx-support/types/dom';
 import deepmerge from 'deepmerge';
 import { ObjectSchemaDefinition } from 'yup';
 import { FormError } from './FormError';
-// import './styles/index.scss';
 
 const baseFormName = `${prefix}form`;
 export default componentFactoryOf<FormEvents, FormScopedSlots>()
@@ -37,7 +36,7 @@ export default componentFactoryOf<FormEvents, FormScopedSlots>()
       reset() {
         this.model = deepmerge({}, this.initialValues);
       },
-      async validate() {
+      validate() {
         this.errors = {};
         const validatingChildren = this.children
           .filter((child) => child.$props.name !== undefined);
@@ -79,7 +78,7 @@ export default componentFactoryOf<FormEvents, FormScopedSlots>()
           }
           return p;
         };
-        return await doTask();
+        return doTask();
       },
       getFieldValidation(name: string) {
         if (this.validateSchema) return this.validateSchema[name];
