@@ -60,7 +60,7 @@ export default componentFactoryOf().mixin({
     },
   },
   methods: {
-    async validate() {
+    validate() {
       if (this.form && this.name && this.schema) {
         return this.schema.validate(this.valueState);
       } else {
