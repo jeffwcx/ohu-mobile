@@ -1,5 +1,5 @@
-import Tag from '.';
-import docs from './README.md';
+import docs from '@/Tag/README.md';
+import { Tag } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|Basic/Tag',

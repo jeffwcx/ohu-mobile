@@ -1,11 +1,40 @@
 {
-  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "allowJs": true,
+    "outDir": "./dist",
+    "checkJs": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "noImplicitAny": true,
+    "types": [
+      "webpack-env"
+    ],
+    "paths": {
+      "@/*": [
+        "../../packages/ohu-mobile/src"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "node_modules/@ohu-mobile/core/typings/*.d.ts"
   ]
 }

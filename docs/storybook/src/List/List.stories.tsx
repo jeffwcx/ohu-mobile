@@ -1,13 +1,10 @@
 import Vue from 'vue';
-import docs from '../README.md';
-import List from '..';
-import Icon from '../../Icon';
-import { CheckboxOption } from '../../CheckboxGroup';
-import CheckList from '../../CheckList';
-import RadioList from '../../RadioList';
-import { RadioOption } from '../../RadioGroup';
-import Skeleton from '../../Skeleton';
-import Grid from '../../Grid';
+import docs from '@/List/README.md';
+import {
+  List, Icon, Skeleton, Grid, CheckboxOption,
+  CheckList, RadioList, RadioOption,
+} from '@ohu-mobile/core';
+import { ArrowRightOutlined } from '@ohu-mobile/icons';
 
 export default {
   title: 'Components|DataDisplay/List',
@@ -29,8 +26,8 @@ export const avatar = () => Vue.extend({
           onClick={(e) => {
             console.log(e);
           }}>
-          <img slot="avatar" style="object-fit: contain;" src={require('@/assets/logo.svg')} />
-          <Icon slot="action" type="arrow-right" />
+          <img slot="avatar" style="object-fit: contain;" src={require('../assets/logo.svg')} />
+          <Icon slot="action" type={ArrowRightOutlined} />
         </List.Item>
       </List>
     );
@@ -45,7 +42,7 @@ export const text = () => Vue.extend({
           <div style="min-height: 32px;" slot="text">【避孕】短效避孕药——小药片，大用处</div>
           <template slot="minorText">
             <div style="height: 24px; line-height: 24px; display: flex; flex-flow: row nowrap; align-items: center;">
-              <img style="object-fit: contain; width: 24px; height: 24px; margin-right: 8px;" src={require('@/assets/logo.svg')} />
+              <img style="object-fit: contain; width: 24px; height: 24px; margin-right: 8px;" src={require('../assets/logo.svg')} />
               <span>严春晓  副主任医师 | 妇科</span>
             </div>
           </template>
@@ -68,7 +65,7 @@ export const minorText = () => Vue.extend({
             <div>在线挂号量：1256</div>
             <div>擅长：肺结核、肺癌、胸腔积液、慢性咳嗽</div>
           </template>
-          <img slot="avatar" style="object-fit: contain;" src={require('@/assets/logo.svg')} />
+          <img slot="avatar" style="object-fit: contain;" src={require('../assets/logo.svg')} />
           <Icon slot="action" type="arrow-right" />
         </List.Item>
       </List>
@@ -204,7 +201,7 @@ export const subheader = () => Vue.extend({
                         text={item.text}
                         paddingDivider={false}
                         minorText={item.minorText}>
-                        <img slot="avatar" style="object-fit: contain;" src={require('@/assets/logo.svg')} />
+                        <img slot="avatar" style="object-fit: contain;" src={require('../assets/logo.svg')} />
                         <Icon slot="action" type="arrow-right" />
                       </List.Item>
                     );

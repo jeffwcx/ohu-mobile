@@ -1,17 +1,23 @@
-import EntryItem from './index';
 import Vue from 'vue';
-import Card, { CardHeader } from '../Card';
-import {
-  UserSmileOutlined, MapPinOutlined, EmotionOutlined,
-  StarOutlined, WalletOutlined, CouponOutlined,
-  CustomerServiceOutlined, QuestionOutlined, ReplyOutlined,
-  HomeOutlined, InboxOutlined, CheckOutlined,
-  UserOutlined, MessageOutlined
-} from '../../icons';
-import { WdghFilled, WdzxFilled, WdcfFilled, WdtjFilled } from './assets';
-import Button from '../Button';
 import VueRouter from 'vue-router';
-import docs from './README.md';
+import docs from '@/EntryItem/README.md';
+import { EntryItem, Card, CardHeader, Button } from '@ohu-mobile/core';
+import {
+  UserSmileOutlined, MapPinOutlined,
+  EmotionOutlined, StarOutlined,
+  WalletOutlined, CouponOutlined,
+  ReplyOutlined, CustomerServiceOutlined,
+  QuestionOutlined,
+  HomeOutlined,
+  InboxOutlined,
+  CheckOutlined,
+  UserOutlined,
+  MessageOutlined,
+} from '@ohu-mobile/icons';
+import { WdghFilled } from './assets/WdghFilled';
+import { WdzxFilled } from './assets/WdzxFilled';
+import { WdcfFilled } from './assets/WdcfFilled';
+import { WdtjFilled } from './assets/WdtjFilled';
 
 
 export default {
@@ -103,7 +109,7 @@ export const useImage = () => Vue.extend({
   render() {
     return (
       <Card shadow>
-        <EntryItem style="width: 33.3333%" image={require('../../assets/logo.svg')} textSize="lg" iconAreaSize="lg" minorText="官方挂号平台">去挂号</EntryItem>
+        <EntryItem style="width: 33.3333%" image={require('../assets/logo.svg')} textSize="lg" iconAreaSize="lg" minorText="官方挂号平台">去挂号</EntryItem>
       </Card>
     );
   }

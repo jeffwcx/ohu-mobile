@@ -1,10 +1,7 @@
-import Toast from '..';
-import docs from '../README.md';
+import docs from '@/Toast/README.md';
 import Vue from 'vue';
-import Card from '../../Card';
-import Button from '../../Button';
-import { PopupPosition } from '../../Popup';
-import { CheckboxCircleFilled } from '@/icons';
+import { Toast, Card, Button, PopupPosition } from '@ohu-mobile/core';
+import { CheckboxCircleFilled } from '@ohu-mobile/icons';
 export default {
   title: 'Components|FeedBack/Toast',
   parameters: {

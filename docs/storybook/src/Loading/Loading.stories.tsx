@@ -1,6 +1,6 @@
-import Loading from '..';
 import Vue from 'vue';
-import docs from '../README.md';
+import docs from '@/Loading/README.md';
+import { Loading } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|FeedBack/Loading',

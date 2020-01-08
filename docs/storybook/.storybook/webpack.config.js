@@ -1,4 +1,5 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const tsImportPluginFactory = require('ts-import-plugin');
 const path = require('path');
 const fs = require('fs');
 
@@ -16,16 +17,30 @@ module.exports = ({ config }) => {
     ],
     enforce: 'pre',
   }, {
-    test: /\.(ts|tsx)$/,
+    test: /\.(js|jsx|ts|tsx)$/,
+    exclude: [resolve('../node_modules')],
     use: [
       {
         loader: 'babel-loader',
+        options: {
+          configFile: resolve('../../../babel.config.js'),
+        },
       },
       {
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
           happyPackMode: false,
+          getCustomTransformers: () => ({
+            before: [
+              tsImportPluginFactory({
+                libraryName: '@ohu-mobile/core',
+                libraryDirectory: 'lib-rem',
+                style: false,
+                camel2DashComponentName: false,
+              }),
+            ],
+          }),
           appendTsxSuffixTo: [
             '\\.vue$'
           ],
@@ -35,7 +50,7 @@ module.exports = ({ config }) => {
   }, {
     test: /\.(scss|sass)$/,
     include: [
-      resolve('../src')
+      resolve('../src'),
     ],
     use: [
       'vue-style-loader',
@@ -44,6 +59,11 @@ module.exports = ({ config }) => {
       },
       {
         loader: 'postcss-loader',
+        options: {
+          config: {
+            path: resolve('../../../post.config.js'),
+          }
+        },
       },
       {
         loader: 'sass-loader',
@@ -61,6 +81,6 @@ module.exports = ({ config }) => {
     )
   );
   config.resolve.extensions.push('.ts', '.tsx', '.md');
-  config.resolve.alias['@'] = resolve('../src');
+  config.resolve.alias['@'] = resolve('../../../packages/ohu-mobile/src');
   return config;
 };

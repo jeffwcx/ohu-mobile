@@ -1,6 +1,5 @@
 import { componentFactoryOf } from 'vue-tsx-support';
-import Card from '../../Card';
-import List from '../../List';
+import { Card, List } from '@ohu-mobile/core';
 
 
 export default componentFactoryOf().create({

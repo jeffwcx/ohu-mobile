@@ -1,9 +1,6 @@
-import Dialog from '..';
 import Vue from 'vue';
-import docs from '../README.md';
-import Button from '../../Button';
-import Card from '../../Card';
-import Tag from '../../Tag';
+import docs from '@/Dialog/README.md';
+import { Card, Button, Dialog, Tag } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|FeedBack/Dialog',

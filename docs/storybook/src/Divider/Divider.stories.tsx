@@ -1,5 +1,5 @@
-import Divider from '..';
-import docs from '../README.md';
+import docs from '@/Divider/README.md';
+import { Divider } from '@ohu-mobile/core';
 
 
 

@@ -1,10 +1,6 @@
-import docs from '../README.md';
-import Image from '../Image';
+import docs from '@/Image/README.md';
 import { component } from 'vue-tsx-support';
-import Grid from '../../Grid';
-import Result from '../../Result';
-import Button from '../../Button';
-import Loading from '../../Loading';
+import { Image, Result, Button, Loading, Grid } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|Basic/Image',

@@ -1,7 +1,7 @@
-import Skeleton from '.';
-import Card, { CardHeader } from '../Card';
+
 import Vue from 'vue';
-import docs from './README.md';
+import docs from '@/Skeleton/README.md';
+import { Skeleton, Card, CardHeader } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|DataDisplay/Skeleton',

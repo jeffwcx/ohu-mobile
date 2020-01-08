@@ -1,8 +1,6 @@
-import NavBar from '..';
 import Vue from 'vue';
-import docs from '../README.md';
-import Button from '../../Button';
-import Icon from '../../Icon';
+import docs from '@/NavBar/README.md';
+import { NavBar, Button } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|Navigation/NavBar',
@@ -35,7 +33,7 @@ export const leftSlot = () => Vue.extend({
   render() {
     return (
       <NavBar divider>
-        <img slot="left" src={require('@/assets/logo.svg')} />
+        <img slot="left" src={require('../assets/logo.svg')} />
         <div style="width: 250px; height: 100%;background:rgba(248,248,248,1);"></div>
         <template slot="right">
           <Button type="link" inline icon="menu-o"></Button>
@@ -67,7 +65,7 @@ export const primary = () => Vue.extend({
   render() {
     return (
       <NavBar type="primary">
-        <img slot="left" src={require('@/assets/logo--white.svg')} />
+        <img slot="left" src={require('../assets/logo--white.svg')} />
         <div style="width: 250px; height: 100%;"></div>
         <template slot="right">
           <Button type="link" inline icon="menu"></Button>

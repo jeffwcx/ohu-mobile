@@ -1,9 +1,7 @@
-import Locale from '..';
 import Vue from 'vue';
-import docs from '../README.md';
-import Dialog from '../../Dialog';
-import Button from '../../Button';
-import en_US from '../en_US';
+import docs from '@/locale/README.md';
+import { locale, Button, Dialog } from '@ohu-mobile/core';
+import en_US from '@ohu-mobile/core/lib/locale/en_US';
 
 export default {
   title: 'Locale',
@@ -15,7 +13,7 @@ export default {
 
 export const use = () => Vue.extend({
   beforeCreate() {
-    Vue.use(Locale);
+    Vue.use(locale);
   },
   render() {
     return (
@@ -23,9 +21,9 @@ export const use = () => Vue.extend({
         <p>
           current lang(click to change): <Button inline size="sm" onClick={() => {
             if (this.$ohuLang === 'zh_CN') {
-              Locale.use('en_US', en_US);
+              locale.use('en_US', en_US);
             } else {
-              Locale.use('zh_CN');
+              locale.use('zh_CN');
             }
           }}>{this.$ohuLang}</Button>
         </p>

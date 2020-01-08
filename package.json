@@ -32,12 +32,14 @@
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "@vue/babel-preset-jsx": "^1.1.1",
+    "autoprefixer": "^9.7.3",
     "conventional-changelog": "^3.1.10",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-vue": "^5.2.3",
     "lerna": "^3.20.2",
+    "postcss-pxtorem": "^4.0.1",
     "typescript": "^3.7.2"
   },
   "config": {

@@ -1,7 +1,5 @@
-import DetailItem from '.';
-import Card from '../Card';
-import Button from '../Button';
-import docs from './README.md';
+import docs from '@/DetailItem/README.md';
+import { DetailItem, Card, Button } from '@ohu-mobile/core';
 
 
 export default {

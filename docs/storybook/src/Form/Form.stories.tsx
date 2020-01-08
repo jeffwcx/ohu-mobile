@@ -1,14 +1,8 @@
-import Form from '..';
 import Vue from 'vue';
-import docs from '../README.md';
-import Checkbox from '../../Checkbox';
-import Radio from '../../Radio';
-import CheckboxGroup from '../../CheckboxGroup';
-import RadioGroup from '../../RadioGroup';
-import Agree from '../../Agree';
-import Button from '../../Button';
+import docs from '@/Form/README.md';
+import { Form, CheckboxGroup, Checkbox, RadioGroup, Radio, Agree, Button, Dialog } from '@ohu-mobile/core';
 import * as yup from 'yup';
-import Dialog from '../../Dialog';
+
 
 export default {
   title: 'Components|Form/Form',

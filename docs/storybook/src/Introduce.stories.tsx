@@ -1,4 +1,4 @@
-import docs from '../../README.md';
+import docs from '../../../README.md';
 import MarkdownIt from 'markdown-it';
 import props from 'vue-strict-prop';
 import { component } from 'vue-tsx-support';

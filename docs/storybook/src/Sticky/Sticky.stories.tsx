@@ -1,8 +1,6 @@
 import Vue from 'vue';
-import Sticky from '..';
-import docs from '../README.md';
-import Card from '../../Card';
-import Toast from '../../Toast';
+import docs from '@/Sticky/README.md';
+import { Sticky, Card, Toast } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|Utils/Sticky',

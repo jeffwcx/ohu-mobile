@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Button from '..';
-import docs from '../README.md';
+import { Button } from '@ohu-mobile/core';
+import docs from '@/Button/README.md';
 
 
 export default {

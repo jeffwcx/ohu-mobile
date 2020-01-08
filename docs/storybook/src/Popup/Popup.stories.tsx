@@ -1,9 +1,6 @@
-import Popup, { PopupHeader } from '..';
 import Vue from 'vue';
-import docs from '../README.md';
-import Button from '../../Button';
-import Card, { CardHeader } from '../../Card';
-import { PopupPosition } from '../types';
+import docs from '@/Popup/README.md';
+import { Popup, Card, CardHeader, Button, PopupHeader, PopupPosition } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|FeedBack/Popup',

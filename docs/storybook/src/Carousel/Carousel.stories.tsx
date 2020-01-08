@@ -1,9 +1,7 @@
-import Carousel from '..';
+import { Carousel, CarouselChangeEvent, Button } from '@ohu-mobile/core';
 import Vue from 'vue';
-import docs from '../README.md';
+import docs from '@/Button/README.md';
 import './styles.scss';
-import Button from '../../Button';
-import { CarouselChangeEvent } from '../interface';
 
 export default {
   title: 'Components|DataDisplay/Carousel',

@@ -1,11 +1,2 @@
-# `storybook`
+# Storybook for ohu-mobile
 
-> TODO: description
-
-## Usage
-
-```
-const storybook = require('storybook');
-
-// TODO: DEMONSTRATE API
-```

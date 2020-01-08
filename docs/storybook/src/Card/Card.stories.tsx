@@ -1,7 +1,5 @@
-import Card, { CardHeader } from '.';
-import Button from '../Button';
-import DetailItem from '../DetailItem';
-import docs from './README.md';
+import { Card, CardHeader, Button, DetailItem } from '@ohu-mobile/core';
+import docs from '@/Card/README.md';
 
 export default {
   title: 'Components|DataDisplay/Card',

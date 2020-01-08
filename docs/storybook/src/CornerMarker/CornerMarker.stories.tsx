@@ -1,6 +1,6 @@
-import CornerMarker from '.';
 import { CreateElement } from 'vue';
-import docs from './README.md';
+import docs from '@/CornerMarker/README.md';
+import { CornerMarker } from '@ohu-mobile/core';
 
 export default {
   title: 'Components|DataDisplay/CornerMarker',

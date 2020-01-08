@@ -1,7 +1,7 @@
-import Icon from '..';
-import docs from '../README.md';
-import * as icons from '@/icons';
-import { SVGIconDef } from '@/global';
+import docs from '@/Icon/README.md';
+import * as icons from '@ohu-mobile/icons';
+import { Icon } from '@ohu-mobile/core';
+import { SVGIconDef } from '@ohu-mobile/icons/lib/types';
 
 
 export default {
