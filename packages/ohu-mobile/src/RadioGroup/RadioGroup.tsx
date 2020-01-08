@@ -4,7 +4,7 @@ import { prefix } from '../_utils/shared';
 import Radio from '../Radio';
 import ancestorMixin from '../_utils/ancestorMixin';
 import { RadioOption, RadioGroupEvents } from './types';
-import { IconProperty } from '../../global';
+import { IconProperty } from '../types';
 
 const baseRadioGroupName = `${prefix}radio-group`;
 

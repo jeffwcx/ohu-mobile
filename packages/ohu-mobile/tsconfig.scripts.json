@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": "./scripts",
+    "outDir": "./bin",
+    "target": "es6",
+    "allowJs": true,
+    "checkJs": false
+  },
+  "include": ["scripts/**/*.ts"]
+}

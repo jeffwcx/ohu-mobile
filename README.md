@@ -63,3 +63,4 @@ yarn add @ohu-mobile/styles
 + ❎ a11y
 + ❎ using new document framework (ohu-book)
 + ❎ `dark` mode
++ ❎ remove `vue-tsx-supoort` and `vue-strict-prop`, use my new idea.

@@ -3,5 +3,11 @@
     "packages/*",
     "docs/**"
   ],
+  "command": {
+    "version": {
+      "conventionalCommits": true,
+      "changelogPreset": "angular"
+    }
+  },
   "version": "independent"
 }

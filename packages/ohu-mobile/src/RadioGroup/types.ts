@@ -1,5 +1,5 @@
 import { RadioProps } from '../Radio';
-import { IconProperty } from '../../global';
+import { IconProperty } from '../types';
 export interface RadioGroupEvents {
   onChange: any;
 }

@@ -12,16 +12,16 @@ export function getScrollEventTarget(element: HTMLElement, rootParent: ScrollEle
     node !== rootParent
   ) {
     const { overflowY } = window.getComputedStyle(node);
-    if (overflowScrollReg.test(<string>overflowY)) {
+    if (overflowScrollReg.test(overflowY as string)) {
       if (node.tagName !== 'BODY') {
         return node;
       }
-      const { overflowY: htmlOverflowY } = window.getComputedStyle(<Element>node.parentNode);
-      if (overflowScrollReg.test(<string>htmlOverflowY)) {
+      const { overflowY: htmlOverflowY } = window.getComputedStyle(node.parentNode as Element);
+      if (overflowScrollReg.test(htmlOverflowY)) {
         return node;
       }
     }
-    node = <HTMLElement>node.parentNode;
+    node = node.parentNode as HTMLElement;
   }
   return rootParent;
 }

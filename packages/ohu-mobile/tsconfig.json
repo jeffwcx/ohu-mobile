@@ -5,7 +5,7 @@
     "strict": true,
     "jsx": "preserve",
     "allowJs": true,
-    "outDir": "./dist",
+    "outDir": "./lib",
     "checkJs": true,
     "importHelpers": true,
     "moduleResolution": "node",
@@ -15,6 +15,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "declaration": true,
     "types": [
       "jest"
     ],
@@ -31,7 +32,6 @@
     ]
   },
   "include": [
-    "scripts/**/*.ts",
     "typings/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
@@ -40,6 +40,8 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "lib",
+    "es"
   ]
 }

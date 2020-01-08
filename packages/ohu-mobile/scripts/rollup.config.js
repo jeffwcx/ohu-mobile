@@ -12,34 +12,48 @@ import generateScss from './generate-scss';
 import variables from '../src/_styles/variables';
 import * as componentVariables from '../src/_styles/component.variables';
 
+const isProd = process.env.NODE_ENV === 'production';
+const isRem = process.env.CSS_EDITION === 'rem';
+let format = isRem ? 'es' : 'umd';
+let output = { name: 'ohu-mobile', sourcemap: true, format };
+let file = 'dist/ohu-mobile';
+if (!isRem) {
+  output.globals = {
+    vue: 'Vue'
+  };
+} else {
+  file += '.es';
+}
+if (isProd) {
+  file += '.min';
+}
+file += '.js';
+output.file = file;
+
+let sassOutput = 'dist/ohu-mobile';
+let plugins = [ autoprefixer ];
+if (isRem) {
+  plugins.push(
+    require('postcss-pxtorem')({
+      rootValue: 75,
+      propList: ['*', '!border'],
+      minPixelValue: 2,
+    })
+  );
+  sassOutput += '.rem';
+}
+if (isProd) {
+  sassOutput += '.min'
+}
+sassOutput += '.css';
+
+
+const sassOptions = {};
+
 const extensions = [ '.js', '.jsx', '.ts', '.tsx' ];
 export default {
   input: './src/index.ts',
-  output: [{
-    file: 'dist/ohu-mobile.js',
-    format: 'umd',
-    name: 'ohu-mobile',
-    globals: {
-      vue: 'Vue'
-    },
-    sourcemap: true,
-  }, {
-    file: 'dist/ohu-mobile.min.js',
-    format: 'umd',
-    name: 'ohu-mobile',
-    globals: {
-      vue: 'Vue'
-    },
-    sourcemap: true,
-  }, {
-    file: 'dist/ohu-mobile.es.js',
-    format: 'es',
-    sourcemap: true,
-  }, {
-    file: 'dist/ohu-mobile.es.min.js',
-    format: 'es',
-    sourcemap: true,
-  }],
+  output: [output],
   plugins: [
     resolve({ extensions }),
     commonjs({
@@ -51,22 +65,16 @@ export default {
     // sass + postcss
     typescript(),
     sass({
-      output: 'dist/ohu-mobile.css',
+      output: sassOutput,
       options: {
+        outputStyle: isProd ? 'compressed' : 'expanded',
         includePaths: [ 'src/_styles' ],
         data: `${generateScss(variables)}
           ${generateScss(componentVariables)}
           @import "mixins";`,
       },
       processor: css =>
-        postcss([
-          autoprefixer,
-          require('postcss-pxtorem')({
-            rootValue: 75,
-            propList: ['*', '!border'],
-            minPixelValue: 2,
-          }),
-        ]).process(css)
+        postcss(plugins).process(css)
           .then(result => {
             return result.css;
           }),
