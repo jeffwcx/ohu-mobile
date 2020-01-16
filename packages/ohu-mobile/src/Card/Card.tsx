@@ -24,8 +24,8 @@ const Card = componentFactory.create({
       };
     },
   },
-  render(h) {
-    const { cls, $slots } = this;
+  render() {
+    const { cls, $slots, divider } = this;
     // detect card-header, extra other vnode as content
     if ($slots.default instanceof Array) {
       const headerNodes = getVNodesByName($slots.default, cardHeaderBaseName);
@@ -36,7 +36,7 @@ const Card = componentFactory.create({
         return (
           <div class={cls}>
             {headerNodes}
-            <Divider></Divider>
+            { divider && <Divider></Divider> }
             {
               contentNodes.length > 0
               &&

@@ -8,4 +8,9 @@ import { Sticky } from 'ohu-mobile';
 ```
 
 
+# TODO
+
+1. add fixed class
+
+
 
