@@ -14,7 +14,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "noImplicitAny": true,
     "types": [
       "webpack-env"
@@ -34,7 +34,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "node_modules/@ohu-mobile/core/typings/*.d.ts"
-  ]
+    "src/**/*.vue"
+  ],
+  "exclude": ["node_modules"]
 }

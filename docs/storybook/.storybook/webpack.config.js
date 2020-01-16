@@ -18,6 +18,7 @@ module.exports = ({ config }) => {
     enforce: 'pre',
   }, {
     test: /\.(js|jsx|ts|tsx)$/,
+    include: [resolve('../src')],
     exclude: [resolve('../node_modules')],
     use: [
       {
@@ -82,10 +83,6 @@ module.exports = ({ config }) => {
         formatter: 'codeframe',
         checkSyntacticErrors: false,
         eslint: true,
-        eslintOptions: {
-          useEslintrc: true,
-          ignore: resolve('../../../packages'),
-        },
       }
     )
   );
