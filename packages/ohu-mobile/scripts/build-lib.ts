@@ -81,7 +81,7 @@ async function compileScripts(
 
 function usePostcss(css: string, cssPath: string, useRem = false): Promise<postcss.Result> {
   return new Promise(async (resolve) => {
-    const plugins = [
+    const plugins: any[] = [
       autoprefixer,
     ];
     if (useRem) {

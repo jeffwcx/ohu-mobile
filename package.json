@@ -40,7 +40,6 @@
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-vue": "^5.2.3",
     "lerna": "^3.20.2",
-    "postcss-pxtorem": "^4.0.1",
     "typescript": "^3.7.2"
   },
   "config": {

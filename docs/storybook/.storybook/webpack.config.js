@@ -59,6 +59,7 @@ module.exports = ({ config }) => {
     test: /\.(scss|sass)$/,
     include: [
       resolve('../src'),
+      resolve('../node_modules/@ohu-mobile/core'),
     ],
     use: [
       'vue-style-loader',
@@ -67,11 +68,6 @@ module.exports = ({ config }) => {
       },
       {
         loader: 'postcss-loader',
-        options: {
-          config: {
-            path: resolve('../../../post.config.js'),
-          }
-        },
       },
       {
         loader: 'sass-loader',
@@ -84,7 +80,12 @@ module.exports = ({ config }) => {
         vue: true,
         tslint: false,
         formatter: 'codeframe',
-        checkSyntacticErrors: false
+        checkSyntacticErrors: false,
+        eslint: true,
+        eslintOptions: {
+          useEslintrc: true,
+          ignore: resolve('../../../packages'),
+        },
       }
     )
   );
