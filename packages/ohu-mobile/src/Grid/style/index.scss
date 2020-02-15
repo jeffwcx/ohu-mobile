@@ -1,0 +1,6 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$units: $gridUnits;
+$level: $gridGapLevel;
+$rate: $gridGapRate;
+@import '~@ohu-mobile/styles/flex';

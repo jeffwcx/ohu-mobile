@@ -1,0 +1,110 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+
+$tagPrefixClass: #{$prefix}tag;
+.#{$tagPrefixClass} {
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  .#{$prefix}icon {
+    @include center(y);
+  }
+  // ================= size =================
+  &.is-sm {
+    @include padding(_ 12px _ 12px);
+    .#{$tagPrefixClass}__text {
+      font-size: 24px;
+      line-height: (32 / 20) * 1em;
+      transform: scale(0.833333, 0.833333);
+      transform-origin: center center;
+    }
+    .#{$prefix}icon {
+      font-size: 24px;
+      right: 12px;
+    }
+    &[role="button"] {
+      padding-right: 36px;
+    }
+  }
+  &.is-md {
+    @include padding(12px 24px);
+    font-size: 24px;
+    line-height: (34 / 24) * 1em;
+    .#{$prefix}icon {
+      font-size: 28px;
+      right: 18px;
+    }
+    &[role="button"] {
+      padding-right: 56px;
+    }
+  }
+  &.is-lg {
+    @include padding(16px 40px);
+    font-size: 28px;
+    line-height: (40 / 28) * 1em;
+    .#{$prefix}icon {
+      font-size: 32px;
+      right: 24px;
+    }
+    &[role="button"] {
+      padding-right: 64px;
+    }
+  }
+  // ================= shape =================
+  &.is-square {
+    border-radius: 8px;
+  }
+  &.is-fillet {
+    border-radius: 0 8px;
+  }
+  // ================= color ================
+  &.is-solid {
+    &.is-grey {
+      color: $colorTextBase;
+      background: $colorGrey;
+    }
+    &.is-green {
+      color: $colorGreen;
+      background: rgba($colorGreen, .15);
+    }
+    &.is-orange {
+      color: $colorOrange;
+      background: rgba($colorOrange, .15);
+    }
+    &.is-red {
+      color: $colorRed;
+      background: rgba($colorRed, .15);
+    }
+    &.is-blue, &.is-primary {
+      color: $colorBlue;
+      background: rgba($colorBlue, .15);
+    }
+  }
+  &.is-outline {
+    background: $colorTextBaseInverse;
+    &.is-grey {
+      color: $colorTextBase;
+      @include hair-border($colorGrey, all, 8px);
+      .#{$prefix}icon {
+        color: $colorTextMinor;
+      }
+    }
+    &.is-green {
+      color: $colorGreen;
+      @include hair-border($colorGreen, all, 8px);
+    }
+    &.is-orange {
+      color: $colorOrange;
+      @include hair-border($colorOrange, all, 8px);
+    }
+    &.is-red {
+      color: $colorRed;
+      @include hair-border($colorRed, all, 8px);
+    }
+    &.is-blue, &.is-primary {
+      color: $colorBlue;
+      @include hair-border($colorBlue, all, 8px);
+    }
+  }
+}

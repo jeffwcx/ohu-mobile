@@ -1,13 +1,11 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import Icon from '../Icon';
-import vars from '../_styles/variables';
 import { NoDataIllustration, NoNetworkIllustration, NoNewsIllustration, NoQueryDataIllustration } from './assets';
 import { CheckboxCircleFilled, CloseCircleFilled } from '@ohu-mobile/icons';
-import './styles/index.scss';
+import { $prefix, $colorPrimary, $colorTextError } from '../_config/variables';
 
-const resultBaseName = `${prefix}result`;
+const resultBaseName = `${$prefix}result`;
 const resultIconCls = `${resultBaseName}__icon`;
 const resultTitleCls = `${resultBaseName}__title`;
 const resultSubTitleCls = `${resultBaseName}__subtitle`;
@@ -44,9 +42,9 @@ const Result = componentFactory.create({
     } else {
       const style: Partial<CSSStyleDeclaration> = {};
       if (status === 'success') {
-        style.color = vars.colorPrimary;
+        style.color = $colorPrimary;
       } else if (status === 'error') {
-        style.color = vars.colorTextError;
+        style.color = $colorTextError;
       } else {
         style.fontSize = '140px';
       }

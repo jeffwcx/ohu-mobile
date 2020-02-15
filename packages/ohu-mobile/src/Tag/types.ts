@@ -1,8 +1,16 @@
 
+export type TagSize = 'sm' | 'md' | 'lg';
+export type TagShape = 'square' | 'fillet';
 export interface TagProps {
-  type?: 'primary' | 'warning' | 'gradient';
-  shape?: 'square' | 'fillet';
-  size?: 'sm' | 'md';
+  text?: string | number;
+  shape?: TagShape;
+  size?: TagSize;
   color?: string;
-  fillColor?: string;
+  fontColor?: string;
+  deleteable?: boolean;
+  outline?: boolean;
+}
+
+export interface TagEvents {
+  onClick: Event;
 }

@@ -1,0 +1,56 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+
+$toastPrefixClass: #{$prefix}toast;
+.#{$toastPrefixClass} {
+  box-sizing: border-box;
+  background: $colorMask;
+  font-size: 32px;
+  font-weight: 400;
+  color: $colorTextBaseInverse;
+  padding: 18px 24px;
+  border-radius: 8px;
+  max-width: 72%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  &__text {
+    line-height: (44/32) * 1em;
+    @include text-wrap;
+  }
+  &__icon {
+    ~.#{$toastPrefixClass}__text {
+      margin-left: 16px;
+    }
+  }
+  .#{$prefix}loading {
+    font-size: 32px;
+    flex: 0 0 auto;
+  }
+  .#{$prefix}icon {
+    font-size: 1.4em;
+    flex: 0 0 auto;
+  }
+  &.is-vertical {
+    width: 240px;
+    height: 240px;
+    flex-wrap: wrap;
+    padding-top: 50px;
+    overflow: hidden;
+    align-items: flex-start;
+    align-content: flex-start;
+    .#{$prefix}icon {
+      font-size: 2.8em;
+    }
+    .#{$toastPrefixClass}__icon {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+    }
+    .#{$toastPrefixClass}__text {
+      margin: 10px 0 0 0;
+    }
+  }
+}

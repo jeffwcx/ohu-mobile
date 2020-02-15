@@ -46,9 +46,7 @@ yarn add @ohu-mobile/styles
 + ❎ Tabs
 + ❎ NoticeBar
 + ❎ Cascader
-+ ❎ Collapse
 + ❎ IndexBar
-+ ❎ ActionBar
 + ❎ ActionSheet
 + ❎ Switch
 + ❎ Rate
@@ -62,5 +60,8 @@ yarn add @ohu-mobile/styles
 + ❎ using `hook:<>`
 + ❎ a11y
 + ❎ using new document framework (ohu-book)
++ ❎ ssr
 + ❎ `dark` mode
 + ❎ remove `vue-tsx-supoort` and `vue-strict-prop`, use my new idea.
++ ❎ friendly tip for development.
++ ❎ vue3

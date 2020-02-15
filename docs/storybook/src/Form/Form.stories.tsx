@@ -1,6 +1,19 @@
 import Vue from 'vue';
 import docs from '@/Form/README.md';
-import { Form, CheckboxGroup, Checkbox, RadioGroup, Radio, Agree, Button, Dialog } from '@ohu-mobile/core';
+import Form from '@/Form';
+import '@/Form/style';
+import CheckboxGroup from '@/CheckboxGroup';
+import Checkbox from '@/Checkbox';
+import '@/Checkbox/style';
+import RadioGroup from '@/RadioGroup';
+import Radio from '@/Radio';
+import '@/Radio/style';
+import Agree from '@/Agree';
+import '@/Agree/style';
+import Button from '@/Button';
+import '@/Button/style';
+import Dialog from '@/Dialog';
+import '@/Dialog/style';
 import * as yup from 'yup';
 
 

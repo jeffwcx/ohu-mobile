@@ -1,0 +1,50 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$popoverPrefixClass: #{$prefix}popover;
+
+.#{$popoverPrefixClass} {
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  &__arrow {
+    position: absolute;
+  }
+  &.is-top {
+    padding-bottom: $popoverArrowSize;
+    .#{$popoverPrefixClass}__arrow {
+      margin-left: -$popoverArrowSize;
+      @include triangle(up, $popoverArrowSize, $popoverContentBackground);
+    }
+  }
+  &.is-center-left {
+    padding-right: $popoverArrowSize;
+    .#{$popoverPrefixClass}__arrow {
+      margin-top: -$popoverArrowSize;
+      @include triangle(left, $popoverArrowSize, $popoverContentBackground);
+    }
+  }
+  &.is-center-right {
+    padding-left: $popoverArrowSize;
+    .#{$popoverPrefixClass}__arrow {
+      margin-top: -$popoverArrowSize;
+      @include triangle(right, $popoverArrowSize, $popoverContentBackground);
+    }
+  }
+  &.is-bottom {
+    padding-top: $popoverArrowSize;
+    .#{$popoverPrefixClass}__arrow {
+      margin-left: -$popoverArrowSize;
+      @include triangle(down, $popoverArrowSize, $popoverContentBackground);
+    }
+  }
+  &__content {
+    background: $popoverContentBackground;
+    border-radius: 8px;
+    color: $colorTextBaseInverse;
+    font-weight: 400;
+    font-size: 32px;
+  }
+}
+
+@import './popover-item.scss';

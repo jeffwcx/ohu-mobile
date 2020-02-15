@@ -77,3 +77,31 @@ export interface CarouselChangeInfo {
   toPage: number;
   fromIndex: number;
 }
+
+export interface CarouselEvents {
+  onChange: CarouselChangeEvent;
+  onInput: CarouselChangeEvent;
+}
+
+export type CarouselMode = 'slide' | 'fade';
+
+export interface CarouselProps {
+  value?: number;
+  loop?: boolean;
+  autoplay?: boolean;
+  interval?: number;
+  indicator?: boolean;
+  indicatorDarkMode?: boolean;
+  width?: string;
+  height?: string;
+  mode?: CarouselMode;
+  direction?: CarouselSlideDirection;
+  rewind?: boolean;
+  autoSize?: boolean;
+  cover?: boolean;
+  perPage?: number;
+  moveStep?: number;
+  gap?: number;
+  center?: boolean;
+  easing?: string;
+}

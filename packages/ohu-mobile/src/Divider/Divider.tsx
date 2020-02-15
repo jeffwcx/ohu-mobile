@@ -1,10 +1,9 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import { VNodeData } from 'vue';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
-const dividerBaseName = `${prefix}divider`;
+const dividerBaseName = `${$prefix}divider`;
 const dividerTextCls = `${dividerBaseName}__text`;
 const Divider = componentFactory.create({
   name: dividerBaseName,

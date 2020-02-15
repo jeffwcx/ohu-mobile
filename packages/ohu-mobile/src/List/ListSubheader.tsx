@@ -1,10 +1,10 @@
 import { component } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import Sticky from '../Sticky';
+import { $prefix } from '../_config/variables';
 
 
-const baseListSubheaderName = `${prefix}list-subheader`;
+const baseListSubheaderName = `${$prefix}list-subheader`;
 
 export default component({
   name: baseListSubheaderName,

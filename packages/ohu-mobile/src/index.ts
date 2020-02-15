@@ -9,7 +9,7 @@ import Tag from './Tag';
 import Sticky from './Sticky';
 import Card from './Card';
 import Carousel from './Carousel';
-import CornerMarker from './CornerMarker';
+import Badge from './Badge';
 import DetailItem from './DetailItem';
 import Divider from './Divider';
 import List from './List';
@@ -32,6 +32,8 @@ import CheckList from './CheckList';
 import RadioList from './RadioList';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
+import Collapse from './Collapse';
+import ActionBar from './ActionBar';
 
 const components = [
   Icon,
@@ -43,7 +45,7 @@ const components = [
   Sticky,
   Card,
   Carousel,
-  CornerMarker,
+  Badge,
   DetailItem,
   Divider,
   List,
@@ -66,6 +68,8 @@ const components = [
   RadioList,
   CheckboxGroup,
   RadioGroup,
+  Collapse,
+  ActionBar
 ];
 
 // global use ui library
@@ -86,7 +90,7 @@ export {
   Sticky,
   Card,
   Carousel,
-  CornerMarker,
+  Badge,
   DetailItem,
   Divider,
   List,
@@ -109,6 +113,8 @@ export {
   CheckboxGroup,
   RadioGroup,
   Skeleton,
+  Collapse,
+  ActionBar
 };
 
 export * from './Icon';
@@ -120,7 +126,7 @@ export * from './Tag';
 export * from './Sticky';
 export * from './Card';
 export * from './Carousel';
-export * from './CornerMarker';
+export * from './Badge';
 export * from './DetailItem';
 export * from './Divider';
 export * from './List';
@@ -142,7 +148,10 @@ export * from './RadioList';
 export * from './CheckboxGroup';
 export * from './RadioGroup';
 export * from './Skeleton';
+export * from './Collapse';
+export * from './ActionBar';
 export * from './types';
+export * from './vueTypes';
 
 export default {
   install,

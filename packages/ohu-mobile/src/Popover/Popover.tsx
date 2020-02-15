@@ -1,17 +1,16 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import Popup, { PopupOutSideProps, PopupEnterEvent } from '../Popup';
-import './styles/index.scss';
 import { cloneElement, getVNodesByName } from '../_utils/vnode';
 import { VNodeData, VNode } from 'vue';
-import { prefix } from '../_utils/shared';
 import omit from '../_utils/omit';
 import { getAnchorPosition, getTransformOrigin } from '../Popup/utils';
 import { popupOutSideProps } from '../Popup/PopupWrapper';
 import { basePopoverItemName } from './PopoverItem';
 import { PopoverEvents, PopoverSelectEvent } from './types';
+import { $prefix } from '../_config/variables';
 
-const basePopoverName = `${prefix}popover`;
+const basePopoverName = `${$prefix}popover`;
 const popoverContentCls = `${basePopoverName}__content`;
 const popoverContentArrowCls = `${basePopoverName}__arrow`;
 

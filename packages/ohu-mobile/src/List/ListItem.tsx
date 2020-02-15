@@ -1,11 +1,10 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import { VNodeData } from 'vue';
 import { ListItemEvents } from './types';
-import './styles/item.scss';
+import { $prefix } from '../_config/variables';
 
-const baseListItemName = `${prefix}list-item`;
+const baseListItemName = `${$prefix}list-item`;
 const listItemAvatarCls = `${baseListItemName}-avatar`;
 const listItemThumbCls = `${baseListItemName}-thumb`;
 const listItemIconCls = `${baseListItemName}-icon`;

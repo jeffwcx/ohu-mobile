@@ -1,0 +1,84 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$entryItemPrefixClass: #{$prefix}entry-item;
+
+.#{$entryItemPrefixClass} {
+  display: inline-flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  color: $colorTextBase;
+  transition: all .3s easing(out-quint);
+  .#{$prefix}icon {
+    width: 1.375em;
+    height: 1.375em;
+    color: inherit;
+    pointer-events: none;
+  }
+  &__icon {
+    width: 64px;
+    height: 64px;
+    font-size: 32px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  &__text {
+    margin-top: 16px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: 32px;
+    line-height: 1.375em;
+    color: inherit;
+  }
+  &__minor-text {
+    font-size: 28px;
+    line-height: 1.3846em;
+    color: $colorTextMinor;
+  }
+  &.is-icon-area-sm {
+    .#{$entryItemPrefixClass}__icon {
+      width: 48px;
+      height: 48px;
+    }
+  }
+  &.is-icon-area-lg {
+    .#{$prefix}icon {
+      width: (80/32) * 1em;
+      height: (80/32) * 1em;
+    }
+    .#{$entryItemPrefixClass}__icon {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  &.is-text-xsm {
+    .#{$entryItemPrefixClass}__text {
+      font-size: 20px;
+      margin-top: 0;
+    }
+  }
+  &.is-text-sm {
+    .#{$entryItemPrefixClass}__text {
+      font-size: 28px;
+    }
+  }
+  &.is-text-md {
+    .#{$entryItemPrefixClass}__text {
+      font-size: 32px;
+    }
+  }
+  &.is-text-lg {
+    .#{$entryItemPrefixClass}__text {
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.3888888889em;
+    }
+    .#{$entryItemPrefixClass}__minor-text {
+      margin-top: 2px;
+    }
+  }
+}

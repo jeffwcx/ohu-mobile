@@ -1,11 +1,9 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
-import './styles/card-header.scss';
+import { $prefix } from '../_config/variables';
 
-
-export const cardHeaderBaseName = `${prefix}card-header`;
-const cardHeaderExtraCls = `${prefix}card-header__extra`;
+export const cardHeaderBaseName = `${$prefix}card-header`;
+const cardHeaderExtraCls = `${$prefix}card-header__extra`;
 const CardHeader = componentFactory.create({
   name: cardHeaderBaseName,
   props: {

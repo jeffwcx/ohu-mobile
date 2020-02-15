@@ -1,0 +1,38 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+
+$actionBarPrefixClass: #{$prefix}action-bar;
+$actionBarBackground: #FFF;
+
+.#{$actionBarPrefixClass} {
+  padding: 20px 32px;
+  display: flex;
+  flex-flow: row nowrap;
+  &-wrapper {
+    background: $actionBarBackground;
+  }
+  &__text {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    overflow: hidden;
+  }
+  &.is-normal {
+    .#{$prefix}btn {
+      flex: 1;
+      &:nth-of-type(1n+2) {
+        margin-left: 22px;
+      }
+    }
+    .#{$actionBarPrefixClass}__text {
+      flex: 1;
+    }
+  }
+  &.is-toolbar {
+    justify-content: space-between;
+    padding: 20px 16px;
+    .#{$prefix}btn {
+      font-size: 32px;
+    }
+  }
+}

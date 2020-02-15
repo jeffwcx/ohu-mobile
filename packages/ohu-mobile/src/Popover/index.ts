@@ -5,6 +5,4 @@ export default Object.assign(Popover, {
   Item: PopoverItem,
 });
 
-export { PopoverItem };
-
 export * from './types';

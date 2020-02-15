@@ -1,6 +1,8 @@
 import Vue from 'vue';
-import { Button } from '@ohu-mobile/core';
+import Button from '@/Button';
+import '@/Button/style';
 import docs from '@/Button/README.md';
+import { SaveOutlined, ArrowLeftSOutlined, CheckOutlined } from '@ohu-mobile/icons';
 
 
 export default {
@@ -69,14 +71,15 @@ export const translucent = () => ({
 
 
 export const link = () => ({
-  components: { Button },
-  template: `
-    <div style="padding: 10px;">
-      <Button style="margin-bottom: 10px;" type="link" size="sm">link</Button>
-      <Button style="margin-bottom: 10px;" type="link" size="md" round>link + round + md</Button>
-      <Button style="margin-bottom: 10px;" type="link" size="sm" disabled>link + disabled</Button>
-    </div>
-  `,
+  render() {
+    return (
+      <div style="padding: 10px;">
+        <Button style="margin-bottom: 10px;" link size="sm">link</Button>
+        <Button style="margin-bottom: 10px;" type="primary" link size="md" round>link + round + md</Button>
+        <Button style="margin-bottom: 10px;" link size="sm" disabled>link + disabled</Button>
+      </div>
+    );
+  },
 });
 
 export const withIcon = () => Vue.extend({
@@ -84,14 +87,14 @@ export const withIcon = () => Vue.extend({
     return (
       <div style="padding: 10px;">
         <p>lg</p>
-        <Button type="primary" icon="save">保存</Button>
-        <Button type="primary" icon="save" round></Button>
+        <Button type="primary" icon={SaveOutlined}>保存</Button>
+        <Button type="primary" icon={SaveOutlined} round></Button>
         <p>md</p>
-        <Button type="link" icon="arrow-left" size="md">返回</Button>
-        <Button type="primary" icon="arrow-left" size="md" round></Button>
+        <Button type="link" icon={ArrowLeftSOutlined} size="md">返回</Button>
+        <Button type="primary" icon={ArrowLeftSOutlined} size="md" round></Button>
         <p>sm</p>
-        <Button type="link" icon="arrow-left" size="sm">返回</Button>
-        <Button type="primary" icon="check" size="sm" round></Button>
+        <Button type="link" icon={ArrowLeftSOutlined} size="sm">返回</Button>
+        <Button type="primary" icon={CheckOutlined} size="sm" round></Button>
       </div>
     );
   }

@@ -18,13 +18,12 @@ module.exports = ({ config }) => {
     enforce: 'pre',
   }, {
     test: /\.(js|jsx|ts|tsx)$/,
-    include: [resolve('../src')],
     exclude: [resolve('../node_modules')],
     use: [
       {
         loader: 'babel-loader',
         options: {
-          configFile: resolve('../../../babel.config.js'),
+          configFile: resolve('../babel.config.js'),
         },
       },
       {
@@ -38,7 +37,10 @@ module.exports = ({ config }) => {
                 {
                   libraryName: '@ohu-mobile/core',
                   libraryDirectory: 'lib-rem',
-                  style: false,
+                  style: (path) => {
+                    if (path.match(/.*\/(([^/]+(Group|List))|locale)$/)) return false;
+                    return `${path}/style/index.js`;
+                  },
                   camel2DashComponentName: false,
                 },
                 {
@@ -61,6 +63,7 @@ module.exports = ({ config }) => {
     include: [
       resolve('../src'),
       resolve('../node_modules/@ohu-mobile/core'),
+      resolve('../../../packages/ohu-mobile/src')
     ],
     use: [
       'vue-style-loader',
@@ -69,6 +72,16 @@ module.exports = ({ config }) => {
       },
       {
         loader: 'postcss-loader',
+        options: {
+          indent: 'postcss',
+          plugins: [
+            require('postcss-pxtorem')({
+              rootValue: 75,
+              propList: ['*', '!border'],
+              selectorBlackList: [/^(html)/]
+            }),
+          ],
+        },
       },
       {
         loader: 'sass-loader',

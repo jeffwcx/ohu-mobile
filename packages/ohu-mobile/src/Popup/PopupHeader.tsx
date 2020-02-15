@@ -1,12 +1,11 @@
 import { component } from 'vue-tsx-support';
-import { prefix } from '../_utils/shared';
-import './styles/popup-header.scss';
 import Button from '../Button';
 import { CloseCircleFilled } from '@ohu-mobile/icons';
 import Divider from '../Divider';
+import { $prefix } from '../_config/variables';
 
 
-export const basePopupHeaderName = `${prefix}popup-header`;
+export const basePopupHeaderName = `${$prefix}popup-header`;
 const popupHeaderTextCls = `${basePopupHeaderName}__text`;
 const popupHeaderTextTitleCls = `${popupHeaderTextCls}__title`;
 const popupHeaderTextMinorTitleCls = `${popupHeaderTextCls}__minor-title`;

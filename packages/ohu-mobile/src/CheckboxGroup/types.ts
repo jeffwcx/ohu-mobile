@@ -3,7 +3,11 @@ export interface CheckboxGroupEvents {
   onChange: any;
 }
 
-export type CheckboxOption<T = any> = (CheckboxProps & { label?: string, attach?: T });
+export type CheckboxOption<T = any> = (CheckboxProps & {
+  label?: string;
+  attach?: T;
+  children?: CheckboxOption<T>[];
+});
 
 export interface CheckboxGroupProps {
   name?: string;

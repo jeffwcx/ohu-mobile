@@ -1,0 +1,87 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$dropMenuPrefix: #{$prefix}dropmenu;
+
+.#{$dropMenuPrefix} {
+  position: relative;
+  &__inner {
+    background: $colorTextBaseInverse;
+    display: flex;
+    flex-flow: row nowrap;
+    .#{$prefix}divider::before {
+      top: 24px;
+      bottom: 24px;
+    }
+  }
+  &-item {
+    @include tap-component();
+    box-sizing: border-box;
+    flex: 1;
+    text-align: center;
+    font-size: 28px;
+    line-height: (36/28) * 1em;
+    color: $colorTextBase;
+    padding: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    background: $colorTextBaseInverse;
+    @include ellipsis();
+    &:active {
+      opacity: .7;
+    }
+    &.is-active {
+      > * {
+        color: $colorPrimary;
+      }
+    }
+    &.is-disabled {
+      opacity: .3;
+      .#{dropMenuPrefix}-item:active {
+        opacity: .3;
+      }
+    }
+    &__text {
+      line-height: 1.2;
+    }
+    &__icon {
+      font-size: 1.2em;
+      color: $colorBorderBase;
+      margin-left: 24px;
+      transition: transform 300ms ease;
+      &.is-up {
+        transform: rotate(180deg);
+      }
+    }
+    &-options {
+      width: 100%;
+      background: $colorTextBaseInverse;
+      box-shadow: $dropMenuItemOptionsBoxShadow;
+    }
+    &-option {
+      padding: 30px;
+      font-size: 28px;
+      color: $colorTextBase;
+      line-height: (36/28) * 1em;
+      display: flex;
+      flex-flow: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      @include tap-component();
+      &:active {
+        background: $dropMenuItemOptionActiveColor;
+      }
+      &.is-active {
+        color: $colorPrimary;
+      }
+      &.is-disabled {
+        opacity: .3;
+        &:active {
+          background: $colorTextBaseInverse;
+          color: $colorTextBase;
+        }
+      }
+    }
+  }
+}

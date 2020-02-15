@@ -1,15 +1,14 @@
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
-import { CheckboxFilled, CheckboxBlankOutlined, CheckboxIndeterminateFilled } from '@ohu-mobile/icons';
+import { CheckboxIndeterminateFilled, CheckboxFilled, CheckboxBlankOutlined } from '@ohu-mobile/icons';
 import { getIcon } from '../_utils/icon-utils';
 import CheckBase from '../_checkbase/CheckBase';
 import { CreateElement } from 'vue';
 import { CheckboxProps } from './types';
 import { IconProperty } from '../types';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
 
-const baseCheckboxName = `${prefix}checkbox`;
+const baseCheckboxName = `${$prefix}checkbox`;
 const checkBoxLabelCls = `${baseCheckboxName}__label`;
 const checkBoxWrapperCls = `${baseCheckboxName}-wrapper`;
 

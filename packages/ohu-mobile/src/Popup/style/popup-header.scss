@@ -1,0 +1,32 @@
+$popupPrefixClass: #{$popupPrefixClass}-header;
+
+.#{$popupPrefixClass}{
+  padding: 20px 14px 20px 30px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  .#{$prefix}btn {
+    flex-shrink: 0;
+    flex-grow: 0;
+    color: $popupHeaderCloseButtonColor;
+    &:active {
+      color: $popupHeaderCloseButtonColor;
+    }
+  }
+  &__text {
+    flex-grow: 1;
+    flex-shrink: 0;
+    color: $colorTextBase;
+    &__title {
+      font-size: 32px;
+      font-weight: 500;
+      line-height: (50 / 32) * 1em;
+    }
+    &__minor-title {
+      color: $colorTextMinor;
+      font-size: 28px;
+      font-weight: normal;
+      line-height: (40 / 28) * 1em;
+    }
+  }
+}

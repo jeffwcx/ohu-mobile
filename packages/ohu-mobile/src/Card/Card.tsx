@@ -1,12 +1,11 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import { getVNodesByName } from '../_utils/vnode';
 import { cardHeaderBaseName } from './CardHeader';
+import { $prefix } from '../_config/variables';
 import Divider from '../Divider';
-import './styles/index.scss';
 
-const cardBaseName = `${prefix}card`;
+const cardBaseName = `${$prefix}card`;
 const cardContentCls = `${cardBaseName}__content`;
 const Card = componentFactory.create({
   name: cardBaseName,

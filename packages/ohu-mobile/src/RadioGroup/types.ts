@@ -4,7 +4,11 @@ export interface RadioGroupEvents {
   onChange: any;
 }
 
-export type RadioOption<T = any> = RadioProps & { label?: string, attach?: T };
+export type RadioOption<T = any> = RadioProps & {
+  label?: string;
+  attach?: T;
+  children?: RadioOption<T>[];
+};
 
 export interface RadioGroupProps {
   name?: string;

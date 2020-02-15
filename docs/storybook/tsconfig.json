@@ -14,14 +14,15 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "noImplicitAny": true,
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "node"
     ],
     "paths": {
       "@/*": [
-        "../../packages/ohu-mobile/src"
+        "../../packages/ohu-mobile/src/*"
       ]
     },
     "lib": [
@@ -32,9 +33,15 @@
     ]
   },
   "include": [
+    "../../packages/ohu-mobile/src/**/*.ts",
+    "../../packages/ohu-mobile/src/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "../../packages/ohu-mobile/src/**/__tests__/*.ts",
+    "../../packages/ohu-mobile/src/**/__tests__/*.tsx"
+  ]
 }

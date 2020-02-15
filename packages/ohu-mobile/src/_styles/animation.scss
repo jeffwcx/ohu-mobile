@@ -1,0 +1,14 @@
+$slideAnimateDuration: 240ms;
+$slideAnimateTimingFunction: easing(out-cubic);
+$slideLeaveAnimateTimingFunction: easing(out-quart);
+
+// slide-down transition
+.#{$prefix}slide-down-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.#{$prefix}slide-down-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.#{$prefix}slide-down-enter, .#{$prefix}slide-down-leave-to {
+  transform: translate3d(0, 100%, 0);
+}

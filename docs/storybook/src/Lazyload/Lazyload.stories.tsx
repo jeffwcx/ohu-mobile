@@ -1,6 +1,17 @@
 import docs from '@/Lazyload/README.md';
 import Vue from 'vue';
-import { Lazyload, List, Skeleton, Grid, Result, Button } from '@ohu-mobile/core';
+import Lazyload from '@/Lazyload';
+import '@/Lazyload/style';
+import List from '@/List';
+import '@/List/style';
+import Skeleton from '@/Skeleton';
+import '@/Skeleton/style';
+import Grid from '@/Grid';
+import '@/Grid/style';
+import Result from '@/Result';
+import '@/Result/style';
+import Button from '@/Button';
+import '@/Button/style';
 
 export default {
   title: 'Components|Utils/Lazyload',

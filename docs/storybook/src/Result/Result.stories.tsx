@@ -1,6 +1,13 @@
 import Vue from 'vue';
 import docs from '@/Result/README.md';
-import { Result, Button, Icon, Divider } from '@ohu-mobile/core';
+import Result from '@/Result';
+import '@/Result/style';
+import Button from '@/Button';
+import '@/Button/style';
+import Icon from '@/Icon';
+import '@/Icon/style';
+import Divider from '@/Divider';
+import '@/Divider/style';
 
 export default {
   title: 'Components|FeedBack/Result',

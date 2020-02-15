@@ -1,17 +1,11 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import SlideRenderer from './renderer/SlideRenderer';
-import { CarouselChangeEvent, CarouselInitLifeCycle } from './interface';
+import { CarouselChangeEvent, CarouselInitLifeCycle, CarouselEvents } from './interface';
 import FadeRenderer from './renderer/FadeRenderer';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
-export interface CarouselEvents {
-  onChange: CarouselChangeEvent;
-  onInput: CarouselChangeEvent;
-}
-
-export const carouselBaseName = `${prefix}carousel`;
+export const carouselBaseName = `${$prefix}carousel`;
 export const carouselStageCls = `${carouselBaseName}__stage`;
 export const carouselIndicatorCls = `${carouselBaseName}__indicator`;
 export const carouselIndicatorDotCls = `${carouselIndicatorCls}__dot`;

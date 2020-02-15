@@ -15,7 +15,6 @@
   border: none;
   transition: all .3s;
   overflow: visible;
-  font-family: $font-family;
 }
 
 @mixin checkbase($name, $color) {
@@ -75,7 +74,7 @@
       padding-right: 12px;
       font-size: 1em;
       font-weight: 400;
-      color: $color-text-base;
+      color: $colorTextBase;
     }
   }
 }

@@ -1,7 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import docs from '@/EntryItem/README.md';
-import { EntryItem, Card, CardHeader, Button } from '@ohu-mobile/core';
+import EntryItem from '@/EntryItem';
+import '@/EntryItem/style';
+import Card from '@/Card';
+import '@/Card/style';
+import Button from '@/Button';
+import '@/Button/style';
 import {
   UserSmileOutlined, MapPinOutlined,
   EmotionOutlined, StarOutlined,
@@ -32,16 +37,16 @@ export const basic = () => Vue.extend({
   render() {
     return (
       <Card>
-        <CardHeader bold>常用工具</CardHeader>
+        <Card.Header bold>常用工具</Card.Header>
         <div style="display: flex; flex-flow: row wrap;">
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={UserSmileOutlined} text="家人管理"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={UserSmileOutlined} badge={{ type: 'dot' }} text="家人管理"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={MapPinOutlined} text="常用地址"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={EmotionOutlined} text="我的医生"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={StarOutlined} text="关注收藏"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={WalletOutlined} text="消费明细"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={CouponOutlined} text="我的礼券"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={ReplyOutlined} text="推荐分享"></EntryItem>
-          <EntryItem style="width: 25%; margin: 13px 0;" icon={CustomerServiceOutlined} text="电话客服"></EntryItem>
+          <EntryItem style="width: 25%; margin: 13px 0;" icon={CustomerServiceOutlined} text="电话客服" badge="99"></EntryItem>
           <EntryItem style="width: 25%; margin: 13px 0;" icon={QuestionOutlined} text="帮助反馈"></EntryItem>
         </div>
       </Card>
@@ -54,10 +59,10 @@ export const size = () => Vue.extend({
     return (
       <div>
         <Card shadow>
-          <CardHeader bold>
+          <Card.Header bold>
             我的订单
             <Button slot="extra" type="link" size="sm">查看全部服务 ></Button>
-          </CardHeader>
+          </Card.Header>
           <div style="display: flex; flex-flow: row wrap;">
             <EntryItem style="width: 25%;" iconAreaSize="lg" icon={WdghFilled}>我的挂号</EntryItem>
             <EntryItem style="width: 25%;" iconAreaSize="lg" icon={WdzxFilled}>我的咨询</EntryItem>
@@ -81,7 +86,7 @@ export const minorText = () => Vue.extend({
   render() {
     return (
       <Card shadow>
-        <EntryItem style="width: 33.3333%" icon={WdcfFilled} textSize="lg" iconAreaSize="lg" minorText="官方挂号平台">去挂号</EntryItem>
+        <EntryItem style="width: 33.3333%" badge={{ text: 1000 }} icon={WdcfFilled} textSize="lg" iconAreaSize="lg" minorText="官方挂号平台">去挂号</EntryItem>
         <EntryItem style="width: 33.3333%" icon={WdghFilled} textSize="lg" iconAreaSize="lg" minorText="浙二本院专家">问医生</EntryItem>
         <EntryItem style="width: 33.3333%" icon={WdtjFilled} textSize="lg" iconAreaSize="lg" minorText="官方唯一平台">查报告</EntryItem>
       </Card>

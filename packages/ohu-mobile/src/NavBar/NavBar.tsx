@@ -1,17 +1,15 @@
 import { componentFactoryOf } from 'vue-tsx-support';
-import { prefix } from '../_utils/shared';
 import props from 'vue-strict-prop';
 import Button from '../Button';
 import { ArrowLeftOutlined } from '@ohu-mobile/icons';
 import { VNodeData } from 'vue';
 import Divider from '../Divider';
-import vars from '../_styles/variables';
 import { NavBarEvents } from './types';
-import './styles/index.scss';
+import { $prefix, $colorBorderBase } from '../_config/variables';
 
 
-const baseNavBarName = `${prefix}nav-bar`;
-const navBarInner = `${prefix}nav-bar-inner`;
+const baseNavBarName = `${$prefix}nav-bar`;
+const navBarInner = `${$prefix}nav-bar-inner`;
 const navBarLeftCls = `${baseNavBarName}__left`;
 const navBarCenterCls = `${baseNavBarName}__center`;
 const navBarTitleCls = `${baseNavBarName}__title`;
@@ -65,7 +63,7 @@ const NavBar = componentFactoryOf<NavBarEvents>().create({
           <div class={navBarCenterCls}>{ centerArea }</div>
           <div class={navBarRightCls}>{ $slots.right }</div>
         </div>
-        { divider && <Divider color={vars.colorBorderBase}></Divider> }
+        { divider && <Divider color={$colorBorderBase}></Divider> }
       </div>
     );
   },

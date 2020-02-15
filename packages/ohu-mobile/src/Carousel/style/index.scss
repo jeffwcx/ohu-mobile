@@ -1,0 +1,75 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$carouselPrefixClass: #{$prefix}carousel;
+
+.#{$carouselPrefixClass} {
+  position: relative;
+  &__stage-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  &__stage {
+    display: flex;
+    &.is-horizontal {
+      flex-flow: row nowrap;
+    }
+    &.is-vertical {
+      flex-flow: column wrap;
+    }
+    &.is-overlay {
+      position: relative;
+      flex-flow: row nowrap;
+    }
+  }
+  &__indicator {
+    position: absolute;
+    font-size: 0;
+    &.is-horizontal {
+      width: 100%;
+      text-align: center;
+      bottom: 12px;
+      left: 0;
+      .#{$carouselPrefixClass}__indicator__dot {
+        margin-left: 3Px;
+        margin-right: 3Px;
+      }
+    }
+    &.is-vertical {
+      height: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      right: 12px;
+      top: 0;
+      .#{$carouselPrefixClass}__indicator__dot {
+        margin-top: 3Px;
+        margin-bottom: 3Px;
+      }
+    }
+    &__dot {
+      display: inline-block;
+      transition: all 500ms ease;
+      width: $carouselDotSize;
+      height: $carouselDotSize;
+      border-radius: $carouselDotSize;
+      font-size: 0;
+      background: $carouselDotBackground;
+      &.is-active {
+        background: $carouselDotActiveBackground;
+      }
+      &.is-dark {
+        background: $carouselDotDarkBackground;
+      }
+      &.is-active.is-dark {
+        background: $carouselDotDarkActiveBackground;
+      }
+    }
+  }
+  &-item {
+    flex-shrink: 0;
+    flex-grow: 0;
+    box-sizing: border-box;
+  }
+}

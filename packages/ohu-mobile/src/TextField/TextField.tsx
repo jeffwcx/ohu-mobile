@@ -1,12 +1,9 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import { prefix } from '../_utils/shared';
-import './styles/index.scss';
+import { defineComponent } from '../_utils/defineComponent';
+import { TextFieldProps, TextFieldEvents } from './types';
 
 
-const baseTextFieldName = `${prefix}text-field`;
-
-const TextField = componentFactoryOf().create({
-  name: baseTextFieldName,
+export default defineComponent<TextFieldProps, TextFieldEvents>('text-field').create({
+  props: {},
   render() {
     return (
       <div></div>
@@ -14,4 +11,3 @@ const TextField = componentFactoryOf().create({
   },
 });
 
-export default TextField;

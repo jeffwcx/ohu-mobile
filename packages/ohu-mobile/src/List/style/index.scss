@@ -1,0 +1,38 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$listPrefixClass: #{$prefix}list;
+.#{$listPrefixClass} {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  &__bottom {
+    line-height: 70px;
+    text-align: center;
+    font-size: 28px;
+    color: $colorTextMinor;
+    .#{$prefix}loading {
+      vertical-align: middle;
+      font-size: 28px;
+    }
+    > .#{$prefix}skeleton, > .#{$prefix}skeleton--compound {
+      padding: $listItemPadding;
+    }
+  }
+  &-subheader {
+    padding: 0 $listItemPadding;
+    color: $listSubheaderColor;
+    background: $listSubheaderBackground;
+    z-index: 2;
+    line-height: 2em;
+    font-size: 28px;
+    transition: all .5s ease;
+    &.is-sticky {
+      color: $colorTextHighlight;
+      background: $colorTextBaseInverse;
+      box-shadow: 0 1Px 10Px 0 #eee;
+    }
+  }
+}
+
+@import './item.scss';
+

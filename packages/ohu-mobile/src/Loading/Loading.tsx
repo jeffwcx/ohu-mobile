@@ -1,13 +1,12 @@
 import { componentFactory } from 'vue-tsx-support';
-import { prefix } from '../_utils/shared';
 import Icon from '../Icon';
 import props from 'vue-strict-prop';
 import { LoaderFilled } from '@ohu-mobile/icons';
-import './styles/index.scss';
 import localeMixin from '../_utils/localeMixin';
+import { $prefix } from '../_config/variables';
 
 
-const loadingBaseName = `${prefix}loading`;
+const loadingBaseName = `${$prefix}loading`;
 const loadingTextCls = `${loadingBaseName}__text`;
 const Loading = componentFactory.mixin(localeMixin('OhuLoading')).create({
   name: loadingBaseName,

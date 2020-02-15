@@ -3,13 +3,13 @@ import { VueConstructor } from 'vue';
 import props from 'vue-strict-prop';
 import { FormEvents, FormScopedSlots } from './types';
 import ancestorMixin from '../_utils/ancestorMixin';
-import { prefix } from '../_utils/shared';
 import { SyntheticEvent, FormHTMLAttributes } from 'vue-tsx-support/types/dom';
 import deepmerge from 'deepmerge';
 import { ObjectSchemaDefinition } from 'yup';
 import { FormError } from './FormError';
+import { $prefix } from '../_config/variables';
 
-const baseFormName = `${prefix}form`;
+const baseFormName = `${$prefix}form`;
 export default componentFactoryOf<FormEvents, FormScopedSlots>()
   .mixin(ancestorMixin('form'))
   .create({

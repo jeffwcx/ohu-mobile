@@ -2,7 +2,8 @@ import props from 'vue-strict-prop';
 import docs from '@/Grid/README.md';
 import Vue from 'vue';
 import { component } from 'vue-tsx-support';
-import { Grid } from '@ohu-mobile/core';
+import Grid from '@/Grid';
+import '@/Grid/style';
 
 export default {
   title: 'Components|Basic/Grid',

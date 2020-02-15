@@ -1,19 +1,12 @@
 import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import Checkbox from '../Checkbox';
 import ancestorMixin from '../_utils/ancestorMixin';
 import { CheckboxGroupEvents, CheckboxOption, CheckboxGroupScopedSlots } from './types';
+import { $prefix } from '../_config/variables';
+import checkBoxGroupProps from './props';
 
-export const checkboxGroupProps = {
-  name: props(String).optional,
-  value: props.ofArray().default(() => []),
-  disabled: props.ofType<Boolean | undefined>().default(undefined),
-  options: props.ofArray<CheckboxOption | string>().optional,
-  max: props(Number).default(Infinity),
-};
 
-const baseCheckboxGroupName = `${prefix}checkbox-group`;
+const baseCheckboxGroupName = `${$prefix}checkbox-group`;
 
 export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>().mixin(
   ancestorMixin('checkboxGroup')
@@ -23,7 +16,7 @@ export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>
     prop: 'value',
     event: 'change',
   },
-  props: checkboxGroupProps,
+  props: checkBoxGroupProps,
   watch: {
     value(nv) {
       this.result = nv;

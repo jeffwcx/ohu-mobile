@@ -1,0 +1,23 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$cascaderPrefixClass: #{$prefix}cascader;
+
+.#{$cascaderPrefixClass} {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  &__panel {
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow-y: scroll;
+    .#{$prefix}list-item-action .is-group-item {
+      font-size: 28px;
+      margin-right: 0;
+    }
+    .#{$prefix}list-item.is-checked {
+      .#{$prefix}list-item__main {
+        color: $colorPrimary;
+      }
+    }
+  }
+}

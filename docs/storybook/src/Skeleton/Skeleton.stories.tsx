@@ -1,7 +1,10 @@
 
 import Vue from 'vue';
 import docs from '@/Skeleton/README.md';
-import { Skeleton, Card, CardHeader } from '@ohu-mobile/core';
+import Skeleton from '@/Skeleton';
+import '@/Skeleton/style';
+import Card from '@/Card';
+import '@/Card/style';
 
 export default {
   title: 'Components|DataDisplay/Skeleton',
@@ -45,7 +48,7 @@ export const loading = () => Vue.extend({
   data() {
     return {
       loading: true,
-      id: -1,
+      id: -1 as any,
     };
   },
   mounted() {
@@ -61,7 +64,7 @@ export const loading = () => Vue.extend({
   render() {
     return (
       <Card>
-        <CardHeader>{ this.loading ? 'show content in 2s' : 'loading in 2s' }</CardHeader>
+        <Card.Header>{ this.loading ? 'show content in 2s' : 'loading in 2s' }</Card.Header>
         <Skeleton avatar title rows={3} loading={this.loading}>
           This is Ohu-Mobile UI Kit
         </Skeleton>

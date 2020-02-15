@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import docs from '@/Checkbox/README.md';
-import { Checkbox, CheckboxGroup, Button } from '@ohu-mobile/core';
+import Checkbox from '@/Checkbox';
+import '@/Checkbox/style';
+import CheckboxGroup from '@/CheckboxGroup';
+import Button from '@/Button';
+import '@/Button/style';
+
 import { CheckboxCircleFilled, CheckboxBlankCircleOutlined, IndeterminateCircleFilled } from '@ohu-mobile/icons';
 
 

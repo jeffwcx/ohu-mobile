@@ -1,9 +1,17 @@
 import Vue from 'vue';
 import docs from '@/List/README.md';
-import {
-  List, Icon, Skeleton, Grid, CheckboxOption,
-  CheckList, RadioList, RadioOption,
-} from '@ohu-mobile/core';
+import List from '@/List';
+import '@/List/style';
+import Icon from '@/Icon';
+import '@/Icon/style';
+import Skeleton from '@/Skeleton';
+import '@/Skeleton/style';
+import Grid from '@/Grid';
+import '@/Grid/style';
+import CheckList from '@/CheckList';
+import RadioList from '@/RadioList';
+import { RadioOption } from '@/RadioGroup';
+import { CheckboxOption } from '@/CheckboxGroup';
 import { ArrowRightOutlined } from '@ohu-mobile/icons';
 
 export default {
@@ -286,16 +294,36 @@ export const checkList = () => Vue.extend({
 export const radioList = () => Vue.extend({
   data() {
     return {
-      value: null,
+      value: '医生2',
       options: [{
         label: '消化内科',
         value: '1',
       }, {
         label: '呼吸内科',
         value: '2',
+        children: [{
+          label: '医生1',
+          value: '医生1',
+        }, {
+          label: '医生2',
+          value: '医生2',
+        }, {
+          label: '医生3',
+          value: '医生3',
+        }],
       }, {
         label: '神经内科',
         value: '3',
+        children: [{
+          label: '医生31',
+          value: '医生31',
+        }, {
+          label: '医生32',
+          value: '医生32',
+        }, {
+          label: '医生33',
+          value: '医生33',
+        }],
       }] as Array<RadioOption>,
     };
   },

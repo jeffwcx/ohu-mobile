@@ -6,15 +6,15 @@ export interface TabbarEvents {
 }
 
 export interface TabbarProps {
-  value: string | number;
-  border: boolean;
-  activeColor: string;
-  inActiveColor: string;
-  barColor: string;
+  value?: string | number;
+  border?: boolean;
+  activeColor?: string;
+  inActiveColor?: string;
+  barColor?: string;
 }
 
 export interface TabbarItemEvents extends EntryItemEvents {}
 
 export interface TabbarItemProps extends EntryItemProps {
-  name?: string;
+  name?: string | number;
 }

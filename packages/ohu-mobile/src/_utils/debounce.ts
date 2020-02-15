@@ -1,6 +1,6 @@
 
 export default function debounce(func: Function, wait = 166) {
-  let timeout: number;
+  let timeout: any;
   function debounced(this: any, ...args: any[]) {
     if (timeout) {
       clearTimeout(timeout);

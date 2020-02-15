@@ -1,9 +1,8 @@
-import { prefix } from '../_utils/shared';
 import props from 'vue-strict-prop';
 import { componentFactoryOf } from 'vue-tsx-support';
 import stickyPolyfill, { StickyBits } from 'stickybits';
 import { StickyEvents } from './types';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
 const eventMap = {
   default: 'normal',
@@ -11,7 +10,7 @@ const eventMap = {
   stuck: 'stuck',
 };
 
-const baseStickyName = `${prefix}sticky`;
+const baseStickyName = `${$prefix}sticky`;
 export default componentFactoryOf<StickyEvents>().create({
   name: baseStickyName,
   props: {

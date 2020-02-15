@@ -1,9 +1,10 @@
 import { CheckboxGroupProps, CheckboxGroupEvents, CheckboxOption } from '../CheckboxGroup';
 import { ListProps } from '../List';
 
+export type CheckListPosition = 'left' | 'right';
 
 export interface CheckListProps extends CheckboxGroupProps, ListProps {
-  position?: 'left' | 'right';
+  position?: CheckListPosition;
   button?: boolean;
 }
 

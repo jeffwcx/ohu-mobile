@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bottom DOM structure 1`] = `
+<div
+  class="ohu-bottom"
+>
+  <div
+    class="ohu-card has-radius"
+  >
+    <div
+      class="ohu-card__content"
+    />
+  </div>
+</div>
+`;

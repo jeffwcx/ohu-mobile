@@ -1,7 +1,6 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import { DropMenuEvents, DropMenuChangeEvent, DropMenuDataModel } from './types';
-import { prefix } from '../_utils/shared';
 import Divider from '../Divider';
 import { getVNodesByName, isTargetComponent } from '../_utils/vnode';
 import { VNode } from 'vue';
@@ -10,10 +9,10 @@ import { DropMenuItemType } from './DropMenuItem';
 import isPlainObject from '../_utils/isPlainObject';
 import { CheckOutlined, ArrowDownSOutlined } from '@ohu-mobile/icons';
 import { IconProperty } from '../types';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
 
-export const baseDropMenuName = `${prefix}dropmenu`;
+export const baseDropMenuName = `${$prefix}dropmenu`;
 export const baseDropMenuItemName = `${baseDropMenuName}-item`;
 const dropMenuInnerCls = `${baseDropMenuName}__inner`;
 

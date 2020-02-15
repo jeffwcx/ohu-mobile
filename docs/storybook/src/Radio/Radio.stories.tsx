@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import docs from '@/Radio/README.md';
-import { Radio, RadioGroup, Button } from '@ohu-mobile/core';
+import RadioGroup from '@/RadioGroup';
+import Radio from '@/Radio';
+import '@/Radio/style';
+import Button from '@/Button';
+import '@/Button/style';
 
 
 export default {

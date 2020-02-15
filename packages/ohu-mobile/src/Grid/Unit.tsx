@@ -1,16 +1,14 @@
 import { component } from 'vue-tsx-support';
-import { prefix } from '../_utils/shared';
-import vars from '../_styles/variables';
 import props from 'vue-strict-prop';
-import './styles/index.scss';
 import { parseStyleText } from '../_utils/props-util';
+import { $prefix, $gridUnits } from '../_config/variables';
 
 
-const baseUnitName = `${prefix}unit`;
+const baseUnitName = `${$prefix}unit`;
 export default component({
   name: baseUnitName,
   props: {
-    span: props(Number).validator(v => v > 0 && v <= vars.gridUnits).optional,
+    span: props(Number).validator(v => v > 0 && v <= $gridUnits).optional,
     shrink: props(Boolean).default(true),
     grow: props(Boolean).default(false),
     offset: props(Number).optional,
@@ -19,7 +17,7 @@ export default component({
     const { $slots, $vnode, span, shrink, grow, offset } = this;
     const cls = {
       [baseUnitName]: true,
-      [`is-${span}-${vars.gridUnits}`]: !!span,
+      [`is-${span}-${$gridUnits}`]: !!span,
       'is-no-shrink': !shrink,
       'is-grow': grow,
       [`is-offset-${offset}`]: offset !== undefined,

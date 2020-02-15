@@ -1,6 +1,14 @@
 import Vue from 'vue';
 import docs from '@/Dialog/README.md';
-import { Card, Button, Dialog, Tag } from '@ohu-mobile/core';
+import Card from '@/Card';
+import '@/Card/style';
+import Button from '@/Button';
+import '@/Button/style';
+import Dialog from '@/Dialog';
+import '@/Dialog/style';
+import Tag from '@/Tag';
+import '@/Tag/style';
+import { CheckboxCircleFilled } from '@ohu-mobile/icons';
 
 export default {
   title: 'Components|FeedBack/Dialog',
@@ -149,10 +157,11 @@ export const useAsComponent = () => Vue.extend({
               });
             },
           }}
+          image={{ height: '180px', src: 'http://via.placeholder.com/375X275/EEEEEE/FFFFFF' }}
           cancelBtn="取消"
-          title="Tony"
-          content="I feel like you're driving me to court martial."
-          icon={{ type: 'circle-check-f', color: '#36b365' }}>
+          title="恭喜你"
+          icon={{ type: CheckboxCircleFilled, color: '#36b365' }}
+          content="您真是幸运观众啊，您获得了三等奖。最终解释权归我所有。">
         </Dialog>
         <Button type="primary" onClick={() => this.visible = true}>打开</Button>
       </Card>

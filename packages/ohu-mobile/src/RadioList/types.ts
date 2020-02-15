@@ -1,11 +1,12 @@
 import { CheckboxOption } from '../CheckboxGroup';
 import { ListProps } from '../List';
-import { RadioGroupProps, RadioGroupEvents } from '../RadioGroup/types';
+import { RadioGroupProps, RadioGroupEvents } from '../RadioGroup';
 
 
 export interface RadioListProps extends RadioGroupProps, ListProps {
   position?: 'left' | 'right';
   button?: boolean;
+  paddingDivider?: boolean;
 }
 
 

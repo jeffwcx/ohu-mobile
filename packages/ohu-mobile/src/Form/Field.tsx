@@ -1,12 +1,11 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
-import './styles/field.scss';
 import { cloneElement, getVModelOption } from '../_utils/vnode';
 import Form from './Form';
 import { Schema } from 'yup';
+import { $prefix } from '../_config/variables';
 
-const baseFormFieldName = `${prefix}form-field`;
+const baseFormFieldName = `${$prefix}form-field`;
 const formFieldLabelCls = `${baseFormFieldName}__label`;
 const formFieldControlCls = `${baseFormFieldName}__control`;
 export default componentFactoryOf().mixin({

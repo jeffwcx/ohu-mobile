@@ -1,0 +1,7 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$stickyPrefixClass: #{$prefix}sticky;
+
+.#{$stickyPrefixClass} {
+  position: sticky;
+}

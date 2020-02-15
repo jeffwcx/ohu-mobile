@@ -1,0 +1,18 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$tabbarPrefixClass: #{$prefix}tabbar;
+.#{$tabbarPrefixClass} {
+  box-sizing: border-box;
+  height: 98px;
+  display: flex;
+  flex-flow: row nowrap;
+  &.has-border {
+    border-color: $tabbarBorderColor;
+    border-style: solid;
+    border-width: 0;
+    @include hair-border(inherit);
+  }
+  .#{$prefix}entry-item {
+    flex: auto;
+  }
+}

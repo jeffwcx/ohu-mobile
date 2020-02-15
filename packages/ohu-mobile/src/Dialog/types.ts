@@ -2,6 +2,7 @@ import { PopupOutSideEvents, PopupOutSideProps } from '../Popup';
 import { CreateElement, VNode } from 'vue';
 import { MethodBaseOptions } from '../_utils/createPopupMethodApi';
 import { IconProperty, VueEventWrapper } from '../types';
+import { ImageProps } from '../Image';
 
 export interface DialogEvents extends PopupOutSideEvents {
   onOk: void;
@@ -19,6 +20,7 @@ export interface DialogActionOptions {
 }
 
 export interface DialogProps extends PopupOutSideProps {
+  image?: string | ImageProps;
   icon?: IconProperty;
   title?: string;
   content?: string,

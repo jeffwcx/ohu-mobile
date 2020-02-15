@@ -7,6 +7,7 @@ export interface ToastProps extends PopupOutSideProps {
   duration?: number;
   content?: string;
   loading?: boolean;
+  vertical?: boolean;
 }
 
 export interface ToastEvents extends PopupOutSideEvents {}
@@ -19,3 +20,6 @@ export declare function toastLoading(content: string, options?: PopupOutSideProp
 export type ToastInfoOptions = Parameters<typeof toastInfo> | Parameters<typeof toastLoading>;
 
 export type ToastLoadingOptions = ToastInfoOptions;
+
+export type ToastSuccessOptions = ToastInfoOptions;
+export type ToastFailOptions = ToastInfoOptions;

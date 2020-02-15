@@ -1,16 +1,16 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import { RadioListProps, RadioListEvents, RadioListScopedSlots, RadioListRenderOptions } from './types';
 import { VNodeData } from 'vue';
 import List from '../List';
 import { listProps } from '../List/List';
-import { prefix } from '../_utils/shared';
 import { ScopedSlotReturnValue } from 'vue/types/vnode';
 import Radio from '../Radio';
 import RadioGroup, { RadioOption } from '../RadioGroup';
 import { radioGroupProps } from '../RadioGroup/RadioGroup';
+import Collapse from '../Collapse';
+import { defineComponent, props } from '../_utils/defineComponent';
+import { RadioProps } from '../Radio/types';
 
-type SlotRenderMapKey = keyof (Omit<RadioListScopedSlots, 'renderItem'>);
+type SlotRenderMapKey = keyof (Omit<RadioListScopedSlots, 'renderItem' | 'default'>);
 type SlotRenderMapValue = string | [string, (position: string) => boolean];
 
 const slotRenderMap: Record<SlotRenderMapKey, SlotRenderMapValue> = {
@@ -35,9 +35,8 @@ const slotRenderMap: Record<SlotRenderMapKey, SlotRenderMapValue> = {
   renderMinorText: 'minorText',
 };
 
-const baseRadioListName = `${prefix}radio-list`;
-export default componentFactoryOf<RadioListEvents, RadioListScopedSlots>().create({
-  name: baseRadioListName,
+
+export default defineComponent<RadioProps, RadioListEvents, RadioListScopedSlots>('radio-list').create({
   model: {
     prop: 'value',
     event: 'change',
@@ -47,6 +46,7 @@ export default componentFactoryOf<RadioListEvents, RadioListScopedSlots>().creat
     ...listProps,
     position: props.ofStringLiterals('left', 'right').default('right'),
     button: props(Boolean).default(true),
+    paddingDivider: props(Boolean).default(true),
   },
   methods: {
     getRadio(props: any) {
@@ -83,35 +83,31 @@ export default componentFactoryOf<RadioListEvents, RadioListScopedSlots>().creat
     getCheckedStatus(optionValue: any) {
       return this.value === optionValue;
     },
-  },
-  render() {
-    const {
-      loading,
-      loadingProps,
-      finished,
-      finishedText,
-      options,
-      position,
-      button,
-      ...groupProps
-    } = this.$props as RadioListProps;
-    const { $scopedSlots, $listeners } = this;
-    const groupNodeData: VNodeData = {
-      props: groupProps,
-      on: $listeners,
-      ref: 'group'
-    };
-    const listNodeData: VNodeData = {
-      props: {
+    getCheckedOption(options: RadioOption[], value?: any) {
+      return options.find((option) => {
+        return option.value === value;
+      });
+    },
+    renderList(options?: (RadioOption | string)[], parent?: RadioOption) {
+      if (!options) return;
+      const {
         loading,
         loadingProps,
         finished,
-        finishedText
-      },
-    };
-    let innerNode;
-    if (options) {
-      innerNode = (
+        finishedText,
+        button,
+        paddingDivider,
+        $scopedSlots,
+      } = this;
+      const listNodeData: VNodeData = {
+        props: {
+          loading,
+          loadingProps,
+          finished,
+          finishedText
+        },
+      };
+      return (
         <List {...listNodeData}>
           {
             options.map((option, index) => {
@@ -127,6 +123,23 @@ export default componentFactoryOf<RadioListEvents, RadioListScopedSlots>().creat
                 props = checkOption;
                 optionValue = option;
               } else {
+                if (option.children) {
+                  const checkedOption = this.getCheckedOption(option.children, this.value);
+                  let collapseValue = [];
+                  if (checkedOption) {
+                    collapseValue.push(option.value);
+                  }
+                  return (
+                    <Collapse value={collapseValue}>
+                      <Collapse.Item
+                        hasList
+                        title={option.label}
+                        key={option.value}>
+                        {this.renderList(option.children)}
+                      </Collapse.Item>
+                    </Collapse>
+                  );
+                }
                 checkOption = option;
                 const {
                   label,
@@ -150,15 +163,17 @@ export default componentFactoryOf<RadioListEvents, RadioListScopedSlots>().creat
                 defaultNode = typeof option === 'string' ? option : option.label;
               }
               const itemProps: VNodeData = {
+                class: { 'is-checked': renderOptions.checked },
                 props: {
                   button,
                   disabled: itemDisabled,
+                  paddingDivider,
                 },
                 on: {
                   click: () => {
                     const group = this.$refs.group as InstanceType<typeof RadioGroup>;
                     if (group) {
-                      group.childrenChange(optionValue, !this.getCheckedStatus(optionValue));
+                      group.childrenChange(optionValue, !this.getCheckedStatus(optionValue), parent);
                     }
                   },
                 },
@@ -176,6 +191,25 @@ export default componentFactoryOf<RadioListEvents, RadioListScopedSlots>().creat
         </List>
       );
     }
+  },
+  render() {
+    const {
+      loading,
+      loadingProps,
+      finished,
+      finishedText,
+      options,
+      button,
+      paddingDivider,
+      ...groupProps
+    } = this.$props as RadioListProps;
+    const { $listeners } = this;
+    const groupNodeData: VNodeData = {
+      props: groupProps,
+      on: $listeners,
+      ref: 'group'
+    };
+    const innerNode = this.renderList(options);
     return (
       <RadioGroup {...groupNodeData}>
         {innerNode}
@@ -183,3 +217,4 @@ export default componentFactoryOf<RadioListEvents, RadioListScopedSlots>().creat
     );
   },
 });
+

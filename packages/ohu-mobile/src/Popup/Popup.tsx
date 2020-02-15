@@ -1,6 +1,5 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import { getScrollEventTarget } from '../_utils/dom';
 import manager from './manager';
 import debounce from '../_utils/debounce';
@@ -10,7 +9,7 @@ import { PopupTransformOrigin, PopupPosition,
 } from './types';
 import { isAnyPosition, computeRect, getAnchorPosition, getTransformOrigin } from './utils';
 import { addTargetClass } from '../_utils/targetClass';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
 
 export const popupProps = {
@@ -43,8 +42,8 @@ const positionTransitionMap = {
   right: 'slide-right',
 };
 
-const basePopupName = `${prefix}popup`;
-const baseMaskName = `${prefix}mask`;
+const basePopupName = `${$prefix}popup`;
+const baseMaskName = `${$prefix}mask`;
 const popupWrapperCls = `${basePopupName}-wrapper`;
 export const POPUP_EVENT = 'visibleChange';
 const Popup = componentFactoryOf<PopupEvents>().create({
@@ -294,7 +293,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       let maskNode = <div v-show={this.documentVisible} class={maskCls} style={maskStyle}></div>;
       if (this.maskAnimate !== 'none') {
         maskNode = (
-          <transition name={prefix + this.maskAnimate}>
+          <transition name={$prefix + this.maskAnimate}>
             {maskNode}
           </transition>
         );

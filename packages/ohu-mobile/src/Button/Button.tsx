@@ -1,44 +1,22 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import { prefix } from '../_utils/shared';
-import props from 'vue-strict-prop';
 import { VNodeData } from 'vue';
 import Icon from '../Icon';
 import { IconDef } from '../types';
-import { ButtonEvents } from './types';
-import './styles/index.scss';
+import { ButtonEvents, ButtonProps, ButtonTypes, ButtonSizes } from './types';
+import { LoaderTailOutlined } from '@ohu-mobile/icons';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-const baseBtnCls = `${prefix}btn`;
 
-const Button = componentFactoryOf<ButtonEvents>().create({
-  name: `${prefix}button`,
+const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
   props: {
-    type: props.ofStringLiterals('default', 'primary', 'link', 'translucent').default('default'),
+    type: props.ofType<ButtonTypes>().default('default'),
     plain: props(Boolean).default(false),
-    size: props.ofStringLiterals('sm', 'md', 'lg').default('lg'),
+    size: props.ofType<ButtonSizes>().default('lg'),
     loading: props(Boolean).default(false),
     disabled: props(Boolean).default(false),
     inline: props(Boolean).default(false),
     icon: props<string, IconDef>(String, Object).optional,
     round: props(Boolean).default(false),
-  },
-  computed: {
-    cls() {
-      const clsMap: { [key: string]: boolean } = {
-        [baseBtnCls]: true,
-        'is-round': this.round,
-        'is-primary': this.type === 'primary',
-        'is-translucent': this.type === 'translucent',
-        'is-link': this.type === 'link',
-        'is-sm': this.size === 'sm',
-        'is-md': this.size === 'md',
-        'is-inline': this.inline,
-        'is-block': !this.inline && this.size === 'lg',
-        'is-plain': this.plain,
-        'is-loading': this.loading,
-        'is-icon-only': (!this.$slots.default && !!this.icon),
-      };
-      return clsMap;
-    },
+    link: props(Boolean).default(false),
   },
   methods: {
     onClick(e: Event) {
@@ -53,15 +31,26 @@ const Button = componentFactoryOf<ButtonEvents>().create({
   render() {
     let {
       disabled,
-      cls,
       icon,
       loading,
       $attrs,
       $slots,
     } = this;
     if (loading) {
-      icon = 'loader-tail';
+      icon = LoaderTailOutlined;
     }
+    const root = this.root();
+    root.is([
+      this.round && 'round',
+      this.type,
+      this.link && 'link',
+      this.size,
+      this.inline && 'inline',
+      (!this.inline && this.size === 'lg') && 'block',
+      this.plain && 'plain',
+      this.loading && 'loading',
+      (!this.$slots.default && !!this.icon) && 'icon-only',
+    ]);
     const buttonProps: VNodeData = {
       attrs: {
         ...$attrs,
@@ -72,7 +61,7 @@ const Button = componentFactoryOf<ButtonEvents>().create({
         click: this.onClick,
         touchstart: this.onTouchstart,
       },
-      class: cls,
+      class: root,
     };
     return (
       <button {...buttonProps}>

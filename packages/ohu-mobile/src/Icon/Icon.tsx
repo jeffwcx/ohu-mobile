@@ -1,10 +1,9 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import { VNodeData } from 'vue';
 import { transformToCamelCase } from './utils';
 import { IconDef } from '../types';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
 const allIcons: {
   [key: string]: IconDef,
@@ -18,7 +17,7 @@ const shorthandMap = {
 
 const themes = ['outlined', 'filled', 'multi-color', 'o', 'f', 'm'];
 
-const baseIconName = `${prefix}icon`;
+const baseIconName = `${$prefix}icon`;
 const Icon = componentFactory.create({
   name: baseIconName,
   props: {

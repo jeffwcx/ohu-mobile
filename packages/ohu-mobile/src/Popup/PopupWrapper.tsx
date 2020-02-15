@@ -3,11 +3,11 @@ import props from 'vue-strict-prop';
 import PortalRender from '../_utils/PortalRender';
 import Popup, { popupProps, POPUP_EVENT } from './Popup';
 import { VNodeData } from 'vue';
-import { prefix } from '../_utils/shared';
 import { PopupOutSideEvents, PopupGetContainerFunc } from './types';
+import { $prefix } from '../_config/variables';
 
 
-const basePopupWrapperName = `${prefix}popup`;
+const basePopupWrapperName = `${$prefix}popup`;
 
 export const popupOutSideProps = {
   getContainer: props.ofType<PopupGetContainerFunc>().default(() => document.body),

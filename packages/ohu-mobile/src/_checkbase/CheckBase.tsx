@@ -1,9 +1,9 @@
 import { ofType, component } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import vars from '../_styles/variables';
 import { InputHTMLAttributes, SyntheticEvent } from 'vue-tsx-support/types/dom';
 import { VNode, CreateElement, PropOptions } from 'vue';
 import { IconProperty, IconDef } from '../types';
+import { $colorPrimary, $colorTextDisabled } from '../_config/variables';
 
 export interface CommonGroupProps {
   disabled: boolean;
@@ -78,8 +78,8 @@ export default function<
     defaultChecked: props(Boolean).default(false),
     checked: props(Boolean).optional,
     disabled: props(Boolean).default(false),
-    color: props(String).default(vars.colorPrimary),
-    unCheckedColor: props(String).default(vars.colorTextDisabled),
+    color: props(String).default($colorPrimary),
+    unCheckedColor: props(String).default($colorTextDisabled),
     checkedIcon: props.ofType<IconProperty>().default(() => defaultCheckedIcon),
     unCheckedIcon: props.ofType<IconProperty | null>().default(() => defaultUnCheckedIcon),
     ...addProps,

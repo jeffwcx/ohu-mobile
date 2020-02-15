@@ -1,12 +1,11 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
-import './styles/index.scss';
 import { VNodeData } from 'vue';
+import { $prefix } from '../_config/variables';
 
 
-const skeletonBaseName = `${prefix}skeleton`;
-const skeletonCompoundCls = `${prefix}skeleton--compound`;
+const skeletonBaseName = `${$prefix}skeleton`;
+const skeletonCompoundCls = `${$prefix}skeleton--compound`;
 const skeletonContentCls = `${skeletonBaseName}__content`;
 
 const Skeleton = componentFactory.create({

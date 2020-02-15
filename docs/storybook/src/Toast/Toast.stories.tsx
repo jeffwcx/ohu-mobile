@@ -1,7 +1,14 @@
 import docs from '@/Toast/README.md';
 import Vue from 'vue';
-import { Toast, Card, Button, PopupPosition } from '@ohu-mobile/core';
-import { CheckboxCircleFilled } from '@ohu-mobile/icons';
+import Toast from '@/Toast';
+import '@/Toast/style';
+import Card from '@/Card';
+import '@/Card/style';
+import Button from '@/Button';
+import '@/Button/style';
+
+import { PopupPosition } from '@ohu-mobile/core';
+import { CheckboxCircleOutlined } from '@ohu-mobile/icons';
 export default {
   title: 'Components|FeedBack/Toast',
   parameters: {
@@ -70,6 +77,21 @@ export const loading = () => Vue.extend({
   },
 });
 
+export const successAndFail = () => Vue.extend({
+  render() {
+    return (
+      <Card>
+        <Button onClick={() => {
+          Toast.success('成功');
+        }}>success</Button>
+        <Button onClick={() => {
+          Toast.fail('失败了');
+        }}>fail</Button>
+      </Card>
+    );
+  },
+});
+
 export const icon = () => Vue.extend({
   render() {
     return (
@@ -78,10 +100,10 @@ export const icon = () => Vue.extend({
           Toast.open({
             duration: 100000,
             icon: {
-              type: CheckboxCircleFilled,
-              color: '#36b365',
+              type: CheckboxCircleOutlined,
             },
-            content: '图标',
+            content: '操作成功',
+            // vertical: true,
           });
         }}>Icon</Button>
       </Card>

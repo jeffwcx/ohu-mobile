@@ -1,0 +1,87 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$collapsePrefixClass: #{$prefix}collapse;
+
+.#{$collapsePrefixClass} {
+  &-item {
+    @include hair-border($colorDivider, bottom) {
+      border-style: solid;
+    }
+    &__header {
+      position: relative;
+      padding: 30px 32px;
+      font-size: 32px;
+      color: $colorTextBase;
+      line-height: (44 / 32) * 1em;
+      @include ellipsis;
+      cursor: pointer;
+      @include tap-component();
+      background: $collapseHeaderBackground;
+      &:active {
+        background: $collapseHeaderActiveColor;
+      }
+      &__icon {
+        top: 30px;
+        position: absolute;
+        display: inline-block;
+        text-align: center;
+        width: 48px;
+        height: 48px;
+        color: $collapseExpandIconColor;
+        transition: all 400ms easing(out-quint);
+        transform: rotate(0);
+        > .#{$prefix}icon {
+          transform: scale(1.2, 1.2);
+        }
+      }
+      &.is-right {
+        padding-right: 72px;
+        .#{$collapsePrefixClass}-item__header__icon {
+          right: 24px;
+        }
+      }
+      &.is-left {
+        padding-left: 96px;
+        .#{$collapsePrefixClass}-item__header__icon {
+          left: 28px;
+        }
+      }
+    }
+    &__content {
+      color: $collapseContntColor;
+      padding: 0 0 0 28px;
+      overflow: hidden;
+      &__inner {
+        padding: 30px 28px 30px 0;
+        font-size: 32px;
+        @include text-wrap;
+        &.has-list {
+          padding: 0;
+          .#{$prefix}list-item {
+            font-size: 32px;
+            color: $collapseContntColor;
+            &:last-of-type {
+              &::after {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.is-expand {
+      .#{$collapsePrefixClass}-item__header__icon {
+        transform: rotate(-180deg);
+      }
+    }
+    &.is-disabled {
+      .#{$collapsePrefixClass}-item__header {
+        opacity: .4;
+        cursor: not-allowed;
+        &:active {
+          background: $collapseHeaderBackground;
+        }
+      }
+    }
+  }
+}

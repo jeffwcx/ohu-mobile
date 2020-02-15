@@ -1,14 +1,15 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import CheckboxGroup, { CheckboxOption } from '../CheckboxGroup';
+import { VNodeData } from 'vue';
 import props from 'vue-strict-prop';
 import { CheckListProps, CheckListEvents, CheckListScopedSlots, CheckListRenderOptions } from './types';
-import { VNodeData } from 'vue';
 import List from '../List';
 import Checkbox from '../Checkbox';
-import { checkboxGroupProps } from '../CheckboxGroup/CheckboxGroup';
+import checkboxGroupProps from '../CheckboxGroup/props';
 import { listProps } from '../List/List';
-import { prefix } from '../_utils/shared';
 import { ScopedSlotReturnValue } from 'vue/types/vnode';
+import { $prefix } from '../_config/variables';
+import Collapse from '../Collapse';
 
 type SlotRenderMapKey = keyof (Omit<CheckListScopedSlots, 'renderItem'>);
 type SlotRenderMapValue = string | [string, (position: string) => boolean];
@@ -35,7 +36,7 @@ const slotRenderMap: Record<SlotRenderMapKey, SlotRenderMapValue> = {
   renderMinorText: 'minorText',
 };
 
-const baseCheckListName = `${prefix}check-list`;
+const baseCheckListName = `${$prefix}check-list`;
 export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().create({
   name: baseCheckListName,
   props: {
@@ -76,35 +77,25 @@ export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().creat
         return result;
       }, slotNodes);
     },
-  },
-  render() {
-    const {
-      loading,
-      loadingProps,
-      finished,
-      finishedText,
-      options,
-      position,
-      button,
-      ...groupProps
-    } = this.$props as CheckListProps;
-    const { $scopedSlots, $listeners } = this;
-    const groupNodeData: VNodeData = {
-      props: groupProps,
-      on: $listeners,
-      ref: 'group'
-    };
-    const listNodeData: VNodeData = {
-      props: {
+    renderList(options?: (CheckboxOption | string)[]) {
+      if (!options) return;
+      const {
         loading,
         loadingProps,
         finished,
-        finishedText
-      },
-    };
-    let innerNode;
-    if (options) {
-      innerNode = (
+        finishedText,
+        button,
+        $scopedSlots,
+      } = this;
+      const listNodeData: VNodeData = {
+        props: {
+          loading,
+          loadingProps,
+          finished,
+          finishedText
+        },
+      };
+      return (
         <List {...listNodeData}>
           {
             options.map((option, index) => {
@@ -120,6 +111,15 @@ export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().creat
                 props = checkOption;
                 optionValue = option;
               } else {
+                if (option.children) {
+                  return (
+                    <Collapse>
+                      <Collapse.Item hasList title={option.label} key={option.value}>
+                        {this.renderList(option.children)}
+                      </Collapse.Item>
+                    </Collapse>
+                  );
+                }
                 checkOption = option;
                 const {
                   label,
@@ -143,6 +143,7 @@ export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().creat
                 defaultNode = typeof option === 'string' ? option : option.label;
               }
               const itemProps: VNodeData = {
+                class: { 'is-checked': renderOptions.checked },
                 props: {
                   button,
                   disabled: itemDisabled,
@@ -168,7 +169,26 @@ export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().creat
           }
         </List>
       );
-    }
+    },
+  },
+  render() {
+    const {
+      loading,
+      loadingProps,
+      finished,
+      finishedText,
+      options,
+      position,
+      button,
+      ...groupProps
+    } = this.$props as CheckListProps;
+    const { $listeners } = this;
+    const groupNodeData: VNodeData = {
+      props: groupProps,
+      on: $listeners,
+      ref: 'group'
+    };
+    const innerNode = this.renderList(options);
     return (
       <CheckboxGroup {...groupNodeData}>
         {innerNode}

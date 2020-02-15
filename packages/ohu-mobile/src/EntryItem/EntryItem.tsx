@@ -1,12 +1,11 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
+
 import Icon from '../Icon';
 import { Location } from 'vue-router';
 import { VNode } from 'vue';
 import { IconDef } from '../types';
-import { EntryItemEvents } from './types';
-import './styles/index.scss';
+import { EntryItemEvents, EntryItemProps } from './types';
+import { defineComponent, props } from '../_utils/defineComponent';
+import Badge, { BadgeProps } from '../Badge';
 
 export const entryItemProps = {
   icon: props<string, IconDef>(String, Object).optional,
@@ -19,24 +18,11 @@ export const entryItemProps = {
   to: props<string, Location>(String, Object).optional,
   url: String,
   replace: props(Boolean).default(false),
+  badge: props<string, number, BadgeProps>(String, Number, Object).optional,
 }
 
-const entryItemBaseName = `${prefix}entry-item`;
-const entryItemIconCls = `${entryItemBaseName}__icon`;
-const entryItemTextCls = `${entryItemBaseName}__text`;
-const entryItemMinorTextCls = `${entryItemBaseName}__minor-text`;
-const EntryItem = componentFactoryOf<EntryItemEvents>().create({
-  name: entryItemBaseName,
+export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').create({
   props: entryItemProps,
-  computed: {
-    cls() {
-      return {
-        [entryItemBaseName]: true,
-        [`is-icon-area-${this.iconAreaSize}`]: true,
-        [`is-text-${this.textSize}`]: true,
-      };
-    },
-  },
   methods: {
     onClick(e: Event) {
       this.$emit('click', e);
@@ -49,7 +35,12 @@ const EntryItem = componentFactoryOf<EntryItemEvents>().create({
     },
   },
   render() {
-    const { cls, icon, image, text, minorText, iconSize, $slots } = this;
+    const root = this.root();
+    const {
+      $slots,
+      icon, image, text, minorText, iconSize, iconAreaSize, textSize, badge,
+    } = this;
+    root.is([`icon-area-${iconAreaSize}`, `text-${textSize}`]);
     const iconStyle: Partial<CSSStyleDeclaration> = {};
     if (iconSize) {
       iconStyle.width = iconSize;
@@ -65,18 +56,25 @@ const EntryItem = componentFactoryOf<EntryItemEvents>().create({
         iconArea = <img style={iconStyle} src={image} alt="icon" />;
       }
     }
+    if (badge && iconArea) {
+      let badgeProps: BadgeProps = {};
+      if (typeof badge === 'string' || typeof badge === 'number') {
+        badgeProps.text = badge;
+      } else {
+        badgeProps = badge;
+      }
+      iconArea = <Badge {...{ props: badgeProps }}>{iconArea}</Badge>
+    }
     return (
-      <div class={cls} onClick={this.onClick}>
+      <div class={root} onClick={this.onClick}>
         {
           iconArea
           &&
-          <div class={entryItemIconCls}>{ iconArea }</div>
+          <div class={root.element('icon')}>{ iconArea }</div>
         }
-        { textContent && <span class={entryItemTextCls}>{ textContent }</span> }
-        { minorText && <span class={entryItemMinorTextCls}>{ minorText }</span> }
+        { textContent && <span class={root.element('text')}>{ textContent }</span> }
+        { minorText && <span class={root.element('minor-text')}>{ minorText }</span> }
       </div>
     );
   },
 });
-
-export default EntryItem;

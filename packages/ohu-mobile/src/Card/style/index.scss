@@ -1,0 +1,50 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$cardPrefixClass: #{$prefix}card;
+$cardHeaderPrefixClass: #{$cardPrefixClass}-header;
+$cardHeaderTopOffset: 22px;
+$cardHeaderLeftOffset: 24px;
+
+.#{$cardPrefixClass} {
+  background: $cardBackground;
+  &__content {
+    padding: 24px;
+  }
+  &.has-radius {
+    border-radius: 8px;
+  }
+  &.has-shadow {
+    box-shadow: $cardBoxShadow;
+  }
+}
+
+.#{$cardHeaderPrefixClass} {
+  position: relative;
+  padding: $cardHeaderTopOffset $cardHeaderLeftOffset;
+  font-size: 32px;
+  line-height: 1.375em;
+  color: $colorTextBase;
+  font-weight: 400;
+  &__extra {
+    @include center(y);
+    right: $cardHeaderLeftOffset;
+    color: $colorTextMinor;
+    font-size: 32px;
+  }
+  &.is-bold {
+    font-size: 36px;
+    line-height: 1.38888889em;
+    font-weight: 800;
+  }
+  // ================== state ==================
+  &.is-error {
+    .#{$cardHeaderPrefixClass}__extra {
+      color: $colorTextError;
+    }
+  }
+  &.is-success {
+    .#{$cardHeaderPrefixClass}__extra {
+      color: $colorTextHighlight;
+    }
+  }
+}

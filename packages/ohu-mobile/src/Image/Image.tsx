@@ -1,15 +1,14 @@
-import { prefix } from '../_utils/shared';
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import Lazyload, { LazyloadProps } from '../Lazyload';
 import { VNodeData } from 'vue';
 import Skeleton from '../Skeleton';
-import './styles/index.scss';
 import { ImageEvents, ImageScopedSlots } from './types';
 import localeMixin from '../_utils/localeMixin';
 import { ImgHTMLAttributes } from 'vue-tsx-support/types/dom';
+import { $prefix } from '../_config/variables';
 
-const baseImageName = `${prefix}image`;
+const baseImageName = `${$prefix}image`;
 const imagePlaceholderCls = `${baseImageName}__placeholder`;
 const imageErrorCls = `${baseImageName}__error`;
 export default componentFactoryOf<ImageEvents, ImageScopedSlots>().mixin(localeMixin('OhuImage')).create({

@@ -1,0 +1,74 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$skeletonScanStartColor: lighten($skeletonBackground, 3%);
+$skeletonScanEndColor: $skeletonBackground;
+
+@keyframes skeleton-scan-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+$skeletonBlinkStartColor: darken($skeletonBackground, 5%);
+$skeletonBlinkEndColor: $skeletonBackground;
+@keyframes skeleton-blink-loading {
+  0% {
+    background: $skeletonBlinkStartColor;
+  }
+  50% {
+    background: $skeletonBlinkEndColor;
+  }
+  100% {
+    background: $skeletonBlinkStartColor;
+  }
+}
+$skeletonPrefixClass: #{$prefix}skeleton;
+.#{$skeletonPrefixClass} {
+  display: block;
+  background: $skeletonBackground;
+  &--compound {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  &__content {
+    flex-grow: 1;
+    padding-top: 6px;
+    margin-left: 36px;
+  }
+  // ==================== shape =======================
+  &.is-circle {
+    border-radius: 50%;
+  }
+  &.is-avatar {
+    width: 88px;
+    height: 88px;
+  }
+  &.is-title {
+    height: 36px;
+    + .is-row {
+      margin-top: 32px;
+    }
+  }
+  &.is-row {
+    height: 28px;
+    + .is-row {
+      margin-top: 24px;
+    }
+  }
+  // ==================== aniamte =======================
+  &.is-scan {
+    background-image: linear-gradient(90deg, $skeletonScanEndColor 8%, $skeletonScanStartColor 28%, $skeletonScanEndColor 50%);
+    background-size: 200% 100%;
+    animation-name: skeleton-scan-loading;
+    animation-iteration-count: infinite;
+    animation-timing-function: easing(in-cubic);
+  }
+  &.is-blink {
+    animation-name: skeleton-blink-loading;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+  }
+}

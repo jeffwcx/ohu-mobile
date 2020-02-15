@@ -1,0 +1,43 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$detailItemPrefixClass: #{$prefix}detail-item;
+
+.#{$detailItemPrefixClass} {
+  min-height: 56px;
+  line-height: 56px;
+  font-size: 32px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  color: $detailItemTitleColor;
+  &.is-unactive {
+    .#{$detailItemPrefixClass}__content {
+      color: $detailItemTitleColor;
+    }
+  }
+  &__title {
+    flex-shrink: 0;
+    color: $detailItemTitleColor;
+  }
+  &__content {
+    color: $detailItemContentColor;
+    margin-left: 8px;
+    flex-grow: 1;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: center;
+    &__inner {
+      width: 100%;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+  &__extra {
+    color: $detailItemExtraColor;
+    font-size: 24px;
+    line-height: 1.333333333em;
+  }
+}

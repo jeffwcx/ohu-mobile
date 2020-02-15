@@ -1,17 +1,16 @@
-import { prefix } from '../_utils/shared';
 import props from 'vue-strict-prop';
 import { componentFactoryOf } from 'vue-tsx-support';
-import './styles/index.scss';
 import { EsModuleComponent } from 'vue/types/options';
 import { LazyloadScopedSlots, LazyloadEvents, LazyloadTransitions } from './types';
 import { VNode } from 'vue';
 import { ImgHTMLAttributes } from 'vue-tsx-support/types/dom';
+import { $prefix } from '../_config/variables';
 
 
-const baseLazyloadName = `${prefix}lazyload`;
+const baseLazyloadName = `${$prefix}lazyload`;
 
 const animations = {
-  fade: `${prefix}lazyload-fade`,
+  fade: `${$prefix}lazyload-fade`,
   none: '',
 };
 

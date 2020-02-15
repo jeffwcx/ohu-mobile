@@ -5,8 +5,9 @@ export interface CardProps {
   divider?: boolean;
 }
 
+export type CardHeaderStatus = 'error' | 'success' | 'normal';
 export interface CardHeaderProps {
-  status?: 'error' | 'success' | 'normal';
+  status?: CardHeaderStatus;
   bold?: boolean;
   extra?: string;
 }

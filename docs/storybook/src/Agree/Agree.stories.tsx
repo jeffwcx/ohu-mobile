@@ -1,4 +1,5 @@
-import { Agree } from '@ohu-mobile/core';
+import Agree from '@/Agree';
+import '@/Agree/style';
 import Vue from 'vue';
 import docs from '@/Agree/README.md';
 

@@ -1,8 +1,6 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import Popup from '../Popup';
-import vars from '../_styles/variables';
 import { popupOutSideProps } from '../Popup/PopupWrapper';
 import deepMerge from 'deepmerge';
 import { DialogActionOptions, DialogEvents } from './types';
@@ -11,11 +9,12 @@ import Button from '../Button';
 import { VNodeData, VNode } from 'vue';
 import Divider from '../Divider';
 import { IconProps } from '../Icon';
-import './styles/index.scss';
 import { addTargetClass } from '../_utils/targetClass';
 import { getIcon } from '../_utils/icon-utils';
 import localeMixin from '../_utils/localeMixin';
 import { IconProperty, IconDef } from '../types';
+import { $prefix, $colorTextMinor } from '../_config/variables';
+import Image, { ImageProps } from '../Image';
 
 function defaultOKOptions(text?: string): DialogActionOptions {
   return {
@@ -30,13 +29,14 @@ function defaultCancelOptions(text?: string): DialogActionOptions {
     type: 'cancel',
     text,
     disabled: false,
-    color: vars.colorTextMinor,
+    color: $colorTextMinor,
   };
 }
 
 export type DialogIconOption = IconProperty;
 
 export const dialogProps = deepMerge({
+  image: props<string, ImageProps>(String, Object).optional,
   icon: props<string, IconDef, IconProps>(String, Object).optional,
   title: String,
   content: String,
@@ -50,9 +50,10 @@ export const dialogProps = deepMerge({
 dialogProps.animate.default = 'zoom';
 dialogProps.maskClosable.default = false;
 
-const baseDialogName = `${prefix}dialog`;
+const baseDialogName = `${$prefix}dialog`;
 const dialogFooterCls = `${baseDialogName}__footer`;
 const dialogActionsCls = `${baseDialogName}__actions`;
+const dialogBannerCls = `${baseDialogName}__banner`;
 const dialogBodyCls = `${baseDialogName}__body`;
 const dialogBodyTitleCls = `${dialogBodyCls}__title`;
 const dialogBodyContentCls = `${dialogBodyCls}__content`;
@@ -162,7 +163,8 @@ export default componentFactoryOf<DialogEvents>().mixin(localeMixin('OhuDialog')
         eles.push(
           <Button
             inline={this.layout === 'row'}
-            type="link"
+            link
+            type="primary"
             loading={action.loading}
             disabled={action.loading ? true : action.disabled}
             style={style}
@@ -218,6 +220,7 @@ export default componentFactoryOf<DialogEvents>().mixin(localeMixin('OhuDialog')
       content,
       cancelBtn,
       okBtn,
+      image,
       ...popupProps
     } = this.$props;
     const popupNodeData: VNodeData = {
@@ -232,6 +235,16 @@ export default componentFactoryOf<DialogEvents>().mixin(localeMixin('OhuDialog')
     };
     return (
       <Popup {...popupNodeData}>
+        {
+          image &&
+          <div class={dialogBannerCls}>
+            {
+              typeof image === 'string'
+                ? <Image src={image} />
+                : <Image {...{props: image}} />
+            }
+          </div>
+        }
         {this.renderBody()}
         {this.renderActions()}
       </Popup>

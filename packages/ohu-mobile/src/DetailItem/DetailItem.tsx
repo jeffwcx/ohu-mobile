@@ -1,10 +1,9 @@
 import { componentFactory } from 'vue-tsx-support';
-import { prefix } from '../_utils/shared';
 import props from 'vue-strict-prop';
-import './styles/index.scss';
+import { $prefix } from '../_config/variables';
 
 
-const detailItemBaseName = `${prefix}detail-item`;
+const detailItemBaseName = `${$prefix}detail-item`;
 const detailItemTitleCls = `${detailItemBaseName}__title`;
 const detailItemContentCls = `${detailItemBaseName}__content`;
 const detailItemContentInnerCls = `${detailItemContentCls}__inner`;

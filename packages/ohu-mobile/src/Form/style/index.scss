@@ -1,0 +1,18 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$formPrefixClass: #{$prefix}form;
+$formFieldPrefixClass: #{$formPrefixClass}-field;
+
+.#{$formFieldPrefixClass} {
+  font-size: 32px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-flow: column wrap;
+  &__label {
+    color: $colorTextBase;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+}

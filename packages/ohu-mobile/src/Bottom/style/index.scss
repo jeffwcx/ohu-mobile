@@ -1,0 +1,13 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+
+$bottomPrefixClass: #{$prefix}bottom;
+
+.#{$bottomPrefixClass} {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-bottom: constant(safe-area-inset-bottom); /* iOS < 11.2 */
+  padding-bottom: env(safe-area-inset-bottom); /* iOS >= 11.2 */
+}

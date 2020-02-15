@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import docs from '@/locale/README.md';
-import { locale, Button, Dialog } from '@ohu-mobile/core';
+import Button from '@/Button';
+import '@/Button/style';
+import Dialog from '@/Dialog';
+import '@/Dialog/style';
+import locale from '@/locale';
 import en_US from '@ohu-mobile/core/lib/locale/en_US';
 
 export default {

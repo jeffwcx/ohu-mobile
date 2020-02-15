@@ -1,6 +1,6 @@
 import docs from '@/Divider/README.md';
-import { Divider } from '@ohu-mobile/core';
-
+import Divider from '@/Divider';
+import '@/Divider/style';
 
 
 export default {

@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import docs from '@/Popover/README.md';
-import { Popover, Button, Icon } from '@ohu-mobile/core';
+import Popover from '@/Popover';
+import '@/Popover/style';
+import Button from '@/Button';
+import '@/Button/style';
+import Icon from '@/Icon';
+import '@/Icon/style';
 
 export default {
   title: 'Components|FeedBack/Popover',

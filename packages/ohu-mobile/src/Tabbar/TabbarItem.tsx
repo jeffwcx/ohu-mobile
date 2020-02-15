@@ -1,21 +1,17 @@
 import { tabbarBaseName } from './Tabbar';
-import { componentFactoryOf } from 'vue-tsx-support';
 import EntryItem from '../EntryItem';
 import { entryItemProps } from '../EntryItem/EntryItem';
 import { VNodeData } from 'vue';
 import { transformSlotsContext, isTargetComponent } from '../_utils/vnode';
-import vars from '../_styles/variables';
-import { TabbarItemEvents } from './types';
-
-const tabbarItemBaseName = `${tabbarBaseName}-item`;
-
+import { TabbarItemEvents, TabbarItemProps } from './types';
+import { $colorPrimary } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
 
 const TabbarItemWrapper = function(Item: typeof EntryItem) {
-  return componentFactoryOf<TabbarItemEvents>().create({
-    name: tabbarItemBaseName,
+  return defineComponent<TabbarItemProps ,TabbarItemEvents>('tabbar-item').create({
     props: {
       ...entryItemProps,
-      name: String,
+      name: props<string, number>(String, Number).optional,
     },
     computed: {
       index() {
@@ -23,7 +19,7 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
       },
     },
     methods: {
-      handleClick(e: Event) {
+      handleClick() {
         const parent = this.$parent as any;
         if (isTargetComponent(parent.$vnode, tabbarBaseName)) {
           parent.onChange(this.name || this.index);
@@ -36,7 +32,7 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
       let { activeColor, inActiveColor, stateValue } = this.$parent as any;
       if (activeColor && inActiveColor) {
         if (activeColor === 'primary') {
-          activeColor = vars.colorPrimary;
+          activeColor = $colorPrimary;
         }
         style.color = (name || this.index) === stateValue ? activeColor : inActiveColor;
       }

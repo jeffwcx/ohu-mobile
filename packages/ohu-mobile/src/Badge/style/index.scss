@@ -1,0 +1,134 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$badgePrefixClass: #{$prefix}badge;
+
+$postions: (
+  up-right: (0 0 _ _),
+  up-left: (0 _ _ 0),
+  down-left: (_ _ 0 0),
+  down-right: (_ 0 0 _)
+);
+$colors: (
+  up-right: (bottom, left),
+  up-left: (bottom, right),
+  down-left: (top, right),
+  down-right: (top, left)
+);
+
+$rotate: (
+  up-right: 45deg,
+  up-left: -45deg,
+  down-left: 225deg,
+  down-right: 135deg
+);
+@mixin corner-border-color($pos) {
+  $borderPos: map-get($colors, $pos);
+  $pos1: nth($borderPos, 1);
+  $pos2: nth($borderPos, 2);
+  border-#{$pos1}-color: transparent;
+  border-#{$pos2}-color: transparent;
+}
+
+@mixin badge-theme($color) {
+  .#{$badgePrefixClass}__corner {
+    color: $color;
+  }
+  .#{$badgePrefixClass}__corner__text {
+    color: $badgeTextColor;
+  }
+  .#{$badgePrefixClass}__tag {
+    color: $badgeTextColor;
+    background: $color;
+  }
+  .#{$badgePrefixClass}__dot {
+    background: $color;
+  }
+}
+
+.#{$badgePrefixClass} {
+  position: relative;
+  display: inline-block;
+  &.is-wrapper {
+    .#{$badgePrefixClass}__dot, .#{$badgePrefixClass}__tag {
+      position: absolute;
+      z-index: 1;
+      transform: translateX(100%);
+    }
+    .#{$badgePrefixClass}__dot {
+      top: - $badgeDotSize / 2;
+      right: $badgeDotSize / 2;
+    }
+    .#{$badgePrefixClass}__tag {
+      top: - $badgeDotSize / 2;
+      right: $badgeTagSize / 2;
+    }
+  }
+  &__corner {
+    display: inline-block;
+    @each $pos, $value in $postions {
+      &.is-#{$pos} {
+        @include absolute($value);
+        z-index: 1;
+        .#{$badgePrefixClass}__corner__triangle {
+          @include corner-border-color($pos);
+        }
+        .#{$badgePrefixClass}__corner__text {
+          $rotateValue: map-get($rotate, $pos);
+          transform: rotateZ($rotateValue);
+        }
+      }
+    }
+    &__triangle {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: $badgeCornerSize;
+    }
+    &__text {
+      width: 100%;
+      height: $badgeCornerSize;
+      text-align: center;
+      font-size: $badgeCornerFontSize;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      white-space: nowrap;
+      line-height: 1.7em;
+      transform-origin: bottom center;
+    }
+  }
+  &__tag {
+    box-sizing: border-box;
+    padding: 0 10px;
+    min-width: $badgeTagSize;
+    height: $badgeTagSize;
+    border-radius: $badgeTagSize;
+    font-size: $badgeTagFontSize;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__dot {
+    display: inline-block;
+    width: $badgeDotSize;
+    height: $badgeDotSize;
+    border-radius: $badgeDotSize;
+  }
+  &.is-red {
+    @include badge-theme($colorRed);
+  }
+  &.is-blue, &.is-primary {
+    @include badge-theme($colorBlue);
+  }
+  &.is-gold {
+    @include badge-theme($colorGold);
+  }
+  &.is-grey {
+    @include badge-theme($colorGrey);
+  }
+  &.is-orange {
+    @include badge-theme($colorOrange);
+  }
+}

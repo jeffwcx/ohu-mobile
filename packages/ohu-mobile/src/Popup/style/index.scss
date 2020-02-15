@@ -1,0 +1,185 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$maskPrefixClass: #{$prefix}mask;
+
+.#{$maskPrefixClass} {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: $colorMask;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  // need compatible
+  &.is-frosted {
+    backdrop-filter: blur(20Px);
+  }
+}
+
+.#{$prefix}mask-fade-enter-active, .#{$prefix}mask-fade-leave-active {
+  transition: opacity 250ms;
+}
+.#{$prefix}mask-fade-enter, .#{$prefix}mask-fade-leave-to {
+  opacity: 0;
+}
+
+
+$popupPrefixClass: #{$prefix}popup;
+.#{$popupPrefixClass} {
+  -webkit-tap-highlight-color: transparent;
+  &.is-fullscreen {
+    width: 100%;
+    height: 100%;
+  }
+  &-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    &.is-tap-through {
+      pointer-events: none;
+    }
+    &.is-scrollable {
+      overscroll-behavior-y: contain;
+      overflow: auto;
+      text-align: center;
+      align-items: flex-start;
+      &::after {
+        content: '';
+        width: 0;
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .#{$prefix}popup {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: left;
+      }
+    }
+    &.has-position {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+    &.is-x-center {
+      justify-content: center;
+    }
+    &.is-y-center {
+      align-items: center;
+    }
+    &.is-x-left {
+      justify-content: flex-start;
+    }
+    &.is-x-right {
+      justify-content: flex-end;
+    }
+    &.is-y-top {
+      align-items: flex-start;
+    }
+    &.is-y-bottom {
+      align-items: flex-end;
+    }
+  }
+}
+
+$slideAnimateDuration: 240ms;
+$slideAnimateTimingFunction: easing(out-cubic);
+$slideLeaveAnimateTimingFunction: easing(out-quart);
+
+// slide-left transition
+.slide-left-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.slide-left-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.slide-left-enter, .slide-left-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+
+// slide-right transition
+.slide-right-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.slide-right-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.slide-right-enter, .slide-right-leave-to {
+  transform: translate3d(100%, 0, 0);
+}
+
+// slide-up transition
+.slide-up-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.slide-up-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.slide-up-enter, .slide-up-leave-to {
+  transform: translate3d(0, -100%, 0);
+}
+
+// scale-up transition
+.scale-up-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.scale-up-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.scale-up-enter, .scale-up-leave-to {
+  transform: scale3d(1, 0, 1);
+}
+
+// slide-down transition
+.slide-down-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.slide-down-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.slide-down-enter, .slide-down-leave-to {
+  transform: translate3d(0, 100%, 0);
+}
+
+// slide-scale-down transition
+.scale-down-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.scale-down-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.scale-down-enter, .scale-down-leave-to {
+  transform: scale3d(1, 0, 1);
+}
+
+// zoom transition
+.zoom-scale-enter-active, .zoom-scale-leave-active {
+  transition: all 330ms easing(out-quint);
+}
+.zoom-scale-enter {
+  transform: scale3d(3, 3, 1);
+  opacity: 0;
+}
+.zoom-scale-leave-to {
+  transform: scale3d(1.5, 1.5, 1);
+  opacity: 0;
+}
+
+// zoom-big transition
+.zoom-enter-active, .zoom-leave-active {
+  transition: opacity 211ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 141ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.zoom-enter, .zoom-leave-to {
+  transform: scale3d(0.75, 0.5623, 1);
+  opacity: 0;
+}
+
+// fade transition
+.fade-enter-active, .fade-leave-active {
+  transition: all 300ms easing(out-quart);
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+@import './popup-header.scss';

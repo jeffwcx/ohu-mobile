@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Collapse render correct 1`] = `
+<div
+  class="ohu-collapse"
+>
+  <div
+    class="ohu-collapse-item is-expand"
+  >
+    <div
+      aria-expanded="true"
+      class="ohu-collapse-item__header is-right"
+      role="button"
+      tabindex="-1"
+    >
+      <div
+        class="ohu-collapse-item__header__text"
+      />
+      <div
+        class="ohu-collapse-item__header__icon"
+      >
+        <svg
+          aria-hidden="true"
+          class="ohu-icon"
+          focusable="false"
+          role="presentation"
+          tabindex="-1"
+          title="arrow-down-s"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+          <path
+            d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="ohu-collapse-item__content"
+    >
+      <div
+        class="ohu-divider is-horizontal"
+        role="separator"
+      />
+      <div
+        class="ohu-collapse-item__content__inner"
+      />
+    </div>
+    <div
+      class="ohu-divider is-horizontal"
+      role="separator"
+    />
+  </div>
+</div>
+`;
+
+exports[`Collapse should remove expandIcon 1`] = `
+<div
+  class="ohu-collapse"
+>
+  <div
+    class="ohu-collapse-item"
+  >
+    <div
+      class="ohu-collapse-item__header is-"
+      role="button"
+      tabindex="-1"
+    >
+      <div
+        class="ohu-collapse-item__header__text"
+      >
+        should remove expandIcon
+      </div>
+    </div>
+    <div
+      class="ohu-collapse-item__content"
+      style="display: none;"
+    >
+      <div
+        class="ohu-divider is-horizontal"
+        role="separator"
+      />
+      <div
+        class="ohu-collapse-item__content__inner"
+      />
+    </div>
+    <div
+      class="ohu-divider is-horizontal"
+      role="separator"
+    />
+  </div>
+</div>
+`;

@@ -1,8 +1,8 @@
 import docs from '@/Icon/README.md';
 import * as icons from '@ohu-mobile/icons';
-import { Icon } from '@ohu-mobile/core';
 import { SVGIconDef } from '@ohu-mobile/icons/lib/types';
-
+import Icon from '@/Icon';
+import '@/Icon/style';
 
 export default {
   title: 'Components|Basic/Icon',
@@ -76,16 +76,16 @@ export const color = () => ({
     return (
       <div style="font-size: 36px; display: flex; flex-flow: row wrap;">
         <div style="box-sizing: border-box; padding: 10px; text-align: center; width: 25%;">
-          <Icon type="share" color="#2d7eff"></Icon>
+          <Icon type={icons.ShareOutlined} color="#2d7eff"></Icon>
         </div>
         <div style="box-sizing: border-box; padding: 10px; text-align: center; width: 25%;">
-          <Icon type="close-circle-f" color="#999"></Icon>
+          <Icon type={icons.CloseCircleOutlined} color="#999"></Icon>
         </div>
         <div style="box-sizing: border-box; padding: 10px; text-align: center; width: 25%;">
-          <Icon type="star" color="#ff9434"></Icon>
+          <Icon type={icons.StarOutlined} color="#ff9434"></Icon>
         </div>
         <div style="box-sizing: border-box; padding: 10px; text-align: center; width: 25%;">
-          <Icon type="question" color="#ff2d31"></Icon>
+          <Icon type={icons.QuestionOutlined} color="#ff2d31"></Icon>
         </div>
       </div>
     );
@@ -96,7 +96,7 @@ export const spin = () => ({
   render() {
     return (
       <div style="font-size: 36px; padding: 10px;">
-        <Icon type="loader-f" spin color="#999"></Icon>
+        <Icon type={icons.LoaderSpinOutlined} spin color="#999"></Icon>
       </div>
     );
   },
@@ -106,7 +106,7 @@ export const rotate = () => ({
   render() {
     return (
       <div style="font-size: 36px; padding: 10px;">
-        <Icon type="loader-tail" rotate={90}></Icon>
+        <Icon type={icons.LoaderTailOutlined} rotate={90}></Icon>
       </div>
     );
   }

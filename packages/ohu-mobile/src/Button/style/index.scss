@@ -1,0 +1,179 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$buttonPrefixClass: #{$prefix}btn;
+
+.#{$buttonPrefixClass} {
+  height: $buttonSizeNormal;
+  @include mobile-btn-init;
+  @include padding(_ 56px _ 56px);
+  color: $colorTextBase;
+  font-size: 32px;
+  line-height: $buttonSizeNormal;
+  border-radius: 3Px;
+  font-weight: 400;
+  background: $colorTextBaseInverse;
+  @include hair-border($colorBorderBase, all, 6Px);
+  > span {
+    display: inline-block;
+    vertical-align: top;
+  }
+  > i {
+    display: inline-block;
+    font-size: 1.2em;
+    pointer-events: none;
+    + span {
+      margin-left: 16px;
+    }
+  }
+  &.is-block {
+    width: 100%;
+    display: block;
+  }
+  &.is-inline {
+    display: inline-block;
+  }
+  // ============== round ===============
+  &.is-round {
+    border-radius: $buttonSizeNormal;
+    &::after {
+      border-radius: $buttonSizeNormal;
+    }
+  }
+  // ============== type ===============
+  &.is-primary {
+    background: $colorPrimary;
+    color: $colorTextBaseInverse;
+    &:active {
+      background: $buttonColorPrimaryActive;
+      &::after {
+        border-color: $buttonColorPrimaryActive;
+      }
+    }
+    &::after {
+      border-color: $colorPrimary;
+    }
+  }
+  &.is-translucent {
+    background: rgba($colorPrimary, .15);
+    color: $colorPrimary;
+    &:active {
+      color: $buttonColorTranslucentActive;
+      background: $buttonColorTranslucentBgActive;
+      &::after {
+        border-color: $buttonColorTranslucentBgActive;
+      }
+    }
+    &::after {
+      border-color: rgba($colorPrimary, .15);
+    }
+  }
+  // ============== plain ===============
+  &.is-plain {
+    &.is-primary {
+      background: transparent;
+      color: $colorPrimary;
+      &:active {
+        background: transparent;
+        color: $buttonColorPrimaryPlainActive;
+        &::after {
+          border-color: $buttonColorPrimaryPlainActive;
+        }
+      }
+    }
+    // the plain style's disabled state is different
+    &[disabled] {
+      color: $colorTextBase;
+      &::after {
+        border-color: $buttonColorPlainDisabled;
+      }
+    }
+  }
+
+  // ============== link ===============
+  &.is-link {
+    background: transparent;
+    &::after {
+      border: none;
+    }
+    &.is-default {
+      color: $colorTextMinor;
+    }
+    &.is-primary {
+      color: $colorPrimary;
+    }
+    &:active {
+      background: $buttonColorDefaultActive;
+      color: $buttonColorPrimaryActive;
+    }
+  }
+  // ============== size ===============
+  &.is-sm {
+    height: $buttonSizeSm;
+    line-height: $buttonSizeSm;
+    font-size: 28px;
+    @include padding(_ 16px _ 16px);
+    &.is-round {
+      border-radius: $buttonSizeSm;
+      @include padding(_ 24px _ 24px);
+      &::after {
+        border-radius: $buttonSizeSm;
+      }
+    }
+  }
+  &.is-md {
+    height: $buttonSizeMd;
+    line-height: $buttonSizeMd;
+    font-size: 36px;
+    @include padding(_ 36px _ 36px);
+    &.is-round {
+      border-radius: $buttonSizeMd;
+      &::after {
+        border-radius: $buttonSizeMd;
+      }
+    }
+  }
+  &.is-icon-only {
+    &.is-lg {
+      padding: 0;
+      width: $buttonSizeNormal;
+    }
+    &.is-md {
+      padding: 0;
+      width: $buttonSizeMd;
+    }
+    &.is-sm {
+      padding: 0;
+      width: $buttonSizeSm;
+    }
+  }
+
+  // ============== state ===============
+  &:active {
+    background: $buttonColorDefaultActive;
+  }
+  &.is-loading {
+    opacity: .5;
+    // translucent type for disabled is special
+    &.is-translucent {
+      background: $buttonColorTranslucentDisabled;
+      color: $colorTextBaseInverse;
+      opacity: 1;
+      &::after {
+        border-color: $buttonColorTranslucentDisabled;
+      }
+    }
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: .5;
+    // translucent type for disabled is special
+    &.is-translucent {
+      background: $buttonColorTranslucentDisabled;
+      color: $colorTextBaseInverse;
+      opacity: 1;
+      &::after {
+        border-color: $buttonColorTranslucentDisabled;
+      }
+    }
+  }
+}

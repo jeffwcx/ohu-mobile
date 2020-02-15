@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import docs from '@/Popup/README.md';
-import { Popup, Card, CardHeader, Button, PopupHeader, PopupPosition } from '@ohu-mobile/core';
+import Popup, { PopupPosition } from '@/Popup';
+import '@/Popup/style';
+import Card from '@/Card';
+import '@/Card/style';
+import Button from '@/Button';
+import '@/Button/style';
 
 export default {
   title: 'Components|FeedBack/Popup',
@@ -29,7 +34,7 @@ export const basic = () => Vue.extend({
           targetStyle={{ width: '8rem', height: '8rem', background: '#fff' }}>
         </Popup>
         <Card shadow>
-          <CardHeader>Basic</CardHeader>
+          <Card.Header>Basic</Card.Header>
           <Button type="primary" onClick={() => this.v1 = true}>open</Button>
         </Card>
       </div>
@@ -76,7 +81,7 @@ export const position = () => Vue.extend({
           <Button type="primary" onClick={() => this.v4 = false}>关闭left</Button>
         </Popup>
         <Card shadow>
-          <CardHeader>position</CardHeader>
+          <Card.Header>position</Card.Header>
           <Button type="primary" onClick={() => this.v2 = true}>top</Button>
           <Button onClick={() => this.v3 = true}>bottom</Button>
           <Button type="primary" onClick={() => this.v4 = true}>left</Button>
@@ -114,7 +119,7 @@ export const animate = () => Vue.extend({
           targetStyle={{ width: '8rem', height: '8rem', background: '#fff' }}>
         </Popup>
         <Card shadow>
-          <CardHeader>animate</CardHeader>
+          <Card.Header>animate</Card.Header>
           <Button type="primary" onClick={() => this.vf = true}>fade</Button>
           <Button onClick={() => this.vz = true}>zoom</Button>
           <Button type="primary" onClick={() => this.vzs = true}>zoom-scale</Button>
@@ -148,7 +153,7 @@ export const mask = () => Vue.extend({
           targetStyle={{ width: '8rem', height: '8rem', background: '#000' }}>
         </Popup>
         <Card shadow>
-          <CardHeader>mask</CardHeader>
+          <Card.Header>mask</Card.Header>
           <Button type="primary" onClick={() => this.vm = true}>without mask</Button>
           <Button type="translucent" onClick={() => this.vmf = true}>frosted mask</Button>
         </Card>
@@ -171,10 +176,10 @@ export const fullscreen = () => Vue.extend({
           animate="slide-down"
           fullscreen
           targetStyle={{ background: '#FFF' }}>
-          <PopupHeader minorText="次级标题">标题</PopupHeader>
+          <Popup.Header minorText="次级标题">标题</Popup.Header>
         </Popup>
         <Card shadow>
-          <CardHeader>fullscreen</CardHeader>
+          <Card.Header>fullscreen</Card.Header>
           <Button type="primary" onClick={() => this.vfs = true}>fullscreen</Button>
         </Card>
       </div>
@@ -193,7 +198,7 @@ export const scroll = () => Vue.extend({
       <div style="padding: 8px;">
         <Popup v-model={this.v} scrollBody targetStyle={{ width: '80vw', height: '120vh', margin: '32px', background: '#FFF' }}>
           <Card>
-            <CardHeader>title</CardHeader>
+            <Card.Header>title</Card.Header>
           </Card>
         </Popup>
         <Button type="primary" onClick={() => this.v = true}>open</Button>
@@ -233,12 +238,12 @@ export const anchor = () => Vue.extend({
           <p>Here is description.</p>
         </Popup>
         <Card shadow>
-          <CardHeader>transformOrigin</CardHeader>
+          <Card.Header>transformOrigin</Card.Header>
           <div style="display: flex; min-height: 200px; flex-flow: row wrap; justify-content: space-between; align-content: space-around;">
           </div>
         </Card>
         <Card shadow>
-          <CardHeader>position</CardHeader>
+          <Card.Header>position</Card.Header>
           <div style="display: flex; min-height: 200px; flex-flow: row wrap; justify-content: space-between; align-content: space-around;">
             <Button inline type="primary" onClick={(e) => this.setAnchor(e, 'top')}>top</Button>
             <Button inline type="primary" onClick={(e) => this.setAnchor(e, 'bottom')}>bottom</Button>

@@ -1,9 +1,8 @@
 import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
-import './styles/index.scss';
 import Loading, { LoadingProps } from '../Loading';
 import localeMixin from '../_utils/localeMixin';
+import { $prefix } from '../_config/variables';
 
 
 export const listProps = {
@@ -13,7 +12,7 @@ export const listProps = {
   finishedText: String,
 };
 
-const baseListName = `${prefix}list`;
+const baseListName = `${$prefix}list`;
 const listBottomCls = `${baseListName}__bottom`;
 export default componentFactory.mixin(localeMixin('OhuList')).create({
   name: baseListName,

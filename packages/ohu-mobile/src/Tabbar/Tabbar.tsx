@@ -1,21 +1,17 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
-import vars from '../_styles/variables';
-import * as componentVars from '../_styles/component.variables';
 import { VNodeData } from 'vue';
-import { TabbarEvents } from './types';
-import './styles/index.scss';
+import { TabbarEvents, TabbarProps } from './types';
+import { $prefix, $colorTextBase, $tabbarBackground } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-export const tabbarBaseName = `${prefix}tabbar`;
-export const Tabbar = componentFactoryOf<TabbarEvents>().create({
-  name: tabbarBaseName,
+export const tabbarBaseName = `${$prefix}tabbar`;
+
+const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
   props: {
     value: props(String, Number).optional,
     border: props(Boolean).default(true),
     activeColor: props(String).default('primary'),
-    inActiveColor: props(String).default(vars.colorTextBase),
-    barColor: props(String).default(componentVars.tabbarBg),
+    inActiveColor: props(String).default($colorTextBase),
+    barColor: props(String).default($tabbarBackground),
   },
   data() {
     return {
@@ -39,14 +35,13 @@ export const Tabbar = componentFactoryOf<TabbarEvents>().create({
     },
   },
   render() {
-    const { inActiveColor, barColor, $slots, $attrs } = this;
-    const cls = {
-      [tabbarBaseName]: true,
-      'has-border': this.border,
-    };
+    const {
+      $slots, $attrs,
+      inActiveColor, barColor, border,
+    } = this;
     const tabbarProps: VNodeData = {
       attrs: $attrs,
-      class: cls,
+      class: this.root().has([border && 'border']),
       style: {
         color: inActiveColor,
         background: barColor,
@@ -59,6 +54,5 @@ export const Tabbar = componentFactoryOf<TabbarEvents>().create({
     );
   },
 });
-
 
 export default Tabbar;

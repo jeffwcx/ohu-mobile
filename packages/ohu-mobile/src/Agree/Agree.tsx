@@ -1,12 +1,11 @@
-import CheckBase from '../_checkbase/CheckBase';
-import { prefix } from '../_utils/shared';
+import { $prefix } from '../_config/variables';
 import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '@ohu-mobile/icons';
+import CheckBase from '../_checkbase/CheckBase';
 import { CreateElement } from 'vue';
 import { getIcon } from '../_utils/icon-utils';
-import './styles/index.scss';
 
 
-const baseAgreeName = `${prefix}agree`;
+const baseAgreeName = `${$prefix}agree`;
 const agreeWrapperCls = `${baseAgreeName}-wrapper`;
 const agreeLabelCls = `${baseAgreeName}__label`;
 export default CheckBase({

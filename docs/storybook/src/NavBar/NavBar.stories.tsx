@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import docs from '@/NavBar/README.md';
-import { NavBar, Button } from '@ohu-mobile/core';
+import NavBar from '@/NavBar';
+import '@/NavBar/style';
+import Button from '@/Button';
+import '@/Button/style';
 
 export default {
   title: 'Components|Navigation/NavBar',

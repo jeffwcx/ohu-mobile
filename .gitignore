@@ -5,6 +5,7 @@ es
 lib
 lib-rem
 storybook-static
+coverage
 
 # local env files
 .env.local

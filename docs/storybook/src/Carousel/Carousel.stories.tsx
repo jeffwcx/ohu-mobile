@@ -1,4 +1,8 @@
-import { Carousel, CarouselChangeEvent, Button } from '@ohu-mobile/core';
+import Button from '@/Button';
+import '@/Button/style';
+import Carousel, { CarouselChangeEvent } from '@/Carousel';
+import '@/Carousel/style';
+import '@/Carousel/style';
 import Vue from 'vue';
 import docs from '@/Button/README.md';
 import './styles.scss';

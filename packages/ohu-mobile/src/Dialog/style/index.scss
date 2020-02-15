@@ -1,0 +1,84 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$dialogClassPrefix: #{$prefix}dialog;
+$dialogBorderRadius: 8px;
+
+.#{$prefix}popup-wrapper.is-scrollable {
+  .#{$dialogClassPrefix} {
+    max-height: fit-content;
+  }
+}
+.#{$dialogClassPrefix} {
+  width: 72%;
+  background: $colorTextBaseInverse;
+  border-radius: $dialogBorderRadius;
+  margin: 48px;
+  max-height: calc(100% - 96px);
+  display: flex;
+  flex-direction: column;
+  &__footer {
+    flex: 0 0 auto;
+  }
+  &__actions {
+    display: flex;
+    &.is-row {
+      flex-flow: row nowrap;
+      > .#{$prefix}btn {
+        flex: 1;
+      }
+    }
+    &.is-column {
+      flex-flow: column wrap;
+    }
+  }
+  &__banner {
+    border-radius: $dialogBorderRadius $dialogBorderRadius 0 0;
+    overflow: hidden;
+    .#{$prefix}image {
+      display: block;
+    }
+  }
+  &__body {
+    padding: 32px 0;
+    color: $colorTextBase;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    &__icon {
+      padding: 0 32px;
+      text-align: center;
+      font-size: 100px;
+      flex: 0 0 auto;
+      ~ .#{$dialogClassPrefix}__body__title {
+        margin-top: 8px;
+      }
+    }
+    &__title {
+      padding: 0 32px;
+      margin: 0;
+      text-align: center;
+      font-weight: 400;
+      font-size: 36px;
+      line-height: (50 / 36) * 1em;
+      flex: 0 0 auto;
+      ~ .#{$dialogClassPrefix}__body__content {
+        margin-top: 16px;
+        color: $colorTextMinor;
+      }
+    }
+    &__content {
+      padding: 0 50px;
+      margin: 0;
+      text-align: center;
+      font-weight: 400;
+      line-height: (44/28) * 1em;
+      font-size: 28px;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      overflow-x: hidden;
+      overflow-y: auto;
+      flex: 1 1 auto;
+    }
+  }
+}

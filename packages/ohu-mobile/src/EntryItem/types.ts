@@ -1,5 +1,6 @@
 import { IconDef } from '../types';
 import { Location } from 'vue-router';
+import { BadgeProps } from '../Badge';
 
 export interface EntryItemProps {
   icon?: string | IconDef;
@@ -12,6 +13,7 @@ export interface EntryItemProps {
   to?: string | Location;
   url?: string;
   replace?: boolean;
+  badge?: number | string | BadgeProps;
 }
 
 export interface EntryItemEvents {

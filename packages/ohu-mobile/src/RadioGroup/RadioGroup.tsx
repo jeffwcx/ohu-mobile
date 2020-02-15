@@ -1,12 +1,13 @@
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { prefix } from '../_utils/shared';
 import Radio from '../Radio';
 import ancestorMixin from '../_utils/ancestorMixin';
 import { RadioOption, RadioGroupEvents } from './types';
 import { IconProperty } from '../types';
+import { $prefix } from '../_config/variables';
+import Collapse from '../Collapse';
 
-const baseRadioGroupName = `${prefix}radio-group`;
+const baseRadioGroupName = `${$prefix}radio-group`;
 
 
 
@@ -44,10 +45,10 @@ export default componentFactoryOf<RadioGroupEvents>().mixin(
     };
   },
   methods: {
-    childrenChange(value: any, checked: boolean) {
+    childrenChange(value: any, checked: boolean, parent?: RadioOption) {
       if (checked) {
         this.valueState = value;
-        this.$emit('change', value);
+        this.$emit('change', value, parent);
       }
     },
     isChildChecked(value: any) {

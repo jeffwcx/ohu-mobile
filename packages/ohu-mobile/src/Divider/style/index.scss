@@ -1,0 +1,23 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$dividerPrefixClass: #{$prefix}divider;
+
+.#{$dividerPrefixClass} {
+  text-align: center;
+  border-style: solid;
+  border-width: 0;
+  border-color: $colorDivider;
+  flex-shrink: 0;
+  flex-grow: 0;
+  &.is-horizontal {
+    min-height: 1Px;
+    @include divider(inherit, hair) {
+      font-size: 28px;
+      @include padding(_ 20px _ 20px);
+    };
+  }
+  &.is-vertical {
+    min-width: 1Px;
+    @include hair-border(inherit, left);
+  }
+}
