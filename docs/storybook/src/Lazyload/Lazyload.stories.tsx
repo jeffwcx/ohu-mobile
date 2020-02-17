@@ -12,6 +12,8 @@ import Result from '@/Result';
 import '@/Result/style';
 import Button from '@/Button';
 import '@/Button/style';
+import Image from '@/Image';
+import '@/Image/style';
 
 export default {
   title: 'Components|Utils/Lazyload',
@@ -148,4 +150,20 @@ export const basic = () => Vue.extend({
       </div>
     );
   },
+});
+
+export const changeImage = () => Vue.extend({
+  data() {
+    return {
+      src: 'http://via.placeholder.com/240x144/222222',
+    };
+  },
+  render() {
+    return (
+      <div>
+        <Button style="margin-bottom: 150vh;" type="primary" onClick={() => this.src = 'http://via.placeholder.com/240x144/666666'}>change</Button>
+        <Image src={this.src} lazy></Image>
+      </div>
+    );
+  }
 });

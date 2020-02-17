@@ -35,12 +35,22 @@ const Lazyload = componentFactoryOf<LazyloadEvents, LazyloadScopedSlots>().creat
       asyncNode: null,
       asyncError: null,
       hasImageLoaded: false,
+      observer: null,
     } as {
       hasLoaded: boolean;
       asyncNode: (null | VNode);
       asyncError: Error | null;
       hasImageLoaded: boolean;
+      observer: null | IntersectionObserver;
     };
+  },
+  watch: {
+    src() {
+      this.reload();
+    },
+    asyncComponent() {
+      this.reload();
+    },
   },
   methods: {
     reload() {
@@ -89,10 +99,11 @@ const Lazyload = componentFactoryOf<LazyloadEvents, LazyloadScopedSlots>().creat
       }
     },
     initObserver() {
+      this.destroyObserver();
       const observer = new IntersectionObserver((entries, observer) => {
         if (entries[0]) {
           if (entries[0].isIntersecting && entries[0].intersectionRatio > 0) {
-            this.reload()
+            this.reload();
             observer.unobserve(this.$el);
           }
         }
@@ -101,10 +112,17 @@ const Lazyload = componentFactoryOf<LazyloadEvents, LazyloadScopedSlots>().creat
         rootMargin: this.rootMargin,
         threshold: this.threshold,
       });
+      this.observer = observer;
       observer.observe(this.$el);
       this.$on('hook:beforeDestroy', () => {
-        observer.disconnect();
+        this.destroyObserver();
       });
+    },
+    destroyObserver() {
+      if (this.observer) {
+        this.observer.disconnect();
+        this.observer = null;
+      }
     },
   },
   mounted() {
