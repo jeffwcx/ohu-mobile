@@ -11,6 +11,7 @@ import { $prefix } from '../_config/variables';
 const baseImageName = `${$prefix}image`;
 const imagePlaceholderCls = `${baseImageName}__placeholder`;
 const imageErrorCls = `${baseImageName}__error`;
+
 export default componentFactoryOf<ImageEvents, ImageScopedSlots>().mixin(localeMixin('OhuImage')).create({
   name: baseImageName,
   props: {
@@ -20,10 +21,11 @@ export default componentFactoryOf<ImageEvents, ImageScopedSlots>().mixin(localeM
     height: props(String).default(''),
     fit: props.ofStringLiterals('contain', 'cover', 'fill', 'scale-down', 'none').optional,
     lazy: props.ofType<Omit<LazyloadProps, 'src' | 'asyncComponent'> | boolean>().default(false),
+    errorTip: props(String).default(''),
   },
   render() {
     const { $slots, $scopedSlots, $listeners,
-      lazy, src, alt, width, height, fit,
+      lazy, src, alt, width, height, fit, errorTip,
     } = this;
     const placeholder = $slots.placeholder ? (
       <div class={imagePlaceholderCls} slot="placeholder">
@@ -45,7 +47,7 @@ export default componentFactoryOf<ImageEvents, ImageScopedSlots>().mixin(localeM
               reload();
               this.$emit('reload');
             }}>
-              {this.$l['defaultErrorTip']}
+              {errorTip || this.$l['defaultErrorTip']}
             </div>
           );
         }),

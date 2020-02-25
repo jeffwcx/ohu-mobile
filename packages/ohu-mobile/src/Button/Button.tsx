@@ -17,6 +17,7 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
     icon: props<string, IconDef>(String, Object).optional,
     round: props(Boolean).default(false),
     link: props(Boolean).default(false),
+    tabindex: props(Number).default(0),
   },
   methods: {
     onClick(e: Event) {
@@ -33,6 +34,7 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
       disabled,
       icon,
       loading,
+      tabindex,
       $attrs,
       $slots,
     } = this;
@@ -56,6 +58,7 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
         ...$attrs,
         role: 'button',
         disabled,
+        tabindex,
       },
       on: {
         click: this.onClick,

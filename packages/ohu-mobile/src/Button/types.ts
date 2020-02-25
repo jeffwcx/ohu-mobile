@@ -18,4 +18,5 @@ export interface ButtonProps {
   icon?: string | IconDef;
   round?: boolean;
   link?: boolean;
+  tabindex?: number;
 }

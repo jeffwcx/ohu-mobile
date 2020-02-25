@@ -46,17 +46,28 @@ const Lazyload = componentFactoryOf<LazyloadEvents, LazyloadScopedSlots>().creat
   },
   watch: {
     src() {
-      this.reload();
+      this.init();
     },
     asyncComponent() {
-      this.reload();
+      this.init();
     },
   },
   methods: {
-    reload() {
+    init() {
+      this.initState();
+      if (this.disabled) {
+        this.reload();
+        return;
+      }
+      this.initObserver();
+    },
+    initState() {
       this.asyncError = null;
       this.hasLoaded = false;
       this.hasImageLoaded = false;
+    },
+    reload() {
+      this.initState();
       this.$nextTick(() => {
         this.loadAsync();
       });
@@ -126,11 +137,7 @@ const Lazyload = componentFactoryOf<LazyloadEvents, LazyloadScopedSlots>().creat
     },
   },
   mounted() {
-    if (this.disabled) {
-      this.reload();
-      return;
-    }
-    this.initObserver();
+    this.init();
   },
   render() {
     const { $slots, $scopedSlots,

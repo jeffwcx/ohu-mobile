@@ -1,98 +1,148 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import { cloneElement, getVModelOption } from '../_utils/vnode';
 import Form from './Form';
 import { Schema } from 'yup';
-import { $prefix } from '../_config/variables';
+import { defineDescendantComponent, props } from '../_utils/defineComponent';
+import { FormFieldProps, FormAlign, FormTrigger } from './types';
 
-const baseFormFieldName = `${$prefix}form-field`;
-const formFieldLabelCls = `${baseFormFieldName}__label`;
-const formFieldControlCls = `${baseFormFieldName}__control`;
-export default componentFactoryOf().mixin({
-  inject: {
-    parent: {
-      from: 'form',
-      default: null,
-    },
-  },
-  data() {
-    const instance = this as any;
-    return {
-      form: instance.parent,
-    } as {
-      form?: InstanceType<typeof Form>
-    };
-  },
-}).create({
-  name: baseFormFieldName,
+export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldProps>(
+  'form',
+  'form-field',
+).create({
   props: {
-    initialValue: props.ofType().optional,
+    initialValue: props.ofAny().optional,
     label: props(String).optional,
     name: props(String).optional,
+    labelAlign: props.ofType<FormAlign>().optional,
+    labelWidth: props(String).default('25.6%'),
+    contentAlign: props.ofType<FormAlign>().optional,
+    trigger: props.ofType<FormTrigger>().optional,
   },
   data() {
     return {
-      selfValue: this.initialValue,
-    } as {
-      selfValue: any;
+      stateValue: this.initialValue,
     };
   },
   computed: {
-    valueState() {
-      // why??
-      const instance = this as any;
-      if (this.form && this.name) {
-        return this.form.getFieldValue(this.name)
-      }
-      return instance.selfValue;
-    },
     schema() {
       if (this.name) {
-        return this.form?.getFieldValidation(this.name) as Schema<any>;
+        return this.ancestor?.getFieldValidation(this.name) as Schema<any>;
       }
       return;
     },
     error() {
       if (this.name) {
-        return this.form?.errors[this.name];
+        return this.ancestor?.errors[this.name];
       }
+    },
+    triggerEvent() {
+      return this.trigger || this.ancestor.trigger;
     },
   },
   methods: {
+    getValueState() {
+      if (this.ancestor && this.name) {
+        return this.ancestor.getFieldValue(this.name)
+      }
+      return this.stateValue;
+    },
+    innerValidate() {
+      return this.validate()
+        .then((value) => {
+          if (this.name) {
+            this.ancestor.removeError(this.name);
+          }
+          return value;
+        })
+        .catch((error) => {
+          if (this.name) {
+            this.ancestor.addError(this.name, error);
+          }
+        });
+    },
     validate() {
-      if (this.form && this.name && this.schema) {
-        return this.schema.validate(this.valueState);
+      if (this.ancestor && this.name && this.schema) {
+        return this.schema.validate(this.getValueState());
       } else {
-        return this.valueState;
+        return Promise.resolve();
       }
     },
   },
   mounted() {
-    this.form?.children.push(this);
+    if (this.ancestor) {
+      this.ancestor.addFormField(this);
+      this.$once('hook:beforeDestroyed', () => {
+        if (this.ancestor) {
+          this.ancestor.removeFormField(this);
+        }
+      });
+    }
   },
   render() {
-    const { $slots, label, name, valueState } = this;
+    const root = this.root();
+    const {
+      $slots,
+      error, triggerEvent,
+      label, name, labelAlign, labelWidth, contentAlign,
+    } = this;
     let component = $slots.default && $slots.default[0];
     if (component) {
       const { event, prop } = getVModelOption(component);
       component = cloneElement(component, {
-        props: { name, [prop]: valueState },
+        props: { name, [prop]: this.getValueState() },
         on: {
           [event]: (value: any) => {
-            if (this.form && name) {
-              this.form.setFieldValue(name, value);
+            if (this.ancestor && name) {
+              this.ancestor.setFieldValue(name, value);
             } else {
-              this.selfValue = value;
+              this.stateValue = value;
+            }
+            if (triggerEvent === 'change') {
+              this.innerValidate();
+            }
+          },
+          blur: () => {
+            if (triggerEvent === 'blur') {
+              this.innerValidate();
             }
           },
         },
       });
     }
+    if (this.ancestor) {
+      root.is([this.ancestor.inline ? 'inline' : 'block']);
+    }
+    const labelClass = root.element('label');
+    const align = labelAlign || this.ancestor.labelAlign;
+    if (align) {
+      labelClass.is(align);
+    }
+    const labelStyle = {
+      width: labelWidth || this.ancestor.labelWidth,
+    };
+    const controlClass = root.element('control');
+    const controlAlign = contentAlign || this.ancestor.contentAlign;
+    if (controlAlign) {
+      controlClass.is(controlAlign);
+    }
     return (
-      <div class={baseFormFieldName}>
-        { label && <label class={formFieldLabelCls} for={name}>{label}</label> }
-        { component && <div class={formFieldControlCls}>{ component }</div> }
+      <div class={root.has([error && 'error'])}>
+        { label && <label class={labelClass} style={labelStyle} for={name}>{label}</label> }
+        {
+          component
+          &&
+          <div class={controlClass}>
+            {component}
+            {
+              error
+              &&
+              <div class={controlClass.element('error')}>
+                <span>{error.message}</span>
+              </div>
+            }
+          </div>
+        }
       </div>
     );
   },
 });
+

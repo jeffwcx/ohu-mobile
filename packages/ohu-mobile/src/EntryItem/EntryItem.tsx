@@ -66,7 +66,7 @@ export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').cr
       iconArea = <Badge {...{ props: badgeProps }}>{iconArea}</Badge>
     }
     return (
-      <div class={root} onClick={this.onClick}>
+      <div class={root} onClick={this.onClick} role="button">
         {
           iconArea
           &&

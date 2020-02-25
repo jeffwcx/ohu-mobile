@@ -67,6 +67,7 @@
     > .#{$prefix}icon {
       color: $color;
       font-size: 1.4em;
+      vertical-align: -.2em;
       transition: all .4s easing(out-expo);
     }
     &__label {

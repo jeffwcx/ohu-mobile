@@ -2,17 +2,88 @@
 @import '../../_styles/mixins.scss';
 $formPrefixClass: #{$prefix}form;
 $formFieldPrefixClass: #{$formPrefixClass}-field;
+$formFieldFontSize: 32px;
+$formFieldBorderColor: $colorDivider;
+$formFieldHeight: 100px;
+$formFieldInlinePadding: 6px 0 6px 32px;
+$formFieldBlockPadding: 0 32px;
+$formFieldLineHeight: 88px;
+$formFieldFontSize: 32px;
+$formFieldBackground: #FFF;
+$formFieldLabelWidth: 25.6%;
+$formFieldLabelColor: $colorTextBase;
+$formFieldLabelPadding: 32px;
+$formFieldErrorColor: $colorTextError;
+
+@mixin add-align {
+  &.is-left {
+    text-align: left;
+  }
+  &.is-right {
+    text-align: right;
+  }
+  &.is-center {
+    text-align: center;
+  }
+}
 
 .#{$formFieldPrefixClass} {
-  font-size: 32px;
-  margin-bottom: 18px;
+  box-sizing: border-box;
   display: flex;
-  flex-flow: column wrap;
+  font-size: $formFieldFontSize;
+  min-height: $formFieldHeight;
+  border: 0;
+  border-style: solid;
+  line-height: $formFieldLineHeight;
+  background: $formFieldBackground;
+  &.is-inline {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: $formFieldInlinePadding;
+    border-color: $formFieldBorderColor;
+    @include hair-border(inherit, bottom);
+    .#{$formFieldPrefixClass}__control {
+      > :not(.#{$prefix}input) {
+        padding-left: .625em;
+      }
+    }
+    .#{$formFieldPrefixClass}__control__error {
+      font-size: .75em;
+      padding: 0 20px 20px .625em;;
+    }
+  }
+  &.is-block {
+    flex-flow: column wrap;
+    padding: $formFieldBlockPadding;
+    .#{$formFieldPrefixClass}__label {
+      width: 100%;
+    }
+    .#{$formFieldPrefixClass}__control {
+      padding: 12px 0;
+    }
+    .#{$formFieldPrefixClass}__control__error {
+      font-size: .875em;
+      padding: 20px 0 20px 0;
+    }
+  }
   &__label {
+    flex-shrink: 0;
+    flex-grow: 0;
+    box-sizing: border-box;
     color: $colorTextBase;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    font-size: 1em;
+    @include add-align;
+  }
+  &__control {
+    flex-grow: 1;
+    > .#{$prefix}input {
+      width: 100%;
+    }
+    @include add-align;
+    &__error {
+      color: $formFieldErrorColor;
+      line-height: 1em;
+    }
   }
 }

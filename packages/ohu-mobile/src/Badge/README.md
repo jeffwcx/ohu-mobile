@@ -1,8 +1,10 @@
+# Basic:Badge
 
-# Usage
+## Usage
+
 
 ```js
-import { CornerMarker } from 'ohu-mobile';
+import { Badge } from '@ohu-mobile/core';
 ```
 
 

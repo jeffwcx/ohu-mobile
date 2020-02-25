@@ -83,7 +83,7 @@ export let $dropMenuItemOptionActiveColor: string = process.env.$dropMenuItemOpt
 export let $dropMenuItemOptionsBoxShadow: string = process.env.$dropMenuItemOptionsBoxShadow || '0px 2px 8px 0px rgba(153,153,153,0.2)';
 
 // Component/Checkbox
-export let $checkboxColor: string = process.env.$checkboxColor || '#ccc';
+export let $checkboxColor: string = process.env.$checkboxColor || '#CCC';
 
 // Component/Radio
 export let $radioColor: string = process.env.$radioColor || $checkboxColor;

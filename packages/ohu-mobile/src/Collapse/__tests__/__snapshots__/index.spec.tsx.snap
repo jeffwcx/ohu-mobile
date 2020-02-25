@@ -49,10 +49,6 @@ exports[`Collapse render correct 1`] = `
         class="ohu-collapse-item__content__inner"
       />
     </div>
-    <div
-      class="ohu-divider is-horizontal"
-      role="separator"
-    />
   </div>
 </div>
 `;
@@ -87,10 +83,6 @@ exports[`Collapse should remove expandIcon 1`] = `
         class="ohu-collapse-item__content__inner"
       />
     </div>
-    <div
-      class="ohu-divider is-horizontal"
-      role="separator"
-    />
   </div>
 </div>
 `;

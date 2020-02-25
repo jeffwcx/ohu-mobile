@@ -1,0 +1,134 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+
+$inputPrefixClass: #{$prefix}input;
+
+$inputFontSize: 32px;
+$inputColor: $colorTextBase;
+$inputDisabledColor: $colorTextMinor;
+$inputBorderRadius: 8Px;
+$inputBorderColor: $colorBorderBase;
+$inputFocusBorderColor: rgba($colorPrimary, .75);
+$inputPlaceholderColor: $colorTextMinor;
+$inputAdornmentColor: $colorTextMinor;
+$inputPadding: .625em .625em .625em .8em;
+$inputPaddingWithAdornment: .625em;
+$inputOutlinePadding: .625em .5em;
+$inputOutlinePaddingWithAdornment: .625em;
+$inputAdornmentFontSize: 1em;
+$inputAdornmentMargin: 20px;
+
+.#{$inputPrefixClass} {
+  box-sizing: border-box;
+  font-size: $inputFontSize;
+  font-weight: normal;
+  color: $inputColor;
+  line-height: 2.75em;
+  border: 0;
+  display: inline-flex;
+  &.has-border.is-normal {
+    @include hair-border($inputBorderColor, all, $inputBorderRadius);
+  }
+  &.has-border.is-outline {
+    border-style: solid;
+    @include hair-border($inputBorderColor, bottom);
+  }
+  &.is-normal {
+    padding: $inputPadding;
+    border-radius: $inputBorderRadius;
+    &.is-focus {
+      &::after {
+        border: 2Px solid $inputFocusBorderColor;
+      }
+    }
+    &.has-start-adornment {
+      padding: $inputPaddingWithAdornment;
+    }
+  }
+  &.is-outline {
+    padding: $inputOutlinePadding;
+    &.is-focus {
+      &::after {
+        border: 1Px solid $inputFocusBorderColor;
+      }
+    }
+    &.has-start-adornment {
+      padding: $inputOutlinePaddingWithAdornment;
+    }
+    &.is-disabled {
+      border-style: dashed;
+    }
+  }
+  &.is-disabled {
+    cursor: not-allowed;
+    input[disabled] {
+      color: $inputDisabledColor;
+    }
+  }
+  &__base {
+    box-sizing: border-box;
+    font: inherit;
+    border: 0;
+    margin: 0;
+    background: none;
+    display: block;
+    width: 100%;
+    padding: .25em 0;
+    -webkit-tap-highlight-color: transparent;
+    &::placeholder {
+      color: $inputPlaceholderColor;
+    }
+    &:focus {
+      outline: 0;
+    }
+    & ~ .#{$inputPrefixClass}__adornment {
+      margin-left: $inputAdornmentMargin;
+    }
+  }
+  input {
+    height: 1.5em;
+    line-height: 1em;
+    &::placeholder {
+      line-height: 1.5em;
+    }
+  }
+  textarea {
+    height: auto;
+    resize: none;
+    line-height: 1.5em;
+    &::placeholder {
+      line-height: 1.5em;
+    }
+  }
+  &__adornment {
+    flex-shrink: 0;
+    width: 1.5em;
+    height: 1.5em;
+    color: $inputPlaceholderColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    outline: 0;
+    > .#{$prefix}icon {
+      font-size: 1.125em;
+    }
+    span {
+      font-size: $inputAdornmentFontSize;
+    }
+    > .#{$prefix}btn.is-link {
+      flex-shrink: 0;
+      font-size: 1em;
+      color: $inputAdornmentColor;
+      i {
+        font-size: 1.125em;
+      }
+    }
+    & ~ .#{$inputPrefixClass}__base {
+      margin-left: $inputAdornmentMargin;
+    }
+    &.is-auto {
+      width: auto;
+    }
+  }
+}

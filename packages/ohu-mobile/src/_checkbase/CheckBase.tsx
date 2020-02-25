@@ -3,7 +3,7 @@ import props from 'vue-strict-prop';
 import { InputHTMLAttributes, SyntheticEvent } from 'vue-tsx-support/types/dom';
 import { VNode, CreateElement, PropOptions } from 'vue';
 import { IconProperty, IconDef } from '../types';
-import { $colorPrimary, $colorTextDisabled } from '../_config/variables';
+import { $colorPrimary, $colorTextDisabled, $checkboxColor } from '../_config/variables';
 
 export interface CommonGroupProps {
   disabled: boolean;
@@ -24,6 +24,8 @@ export type CommonGroup = CommonGroupProps & CommmonGroupMethods;
 
 export interface CheckBaseEvents {
   onChange: boolean;
+  onFocus: Event;
+  onBlur: Event;
 }
 
 export interface CheckBaseOptions {
@@ -79,7 +81,7 @@ export default function<
     checked: props(Boolean).optional,
     disabled: props(Boolean).default(false),
     color: props(String).default($colorPrimary),
-    unCheckedColor: props(String).default($colorTextDisabled),
+    unCheckedColor: props(String).default($checkboxColor),
     checkedIcon: props.ofType<IconProperty>().default(() => defaultCheckedIcon),
     unCheckedIcon: props.ofType<IconProperty | null>().default(() => defaultUnCheckedIcon),
     ...addProps,
@@ -192,6 +194,8 @@ export default function<
             checked={checked}
             disabled={disabledState}
             onChange={this.handleCheckBaseChange}
+            onBlur={(e) => this.$emit('blur', e)}
+            onFocus={(e) => this.$emit('focus', e)}
             data-indeterminate={$props.indeterminate} />
           {iconNode}
         </span>
