@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/icons@0.10.0...@ohu-mobile/icons@0.11.0) (2020-02-26)
+
+
+### Bug Fixes
+
+* card divider not work ([f6045ee](https://github.com/jeffwcx/ohu-mobile/commit/f6045ee182b62482e8609f78236f3985d0dbebdd))
+
+
+### Features
+
+* use defineCompnent, add Components ([e751b42](https://github.com/jeffwcx/ohu-mobile/commit/e751b4202d79add1a59a1a85917080e67cc264ae))
+
+
+
+
+
 # [0.10.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/icons@0.9.4...@ohu-mobile/icons@0.10.0) (2020-01-08)
 
 

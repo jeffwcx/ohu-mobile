@@ -1,6 +1,6 @@
 {
   "name": "storybook",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "private": true,
   "description": "Storybook for ohu-mobile.",
   "keywords": [
@@ -56,8 +56,8 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "@ohu-mobile/core": "^0.10.0",
-    "@ohu-mobile/icons": "^0.10.0",
+    "@ohu-mobile/core": "^0.11.0",
+    "@ohu-mobile/icons": "^0.11.0",
     "@types/markdown-it": "^0.0.9",
     "@types/node": "^13.7.0",
     "@types/yup": "^0.26.27",

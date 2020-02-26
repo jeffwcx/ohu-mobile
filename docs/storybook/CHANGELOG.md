@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.10.0...storybook@0.11.0) (2020-02-26)
+
+
+### Bug Fixes
+
+* card divider not work ([f6045ee](https://github.com/jeffwcx/ohu-mobile/commit/f6045ee182b62482e8609f78236f3985d0dbebdd))
+* **docs:** type check error ([ac996bb](https://github.com/jeffwcx/ohu-mobile/commit/ac996bbbd135de46c5b8c812914e63968ab154d2))
+* **docs:** type check fix again ([990a614](https://github.com/jeffwcx/ohu-mobile/commit/990a61459e13831e48003bf91a4d3b108397bdd3))
+
+
+### Features
+
+* use defineCompnent, add Components ([e751b42](https://github.com/jeffwcx/ohu-mobile/commit/e751b4202d79add1a59a1a85917080e67cc264ae))
+* **form,input:** add Input component; improve Form component ([04370c9](https://github.com/jeffwcx/ohu-mobile/commit/04370c9c042b2fa1840237dc11026a092f06bd9c))
+* **lazyload:** watch `src` and `asyncComponent` ([e78d1dc](https://github.com/jeffwcx/ohu-mobile/commit/e78d1dc13c5480ea30537b73cb3d84a780bc4270))
+* **select:** add Select Component ([6f499c2](https://github.com/jeffwcx/ohu-mobile/commit/6f499c25cd00d771d8a3aa459b021d8b3930582e))
+
+
+
+
+
 # [0.10.0](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.9.8...storybook@0.10.0) (2020-01-08)
 
 
