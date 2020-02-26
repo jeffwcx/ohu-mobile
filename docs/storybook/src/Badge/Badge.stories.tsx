@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { CreateElement } from 'vue';
 import docs from '@/Badge/README.md';
 import Badge from '@/Badge';
 import '@/Badge/style';
@@ -7,7 +6,7 @@ import Card from '@/Card';
 import '@/Card/style';
 import Icon from '@/Icon';
 import '@/Icon/style';
-import { UserOutlined, HomeOutlined } from '@ohu-mobile/icons';
+import { UserOutlined, HomeOutlined } from '~/icons/index';
 
 export default {
   title: 'Components|Basic/Badge',

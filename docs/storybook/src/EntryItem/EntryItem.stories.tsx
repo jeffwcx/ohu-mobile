@@ -18,7 +18,7 @@ import {
   CheckOutlined,
   UserOutlined,
   MessageOutlined,
-} from '@ohu-mobile/icons';
+} from '~/icons/index';
 import { WdghFilled } from './assets/WdghFilled';
 import { WdzxFilled } from './assets/WdzxFilled';
 import { WdcfFilled } from './assets/WdcfFilled';

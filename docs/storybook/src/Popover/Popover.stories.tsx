@@ -6,7 +6,7 @@ import Button from '@/Button';
 import '@/Button/style';
 import Icon from '@/Icon';
 import '@/Icon/style';
-import { MessageOutlined, CustomerServiceOutlined, QrScanOutlined, MenuOutlined } from '@ohu-mobile/icons';
+import { MessageOutlined, CustomerServiceOutlined, QrScanOutlined, MenuOutlined } from '~/icons/index';
 
 export default {
   title: 'Components|FeedBack/Popover',

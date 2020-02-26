@@ -1,4 +1,4 @@
-import { IconDef } from '@ohu-mobile/core';
+import { IconDef } from '@/types';
 
 export const WdzxFilled: IconDef = {
   name: 'wdzx',

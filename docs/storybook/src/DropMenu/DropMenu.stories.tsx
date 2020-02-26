@@ -8,8 +8,8 @@ import Button from '@/Button';
 import '@/Button/style';
 import Toast from '@/Toast';
 import '@/Toast/style';
-import { SVGIconDef } from '@ohu-mobile/icons/lib/types';
-import { ArrowDownSFilled, CheckboxCircleOutlined } from '@ohu-mobile/icons';
+import { SVGIconDef } from '~/icons/types';
+import { ArrowDownSFilled, CheckboxCircleOutlined } from '~/icons/index';
 
 
 export default {

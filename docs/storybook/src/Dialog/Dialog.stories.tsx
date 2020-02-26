@@ -8,7 +8,7 @@ import Dialog from '@/Dialog';
 import '@/Dialog/style';
 import Tag from '@/Tag';
 import '@/Tag/style';
-import { CheckboxCircleFilled } from '@ohu-mobile/icons';
+import { CheckboxCircleFilled } from '~/icons/index';
 
 export default {
   title: 'Components|FeedBack/Dialog',

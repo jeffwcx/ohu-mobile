@@ -4,7 +4,8 @@ import '@/ActionBar/style';
 import docs from '@/ActionBar/README.md';
 import Dialog from '@/Dialog';
 import '@/Dialog/style';
-import { Button } from '@ohu-mobile/core/src';
+import Button from '@/Button';
+import '@/Button/style';
 
 export default {
   title: 'Components|DataDisplay/ActionBar',

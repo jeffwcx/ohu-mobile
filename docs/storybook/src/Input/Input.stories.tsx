@@ -4,7 +4,7 @@ import Card from '@/Card';
 import '@/Card/style';
 import Input from '@/Input';
 import '@/Input/style';
-import { EditOutlined } from '@ohu-mobile/icons';
+import { EditOutlined } from '~/icons/index';
 import Button from '@/Button';
 import '@/Button/style';
 

@@ -12,7 +12,7 @@ import CheckList from '@/CheckList';
 import RadioList from '@/RadioList';
 import { RadioOption } from '@/RadioGroup';
 import { CheckboxOption } from '@/CheckboxGroup';
-import { ArrowRightOutlined } from '@ohu-mobile/icons';
+import { ArrowRightOutlined } from '~/icons/index';
 
 export default {
   title: 'Components|DataDisplay/List',

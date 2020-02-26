@@ -7,8 +7,8 @@ import '@/Card/style';
 import Button from '@/Button';
 import '@/Button/style';
 
-import { PopupPosition } from '@ohu-mobile/core';
-import { CheckboxCircleOutlined } from '@ohu-mobile/icons';
+import { PopupPosition } from '@/Popup';
+import { CheckboxCircleOutlined } from '~/icons/index';
 export default {
   title: 'Components|FeedBack/Toast',
   parameters: {

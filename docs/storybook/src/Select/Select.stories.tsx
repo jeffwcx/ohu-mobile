@@ -8,7 +8,7 @@ import Card from '@/Card';
 import '@/Card/style';
 import Dialog from '@/Dialog';
 import '@/Dialog/style';
-import { ArrowLeftOutlined, ArrowRightSOutlined } from '@ohu-mobile/icons';
+import { ArrowLeftOutlined, ArrowRightSOutlined } from '~/icons/index';
 
 
 export default {

@@ -23,6 +23,9 @@
     "paths": {
       "@/*": [
         "../../packages/ohu-mobile/src/*"
+      ],
+      "~/*": [
+        "../../packages/ohu-mobile-icons/*"
       ]
     },
     "lib": [

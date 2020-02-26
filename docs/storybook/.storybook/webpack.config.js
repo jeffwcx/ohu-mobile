@@ -101,5 +101,6 @@ module.exports = ({ config }) => {
   );
   config.resolve.extensions.push('.ts', '.tsx', '.md');
   config.resolve.alias['@'] = resolve('../../../packages/ohu-mobile/src');
+  config.resolve.alias['~'] = resolve('../../../packages/ohu-mobile-icons');
   return config;
 };

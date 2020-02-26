@@ -6,7 +6,7 @@ import Card from '@/Card';
 import '@/Card/style';
 import Button from '@/Button';
 import '@/Button/style';
-import { CloseOutlined } from '@ohu-mobile/icons';
+import { CloseOutlined } from '~/icons/index';
 
 export default {
   title: 'Components|FeedBack/Popup',

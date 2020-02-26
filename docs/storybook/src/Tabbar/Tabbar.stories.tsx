@@ -4,7 +4,7 @@ import Tabbar from '@/Tabbar';
 import '@/Tabbar/style';
 import Button from '@/Button';
 import '@/Button/style';
-import { TrainOutlined, CheckOutlined, UserOutlined } from '@ohu-mobile/icons';
+import { TrainOutlined, CheckOutlined, UserOutlined } from '~/icons/index';
 
 export default {
   title: 'Components|Navigation/Tabbar',

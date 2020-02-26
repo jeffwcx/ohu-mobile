@@ -4,7 +4,7 @@ import '@/Bottom/style';
 import docs from '@/Bottom/README.md';
 import Tabbar from '@/Tabbar';
 import '@/Tabbar/style';
-import { GovernmentFilled, HomeFilled } from '@ohu-mobile/icons';
+import { GovernmentFilled, HomeFilled } from '~/icons/index';
 
 export default {
   title: 'Components|Utils/Bottom',

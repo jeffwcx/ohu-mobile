@@ -5,7 +5,7 @@ import '@/Button/style';
 import Dialog from '@/Dialog';
 import '@/Dialog/style';
 import locale from '@/locale';
-import en_US from '@ohu-mobile/core/lib/locale/en_US';
+import en_US from '@/locale/en_US';
 
 export default {
   title: 'Locale',

@@ -1,6 +1,6 @@
 import docs from '@/Icon/README.md';
-import * as icons from '@ohu-mobile/icons';
-import { SVGIconDef } from '@ohu-mobile/icons/lib/types';
+import * as icons from '~/icons/index';
+import { SVGIconDef } from '~/icons/types';
 import Icon from '@/Icon';
 import '@/Icon/style';
 

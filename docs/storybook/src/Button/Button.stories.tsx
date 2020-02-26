@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Button from '@/Button';
 import '@/Button/style';
 import docs from '@/Button/README.md';
-import { SaveOutlined, ArrowLeftSOutlined, CheckOutlined } from '@ohu-mobile/icons';
+import { SaveOutlined, ArrowLeftSOutlined, CheckOutlined } from '~/icons/index';
 
 
 export default {

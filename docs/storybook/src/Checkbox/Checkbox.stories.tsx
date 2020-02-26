@@ -6,7 +6,7 @@ import CheckboxGroup from '@/CheckboxGroup';
 import Button from '@/Button';
 import '@/Button/style';
 
-import { CheckboxCircleFilled, CheckboxBlankCircleOutlined, IndeterminateCircleFilled } from '@ohu-mobile/icons';
+import { CheckboxCircleFilled, CheckboxBlankCircleOutlined, IndeterminateCircleFilled } from '~/icons/index';
 
 
 export default {
