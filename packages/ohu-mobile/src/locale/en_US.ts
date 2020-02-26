@@ -15,4 +15,8 @@ export default {
   OhuImage: {
     defaultErrorTip: 'Retry?',
   },
+  OhuPopupHeader: {
+    confirmText: 'OK',
+    cancelText: 'Cancel',
+  },
 } as LocaleDef;

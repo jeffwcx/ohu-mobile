@@ -1,30 +1,71 @@
-$popupPrefixClass: #{$popupPrefixClass}-header;
+$popupHeaderPrefixClass: #{$popupPrefixClass}-header;
 
-.#{$popupPrefixClass}{
-  padding: 20px 14px 20px 30px;
+$popupHeaderBackground: #FFF;
+$popupHeaderTextFontSize: 32px;
+$popupHeaderColor: $colorTextBase;
+$popupHeaderMinorTextColor: $colorTextMinor;
+$popupHeaderMinorTextFontSize: 28px;
+
+.#{$popupHeaderPrefixClass} {
+  padding: 20px 120px 20px 30px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  background: $popupHeaderBackground;
+  @include hair-border($colorDivider, bottom) {
+    border-style: solid;
+  };
+  &.is-confirm, &.is-text-center {
+    padding: 20px 120px 20px 120px;
+  }
   .#{$prefix}btn {
-    flex-shrink: 0;
-    flex-grow: 0;
     color: $popupHeaderCloseButtonColor;
-    &:active {
-      color: $popupHeaderCloseButtonColor;
+    font-size: $popupHeaderTextFontSize;
+    > i {
+      font-size: 1.3em;
+    }
+  }
+  &__close {
+    @include center(y);
+  }
+  &.is-close-icon-right {
+    .#{$popupHeaderPrefixClass}__close {
+      right: 8px;
+    }
+  }
+  &.is-close-icon-left {
+    padding-left: 120px;
+    .#{$popupHeaderPrefixClass}__close {
+      left: 8px;
+    }
+  }
+  &__cancel {
+    @include center(y);
+    left: 14px;
+  }
+  &__ok {
+    @include center(y);
+    right: 14px;
+  }
+  &.is-text-center {
+    .#{$popupHeaderPrefixClass}__text {
+      text-align: center;
     }
   }
   &__text {
     flex-grow: 1;
     flex-shrink: 0;
-    color: $colorTextBase;
+    color: $popupHeaderColor;
     &__title {
-      font-size: 32px;
-      font-weight: 500;
+      font-size: $popupHeaderTextFontSize;
       line-height: (50 / 32) * 1em;
+      &.has-minor {
+        font-weight: bold;
+      }
     }
     &__minor-title {
-      color: $colorTextMinor;
-      font-size: 28px;
+      color: $popupHeaderMinorTextColor;
+      font-size: $popupHeaderMinorTextFontSize;
       font-weight: normal;
       line-height: (40 / 28) * 1em;
     }

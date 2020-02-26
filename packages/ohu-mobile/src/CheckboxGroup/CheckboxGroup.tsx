@@ -19,17 +19,24 @@ export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>
   props: checkBoxGroupProps,
   watch: {
     value(nv) {
-      this.result = nv;
+      this.result = [...nv];
     },
   },
   data() {
     return {
-      result: this.value,
+      result: [...this.value],
     } as {
       result: any[];
     };
   },
   methods: {
+    selectOptions() {
+      if (!this.options) return [];
+      return this.options.filter(option => {
+        let value = typeof option === 'string' ? option : option.value;
+        return this.result.indexOf(value) >= 0;
+      });
+    },
     childrenChange(value: any, checked: boolean) {
       const valueIndex = this.result.indexOf(value);
       if (checked && valueIndex < 0) {
@@ -39,7 +46,7 @@ export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>
       if (!checked && valueIndex >= 0) {
         this.result.splice(valueIndex, 1);
       }
-      this.$emit('change', this.result);
+      this.$emit('change', this.result, this.selectOptions());
     },
     isChildChecked(value: any) {
       return this.result.indexOf(value) >= 0;
@@ -60,12 +67,12 @@ export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>
   },
   render() {
     const { $slots, $scopedSlots, options } = this;
-    const content = options
+    const content = options && !$slots.default
       ? (
         $scopedSlots.renderOption
-          ? options.map(option => {
+          ? options.map((option, index) => {
             if ($scopedSlots.renderOption) {
-              return $scopedSlots.renderOption(option);
+              return $scopedSlots.renderOption({ option, index });
             }
           })
           : this.renderOptions(options)

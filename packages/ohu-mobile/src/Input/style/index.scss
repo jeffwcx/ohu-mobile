@@ -3,21 +3,6 @@
 
 $inputPrefixClass: #{$prefix}input;
 
-$inputFontSize: 32px;
-$inputColor: $colorTextBase;
-$inputDisabledColor: $colorTextMinor;
-$inputBorderRadius: 8Px;
-$inputBorderColor: $colorBorderBase;
-$inputFocusBorderColor: rgba($colorPrimary, .75);
-$inputPlaceholderColor: $colorTextMinor;
-$inputAdornmentColor: $colorTextMinor;
-$inputPadding: .625em .625em .625em .8em;
-$inputPaddingWithAdornment: .625em;
-$inputOutlinePadding: .625em .5em;
-$inputOutlinePaddingWithAdornment: .625em;
-$inputAdornmentFontSize: 1em;
-$inputAdornmentMargin: 20px;
-
 .#{$inputPrefixClass} {
   box-sizing: border-box;
   font-size: $inputFontSize;
@@ -74,6 +59,7 @@ $inputAdornmentMargin: 20px;
     display: block;
     width: 100%;
     padding: .25em 0;
+    color: $inputColor;
     -webkit-tap-highlight-color: transparent;
     &::placeholder {
       color: $inputPlaceholderColor;
@@ -95,9 +81,10 @@ $inputAdornmentMargin: 20px;
   textarea {
     height: auto;
     resize: none;
-    line-height: 1.5em;
+    line-height: 1.3em;
+    padding: 0;
     &::placeholder {
-      line-height: 1.5em;
+      line-height: 1.3em;
     }
   }
   &__adornment {

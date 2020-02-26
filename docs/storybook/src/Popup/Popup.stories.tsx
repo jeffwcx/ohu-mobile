@@ -6,6 +6,7 @@ import Card from '@/Card';
 import '@/Card/style';
 import Button from '@/Button';
 import '@/Button/style';
+import { CloseOutlined } from '@ohu-mobile/icons';
 
 export default {
   title: 'Components|FeedBack/Popup',
@@ -175,8 +176,10 @@ export const fullscreen = () => Vue.extend({
           v-model={this.vfs}
           animate="slide-down"
           fullscreen
-          targetStyle={{ background: '#FFF' }}>
-          <Popup.Header minorText="次级标题">标题</Popup.Header>
+          targetStyle={{ background: '#FFF' }}
+          round>
+          <Popup.Header center closeIcon={CloseOutlined} confirm>标题</Popup.Header>
+          <div style="height: 200vh"></div>
         </Popup>
         <Card shadow>
           <Card.Header>fullscreen</Card.Header>

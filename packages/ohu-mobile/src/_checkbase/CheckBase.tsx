@@ -3,7 +3,7 @@ import props from 'vue-strict-prop';
 import { InputHTMLAttributes, SyntheticEvent } from 'vue-tsx-support/types/dom';
 import { VNode, CreateElement, PropOptions } from 'vue';
 import { IconProperty, IconDef } from '../types';
-import { $colorPrimary, $colorTextDisabled, $checkboxColor } from '../_config/variables';
+import { $colorPrimary, $checkboxColor } from '../_config/variables';
 
 export interface CommonGroupProps {
   disabled: boolean;
@@ -96,8 +96,8 @@ export default function<
       },
     },
     watch: {
-      checked(nv) {
-        this.changedValue = nv;
+      checked(cur) {
+        this.changedValue = cur;
       },
     },
     data() {

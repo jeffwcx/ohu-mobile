@@ -34,3 +34,9 @@
     margin: 0 auto;
   }
 }
+
+
+@mixin safe-bottom($mode: 'padding') {
+  #{$mode}-bottom: constant(safe-area-inset-bottom); /* iOS < 11.2 */
+  #{$mode}-bottom: env(safe-area-inset-bottom); /* iOS >= 11.2 */
+}

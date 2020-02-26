@@ -19,5 +19,8 @@ export interface CheckboxGroupProps {
 
 
 export interface CheckboxGroupScopedSlots {
-  renderOption?: (CheckboxOption | string);
+  renderOption?: {
+    option: (CheckboxOption | string);
+    index: number;
+  };
 }

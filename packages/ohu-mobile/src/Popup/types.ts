@@ -1,5 +1,5 @@
 import Vue, { CreateElement, VNode } from 'vue';
-import { VueEventWrapper } from '../types';
+import { VueEventWrapper, IconDef } from '../types';
 
 interface PopupSimpleRect {
   width: number;
@@ -70,6 +70,7 @@ export interface PopupProps {
   scrollBody?: boolean;
   tapThrough?: boolean;
   zIndex?: number;
+  round?: boolean;
 };
 
 
@@ -91,3 +92,18 @@ VueEventWrapper<PopupOutSideEvents>
   parent?: Vue;
   render?: (h?: CreateElement) => (VNode | VNode[]);
 };
+
+
+export interface PopupHeaderProps {
+  title?: string;
+  minorText?: string,
+  center?: boolean;
+  confirm?: boolean;
+  closeIcon?: IconDef;
+  closeIconPosition?: 'left' | 'right';
+}
+
+export interface PopupHeaderEvents {
+  onConfirm: void;
+  onCancel: void;
+}

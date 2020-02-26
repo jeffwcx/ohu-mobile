@@ -29,7 +29,7 @@ addParameters({
   },
   viewport: {
     viewports: INITIAL_VIEWPORTS,
-    defaultViewport: 'iphonex',
+    defaultViewport: 'iphone6',
   },
   notes: { markdown: readme },
 });

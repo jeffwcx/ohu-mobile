@@ -152,7 +152,8 @@ export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().creat
                   click: () => {
                     const group = this.$refs.group as InstanceType<typeof CheckboxGroup>;
                     if (group) {
-                      group.childrenChange(optionValue, !(this.value.indexOf(optionValue) >= 0));
+                      let isCheck = group.result.indexOf(optionValue) >= 0;
+                      group.childrenChange(optionValue, !isCheck);
                     }
                   },
                 },
@@ -177,7 +178,6 @@ export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().creat
       loadingProps,
       finished,
       finishedText,
-      options,
       position,
       button,
       ...groupProps
@@ -188,7 +188,7 @@ export default componentFactoryOf<CheckListEvents, CheckListScopedSlots>().creat
       on: $listeners,
       ref: 'group'
     };
-    const innerNode = this.renderList(options);
+    const innerNode = this.renderList(this.options);
     return (
       <CheckboxGroup {...groupNodeData}>
         {innerNode}

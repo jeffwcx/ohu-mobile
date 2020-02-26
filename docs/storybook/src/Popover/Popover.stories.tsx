@@ -6,6 +6,7 @@ import Button from '@/Button';
 import '@/Button/style';
 import Icon from '@/Icon';
 import '@/Icon/style';
+import { MessageOutlined, CustomerServiceOutlined, QrScanOutlined, MenuOutlined } from '@ohu-mobile/icons';
 
 export default {
   title: 'Components|FeedBack/Popover',
@@ -102,10 +103,10 @@ export const item = () => Vue.extend({
     return (
       <div style="height: 200px; display: flex; flex-flow: column nowrap; justify-content: space-around; align-items: center;">
         <Popover contentStyle={{ width: '130px' }} position={{ vertical: 'bottom', horizontal: 'right' }} onSelect={(e) => { console.log(e) }}>
-          <Popover.Item key="message" icon="message">messages</Popover.Item>
-          <Popover.Item key="customer-service" icon="customer-service">center</Popover.Item>
-          <Popover.Item key="scan-code" disabled icon="scan-code">scan</Popover.Item>
-          <Button icon="menu" inline size="md" type="link" slot="anchor"></Button>
+          <Popover.Item key="message" icon={MessageOutlined}>messages</Popover.Item>
+          <Popover.Item key="customer-service" icon={CustomerServiceOutlined}>center</Popover.Item>
+          <Popover.Item key="scan-code" disabled icon={QrScanOutlined}>scan</Popover.Item>
+          <Button icon={MenuOutlined} inline size="md" type="link" slot="anchor"></Button>
         </Popover>
       </div>
     );

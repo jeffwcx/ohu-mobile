@@ -60,10 +60,11 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
         });
     },
     validate() {
+      let value = this.getValueState();
       if (this.ancestor && this.name && this.schema) {
-        return this.schema.validate(this.getValueState());
+        return this.schema.validate(value);
       } else {
-        return Promise.resolve();
+        return Promise.resolve(value);
       }
     },
   },

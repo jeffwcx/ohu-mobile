@@ -19,6 +19,8 @@ import Input from '@/Input';
 import '@/Input/style';
 import Card from '@/Card';
 import '@/Card/style';
+import Select from '@/Select';
+import '@/Select/style';
 
 
 export default {
@@ -45,6 +47,7 @@ export const basic = () => Vue.extend({
           password: '',
           note: '',
           verifyCode: '',
+          subject: '艺术',
         }}
         validateSchema={{
           hobby: yup.array().min(2, '需要最少选2个').required(),
@@ -69,6 +72,19 @@ export const basic = () => Vue.extend({
                     <Radio value="woman">女</Radio>
                     <Radio value="unknown">未知</Radio>
                   </RadioGroup>
+                </Form.Field>
+                <Form.Field label="科目" name="subject">
+                  <Select
+                    style="min-width: 165px;"
+                    title="选择科目"
+                    placeholder="选择科目" options={[
+                      { label: '艺术', value: '艺术' },
+                      { label: '体育', value: '体育' },
+                      { label: '科学', value: '科学' },
+                      { label: '物理', value: '物理' },
+                      { label: '计算机', value: '计算机' },
+                      { label: '化学', value: '化学' },
+                    ]} />
                 </Form.Field>
                 <Form.Field label="用户名" name="username">
                   <Input  placeholder="请输入用户名" allowClear />
@@ -174,6 +190,7 @@ export const inline = () => Vue.extend({
             password: '',
             note: '',
             verifyCode: '',
+            subject: '',
           }}
           validateSchema={{
             hobby: yup.array().min(2, '需要最少选2个').required(),
@@ -198,6 +215,20 @@ export const inline = () => Vue.extend({
                       <Radio value="woman">女</Radio>
                       <Radio value="unknown">未知</Radio>
                     </RadioGroup>
+                  </Form.Field>
+                  <Form.Field label="科目" name="subject">
+                    <Select
+                      noBorder
+                      outline
+                      title="选择科目"
+                      placeholder="选择科目" options={[
+                        { label: '艺术', value: '艺术' },
+                        { label: '体育', value: '体育' },
+                        { label: '科学', value: '科学' },
+                        { label: '物理', value: '物理' },
+                        { label: '计算机', value: '计算机' },
+                        { label: '化学', value: '化学' },
+                      ]} />
                   </Form.Field>
                   <Form.Field label="用户名" name="username">
                     <Input noBorder outline  placeholder="请输入用户名" allowClear />

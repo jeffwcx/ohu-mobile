@@ -33,6 +33,7 @@ export const popupProps = {
   scrollBody: props(Boolean).default(false),
   tapThrough: props(Boolean).default(false),
   zIndex: Number,
+  round: props(Boolean).default(false),
 }
 
 const positionTransitionMap = {
@@ -412,6 +413,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     getDocumentClass() {
       const cls = { [basePopupName]: true };
       cls['is-fullscreen'] = this.fullscreen;
+      cls['is-round'] = this.round;
       if (this.targetClass) {
         addTargetClass(cls, this.targetClass);
       }

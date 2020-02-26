@@ -15,4 +15,8 @@ export default {
   OhuImage: {
     defaultErrorTip: '加载失败，点击重试',
   },
+  OhuPopupHeader: {
+    confirmText: '确认',
+    cancelText: '取消',
+  },
 } as LocaleDef;

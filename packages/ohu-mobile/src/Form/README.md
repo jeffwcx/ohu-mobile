@@ -1,5 +1,6 @@
+# Form: Form
 
-# Usage
+## Usage
 
 ```js
 import { Form } from 'ohu-mobile';
@@ -16,7 +17,7 @@ import { Form } from 'ohu-mobile';
 
 -----
 
-### Design Goals
+## Design Goals
 
 + Using [yup](https://github.com/jquense/yup) for validation.
 

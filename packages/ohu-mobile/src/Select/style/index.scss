@@ -1,3 +1,81 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $selectPrefixClass: #{$prefix}select;
+
+$selectFontSize: 32px;
+$selectColor: $colorTextBase;
+$selectBorderRadius: 8Px;
+$selectBorderColor: $colorBorderBase;
+$selectPlaceholderColor: $colorTextMinor;
+$selectPopupBackground: #FFF;
+$selectInputPadding: .625em 2.3em .625em 1em;
+$selectInputOutlinePadding: .625em 2.3em .625em .5em;
+
+.#{$selectPrefixClass} {
+  display: inline-flex;
+  position: relative;
+  &__popup {
+    width: 100%;
+    background: $selectPopupBackground;
+    box-sizing: border-box;
+    @include safe-bottom;
+    &__content {
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+  &__input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: $selectFontSize;
+    font-weight: normal;
+    line-height: 1.375em;
+    border: 0;
+    display: inline-flex;
+    cursor: pointer;
+    &.is-normal {
+      padding: $selectInputPadding;
+    }
+    &.is-outline {
+      padding: $selectInputOutlinePadding;
+    }
+    &.has-border.is-normal {
+      @include hair-border($selectBorderColor, all, $selectBorderRadius);
+    }
+    &.has-border.is-outline {
+      border-style: solid;
+      @include hair-border($inputBorderColor, bottom);
+    }
+    &__control {
+      color: $selectColor;
+      min-height: 1.375em;
+    }
+    &__placeholder {
+      color: $selectPlaceholderColor;
+    }
+    &__icon {
+      width: 1.5em;
+      height: 1.5em;
+      @include center(y);
+      right: .6875em;
+      text-align: center;
+      color: $selectPlaceholderColor;
+      .#{$prefix}icon {
+        font-size: 1.3em;
+      }
+    }
+    select {
+      position: absolute;
+      font-size: $selectFontSize;
+      top: 0;
+      left: 0;
+      outline: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      user-select: none;
+      background: none;
+      -webkit-appearance: none;
+    }
+  }
+}

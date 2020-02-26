@@ -2,18 +2,6 @@
 @import '../../_styles/mixins.scss';
 $formPrefixClass: #{$prefix}form;
 $formFieldPrefixClass: #{$formPrefixClass}-field;
-$formFieldFontSize: 32px;
-$formFieldBorderColor: $colorDivider;
-$formFieldHeight: 100px;
-$formFieldInlinePadding: 6px 0 6px 32px;
-$formFieldBlockPadding: 0 32px;
-$formFieldLineHeight: 88px;
-$formFieldFontSize: 32px;
-$formFieldBackground: #FFF;
-$formFieldLabelWidth: 25.6%;
-$formFieldLabelColor: $colorTextBase;
-$formFieldLabelPadding: 32px;
-$formFieldErrorColor: $colorTextError;
 
 @mixin add-align {
   &.is-left {
@@ -44,7 +32,7 @@ $formFieldErrorColor: $colorTextError;
     border-color: $formFieldBorderColor;
     @include hair-border(inherit, bottom);
     .#{$formFieldPrefixClass}__control {
-      > :not(.#{$prefix}input) {
+      > :not(.#{$prefix}input):not(.#{$prefix}select) {
         padding-left: .625em;
       }
     }
@@ -77,7 +65,7 @@ $formFieldErrorColor: $colorTextError;
   }
   &__control {
     flex-grow: 1;
-    > .#{$prefix}input {
+    > .#{$prefix}input, .#{$prefix}select {
       width: 100%;
     }
     @include add-align;

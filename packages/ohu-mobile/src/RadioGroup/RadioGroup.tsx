@@ -5,7 +5,6 @@ import ancestorMixin from '../_utils/ancestorMixin';
 import { RadioOption, RadioGroupEvents } from './types';
 import { IconProperty } from '../types';
 import { $prefix } from '../_config/variables';
-import Collapse from '../Collapse';
 
 const baseRadioGroupName = `${$prefix}radio-group`;
 
@@ -45,10 +44,10 @@ export default componentFactoryOf<RadioGroupEvents>().mixin(
     };
   },
   methods: {
-    childrenChange(value: any, checked: boolean, parent?: RadioOption) {
+    childrenChange(value: any, checked: boolean, option?: RadioOption) {
       if (checked) {
         this.valueState = value;
-        this.$emit('change', value, parent);
+        this.$emit('change', value, option);
       }
     },
     isChildChecked(value: any) {
