@@ -2,15 +2,6 @@
 @import '../../_styles/mixins.scss';
 $selectPrefixClass: #{$prefix}select;
 
-$selectFontSize: 32px;
-$selectColor: $colorTextBase;
-$selectBorderRadius: 8Px;
-$selectBorderColor: $colorBorderBase;
-$selectPlaceholderColor: $colorTextMinor;
-$selectPopupBackground: #FFF;
-$selectInputPadding: .625em 2.3em .625em 1em;
-$selectInputOutlinePadding: .625em 2.3em .625em .5em;
-
 .#{$selectPrefixClass} {
   display: inline-flex;
   position: relative;

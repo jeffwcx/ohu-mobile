@@ -1,11 +1,12 @@
-import { tabbarBaseName } from './Tabbar';
 import EntryItem from '../EntryItem';
 import { entryItemProps } from '../EntryItem/EntryItem';
 import { VNodeData } from 'vue';
-import { transformSlotsContext, isTargetComponent } from '../_utils/vnode';
+import { transformSlotsContext } from '../_utils/vnode';
 import { TabbarItemEvents, TabbarItemProps } from './types';
 import { $colorPrimary } from '../_config/variables';
 import { defineComponent, props } from '../_utils/defineComponent';
+import Tabbar from './Tabbar';
+
 
 const TabbarItemWrapper = function(Item: typeof EntryItem) {
   return defineComponent<TabbarItemProps ,TabbarItemEvents>('tabbar-item').create({
@@ -14,29 +15,37 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
       name: props<string, number>(String, Number).optional,
     },
     computed: {
-      index() {
-        return this.$parent.$children.indexOf(this);
+      selfKey() {
+        return this.name || this.$parent.$children.indexOf(this);
       },
     },
     methods: {
       handleClick() {
         const parent = this.$parent as any;
-        if (isTargetComponent(parent.$vnode, tabbarBaseName)) {
-          parent.onChange(this.name || this.index);
+        if (this.$parent.constructor === Tabbar) {
+          parent.onChange(this.selfKey);
+          this.$nextTick(() => {
+            parent.scrollIntoCenter();
+          });
         }
       },
     },
     render(h) {
-      const { $props, $slots, $scopedSlots, $attrs, $listeners, name } = this;
+      const {
+        $props, $slots, $scopedSlots, $attrs, $listeners,
+        icon, text,
+      } = this;
       const style: Partial<CSSStyleDeclaration> = {};
       let { activeColor, inActiveColor, stateValue } = this.$parent as any;
       if (activeColor && inActiveColor) {
         if (activeColor === 'primary') {
           activeColor = $colorPrimary;
         }
-        style.color = (name || this.index) === stateValue ? activeColor : inActiveColor;
+        style.color = this.selfKey === stateValue ? activeColor : inActiveColor;
       }
+
       const nodeData: VNodeData = {
+        class: (!!(icon && (text || $slots.default))) && 'has-padding',
         on: {
           ...$listeners,
           click: this.handleClick,
@@ -44,7 +53,7 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
         attrs: $attrs,
         props: {
           ...$props,
-          textSize: 'xsm',
+          textSize: icon ? 'xsm' : 'sm',
         },
         scopedSlots: $scopedSlots,
         style,

@@ -66,6 +66,8 @@ export let $skeletonBackground: string = process.env.$skeletonBackground || $col
 // Component/Tabbar
 export let $tabbarBackground: string = process.env.$tabbarBackground || 'rgba(255,255,255,0.9)';
 export let $tabbarBorderColor: string = process.env.$tabbarBorderColor || 'rgba(0, 0, 0, .25)';
+export let $tabbarItemIndicatorColor = process.env.$tabbarItemIndicatorColor || $colorPrimary;
+export let $tabbarHeight = process.env.$tabbarHeight || '98px';
 
 // Component/Loading
 export let $loadingTextColor: string = process.env.$loadingTextColor || $colorTextMinor;
@@ -148,3 +150,14 @@ export let $inputOutlinePaddingWithAdornment = process.env.$inputOutlinePaddingW
 export let $inputAdornmentFontSize = process.env.$inputAdornmentFontSize || '1em';
 export let $inputAdornmentMargin = process.env.$inputAdornmentMargin || '20px';
 
+
+// Component/Select
+
+export let $selectFontSize =  process.env.$selectFontSize || '32px';
+export let $selectColor = process.env.$selectColor || $colorTextBase;
+export let $selectBorderRadius = process.env.$selectBorderRadius || '8Px';
+export let $selectBorderColor = process.env.$selectBorderColor || $colorBorderBase;
+export let $selectPlaceholderColor = process.env.$selectPlaceholderColor || $colorTextMinor;
+export let $selectPopupBackground = process.env.$selectPopupBackground || '#FFF';
+export let $selectInputPadding = process.env.$selectInputPadding || '.625em 2.3em .625em 1em';
+export let $selectInputOutlinePadding = process.env.$selectInputOutlinePadding || '.625em 2.3em .625em .5em';

@@ -4,19 +4,13 @@ $entryItemPrefixClass: #{$prefix}entry-item;
 
 .#{$entryItemPrefixClass} {
   display: inline-flex;
-  flex-flow: column wrap;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   color: $colorTextBase;
   transition: all .3s easing(out-quint);
-  .#{$prefix}icon {
-    width: 1.375em;
-    height: 1.375em;
-    color: inherit;
-    pointer-events: none;
-  }
   &__icon {
     width: 64px;
     height: 64px;
@@ -25,14 +19,31 @@ $entryItemPrefixClass: #{$prefix}entry-item;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+    .#{$prefix}icon {
+      width: 1.375em;
+      height: 1.375em;
+      color: inherit;
+      pointer-events: none;
+    }
+    ~ .#{$entryItemPrefixClass}__text {
+      margin-top: 16px;
+    }
   }
   &__text {
-    margin-top: 16px;
+    display: block;
+    width: 100%;
+    text-align: center;
     flex-grow: 0;
     flex-shrink: 0;
     font-size: 32px;
     line-height: 1.375em;
     color: inherit;
+    .#{$prefix}icon {
+      margin-left: 6px;
+      margin-right: 6px;
+      width: 1.1em;
+      height: 1.1em;
+    }
   }
   &__minor-text {
     font-size: 28px;

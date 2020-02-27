@@ -1,18 +1,88 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $tabbarPrefixClass: #{$prefix}tabbar;
+$tabbarItemPrefixClass: #{$tabbarPrefixClass}-item;
+
+
 .#{$tabbarPrefixClass} {
   box-sizing: border-box;
-  height: 98px;
-  display: flex;
-  flex-flow: row nowrap;
+  position: relative;
+  // =============== direction ================
+  &.is-horizontal {
+    display: flex;
+    min-height: $tabbarHeight;
+    flex-flow: row nowrap;
+    .#{$prefix}entry-item {
+      flex: 1;
+    }
+    .#{$tabbarPrefixClass}__indicator {
+      left: 0;
+      &.is-normal {
+        bottom: 0;
+      }
+      &.is-inverse {
+        top: 0;
+      }
+    }
+    &.has-indicator .has-padding {
+      padding-bottom: 12px;
+    }
+  }
+  &.is-vertical {
+    display: inline-flex;
+    flex-direction: column;
+    .#{$tabbarPrefixClass}__indicator {
+      top: 0;
+      &.is-normal {
+        right: 0;
+      }
+      &.is-inverse {
+        left: 0;
+      }
+    }
+    .#{$prefix}entry-item {
+      min-height: 100px;
+      min-width: 120px;
+      padding: 0 12px;
+      &.has-padding {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+    }
+  }
+  // =============== border ================
   &.has-border {
     border-color: $tabbarBorderColor;
     border-style: solid;
     border-width: 0;
-    @include hair-border(inherit);
+    &.is-horizontal {
+      @include hair-border(inherit);
+    }
+    &.is-vertical {
+      @include hair-border(inherit, right);
+    }
   }
-  .#{$prefix}entry-item {
-    flex: auto;
+  &.has-indicator {
+    .#{$prefix}entry-item__icon {
+      width: 72px;
+      height: 72px;
+    }
+    .#{$prefix}entry-item__text {
+      line-height: 2em;
+    }
+  }
+  &.is-scroll {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    .#{$prefix}entry-item {
+      flex: 0 0 auto;
+    }
+  }
+  &__indicator {
+    background: $tabbarItemIndicatorColor;
+    display: block;
+    position: absolute;
+    transition: all .3s;
   }
 }

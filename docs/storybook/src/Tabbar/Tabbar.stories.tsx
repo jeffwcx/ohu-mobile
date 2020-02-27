@@ -4,7 +4,11 @@ import Tabbar from '@/Tabbar';
 import '@/Tabbar/style';
 import Button from '@/Button';
 import '@/Button/style';
-import { TrainOutlined, CheckOutlined, UserOutlined } from '~/icons/index';
+import Icon from '@/Icon';
+import '@/Icon/style';
+import Card from '@/Card';
+import '@/Card/style';
+import { UserSmileOutlined, MailOutlined, PieChartOutlined, StarFilled, FireFilled, RocketFilled } from '~/icons/index';
 
 export default {
   title: 'Components|Navigation/Tabbar',
@@ -45,9 +49,9 @@ export const basic = () => Vue.extend({
           <Tabbar.Item iconAreaSize="lg">
             <img slot="icon" style={style} src={require('../assets/logo.svg')} />
           </Tabbar.Item>
-          <Tabbar.Item textSize="xsm" icon={TrainOutlined}>就医</Tabbar.Item>
-          <Tabbar.Item textSize="xsm" icon={CheckOutlined}>体检</Tabbar.Item>
-          <Tabbar.Item textSize="xsm" icon={UserOutlined} badge={{ type: 'dot' }}>我的</Tabbar.Item>
+          <Tabbar.Item textSize="xsm" icon={MailOutlined}>邮箱</Tabbar.Item>
+          <Tabbar.Item textSize="xsm" icon={PieChartOutlined}>统计</Tabbar.Item>
+          <Tabbar.Item textSize="xsm" icon={UserSmileOutlined} badge={{ type: 'dot' }}>我的</Tabbar.Item>
         </Tabbar>
       </div>
     );
@@ -65,9 +69,9 @@ export const noBorder = () => Vue.extend({
           <Tabbar.Item name="1" iconAreaSize="lg">
             <img slot="icon" style="width: 100%; box-shadow:0px 0px 20px 0px rgba(47,131,255,0.14);" src={require('../assets/logo.svg')} />
           </Tabbar.Item>
-          <Tabbar.Item name="2" icon={TrainOutlined}>就医</Tabbar.Item>
-          <Tabbar.Item name="3" icon={CheckOutlined}>体检</Tabbar.Item>
-          <Tabbar.Item name="4" icon={UserOutlined}>我的</Tabbar.Item>
+          <Tabbar.Item name="2" icon={MailOutlined}>邮箱</Tabbar.Item>
+          <Tabbar.Item name="3" icon={PieChartOutlined}>统计</Tabbar.Item>
+          <Tabbar.Item name="4" icon={UserSmileOutlined}>我的</Tabbar.Item>
         </Tabbar>
       </div>
     );
@@ -81,37 +85,119 @@ export const activeColor = () => Vue.extend({
         <Tabbar.Item name="1" iconAreaSize="lg">
           <img slot="icon" style="width: 100%; box-shadow:0px 0px 20px 0px rgba(47,131,255,0.14);" src={require('../assets/logo.svg')} />
         </Tabbar.Item>
-        <Tabbar.Item name="2" icon={TrainOutlined} badge={999}>就医</Tabbar.Item>
-        <Tabbar.Item name="3" icon={CheckOutlined}>体检</Tabbar.Item>
-        <Tabbar.Item name="4" icon={UserOutlined}>我的</Tabbar.Item>
+        <Tabbar.Item name="2" icon={MailOutlined} badge={999}>邮箱</Tabbar.Item>
+        <Tabbar.Item name="3" icon={PieChartOutlined}>统计</Tabbar.Item>
+        <Tabbar.Item name="4" icon={UserSmileOutlined}>我的</Tabbar.Item>
       </Tabbar>
     );
   }
 });
 
-export const barColor = () => Vue.extend({
+export const hasIndicator = () => Vue.extend({
   render() {
     return (
-      <Tabbar barColor="#eee" value="2">
-        <Tabbar.Item name="1" iconAreaSize="lg">
-          <img slot="icon" style="width: 100%; box-shadow:0px 0px 20px 0px rgba(47,131,255,0.14);" src={require('../assets/logo.svg')} />
-        </Tabbar.Item>
-        <Tabbar.Item name="2" icon={TrainOutlined}>就医</Tabbar.Item>
-        <Tabbar.Item name="3" icon={CheckOutlined}>体检</Tabbar.Item>
-        <Tabbar.Item name="4" icon={UserOutlined}>我的</Tabbar.Item>
-      </Tabbar>
-    );
-  }
-});
-
-export const noIcon = () => Vue.extend({
-  render() {
-    return (
-      <Tabbar>
-        <Tabbar.Item name="1" textSize="md">关注</Tabbar.Item>
-        <Tabbar.Item name="2" textSize="md">推荐</Tabbar.Item>
-        <Tabbar.Item name="3" textSize="md">热榜</Tabbar.Item>
-      </Tabbar>
+      <div>
+        <Card shadow divider>
+          <Card.Header>Basic</Card.Header>
+          <Tabbar style={{ background: 'rgb(245, 245, 245)' }} border={false} hasIndicator value="1">
+            <Tabbar.Item name="1" textSize="md">关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md">推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md">热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>ActiveColor</Card.Header>
+          <Tabbar style={{ background: 'rgb(245, 245, 245)' }} activeColor="red" border={false} hasIndicator value="1">
+            <Tabbar.Item name="1" textSize="md">关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md">推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md">热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Inline Icon</Card.Header>
+          <Tabbar style={{ background: 'rgb(245, 245, 245)' }} indicatorInverse border={false} hasIndicator value="1">
+            <Tabbar.Item name="1" textSize="md"><Icon type={StarFilled}></Icon>关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md">推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md">热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Vertical Icon</Card.Header>
+          <Tabbar style={{ background: 'rgb(245, 245, 245)' }} border={false} hasIndicator value="1">
+            <Tabbar.Item name="1" textSize="md" icon={StarFilled}>关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md" icon={RocketFilled}>推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md" icon={FireFilled}>热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Indicator Width</Card.Header>
+          <Tabbar style={{ background: 'rgb(245, 245, 245)' }} border={false} hasIndicator indicatorWidth={30} value="1">
+            <Tabbar.Item name="1" textSize="md">关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md">推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md">热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Scroll</Card.Header>
+          <Tabbar style={{ background: 'rgb(245, 245, 245)' }} scroll activeColor="red" border={false} hasIndicator value="6">
+            <Tabbar.Item name="1" textSize="md" style={{minWidth: '80px'}}>关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md" style={{minWidth: '80px'}}>推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md" style={{minWidth: '80px'}}>热榜</Tabbar.Item>
+            <Tabbar.Item name="4" textSize="md" style={{minWidth: '80px'}}>新闻</Tabbar.Item>
+            <Tabbar.Item name="5" textSize="md" style={{minWidth: '80px'}}>汽车</Tabbar.Item>
+            <Tabbar.Item name="6" textSize="md" style={{minWidth: '80px'}}>娱乐</Tabbar.Item>
+            <Tabbar.Item name="7" textSize="md" style={{minWidth: '80px'}}>金融</Tabbar.Item>
+            <Tabbar.Item name="8" textSize="md" style={{minWidth: '80px'}}>军事</Tabbar.Item>
+            <Tabbar.Item name="9" textSize="md" style={{minWidth: '80px'}}>文化</Tabbar.Item>
+            <Tabbar.Item name="10" textSize="md" style={{minWidth: '80px'}}>纪录片</Tabbar.Item>
+            <Tabbar.Item name="11" textSize="md" style={{minWidth: '80px'}}>电影</Tabbar.Item>
+            <Tabbar.Item name="12" textSize="md" style={{minWidth: '80px'}}>电视剧</Tabbar.Item>
+            <Tabbar.Item name="13" textSize="md" style={{minWidth: '80px'}}>综艺</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Vertical</Card.Header>
+          <Tabbar style={{ background: 'rgb(245, 245, 245)' }} vertical hasIndicator value="1">
+            <Tabbar.Item name="1" textSize="md" icon={StarFilled}>关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md" icon={RocketFilled}>推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md" icon={FireFilled}>热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Vertical Indicator Inverse</Card.Header>
+          <Tabbar indicatorInverse style={{ background: 'rgb(245, 245, 245)' }} border={false} vertical hasIndicator value="1">
+            <Tabbar.Item name="1" textSize="md" icon={StarFilled}>关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md" icon={RocketFilled}>推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md" icon={FireFilled}>热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Vertical No Icon</Card.Header>
+          <Tabbar indicatorInverse style={{ background: 'rgb(245, 245, 245)' }} border={false} vertical hasIndicator value="1">
+            <Tabbar.Item name="1" textSize="md"><Icon type={StarFilled}></Icon>关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md"><Icon type={RocketFilled}></Icon>推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md"><Icon type={FireFilled}></Icon>热榜</Tabbar.Item>
+          </Tabbar>
+        </Card>
+        <Card shadow divider>
+          <Card.Header>Vertical Scroll</Card.Header>
+          <Tabbar indicatorInverse scroll style={{ background: 'rgb(245, 245, 245)', height: '400px' }} border={false} vertical hasIndicator value="9">
+            <Tabbar.Item name="1" textSize="md">关注</Tabbar.Item>
+            <Tabbar.Item name="2" textSize="md">推荐</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md">热榜</Tabbar.Item>
+            <Tabbar.Item name="4" textSize="md">新闻</Tabbar.Item>
+            <Tabbar.Item name="5" textSize="md">汽车</Tabbar.Item>
+            <Tabbar.Item name="6" textSize="md">娱乐</Tabbar.Item>
+            <Tabbar.Item name="7" textSize="md">金融</Tabbar.Item>
+            <Tabbar.Item name="8" textSize="md" >军事</Tabbar.Item>
+            <Tabbar.Item name="9" textSize="md">文化</Tabbar.Item>
+            <Tabbar.Item name="10" textSize="md">纪录片</Tabbar.Item>
+            <Tabbar.Item name="11" textSize="md">电影</Tabbar.Item>
+            <Tabbar.Item name="12" textSize="md">电视剧</Tabbar.Item>
+            <Tabbar.Item name="13" textSize="md">综艺</Tabbar.Item>
+          </Tabbar>
+        </Card>
+      </div>
     );
   },
 });
