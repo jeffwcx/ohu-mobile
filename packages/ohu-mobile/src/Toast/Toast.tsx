@@ -6,6 +6,7 @@ import { VNodeData } from 'vue';
 import { getIcon } from '../_utils/icon-utils';
 import { IconDef } from '../types';
 import { defineComponent, props } from '../_utils/defineComponent';
+import { ToastProps, ToastEvents } from './types';
 
 const toastProps = deepmerge({
   icon: props<string, IconDef, IconProps>(String, Object).optional,
@@ -22,7 +23,7 @@ toastProps.tapThrough.default = true;
 toastProps.lockScroll.default = false;
 
 
-export default defineComponent('toast').create({
+export default defineComponent<ToastProps, ToastEvents>('toast').create({
   props: toastProps,
   mounted() {
     if (!this.loading || (this.loading && this.duration > 0)) {

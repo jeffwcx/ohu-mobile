@@ -7,7 +7,7 @@
     "version": {
       "conventionalCommits": true,
       "changelogPreset": "angular",
-      "message": "chore(release): publish %s"
+      "message": "chore(release): publish"
     }
   },
   "version": "independent"
