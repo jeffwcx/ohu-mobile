@@ -5,7 +5,7 @@ import { defineComponent, props } from '../_utils/defineComponent';
 import scrollIntoCenter, { ScrollToTargetPosition } from '../_utils/scrollIntoCenter';
 
 
-interface SimpleRect {
+export interface SimpleRect {
   key: string | number;
   width: number;
   height: number;
