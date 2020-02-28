@@ -20,7 +20,7 @@ jobs:
     - run: npm install
     - run: npx lerna bootstrap
     - run: cd packages/ohu-mobile-icons && npm run build
-    - run: cd ../../packages/ohu-mobile && npm run build:components
-    - run: npm test
+    - run: cd packages/ohu-mobile && npm run build:components
+    - run: cd packages/ohu-mobile && npm test
       env:
         CI: true
