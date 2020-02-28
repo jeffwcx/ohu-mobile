@@ -1,6 +1,7 @@
 <p><h1 align="center">ohu-mobile</h1></p>
 <p align="center">Mobile UI Toolkit include components, style helpers.</p>
 <p align="center">
+    <img src="https://img.shields.io/github/workflow/status/jeffwcx/ohu-mobile/Build?style=for-the-badge" alt="CI" />
     <img src="https://img.shields.io/github/languages/top/jeffwcx/ohu-mobile?style=for-the-badge" alt="Language" />
     <img src="https://img.shields.io/github/license/jeffwcx/ohu-mobile?style=for-the-badge" alt="License" />
     <img src="https://img.shields.io/npm/v/@ohu-mobile/core?style=for-the-badge" alt="Version" />
