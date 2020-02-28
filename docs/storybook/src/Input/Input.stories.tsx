@@ -13,6 +13,9 @@ export default {
   title: 'Components|Form/Input',
   parameters: {
     component: Input,
+    options: {
+      showPanel: true,
+    },
     notes: {
       markdown: docs,
     },

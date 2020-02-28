@@ -7,6 +7,9 @@ export default {
   title: 'Components|Form/Cascader',
   parameters: {
     component: Cascader,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

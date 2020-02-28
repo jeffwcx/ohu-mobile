@@ -15,6 +15,9 @@ export default {
   title: 'Components|Basic/Image',
   parameters: {
     component: Image,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

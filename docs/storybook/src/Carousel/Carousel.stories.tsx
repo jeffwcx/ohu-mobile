@@ -11,6 +11,9 @@ export default {
   title: 'Components|DataDisplay/Carousel',
   parameters: {
     component: Carousel,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

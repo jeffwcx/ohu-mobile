@@ -11,6 +11,9 @@ export default {
   title: 'Components|DataDisplay/DetailItem',
   parameters: {
     component: DetailItem,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

@@ -12,6 +12,9 @@ export default {
   title: 'Components|Basic/Badge',
   parameters: {
     component: Badge,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

@@ -7,6 +7,9 @@ export default {
   title: 'Components|DataDisplay/Divider',
   parameters: {
     component: Divider,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

@@ -9,6 +9,9 @@ export default {
   title: 'Components|Basic/Grid',
   parameters: {
     component: Grid,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

@@ -7,6 +7,9 @@ export default {
   title: 'Components|Form/Agree',
   parameters: {
     component: Agree,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

@@ -10,7 +10,12 @@ export interface TabbarProps {
   border?: boolean;
   activeColor?: string;
   inActiveColor?: string;
-  barColor?: string;
+  hasIndicator?: boolean;
+  indicatorWidth?: number | string;
+  indicatorHeight?: string;
+  indicatorInverse?: boolean;
+  vertical?: boolean;
+  scroll?: boolean;
 }
 
 export interface TabbarItemEvents extends EntryItemEvents {}

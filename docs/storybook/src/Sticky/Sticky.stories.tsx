@@ -11,6 +11,9 @@ export default {
   title: 'Components|Utils/Sticky',
   parameters: {
     component: Sticky,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs },
   },
 };

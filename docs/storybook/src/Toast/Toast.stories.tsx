@@ -13,6 +13,9 @@ export default {
   title: 'Components|FeedBack/Toast',
   parameters: {
     component: Toast,
+    options: {
+      showPanel: true,
+    },
     notes: {
       markdown: docs,
     },

@@ -15,6 +15,9 @@ export default {
   title: 'Components|Form/Select',
   parameters: {
     component: Select,
+    options: {
+      showPanel: true,
+    },
     notes: {
       markdown: docs,
     },

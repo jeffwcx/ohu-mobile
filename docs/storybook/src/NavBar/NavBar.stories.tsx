@@ -9,6 +9,9 @@ export default {
   title: 'Components|Navigation/NavBar',
   parameters: {
     component: NavBar,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

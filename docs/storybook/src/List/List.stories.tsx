@@ -18,6 +18,9 @@ export default {
   title: 'Components|DataDisplay/List',
   parameters: {
     component: List,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

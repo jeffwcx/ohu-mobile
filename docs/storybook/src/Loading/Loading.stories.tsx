@@ -7,6 +7,9 @@ export default {
   title: 'Components|FeedBack/Loading',
   parameters: {
     component: Loading,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

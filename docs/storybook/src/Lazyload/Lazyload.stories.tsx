@@ -19,6 +19,9 @@ export default {
   title: 'Components|Utils/Lazyload',
   parameters: {
     component: Lazyload,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

@@ -1,6 +1,5 @@
-import props from 'vue-strict-prop';
 import { BadgePosition, BadgeProps, BadgeType } from './types';
-import { defineComponent } from '../_utils/defineComponent';
+import { defineComponent, props } from '../_utils/defineComponent';
 import { colors } from '../_utils/shared';
 import getComponentStyle from '../_utils/getComponentStyle';
 

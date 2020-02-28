@@ -27,6 +27,9 @@ export default {
   title: 'Components|Form/Form',
   parameters: {
     component: Form,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

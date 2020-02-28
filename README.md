@@ -1,6 +1,13 @@
-# ohu-mobile
-
-Mobile UI Toolkit include components, style helpers.
+<center><h1>ohu-mobile</h1></center>
+<p><center>Mobile UI Toolkit include components, style helpers.</center></p>
+<p>
+  <center>
+    <img src="https://img.shields.io/github/languages/top/jeffwcx/ohu-mobile?style=for-the-badge" alt="Language" />
+    <img src="https://img.shields.io/github/license/jeffwcx/ohu-mobile?style=for-the-badge" alt="License" />
+    <img src="https://img.shields.io/npm/v/@ohu-mobile/core?style=for-the-badge" alt="Version" />
+    <img src="https://img.shields.io/github/lerna-json/v/jeffwcx/ohu-mobile?style=for-the-badge" alt="Lerna" />
+  </center>
+</p>
 
 
 ## Install & Usage

@@ -8,6 +8,9 @@ export default {
   title: 'Components|Basic/Icon',
   parameters: {
     component: Icon,
+    options: {
+      showPanel: true,
+    },
     notes: {
       markdown: docs,
     },

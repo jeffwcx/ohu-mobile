@@ -13,6 +13,9 @@ export default {
   title: 'Components|FeedBack/Result',
   parameters: {
     component: Result,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

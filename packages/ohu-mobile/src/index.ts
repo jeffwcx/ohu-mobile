@@ -34,6 +34,9 @@ import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import Collapse from './Collapse';
 import ActionBar from './ActionBar';
+import Bottom from './Bottom';
+import Select from './Select';
+import NoticeBar from './NoticeBar';
 
 const components = [
   Icon,
@@ -69,7 +72,10 @@ const components = [
   CheckboxGroup,
   RadioGroup,
   Collapse,
-  ActionBar
+  ActionBar,
+  Bottom,
+  Select,
+  NoticeBar,
 ];
 
 // global use ui library
@@ -114,7 +120,10 @@ export {
   RadioGroup,
   Skeleton,
   Collapse,
-  ActionBar
+  ActionBar,
+  Bottom,
+  Select,
+  NoticeBar,
 };
 
 export * from './Icon';
@@ -150,6 +159,9 @@ export * from './RadioGroup';
 export * from './Skeleton';
 export * from './Collapse';
 export * from './ActionBar';
+export * from './Bottom';
+export * from './Select';
+export * from './NoticeBar';
 export * from './types';
 export * from './vueTypes';
 

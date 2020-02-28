@@ -16,6 +16,9 @@ export default {
   title: 'Components|FeedBack/DropMenu',
   parameters: {
     component: DropMenu,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs },
   },
 };

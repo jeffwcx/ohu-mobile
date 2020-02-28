@@ -1,0 +1,71 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+
+$noticeBarPrefixClass: #{$prefix}notice-bar;
+
+@keyframes notice-bar-scroll-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.#{$noticeBarPrefixClass} {
+  position: relative;
+  padding: $noticeBarPadding 30px;
+  &.is-default {
+    background: $noticeBarDefaultBackground;
+    color: $noticeBarDefaultColor;
+  }
+  &.is-warning {
+    background: $noticeBarWarningBackground;
+    color: $noticeBarWarningColor;
+  }
+  &.has-icon {
+    padding-left: $noticeBarPadding + $noticeBarIconSize + 6px;
+  }
+  &.has-action {
+    padding-right: $noticeBarPadding + $noticeBarIconSize + 6px;
+  }
+  &__icon {
+    font-size: 1.1em;
+    @include center(y);
+    left: $noticeBarPadding;
+    width: $noticeBarIconSize;
+    height: $noticeBarIconSize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__text {
+    font-size: $noticeBarFontSize;
+    line-height: 1.43em;
+    &.is-inline {
+      overflow: hidden;
+      div {
+        white-space: nowrap;
+      }
+    }
+    &.is-scrollable {
+      div {
+        padding-left: 100%;
+        animation: notice-bar-scroll-animation linear infinite both;
+      }
+    }
+    div {
+      display: inline-block;
+    }
+  }
+  &__action {
+    font-size: 1.1em;
+    @include center(y);
+    right: $noticeBarPadding;
+    width: $noticeBarIconSize;
+    height: $noticeBarIconSize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

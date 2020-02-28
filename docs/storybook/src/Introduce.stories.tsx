@@ -2,6 +2,7 @@ import docs from '../../../README.md';
 import MarkdownIt from 'markdown-it';
 import props from 'vue-strict-prop';
 import { component } from 'vue-tsx-support';
+import 'post-style/lib/post.min.css';
 
 export default {
   title: 'Overview|Introduce',
@@ -36,7 +37,9 @@ const Markdown = component({
     },
   },
   created() {
-    const md = new MarkdownIt();
+    const md = new MarkdownIt({
+      html: true,
+    });
     this.$on('hook:mounted', () => {
       this.instance = md;
     });

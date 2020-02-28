@@ -10,6 +10,9 @@ export default {
   title: 'Components|DataDisplay/Card',
   parameters: {
     component: Card,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

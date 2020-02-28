@@ -10,6 +10,9 @@ export default {
   title: 'Components|Utils/Bottom',
   parameters: {
     component: Bottom,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

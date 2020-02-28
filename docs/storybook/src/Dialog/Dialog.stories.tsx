@@ -14,6 +14,9 @@ export default {
   title: 'Components|FeedBack/Dialog',
   parameters: {
     component: Dialog,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs },
   },
 };

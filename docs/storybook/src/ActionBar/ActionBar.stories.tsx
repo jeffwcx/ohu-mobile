@@ -11,6 +11,9 @@ export default {
   title: 'Components|DataDisplay/ActionBar',
   parameters: {
     component: ActionBar,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

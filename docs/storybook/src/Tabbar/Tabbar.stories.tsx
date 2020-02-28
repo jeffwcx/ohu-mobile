@@ -14,6 +14,9 @@ export default {
   title: 'Components|Navigation/Tabbar',
   parameters: {
     component: Tabbar,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs },
   },
 };

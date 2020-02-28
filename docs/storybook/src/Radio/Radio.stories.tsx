@@ -11,6 +11,9 @@ export default {
   title: 'Components|Form/Radio',
   parameters: {
     component: Radio,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

@@ -12,6 +12,9 @@ export default {
   title: 'Components|Basic/Tag',
   parameters: {
     component: Tag,
+    options: {
+      showPanel: true,
+    },
     notes: {
       markdown: docs,
     },

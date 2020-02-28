@@ -29,6 +29,9 @@ export default {
   title: 'Components|Navigation/EntryItem',
   parameters: {
     component: EntryItem,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

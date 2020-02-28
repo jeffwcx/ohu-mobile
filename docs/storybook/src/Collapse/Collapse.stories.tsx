@@ -11,6 +11,9 @@ export default {
   title: 'Components|DataDisplay/Collapse',
   parameters: {
     component: Collapse,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

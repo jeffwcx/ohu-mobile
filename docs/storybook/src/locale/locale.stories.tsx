@@ -10,6 +10,9 @@ import en_US from '@/locale/en_US';
 export default {
   title: 'Locale',
   parameters: {
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

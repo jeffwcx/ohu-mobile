@@ -9,6 +9,9 @@ export default {
   title: 'Components|Basic/Button',
   parameters: {
     component: Button,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

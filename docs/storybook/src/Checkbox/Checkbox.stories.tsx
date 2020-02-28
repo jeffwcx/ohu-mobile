@@ -13,6 +13,9 @@ export default {
   title: 'Components|Form/Checkbox',
   parameters: {
     component: Checkbox,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

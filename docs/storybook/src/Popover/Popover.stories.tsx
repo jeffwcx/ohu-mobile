@@ -12,6 +12,9 @@ export default {
   title: 'Components|FeedBack/Popover',
   parameters: {
     component: Popover,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };

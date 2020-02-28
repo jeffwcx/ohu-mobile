@@ -152,7 +152,6 @@ export let $inputAdornmentMargin = process.env.$inputAdornmentMargin || '20px';
 
 
 // Component/Select
-
 export let $selectFontSize =  process.env.$selectFontSize || '32px';
 export let $selectColor = process.env.$selectColor || $colorTextBase;
 export let $selectBorderRadius = process.env.$selectBorderRadius || '8Px';
@@ -161,3 +160,13 @@ export let $selectPlaceholderColor = process.env.$selectPlaceholderColor || $col
 export let $selectPopupBackground = process.env.$selectPopupBackground || '#FFF';
 export let $selectInputPadding = process.env.$selectInputPadding || '.625em 2.3em .625em 1em';
 export let $selectInputOutlinePadding = process.env.$selectInputOutlinePadding || '.625em 2.3em .625em .5em';
+
+
+// Component/NoticeBar
+export let $noticeBarDefaultBackground = process.env.$noticeBarDefaultBackground || '#FEFCEB';
+export let $noticeBarDefaultColor = process.env.$noticeBarDefaultColor || $colorTextWarn;
+export let $noticeBarWarningBackground = process.env.$noticeBarWarningBackground || '#FFF1F2';
+export let $noticeBarWarningColor = process.env.$noticeBarWarningColor || $colorTextError;
+export let $noticeBarFontSize = process.env.$noticeBarFontSize || '28px';
+export let $noticeBarIconSize = process.env.$noticeBarIconSize || '48px';
+export let $noticeBarPadding =  process.env.$noticeBarPadding || '20px';

@@ -10,6 +10,9 @@ export default {
   title: 'Components|DataDisplay/Skeleton',
   parameters: {
     component: Skeleton,
+    options: {
+      showPanel: true,
+    },
     notes: { markdown: docs }
   },
 };
