@@ -1,4 +1,4 @@
-import { defineComponent, props } from '../_utils/defineComponent';
+import { defineComponent } from '../_utils/defineComponent';
 import { TabProps } from './types';
 import { entryItemProps } from '../EntryItem/EntryItem';
 
