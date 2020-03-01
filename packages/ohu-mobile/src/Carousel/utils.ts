@@ -1,4 +1,4 @@
-import { CSSValue, CarouselSlideDirection } from './interface';
+import { CSSValue, CarouselSlideDirection } from './types';
 
 export function computeCSSValue(cssValue: string | number, defaultUnit = 'px'): CSSValue {
   let unit = defaultUnit;

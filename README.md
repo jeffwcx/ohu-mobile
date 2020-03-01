@@ -9,9 +9,9 @@
 </p>
 
 
-## Install & Usage
+## Install
 
-### Install Components
+`@ohu-mobile/core`  contains all the components.
 
 ```bash
 npm install @ohu-mobile/core
@@ -21,7 +21,10 @@ npm install @ohu-mobile/core
 yarn add @ohu-mobile/core
 ```
 
-### Install SVG Icons
+For more documentation and demos of this package, visit [https://getohu.dev](https://getohu.dev).
+
+
+If you want to use offical svg icons. You can install `@ohu-mobile/icons`. It's a subset of [Remix Icon](https://remixicon.com/).
 
 ```bash
 npm install @ohu-mobile/icons
@@ -31,8 +34,8 @@ npm install @ohu-mobile/icons
 yarn add @ohu-mobile/icons
 ```
 
+If you use [sass](https://sass-lang.com/), I recommand you use `@ohu-mobile/styles`. It's a mixin library, it will save you a lot of time writing styles.
 
-### Install Sass Mixins Library
 
 ```bash
 npm install @ohu-mobile/styles
@@ -42,29 +45,35 @@ npm install @ohu-mobile/styles
 yarn add @ohu-mobile/styles
 ```
 
+## How to import Components in Vue.js
 
-## TODO
++ Import on Demand
 
-+ ⛔️ List
-+ ❎ Search
-+ ❎ Tabs
-+ ❎ Cascader
-+ ❎ IndexBar
-+ ❎ ActionSheet
-+ ❎ Switch
-+ ❎ Rate
-+ ❎ Calendar
-+ ❎ Picker
-+ ❎ ImageViewer
-+ ❎ RecycleList
-+ ❎ Uploader
-+ ❎ Unit Test
-+ ❎ E2E Test
-+ ❎ using `hook:<>`
-+ ❎ a11y
-+ ❎ using new document framework (ohu-book)
-+ ❎ ssr
-+ ❎ `dark` mode
-+ ❎ remove `vue-tsx-supoort` and `vue-strict-prop`, use my new idea.
-+ ❎ friendly tip for development.
-+ ❎ vue3
+    Strongly Recommand👇
+
+    ```ts
+    import { Button } from '@ohu-mobile/core';
+    ```
+    To achieve this effect, please use [babel-plugin-import](https://github.com/ant-design/babel-plugin-import).
+
+    Or Manually import
+
+    ```ts
+    import Button from '@ohu-mobile/core/lib/Button';
+    import Buttom from '@ohu-mobile/core/lib/Button/style';
+    ```
+
++ Import all components
+
+    ```ts
+    import Vue from 'vue';
+    import Ohu from '@ohu-mobile/core';
+    import '@ohu-mobile/core/dist/ohu-mobile.css';
+
+    Vue.use(Ohu);
+    ```
+
++ Use CDN
+
+
+

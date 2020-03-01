@@ -4,14 +4,15 @@ $carouselPrefixClass: #{$prefix}carousel;
 
 .#{$carouselPrefixClass} {
   position: relative;
-  &__stage-wrapper {
+  &-stage-wrapper {
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: relative;
   }
-  &__stage {
+  &-stage {
     display: flex;
+    will-change: transform;
     &.is-horizontal {
       flex-flow: row nowrap;
     }

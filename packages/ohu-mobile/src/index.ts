@@ -37,6 +37,9 @@ import ActionBar from './ActionBar';
 import Bottom from './Bottom';
 import Select from './Select';
 import NoticeBar from './NoticeBar';
+import Input from './Input';
+import Cascader from './Cascader';
+import Tabs from './Tabs';
 
 const components = [
   Icon,
@@ -76,6 +79,9 @@ const components = [
   Bottom,
   Select,
   NoticeBar,
+  Input,
+  Cascader,
+  Tabs,
 ];
 
 // global use ui library
@@ -124,6 +130,9 @@ export {
   Bottom,
   Select,
   NoticeBar,
+  Input,
+  Cascader,
+  Tabs,
 };
 
 export * from './Icon';
@@ -162,6 +171,9 @@ export * from './ActionBar';
 export * from './Bottom';
 export * from './Select';
 export * from './NoticeBar';
+export * from './Input';
+export * from './Cascader';
+export * from './Tabs';
 export * from './types';
 export * from './vueTypes';
 
