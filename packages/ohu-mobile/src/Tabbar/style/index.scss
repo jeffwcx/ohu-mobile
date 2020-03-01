@@ -17,12 +17,6 @@ $tabbarItemPrefixClass: #{$tabbarPrefixClass}-item;
     }
     .#{$tabbarPrefixClass}__indicator {
       left: 0;
-      &.is-normal {
-        bottom: 0;
-      }
-      &.is-inverse {
-        top: 0;
-      }
     }
     &.has-indicator .has-padding {
       padding-bottom: 12px;
@@ -50,15 +44,47 @@ $tabbarItemPrefixClass: #{$tabbarPrefixClass}-item;
       }
     }
   }
+  &.has-indicator.is-horizontal.is-indicator-normal {
+    &.has-border {
+      @include hair-border(inherit, bottom);
+    }
+    .#{$tabbarPrefixClass}__indicator {
+      bottom: 0;
+    }
+  }
+  &.has-indicator.is-horizontal.is-indicator-inverse {
+    &.has-border {
+      @include hair-border(inherit, top);
+    }
+    .#{$tabbarPrefixClass}__indicator {
+      top: 0;
+    }
+  }
+  &.has-indicator.is-vertical.is-indicator-normal {
+    &.has-border {
+      @include hair-border(inherit, left);
+    }
+    .#{$tabbarPrefixClass}__indicator {
+      right: 0;
+    }
+  }
+  &.has-indicator.is-vertical.is-indicator-inverse {
+    &.has-border {
+      @include hair-border(inherit, right);
+    }
+    .#{$tabbarPrefixClass}__indicator {
+      left: 0;
+    }
+  }
   // =============== border ================
   &.has-border {
     border-color: $tabbarBorderColor;
     border-style: solid;
     border-width: 0;
-    &.is-horizontal {
+    &.no-indicator.is-horizontal {
       @include hair-border(inherit);
     }
-    &.is-vertical {
+    &.no-indicator.is-vertical {
       @include hair-border(inherit, right);
     }
   }

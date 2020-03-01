@@ -1,3 +1,30 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $tabsPrefixClass: #{$prefix}tabs;
+$tabPrefixClass: #{$prefix}tab;
+
+.#{$tabsPrefixClass} {
+  display: block;
+  .#{$prefix}sticky {
+    width: 100%;
+    z-index: 1;
+  }
+  .#{$prefix}tabbar {
+    width: 100%;
+    background: #FFF;
+  }
+  &__panels {
+    width: 100%;
+    position: relative;
+    z-index: 0;
+    flex: 1;
+  }
+}
+
+.#{$tabPrefixClass} {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}

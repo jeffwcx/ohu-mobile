@@ -9,21 +9,24 @@ import Tabbar from './Tabbar';
 
 
 const TabbarItemWrapper = function(Item: typeof EntryItem) {
-  return defineComponent<TabbarItemProps ,TabbarItemEvents>('tabbar-item').create({
+  return defineComponent<TabbarItemProps ,TabbarItemEvents, {}, { index: number }>('tabbar-item').create({
     props: {
       ...entryItemProps,
       name: props<string, number>(String, Number).optional,
     },
     computed: {
+      index() {
+        return this.$parent.$children.indexOf(this);
+      },
       selfKey() {
-        return this.name || this.$parent.$children.indexOf(this);
+        return this.name || this.index;
       },
     },
     methods: {
       handleClick() {
         const parent = this.$parent as any;
         if (this.$parent.constructor === Tabbar) {
-          parent.onChange(this.selfKey);
+          parent.onChange(this.selfKey, this.index, this.name);
           this.$nextTick(() => {
             parent.scrollIntoCenter();
           });
@@ -41,7 +44,7 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
         if (activeColor === 'primary') {
           activeColor = $colorPrimary;
         }
-        style.color = this.selfKey === stateValue ? activeColor : inActiveColor;
+        style.color = (this.selfKey) === stateValue ? activeColor : inActiveColor;
       }
 
       const nodeData: VNodeData = {

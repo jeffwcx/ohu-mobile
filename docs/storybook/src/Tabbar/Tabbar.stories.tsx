@@ -48,7 +48,7 @@ export const basic = () => Vue.extend({
           <p>index: {this.active}</p>
           <Button size="md" inline type="primary" onClick={this.setActive}>go to index 0</Button>
         </p>
-        <Tabbar value={this.active} onChange={this.onChange}>
+        <Tabbar value={this.active} onInput={this.onChange}>
           <Tabbar.Item iconAreaSize="lg">
             <img slot="icon" style={style} src={require('../assets/logo.svg')} />
           </Tabbar.Item>

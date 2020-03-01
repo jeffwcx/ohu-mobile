@@ -1,5 +1,5 @@
 import { defineComponent, props } from '../_utils/defineComponent';
-import { CarouselSlideDirection, CarouselStageProps, CarouselChangeEvent, CarouselEvents } from './types';
+import { CarouselSlideDirection, CarouselStageProps, CarouselChangeEvent, CarouselEvents, CSSValue } from './types';
 import { computeCSSValue, getClientRectByDirection, setTransformByDirection } from './utils';
 import { cloneVNodes } from '../_utils/vnode';
 import { VNode, VNodeData } from 'vue/types/umd';
@@ -72,13 +72,27 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
           return -1;
         }
         return 0;
-      }
+      },
+      canLoop() {
+        let loop = this.loop;
+        if (this.steps <= 1 || this.autoSize) {
+          loop = false;
+        }
+        if (loop) {
+          // 下列情况不能形成loop效果
+          if ((this.slides - this.moveStepValue) !== (this.steps - 1) * this.moveStepValue) {
+            loop = false;
+          }
+        }
+        return loop;
+      },
     },
     data() {
       return {
         currentAction: '' as 'next' | 'prev' | 'goTo' | '',
         // 所有slide的偏移量，需要事先计算好
         slideOffsets: [] as number[],
+        slideSizes: [] as number[],
         // stage样式
         stageStyle: {
           transitionProperty: 'all',
@@ -102,8 +116,7 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
         duration: this.animationDuration,
         // 由center引起的偏移
         centerOffset: 0,
-        renderContent: null as  (() => (JSX.Element)) | undefined | null,
-        canLoop: this.loop,
+        initialized: false,
         touching: false,
         swipeData: {
           startTime: -1,
@@ -122,27 +135,11 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
       },
       direction: 'init',
       autoSize: 'init',
-      moveStep: 'init',
-      gap: 'init',
-      center: 'init',
-      perPage: 'init',
     },
     methods: {
-      renderSlides() {
+      renderItems() {
         let children = this.$slots.default;
         if (!children) return;
-        this.slides = children.length;
-        this.pages = Math.floor(this.slides / this.perPage);
-        this.steps = Math.ceil(this.slides / this.moveStepValue);
-        if (this.steps <= 1 || this.autoSize) {
-          this.canLoop = false;
-        }
-        if (this.canLoop) {
-          // 下列情况不能形成loop效果
-          if ((this.slides - this.moveStepValue) !== (this.steps - 1) * this.moveStepValue) {
-            this.canLoop = false;
-          }
-        }
         if (this.canLoop) {
           children = [
             ...cloneVNodes(children.slice(this.slides - this.perPage, this.slides), true),
@@ -150,29 +147,8 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
             ...cloneVNodes(children.slice(0, this.perPage), true),
           ];
         }
-        let slideSize = 0;
-        const stageWrapper = this.$refs.wrapper as HTMLElement;
-        let wrapperSize = getClientRectByDirection(stageWrapper, this.direction);
-        slideSize = (wrapperSize / this.perPage);
-        if (this.perPage === 1) {
-          slideSize += this.gapValue.value;
-        }
-        if (this.center) {
-          this.centerOffset = (wrapperSize - slideSize) / 2;
-        }
-        let slideOffsets = [0];
-        let childenNodes = children.map((node) => {
-          let itemSize = slideSize;
-          if (this.autoSize) {
-            let size = this.getAutoSize(node);
-            if (size) {
-              itemSize = size;
-            }
-          }
-          const lastSlidePos = slideOffsets[slideOffsets.length - 1];
-          const offset = lastSlidePos + itemSize;
-
-          slideOffsets.push(offset);
+        let childenNodes = children.map((node, index) => {
+          const itemSize = this.slideSizes[index];
           const itemStyle: Partial<CSSStyleDeclaration> = {};
           if (this.direction === 'horizontal') {
             itemStyle.width = itemSize + defaultUnit;
@@ -206,9 +182,57 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
             </div>
           );
         });
+        return (
+          <div class={this.root().is(this.direction)}
+            style={this.stageStyle}
+            onTransitionend={this.handleStageTransitionEnd}>
+            {childenNodes}
+          </div>
+        );
+      },
+      init() {
+        this.initialized = false;
+        let children = this.$slots.default;
+        if (!children) return;
+        this.slides = children.length;
+        this.pages = Math.floor(this.slides / this.perPage);
+        this.steps = Math.ceil(this.slides / this.moveStepValue);
+        if (this.canLoop) {
+          children = [
+            ...cloneVNodes(children.slice(this.slides - this.perPage, this.slides), true),
+            ...children,
+            ...cloneVNodes(children.slice(0, this.perPage), true),
+          ];
+        }
+        let slideSize = 0;
+        const stageWrapper = this.$refs.wrapper as HTMLElement;
+        let wrapperSize = getClientRectByDirection(stageWrapper, this.direction);
+        slideSize = (wrapperSize / this.perPage);
+        if (this.perPage === 1) {
+          slideSize += this.gapValue.value;
+        }
+        if (this.center) {
+          this.centerOffset = (wrapperSize - slideSize) / 2;
+        }
+        let slideOffsets = [0];
+        let slideSizes: number[] = [];
+        children.map((node) => {
+          let itemSize = slideSize;
+          if (this.autoSize) {
+            let size = this.getAutoSize(node);
+            if (size) {
+              itemSize = size;
+            }
+          }
+          const lastSlidePos = slideOffsets[slideOffsets.length - 1];
+          const offset = lastSlidePos + itemSize;
+          slideOffsets.push(offset);
+          slideSizes.push(itemSize);
+        });
         let endIndex = slideOffsets.length - 1;
         const totalStageSize = slideOffsets[endIndex];
         this.slideOffsets = slideOffsets.slice(0, endIndex);
+        this.slideSizes = slideSizes;
         this.stageSize = totalStageSize;
         // 初始化pagination信息
         const { stepIndex, slideIndex } = this.getPagination(this.value);
@@ -222,15 +246,7 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
         this.$nextTick(() => {
           this.duration = this.animationDuration;
         });
-        return () => {
-          return (
-            <div class={this.root().is(this.direction)}
-              style={this.stageStyle}
-              onTransitionend={this.handleStageTransitionEnd}>
-              {childenNodes}
-            </div>
-          );
-        };
+        this.initialized = true;
       },
       handleStageTransitionEnd() {
         if (this.windowStatus === 1 || this.windowStatus == -1) {
@@ -431,9 +447,6 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
           parent.startPlay();
         }
       },
-      init() {
-        this.renderContent = this.renderSlides();
-      },
     },
     mounted() {
       this.init();
@@ -464,8 +477,8 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
       return (
         <div {...wrapperNodeData}>
           {
-            this.renderContent
-              ? this.renderContent()
+            this.initialized
+              ? this.renderItems()
               : this.$slots.default
           }
           {

@@ -50,10 +50,10 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
         }
       }
     },
-    onChange(key: string) {
+    onChange(key: string | number, index: number, name?: string | number) {
       if (this.stateValue !== key) {
         this.stateValue = key;
-        this.$emit('change', this.stateValue);
+        this.$emit('change', { key, index, name });
         this.$emit('input', this.stateValue);
       }
     },
@@ -80,7 +80,7 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
         const indicatorLeft = (size - indicatorWidth) / 2;
         const offset = indicatorLeft + currentPosition;
         currentPosition += size;
-        if (!rect.key) return prev;
+        if (rect.key === undefined) return prev;
         if (prev[rect.key.toString()]) return prev;
         prev[rect.key.toString()] = {
           size: indicatorWidth,
@@ -110,17 +110,21 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
     const tabbarProps: VNodeData = {
       attrs: $attrs,
       class: root.has([border && 'border', hasIndicator && 'indicator'])
-        .is([vertical ? 'vertical' : 'horizontal', scroll && 'scroll']),
+        .addClasses([!hasIndicator && 'no-indicator'])
+        .is([
+          vertical ? 'vertical' : 'horizontal',
+          scroll && 'scroll',
+          !indicatorInverse ? 'indicator-normal' : 'indicator-inverse',
+        ]),
       style: {
         color: inActiveColor,
       },
     };
-    const indicatorStyle: Partial<CSSStyleDeclaration> = {
-    };
+    const indicatorStyle: Partial<CSSStyleDeclaration> = {};
     if (activeColor) {
       indicatorStyle.background = activeColor;
     }
-    if (hasIndicator && this.stateValue) {
+    if (hasIndicator && this.stateValue !== undefined) {
       let indicatorPos = this.indicatorPositions[this.stateValue];
       if (indicatorPos) {
         if (this.vertical) {
@@ -141,7 +145,7 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
           hasIndicator
           &&
           <span
-            class={root.element('indicator').is([!indicatorInverse ? 'normal' : 'inverse'])}
+            class={root.element('indicator')}
             style={indicatorStyle} />
         }
       </div>

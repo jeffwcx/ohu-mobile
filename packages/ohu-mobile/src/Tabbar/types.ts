@@ -1,13 +1,20 @@
 import { EntryItemEvents, EntryItemProps } from '../EntryItem';
 
+export interface TabbarChangeEvent {
+  key: string | number;
+  index: number;
+  name?: string | number;
+}
+
 export interface TabbarEvents {
-  onChange: string | number;
+  onChange: TabbarChangeEvent;
   onInput: string | number;
 }
 
 export interface TabbarProps {
   value?: string | number;
   border?: boolean;
+  borderInverse?: boolean;
   activeColor?: string;
   inActiveColor?: string;
   hasIndicator?: boolean;
