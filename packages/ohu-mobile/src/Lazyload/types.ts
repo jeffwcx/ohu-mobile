@@ -20,12 +20,12 @@ export type LazyloadTransitions = 'fade' | 'none';
 export interface LazyloadProps {
   disabled?: boolean;
   src?: string;
-  root?: Element | null;
+  rootElement?: Element | null;
   threshold?: number;
   rootMargin?: string;
   tag?: string;
   asyncComponent?: (() => Promise<EsModuleComponent>) | null;
   animation?: LazyloadTransitions;
-  imgAttrs: ImgHTMLAttributes;
+  imgAttrs?: ImgHTMLAttributes;
   imgStyle?: Partial<CSSStyleDeclaration>;
 }

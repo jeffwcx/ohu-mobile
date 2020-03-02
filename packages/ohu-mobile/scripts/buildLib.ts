@@ -6,11 +6,9 @@ import * as babel from '@babel/core';
 import chalk from 'chalk';
 import ora from 'ora';
 import * as sass from 'node-sass';
-import generateScss from './generateScss';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import * as yargs from 'yargs';
-import * as variables from '../src/_config/variables';
 
 const MATCH_SASS_FILENAME_RE = /\.sass$/;
 const MATCH_NODE_MODULE_RE = /^~([a-z0-9]|@).+/i;
@@ -63,9 +61,6 @@ async function compileScripts(
         await fs.remove(file);
         const filename = name + '.js';
         if (code) {
-          code = code.replace(/(require\(["'].*\.)scss(["']\))/g, (_, m1, m2) => {
-            return m1 + 'css' + m2;
-          });
           await fs.writeFile(path.join(dir, filename), code);
         }
         if (map) {
@@ -157,7 +152,8 @@ async function compileStyles(
   }) {
   const tasks = files.map((file) => {
     const relativePath = path.relative(inputPath, file);
-    const cssPath = path.join(outputPath, relativePath).replace('.scss', '.css');
+    const sassPath = path.join(outputPath, relativePath);
+    const cssPath = sassPath.replace('.scss', '.css');
     spinner.text = 'sass proccessing | 正在转换sass';
     return compileStyle(file)
       .then(async ({ code }) => {
@@ -173,6 +169,26 @@ async function compileStyles(
         const result = await usePostcss(css, cssPath, useRem);
         await fs.writeFile(cssPath, result.css);
         spinner.text = 'postcss proccessing succced!';
+      });
+  });
+  await Promise.all(tasks);
+}
+
+async function copyStyles(
+  files: string[],
+  { inputPath, outputPath }:
+  { inputPath: string, outputPath: string }
+) {
+  const tasks = files.map((file) => {
+    const relativePath = path.relative(inputPath, file);
+    const sassPath = path.join(outputPath, relativePath);
+    return fs.readFile(file)
+      .then(async ( data ) => {
+        const { dir } = path.parse(sassPath);
+        if (!await fs.pathExists(dir)) {
+          await fs.mkdirp(dir);
+        }
+        await fs.writeFile(sassPath, data);
       });
   });
   await Promise.all(tasks);
@@ -199,7 +215,7 @@ async function main(options: BuildLibOptions) {
   const outputPath = transformPath(options.outputDir);
   const babelConfig = transformPath(options.babelConfig);
   const allJsFilePath = path.join(outputPath, '**/*.+(js|jsx)');
-  const allStyleFilePath = path.join(inputPath, '**/index.+(sass|scss)');
+  const allInputStyleFilePath = path.join(inputPath, '**/index.+(sass|scss)');
   const scriptFiles = glob.sync(allJsFilePath);
   spinner.start('start to compile scripts | 开始编译脚本');
   try {
@@ -212,7 +228,20 @@ async function main(options: BuildLibOptions) {
   }
   spinner.succeed('script compiled! | 脚本编译成功');
   spinner.start('start to compile scss | 开始编译scss');
-  const styleFiles = glob.sync(allStyleFilePath);
+  const styleFiles = glob.sync(allInputStyleFilePath);
+  spinner.start('start to copy scss files | 开始复制scss文件');
+  const allStyleFilePath = path.join(inputPath, '**/*.+(sass|scss)');
+  const styleFilePaths = glob.sync(allStyleFilePath);
+  try {
+    await copyStyles(styleFilePaths, { inputPath, outputPath });
+    spinner.succeed('scss files copied! | scss文件拷贝成功！');
+  } catch (error) {
+    spinner.fail('scss files copy failed | scss文件copy失败');
+    console.error(error);
+    process.exitCode = 1;
+    return;
+  }
+
   try {
     await compileStyles(styleFiles, { inputPath, outputPath, useRem: options.useRem });
     spinner.succeed('scss compiled! | scss编译成功');
