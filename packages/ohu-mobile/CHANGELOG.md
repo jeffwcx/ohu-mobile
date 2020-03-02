@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.11.0...@ohu-mobile/core@0.12.0) (2020-03-02)
+
+
+### Bug Fixes
+
+* **build:** copy scss files ([6614a40](https://github.com/jeffwcx/ohu-mobile/commit/6614a40c795905b474e46384fe6aff2a7f61fbf0))
+* **style:** add style dependencies ([8ddf126](https://github.com/jeffwcx/ohu-mobile/commit/8ddf126e7a8c8f28259f72dd00ef2197c430c44a))
+* **tabbar:** export problem ([3f8237b](https://github.com/jeffwcx/ohu-mobile/commit/3f8237bee3ff8c31ecb71cd882ce7a0b1be86891))
+* **toast:** add prop and event interfaces for Toast ([8e42016](https://github.com/jeffwcx/ohu-mobile/commit/8e42016fb7bdeee14356793101909d9c87210c2e))
+
+
+### Features
+
+* **carousel:** add gesture support, autoplay for carousel ([f1ae4f4](https://github.com/jeffwcx/ohu-mobile/commit/f1ae4f461baa8a230d8fe8dea6e9d8295938e0c7))
+* **noticebar:** add NoticeBar Component ([a97dd0f](https://github.com/jeffwcx/ohu-mobile/commit/a97dd0fd68d5b4210ad96600713dc4dbe2b1db7d))
+* **tabs:** add tabs component ([14a86b9](https://github.com/jeffwcx/ohu-mobile/commit/14a86b9a3fd3ae2a9dc3a21f44757c49799d4b31))
+
+
+
+
+
 # [0.11.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.10.0...@ohu-mobile/core@0.11.0) (2020-02-26)
 
 

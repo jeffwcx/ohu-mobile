@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.11.0...storybook@0.12.0) (2020-03-02)
+
+
+### Features
+
+* **carousel:** add gesture support, autoplay for carousel ([f1ae4f4](https://github.com/jeffwcx/ohu-mobile/commit/f1ae4f461baa8a230d8fe8dea6e9d8295938e0c7))
+* **noticebar:** add NoticeBar Component ([a97dd0f](https://github.com/jeffwcx/ohu-mobile/commit/a97dd0fd68d5b4210ad96600713dc4dbe2b1db7d))
+* **tabs:** add tabs component ([14a86b9](https://github.com/jeffwcx/ohu-mobile/commit/14a86b9a3fd3ae2a9dc3a21f44757c49799d4b31))
+
+
+
+
+
 # [0.11.0](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.10.0...storybook@0.11.0) (2020-02-26)
 
 
