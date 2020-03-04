@@ -1,33 +1,66 @@
-import { $prefix } from '../_config/variables';
+
+import { AgreeProps, AgreeEvents } from './types';
+import { defineComponent, props } from '../_utils/defineComponent';
+import SwitchBase, { SwitchBaseOutsideProps } from '../_internal/SwitchBase';
+import { $checkboxActiveColor, $checkboxColor } from '../_config/variables';
 import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '@ohu-mobile/icons';
-import CheckBase from '../_checkbase/CheckBase';
-import { CreateElement } from 'vue';
-import { getIcon } from '../_utils/icon-utils';
+import { IconProperty } from '../types';
 
 
-const baseAgreeName = `${$prefix}agree`;
-const agreeWrapperCls = `${baseAgreeName}-wrapper`;
-const agreeLabelCls = `${baseAgreeName}__label`;
-export default CheckBase({
-  baseName: baseAgreeName,
-  role: 'checkbox',
-  labelCls: agreeLabelCls,
-  wrapperCls: agreeWrapperCls,
-  defaultCheckedIcon: CheckboxCircleFilled,
-  defaultUnCheckedIcon: CheckboxBlankCircleOutlined,
-  labelClickable: false,
-  icon: (h: CreateElement, checked: boolean, {
-    checkedIcon,
-    unCheckedIcon,
-    color,
-    unCheckedColor,
-  }) => {
-    const iconType = checked ? checkedIcon : unCheckedIcon;
-    if (!iconType) return h('i');
-    return getIcon(
-      h,
-      iconType,
-      { color: checked ? color : unCheckedColor }
+export default defineComponent<AgreeProps, AgreeEvents>('agree').create({
+  model: {
+    prop: 'checked',
+    event: 'change',
+  },
+  props: {
+    name: String,
+    checked: props(Boolean).optional,
+    disabled: props(Boolean).default(false),
+    color: props(String).default($checkboxActiveColor),
+    unCheckedColor: props(String).default($checkboxColor),
+    checkedIcon: props.ofType<IconProperty | null>().default(() => CheckboxCircleFilled),
+    unCheckedIcon: props.ofType<IconProperty | null>().default(() => CheckboxBlankCircleOutlined),
+  },
+  watch: {
+    checked(cur) {
+      this.checkedValue = cur;
+    },
+  },
+  data() {
+    return {
+      checkedValue: this.checked,
+    };
+  },
+  methods: {
+    handleChange(checked: boolean) {
+      if (this.disabled) return;
+      this.checkedValue = checked;
+      this.$emit('change', checked);
+    },
+  },
+  render() {
+    const props: SwitchBaseOutsideProps = {
+      baseName: 'agree',
+      name: this.name,
+      role: 'checkbox',
+      checked: this.checkedValue,
+      labelClickable: false,
+      disabled: this.disabled,
+      color: this.color,
+      unCheckedColor: this.unCheckedColor,
+      unCheckedIcon: this.unCheckedIcon,
+      checkedIcon: this.checkedIcon,
+    };
+    return (
+      <SwitchBase {...{
+        props,
+        on: {
+          ...this.$listeners,
+          change: this.handleChange,
+        },
+      }}>
+        {this.$slots.default}
+      </SwitchBase>
     );
   },
 });

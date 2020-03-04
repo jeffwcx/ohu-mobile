@@ -1,7 +1,6 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $maskPrefixClass: #{$prefix}mask;
-$popupRoundRadius: 16px;
 
 .#{$maskPrefixClass} {
   position: fixed;
@@ -87,7 +86,7 @@ $popupPrefixClass: #{$prefix}popup;
   }
 }
 
-$slideAnimateDuration: 240ms;
+$slideAnimateDuration: 320ms;
 $slideAnimateTimingFunction: easing(out-cubic);
 $slideLeaveAnimateTimingFunction: easing(out-quart);
 

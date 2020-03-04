@@ -1,44 +1,103 @@
-import props from 'vue-strict-prop';
-import { CheckboxIndeterminateFilled, CheckboxFilled, CheckboxBlankOutlined } from '@ohu-mobile/icons';
-import { getIcon } from '../_utils/icon-utils';
-import CheckBase from '../_checkbase/CheckBase';
-import { CreateElement } from 'vue';
-import { CheckboxProps } from './types';
-import { IconProperty } from '../types';
-import { $prefix } from '../_config/variables';
 
+import { CheckboxProps, CheckboxEvents, CheckboxScopedSlots } from './types';
+import { defineDescendantComponent } from '../_utils/defineComponent';
+import SwitchBase, { SwitchBaseOutsideProps, switchBaseProps } from '../_internal/SwitchBase';
+import CheckboxGroup from '../CheckboxGroup';
 
-const baseCheckboxName = `${$prefix}checkbox`;
-const checkBoxLabelCls = `${baseCheckboxName}__label`;
-const checkBoxWrapperCls = `${baseCheckboxName}-wrapper`;
+interface CheckboxMethods {
+  toggle: () => void;
+  getChecked: () => boolean;
+}
 
-export default CheckBase<CheckboxProps>({
-  baseName: baseCheckboxName,
-  role: 'checkbox',
-  addProps: {
-    indeterminate: props(Boolean).default(false),
-    indeterminateIcon: props.ofType<IconProperty>().default(() => CheckboxIndeterminateFilled),
+export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,CheckboxProps, CheckboxEvents, CheckboxScopedSlots, CheckboxMethods>(
+  'checkbox-group',
+  'checkbox'
+).create({
+  model: {
+    prop: 'checked',
+    event: 'change',
   },
-  wrapperCls: checkBoxWrapperCls,
-  labelCls: checkBoxLabelCls,
-  defaultCheckedIcon: CheckboxFilled,
-  defaultUnCheckedIcon: CheckboxBlankOutlined,
-  icon: (h: CreateElement, checked: boolean, {
-    indeterminate,
-    indeterminateIcon,
-    checkedIcon,
-    unCheckedIcon,
-    color,
-    unCheckedColor,
-  }) => {
-    const iconType = indeterminate ? indeterminateIcon : (
-      checked ? checkedIcon : unCheckedIcon
-    );
-    if (!iconType) return h('i');
-    return getIcon(
-      h,
-      iconType,
-      { color:  (indeterminate || checked) ? color : unCheckedColor }
+  props: switchBaseProps,
+  watch: {
+    checked(cur) {
+      if (!this.ancestor) {
+        this.checkedValue = cur;
+      }
+    },
+  },
+  data() {
+    return {
+      checkedValue: this.ancestor ? this.ancestor.isChildChecked(this.value) : this.checked,
+    };
+  },
+  computed: {
+    internalDisabled() {
+      if (this.ancestor) {
+        return this.ancestor.disabled;
+      }
+      return this.disabled;
+    },
+  },
+  methods: {
+    toggle() {
+      this.handleChange(!this.getChecked());
+    },
+    getChecked() {
+      return this.ancestor ? this.ancestor.isChildChecked(this.value) : this.checkedValue;
+    },
+    handleChange(checked: boolean) {
+      if (this.internalDisabled) return;
+      if (this.ancestor) {
+        const success = this.ancestor.childrenChange(this.value, checked);
+        if (success) {
+          this.checkedValue = checked;
+        }
+      } else {
+        this.checkedValue = checked;
+      }
+      this.$emit('change', checked);
+    },
+  },
+  render() {
+    const {
+      internalDisabled,
+      ancestor,
+      $scopedSlots,
+    } = this;
+    const {
+      checked,
+      disabled,
+      name,
+      color,
+      unCheckedColor,
+      checkedIcon,
+      unCheckedIcon,
+      ...checkboxProps
+    } = this.$props;
+    const props: SwitchBaseOutsideProps = {
+      baseName: 'checkbox',
+      role: 'checkbox',
+      checked: this.getChecked(),
+      disabled: internalDisabled,
+      name: ancestor?.name || name,
+      color: ancestor?.color || color,
+      unCheckedColor: ancestor?.unCheckedColor || unCheckedColor,
+      checkedIcon: ancestor?.checkedIcon !== undefined ? ancestor?.checkedIcon : checkedIcon,
+      unCheckedIcon: ancestor?.unCheckedIcon !== undefined ? ancestor?.unCheckedIcon : unCheckedIcon,
+      ...checkboxProps,
+    };
+    return (
+      <SwitchBase {...{
+        class: ancestor && 'is-group-item',
+        props,
+        on: {
+          ...this.$listeners,
+          change: this.handleChange,
+        },
+        scopedSlots: $scopedSlots,
+      }}>
+        {this.$slots.default}
+      </SwitchBase>
     );
   },
 });

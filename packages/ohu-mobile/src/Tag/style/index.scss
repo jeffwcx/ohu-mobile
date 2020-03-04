@@ -2,6 +2,7 @@
 @import '../../_styles/mixins.scss';
 
 $tagPrefixClass: #{$prefix}tag;
+
 .#{$tagPrefixClass} {
   box-sizing: border-box;
   display: inline-block;
@@ -9,6 +10,12 @@ $tagPrefixClass: #{$prefix}tag;
   position: relative;
   .#{$prefix}icon {
     @include center(y);
+  }
+  &.is-disabled {
+    opacity: .4;
+    &[role="button"] {
+      cursor: not-allowed;
+    }
   }
   // ================= size =================
   &.is-sm {

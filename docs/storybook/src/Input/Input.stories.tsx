@@ -26,7 +26,7 @@ export default {
 export const basic = () => Vue.extend({
   data() {
     return {
-      basic: '',
+      basic: 'hello',
       adornment: '',
       password: '',
     };

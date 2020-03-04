@@ -44,6 +44,11 @@ export default defineDescendantComponent<InstanceType<typeof Collapse>, Collapse
       if (key) {
         this.ancestor.itemChange(key, !expandState);
       }
+      if (this.expandState) {
+        this.$emit('expand');
+      } else {
+        this.$emit('shrink');
+      }
     },
     beforeContentEnter(el: HTMLElement) {
       el.style.height = 'auto';

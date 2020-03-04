@@ -88,6 +88,7 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     let component = $slots.default && $slots.default[0];
     if (component) {
       const { event, prop } = getVModelOption(component);
+      // Todo: Sometimes Blur event may triggered by deeper component, so this is a temporary plan.
       component = cloneElement(component, {
         props: { name, [prop]: this.getValueState() },
         on: {

@@ -1,3 +1,8 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
-@include checkbase(radio, $radioColor);
+@include checkbase(
+  radio,
+  $radioColor,
+  $radioLabelColor,
+  $radioFontSize,
+);

@@ -46,8 +46,9 @@ $inputPrefixClass: #{$prefix}input;
   }
   &.is-disabled {
     cursor: not-allowed;
+    opacity: .4;
     input[disabled] {
-      color: $inputDisabledColor;
+      cursor: not-allowed;
     }
   }
   &__base {

@@ -29,7 +29,7 @@
     "directory": "packages/ohu-mobile"
   },
   "scripts": {
-    "create-scss-file": "ts-node --project tsconfig.scripts.json scripts/createScssFile.ts",
+    "vars": "ts-node --project tsconfig.scripts.json scripts/createScssFile.ts ./src/_config/variables.ts",
     "build:min": "cross-env NODE_ENV=production rollup -c ./scripts/rollup.config.js --exports named",
     "build:min-rem": "cross-env NODE_ENV=production CSS_EDITION=rem rollup -c ./scripts/rollup.config.js --exports named",
     "build:rem": "cross-env CSS_EDITION=rem rollup -c ./scripts/rollup.config.js --exports named",
@@ -41,7 +41,8 @@
     "build:lib": "ts-node --project tsconfig.scripts.json scripts/buildLib.ts -t src/ -o lib/ -b ./babel.config.js",
     "build:components": "npm run build:lib && npm run build:lib-rem",
     "test": "jest",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "prepublish": "npm run build:components"
   },
   "bugs": {
     "url": "https://github.com/jeffwcx/ohu-mobile/issues"

@@ -150,7 +150,7 @@ const Lazyload = defineComponent<LazyloadProps, LazyloadEvents, LazyloadScopedSl
         ? $scopedSlots.error({ reload, error: asyncError || undefined })
         : ($slots.error && $slots.error[0]);
       if (asyncError) {
-        return <div class={root}>{error}</div>;
+        return <div class={root}>{error || placeholder}</div>;
       }
       let node;
       if (this.src) {

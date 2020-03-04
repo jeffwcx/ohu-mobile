@@ -3,6 +3,11 @@
 $formPrefixClass: #{$prefix}form;
 $formFieldPrefixClass: #{$formPrefixClass}-field;
 
+$formFontSize: 32px;
+$formFieldControlPadding: 12px 0;
+$formFieldControlErrorPadding: 20px 0;
+$formFieldLabelColor: $colorTextBase;
+
 @mixin add-align {
   &.is-left {
     text-align: left;
@@ -15,6 +20,9 @@ $formFieldPrefixClass: #{$formPrefixClass}-field;
   }
 }
 
+.#{$formPrefixClass} {
+  font-size: $formFontSize;
+}
 .#{$formFieldPrefixClass} {
   box-sizing: border-box;
   display: flex;
@@ -48,18 +56,18 @@ $formFieldPrefixClass: #{$formPrefixClass}-field;
       width: 100%;
     }
     .#{$formFieldPrefixClass}__control {
-      padding: 12px 0;
+      padding: $formFieldControlPadding;
     }
     .#{$formFieldPrefixClass}__control__error {
       font-size: .875em;
-      padding: 20px 0 20px 0;
+      padding: $formFieldControlErrorPadding;
     }
   }
   &__label {
     flex-shrink: 0;
     flex-grow: 0;
     box-sizing: border-box;
-    color: $colorTextBase;
+    color: $formFieldLabelColor;
     font-size: 1em;
     @include add-align;
   }

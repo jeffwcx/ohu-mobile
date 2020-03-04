@@ -122,3 +122,13 @@ export const useImage = () => Vue.extend({
     );
   }
 });
+
+export const onlyText = () => Vue.extend({
+  render() {
+    return (
+      <Card shadow>
+        <EntryItem style="width: 33.3333%" badge={{ type: 'dot' }}>热度</EntryItem>
+      </Card>
+    );
+  }
+});

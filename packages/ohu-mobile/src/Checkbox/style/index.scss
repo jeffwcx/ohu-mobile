@@ -1,3 +1,8 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
-@include checkbase(checkbox, $checkboxColor);
+@include checkbase(
+  checkbox,
+  $checkboxColor,
+  $checkboxLabelColor,
+  $checkboxFontSize,
+);

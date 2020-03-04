@@ -13,6 +13,20 @@ $selectPrefixClass: #{$prefix}select;
     &__content {
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
+      // Don't support minorText property of Header
+      max-height: calc(100% - 90px);
+    }
+    .#{$prefix}popup-header {
+      background: $selectPopupHeaderBackground;
+      &__text {
+        color: $selectPopupHeaderColor;
+      }
+    }
+  }
+  &.is-disabled {
+    .#{$selectPrefixClass}__input, select {
+      opacity: .5;
+      cursor: not-allowed;
     }
   }
   &__input {

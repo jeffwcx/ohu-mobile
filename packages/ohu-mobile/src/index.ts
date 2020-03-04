@@ -40,6 +40,7 @@ import NoticeBar from './NoticeBar';
 import Input from './Input';
 import Cascader from './Cascader';
 import Tabs from './Tabs';
+import Tab from './Tab';
 
 const components = [
   Icon,
@@ -82,6 +83,7 @@ const components = [
   Input,
   Cascader,
   Tabs,
+  Tab,
 ];
 
 // global use ui library
@@ -133,6 +135,7 @@ export {
   Input,
   Cascader,
   Tabs,
+  Tab,
 };
 
 export * from './Icon';

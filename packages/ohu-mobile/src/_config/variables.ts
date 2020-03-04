@@ -73,8 +73,13 @@ export let $tabbarHeight = process.env.$tabbarHeight || '98px';
 export let $loadingTextColor: string = process.env.$loadingTextColor || $colorTextMinor;
 
 // Component/Popup
+export let $popupRoundRadius: string = process.env.$popupRoundRadius || '16px';
 export let $popupHeaderCloseButtonColor: string = process.env.$popupHeaderCloseButtonColor || '#848C95';
-
+export let $popupHeaderBackground: string =  process.env.$popupHeaderBackground || '#FFF';
+export let $popupHeaderTextFontSize = process.env.$popupHeaderTextFontSize || '32px';
+export let $popupHeaderColor =  process.env.$popupHeaderColor || $colorTextBase;
+export let $popupHeaderMinorTextColor = process.env.$popupHeaderMinorTextColor || $colorTextMinor;
+export let $popupHeaderMinorTextFontSize =  process.env.$popupHeaderMinorTextColor || '28px';
 // Component/Popover
 export let $popoverContentBackground: string = process.env.$popoverContentBackground || '#4C4C4C';
 export let $popoverArrowSize: string =  process.env.$popoverArrowSize || '12px';
@@ -85,18 +90,43 @@ export let $dropMenuItemOptionActiveColor: string = process.env.$dropMenuItemOpt
 export let $dropMenuItemOptionsBoxShadow: string = process.env.$dropMenuItemOptionsBoxShadow || '0px 2px 8px 0px rgba(153,153,153,0.2)';
 
 // Component/Checkbox
+export let $checkboxFontSize: string = process.env.$checkboxFontSize || $fontSizeBase;
 export let $checkboxColor: string = process.env.$checkboxColor || '#CCC';
-
+export let $checkboxActiveColor: string = process.env.$checkboxActiveColor || $colorPrimary;
+export let $checkboxLabelColor: string = process.env.$checkboxLabelColor || $colorTextBase;
 // Component/Radio
+export let $radioFontSize: string = process.env.$radioFontSize || $checkboxFontSize;
 export let $radioColor: string = process.env.$radioColor || $checkboxColor;
+export let $radioActiveColor: string = process.env.$radioboxActiveColor || $checkboxActiveColor;
+export let $radioLabelColor: string = process.env.$radioLabelColor || $checkboxLabelColor;
 
 // Component/Agree
 export let $agreeColor: string = process.env.$agreeColor || $colorTextBase;
 
 // Component/List
 export let $listItemPadding: string = process.env.$listItemPadding || '30px';
+export let $listItemColor: string = process.env.$listItemColor || $colorTextBase;
+export let $listItemBorderColor: string = process.env.$listItemBorderColor || $colorDivider;
+export let $listItemFontSize: string = process.env.$listItemFontSize || $fontSizeBase;
+export let $listItemTextLineHeight: string = process.env.$listItemTextLineHeight || '1.375em';
+export let $listItemMinorTextFontSize: string =  process.env.$listItemMinorTextFontSize || '26px';
+export let $listItemMinorTextLineHeight: string =  process.env.$listItemMinorTextLineHeight || '1.384615em';
+export let $listItemMinorTextColor: string = process.env.$listItemMinorTextColor || $colorTextMinor;
+export let $listItemButtonActiveColor: string =  process.env.$listItemButtonActiveColor || $buttonColorDefaultActive;
+export let $listItemThumbMargin: string =  process.env.$listItemThumbMargin || '24px';
+export let $listItemAvatarSize: string = process.env.$listItemAvatarSize || '88px';
+export let $listItemAvatarMinWidth: string = process.env.$listItemAvatarMinWidth || '120px';
+export let $listItemIconSize: string = process.env.$listItemIconSize || '48px';
+export let $listItemActionSize: string =  process.env.$listItemActionSize || '36px';
+export let $listItenActionCheckSize: string =  process.env.$listItenActionCheckSize || '32px';
 export let $listSubheaderBackground: string = process.env.$listSubheaderBackground || '#EEE';
 export let $listSubheaderColor: string = process.env.$listSubheaderColor || '#999';
+
+export let $listBottomFontSize: string =  '28px';
+export let $listSubheaderFontSize: string =  process.env.$listSubheaderFontSize || '28px';
+export let $listSubheaderStickyColor: string = process.env.$listSubheaderStickyColor || $colorTextHighlight;
+export let $listSubheaderStickyBackground: string = process.env.$listSubheaderStickyBackground || $colorTextBaseInverse;
+export let $listSubheaderStickyBoxShadow: string = process.env.$listSubheaderStickyBoxShadow || '0 1Px 10Px 0 #eee';
 
 
 // Component/Carousel
@@ -122,51 +152,75 @@ export let $collapseHeaderActiveColor = process.env.$collapseHeaderActiveColor |
 export let $collapseHeaderBackground =  process.env.$collapseHeaderBackground || '#FFF';
 
 // Component/Form
-export let $formFieldFontSize = process.env.$formFieldFontSize || '32px';
-export let $formFieldBorderColor = process.env.$formFieldBorderColor || $colorDivider;
-export let $formFieldHeight = process.env.$formFieldHeight || '100px';
-export let $formFieldInlinePadding = process.env.$formFieldInlinePadding || '6px 0 6px 32px';
-export let $formFieldBlockPadding = process.env.$formFieldBlockPadding || '0 32px';
-export let $formFieldLineHeight =  process.env.$formFieldLineHeight || '88px';
-export let $formFieldBackground =  process.env.$formFieldBackground || '#FFF';
-export let $formFieldLabelWidth = process.env.$formFieldLabelWidth || '25.6%';
-export let $formFieldLabelColor = process.env.$formFieldLabelColor || $colorTextBase;
-export let $formFieldLabelPadding = process.env.$formFieldLabelPadding || '32px';
-export let $formFieldErrorColor = process.env.$formFieldErrorColor || $colorTextError;
+export let $formFontSize: string = process.env.$formFontSize || '32px';
+export let $formFieldControlPadding: string =  process.env.$formFieldControlPadding || '12px 0';
+export let $formFieldControlErrorPadding: string = process.env.$formFieldControlErrorPadding || '20px 0';
+export let $formFieldFontSize: string = process.env.$formFieldFontSize || '32px';
+export let $formFieldBorderColor: string = process.env.$formFieldBorderColor || $colorDivider;
+export let $formFieldHeight: string = process.env.$formFieldHeight || '100px';
+export let $formFieldInlinePadding: string = process.env.$formFieldInlinePadding || '6px 0 6px 32px';
+export let $formFieldBlockPadding: string = process.env.$formFieldBlockPadding || '0 32px';
+export let $formFieldLineHeight: string =  process.env.$formFieldLineHeight || '88px';
+export let $formFieldBackground: string =  process.env.$formFieldBackground || '#FFF';
+export let $formFieldLabelWidth: string = process.env.$formFieldLabelWidth || '25.6%';
+export let $formFieldLabelColor: string = process.env.$formFieldLabelColor || $colorTextBase;
+export let $formFieldLabelPadding: string = process.env.$formFieldLabelPadding || '32px';
+export let $formFieldErrorColor: string = process.env.$formFieldErrorColor || $colorTextError;
 
 // Component/Input
-export let $inputFontSize = process.env.$inputFontSize || '32px';
-export let $inputColor = process.env.$inputColor || $colorTextBase;
-export let $inputDisabledColor = process.env.$inputDisabledColor || $colorTextMinor;
-export let $inputBorderRadius = process.env.$inputBorderRadius || '8Px';
-export let $inputBorderColor =  process.env.inputBorderColor || $colorBorderBase;
-export let $inputFocusBorderColor = process.env.$inputFocusBorderColor || 'rgba(45, 126, 255, 0.75)';
-export let $inputPlaceholderColor = process.env.$inputPlaceholderColor || $colorTextMinor;
-export let $inputAdornmentColor = process.env.$inputAdornmentColor || $colorTextMinor;
-export let $inputPadding = process.env.$inputPadding || '.625em .625em .625em .8em';
-export let $inputPaddingWithAdornment = process.env.inputPaddingWithAdornment || '.625em';
-export let $inputOutlinePadding = process.env.$inputOutlinePadding || '.625em .5em';
-export let $inputOutlinePaddingWithAdornment = process.env.$inputOutlinePaddingWithAdornment || '.625em';
-export let $inputAdornmentFontSize = process.env.$inputAdornmentFontSize || '1em';
-export let $inputAdornmentMargin = process.env.$inputAdornmentMargin || '20px';
+export let $inputFontSize: string = process.env.$inputFontSize || '32px';
+export let $inputColor: string = process.env.$inputColor || $colorTextBase;
+export let $inputDisabledColor: string = process.env.$inputDisabledColor || $colorTextMinor;
+export let $inputBorderRadius: string = process.env.$inputBorderRadius || '8Px';
+export let $inputBorderColor: string =  process.env.inputBorderColor || $colorBorderBase;
+export let $inputFocusBorderColor: string = process.env.$inputFocusBorderColor || 'rgba(45, 126, 255, 0.75)';
+export let $inputPlaceholderColor: string = process.env.$inputPlaceholderColor || $colorTextMinor;
+export let $inputAdornmentColor: string = process.env.$inputAdornmentColor || $colorTextMinor;
+export let $inputPadding: string = process.env.$inputPadding || '.625em .625em .625em .8em';
+export let $inputPaddingWithAdornment: string = process.env.inputPaddingWithAdornment || '.625em';
+export let $inputOutlinePadding: string = process.env.$inputOutlinePadding || '.625em .5em';
+export let $inputOutlinePaddingWithAdornment: string = process.env.$inputOutlinePaddingWithAdornment || '.625em';
+export let $inputAdornmentFontSize: string = process.env.$inputAdornmentFontSize || '1em';
+export let $inputAdornmentMargin: string = process.env.$inputAdornmentMargin || '20px';
 
 
 // Component/Select
-export let $selectFontSize =  process.env.$selectFontSize || '32px';
-export let $selectColor = process.env.$selectColor || $colorTextBase;
-export let $selectBorderRadius = process.env.$selectBorderRadius || '8Px';
-export let $selectBorderColor = process.env.$selectBorderColor || $colorBorderBase;
-export let $selectPlaceholderColor = process.env.$selectPlaceholderColor || $colorTextMinor;
-export let $selectPopupBackground = process.env.$selectPopupBackground || '#FFF';
-export let $selectInputPadding = process.env.$selectInputPadding || '.625em 2.3em .625em 1em';
-export let $selectInputOutlinePadding = process.env.$selectInputOutlinePadding || '.625em 2.3em .625em .5em';
+export let $selectFontSize: string =  process.env.$selectFontSize || '32px';
+export let $selectColor: string = process.env.$selectColor || $colorTextBase;
+export let $selectBorderRadius: string = process.env.$selectBorderRadius || '8Px';
+export let $selectBorderColor: string = process.env.$selectBorderColor || $colorBorderBase;
+export let $selectPlaceholderColor: string = process.env.$selectPlaceholderColor || $colorTextMinor;
+export let $selectPopupBackground: string = process.env.$selectPopupBackground || '#FFF';
+export let $selectPopupHeaderBackground: string = process.env.$selectPopupHeaderBackground || '#FFF';
+export let $selectPopupHeaderColor: string = process.env.$selectPopupHeaderColor || $colorTextBase;
+export let $selectInputPadding: string = process.env.$selectInputPadding || '.625em 2.3em .625em 1em';
+export let $selectInputOutlinePadding: string = process.env.$selectInputOutlinePadding || '.625em 2.3em .625em .5em';
 
 
 // Component/NoticeBar
-export let $noticeBarDefaultBackground = process.env.$noticeBarDefaultBackground || '#FEFCEB';
-export let $noticeBarDefaultColor = process.env.$noticeBarDefaultColor || $colorTextWarn;
-export let $noticeBarWarningBackground = process.env.$noticeBarWarningBackground || '#FFF1F2';
-export let $noticeBarWarningColor = process.env.$noticeBarWarningColor || $colorTextError;
-export let $noticeBarFontSize = process.env.$noticeBarFontSize || '28px';
-export let $noticeBarIconSize = process.env.$noticeBarIconSize || '48px';
-export let $noticeBarPadding =  process.env.$noticeBarPadding || '20px';
+export let $noticeBarDefaultBackground: string = process.env.$noticeBarDefaultBackground || '#FEFCEB';
+export let $noticeBarDefaultColor: string = process.env.$noticeBarDefaultColor || $colorTextWarn;
+export let $noticeBarWarningBackground: string = process.env.$noticeBarWarningBackground || '#FFF1F2';
+export let $noticeBarWarningColor: string = process.env.$noticeBarWarningColor || $colorTextError;
+export let $noticeBarFontSize: string = process.env.$noticeBarFontSize || '28px';
+export let $noticeBarIconSize: string = process.env.$noticeBarIconSize || '48px';
+export let $noticeBarPadding: string =  process.env.$noticeBarPadding || '20px';
+
+
+// Component/NavBar
+export let $navBarHeight: string = process.env.$navBarHeight || '100px';
+export let $navBarFontSize: string = process.env.$navBarFontSize || '36px';
+export let $navBarTitleLineHeight: string =  process.env.$navBarTitleLineHeight || '50px';
+export let $navBarColor: string =  process.env.$navBarColor || $colorTextBase;
+export let $navBarPrimaryBackground: string =  process.env.$navBarPrimaryBackground || $colorPrimary;
+export let $navBarPrimaryColor: string =  process.env.$navBarPrimaryColor || $colorTextBaseInverse;
+export let $navBarPrimaryActiveBackground: string = process.env.$navBarPrimaryActiveBackground || '#3c87ff';
+export let $navBarBorderColor: string = process.env.$navBarBorderColor || $colorBorderBase;
+
+
+// Component/ActionBar
+export let $actionBarBackground = process.env.$actionBarBackground || '#FFF';
+export let $actionBarPadding = process.env.$actionBarPadding || '20px 32px';
+export let $actionBarToolBarPadding =  process.env.$actionBarToolBarPadding || '8px 16px 12px 16px';
+export let $actionBarFontSize = process.env.$actionBarFontSize || '32px';
+export let $actionBarButtonGap = process.env.$actionBarButtonGap || '22px';

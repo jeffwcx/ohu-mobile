@@ -99,7 +99,7 @@ export const activeColor = () => Vue.extend({
 export const hasIndicator = () => Vue.extend({
   render() {
     return (
-      <div>
+      <div class="demo">
         <Card shadow divider>
           <Card.Header>Basic</Card.Header>
           <Tabbar style={{ background: 'rgb(245, 245, 245)' }} border={false} hasIndicator value="1">
@@ -113,7 +113,7 @@ export const hasIndicator = () => Vue.extend({
           <Tabbar style={{ background: 'rgb(245, 245, 245)' }} activeColor="red" border={false} hasIndicator value="1">
             <Tabbar.Item name="1" textSize="md">关注</Tabbar.Item>
             <Tabbar.Item name="2" textSize="md">推荐</Tabbar.Item>
-            <Tabbar.Item name="3" textSize="md">热榜</Tabbar.Item>
+            <Tabbar.Item name="3" textSize="md" badge={{ type: 'dot' }}>热榜</Tabbar.Item>
           </Tabbar>
         </Card>
         <Card shadow divider>
@@ -127,7 +127,7 @@ export const hasIndicator = () => Vue.extend({
         <Card shadow divider>
           <Card.Header>Vertical Icon</Card.Header>
           <Tabbar style={{ background: 'rgb(245, 245, 245)' }} border={false} hasIndicator value="1">
-            <Tabbar.Item name="1" textSize="md" icon={StarFilled}>关注</Tabbar.Item>
+            <Tabbar.Item name="1" textSize="md" icon={StarFilled} badge={{ type: 'dot' }}>关注</Tabbar.Item>
             <Tabbar.Item name="2" textSize="md" icon={RocketFilled}>推荐</Tabbar.Item>
             <Tabbar.Item name="3" textSize="md" icon={FireFilled}>热榜</Tabbar.Item>
           </Tabbar>

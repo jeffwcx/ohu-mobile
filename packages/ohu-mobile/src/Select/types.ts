@@ -7,19 +7,22 @@ export type SelectOption = RadioOption | CheckboxOption;
 
 export interface SelectProps {
   name?: string;
+  visible?: boolean;
   value?: any | any[];
   title?: string;
   options?: SelectOption[];
   confirm?: boolean;
   multiple?: boolean;
-  icon?: IconDef;
+  icon?: IconDef | null;
   minHeight?: string;
   maxHeight?: string;
   native?: boolean;
   outline?: boolean;
   noBorder?: boolean;
+  fullScreen?: boolean;
   popupProps?: PopupProps;
   headerProps?: PopupHeaderProps;
+  disabled?: boolean;
 }
 
 export interface SelectEvents {
@@ -28,6 +31,7 @@ export interface SelectEvents {
   onSelect: any;
   onShow: void;
   onHide: void;
+  onVisibleChange: boolean;
 }
 
 export interface SelectScopedSlots {

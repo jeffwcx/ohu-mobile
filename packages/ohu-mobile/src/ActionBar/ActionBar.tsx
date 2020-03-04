@@ -3,7 +3,6 @@ import Button from '../Button';
 import { ActionBarProps, ActionBarEvents, ActionOption } from './types';
 import Bottom from '../Bottom';
 import Divider from '../Divider';
-import { $prefix } from '../_config/variables';
 
 
 export default defineComponent<ActionBarProps, ActionBarEvents>('action-bar').create({
@@ -52,19 +51,16 @@ export default defineComponent<ActionBarProps, ActionBarEvents>('action-bar').cr
     const { $slots, divider, toolbar, visible } = this;
     const root = this.root();
     return (
-      <transition name={`${$prefix}slide-down`}>
-        <Bottom v-show={visible} class={root.block('wrapper')}>
-          { divider && <Divider /> }
-          <div class={root.is([toolbar ? 'toolbar' : 'normal'])}>
-            {
-              $slots.default
-              &&
-              <div class={root.element('text')}>{$slots.default}</div>
-            }
-            {this.getActions()}
-          </div>
-        </Bottom>
-      </transition>
+      <Bottom visible={visible} class={root.block('wrapper')} divider={divider}>
+        <div class={root.is([toolbar ? 'toolbar' : 'normal'])}>
+          {
+            $slots.default
+            &&
+            <div class={root.element('text')}>{$slots.default}</div>
+          }
+          {this.getActions()}
+        </div>
+      </Bottom>
     );
   },
 });

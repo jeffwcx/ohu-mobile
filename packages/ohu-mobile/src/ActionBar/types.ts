@@ -1,6 +1,7 @@
 import { ButtonProps } from '../Button';
 
 export type ActionOption = Omit<ButtonProps, 'inline'> & {
+  name?: string;
   text?: string;
   onClick?: (e: Event) => void;
 };

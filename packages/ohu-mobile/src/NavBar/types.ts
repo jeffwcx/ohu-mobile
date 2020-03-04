@@ -8,4 +8,5 @@ export interface NavBarProps {
   leftArrow?: boolean;
   leftText?: string;
   divider?: boolean;
+  segmentation?: number[];
 }

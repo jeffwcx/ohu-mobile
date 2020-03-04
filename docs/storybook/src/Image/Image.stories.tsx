@@ -22,7 +22,15 @@ export default {
   },
 };
 
-export const error = () => component({
+export const basic = () => component({
+  render() {
+    return (
+      <Image src="http://via.placeholder.com/375X275/FF2244/FFFFFF" />
+    );
+  },
+});
+
+export const errorAndReload = () => component({
   data() {
     return {
       src: 'http://via.placeholder.c',
@@ -30,7 +38,7 @@ export const error = () => component({
   },
   render() {
     return (
-      <Image width="300px" height="150px" src={this.src}
+      <Image width="100px" reload errorTip style="border-radius: 100px;" round height="100px" src={this.src}
         onReload={() => { this.src= 'http://via.placeholder.com/375X275/FF2244/FFFFFF' }}/>
     );
   },
@@ -114,3 +122,4 @@ export const fit = () => component({
     );
   },
 });
+

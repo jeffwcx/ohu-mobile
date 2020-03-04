@@ -17,8 +17,14 @@
   overflow: visible;
 }
 
-@mixin checkbase($name, $color) {
+@mixin checkbase(
+  $name,
+  $color,
+  $labelColor: $checkboxLabelColor,
+  $fontSize: $checkboxFontSize,
+) {
   .#{$prefix}#{$name} {
+    font-size: $fontSize;
     position: relative;
     &-wrapper {
       display: inline-flex;
@@ -27,7 +33,7 @@
       cursor: pointer;
       @include tap-component;
       &.is-group-item {
-        margin-right: 16px;
+        margin-right: .5em
       }
       &.is-disabled {
         cursor: not-allowed;
@@ -71,11 +77,11 @@
       transition: all .4s easing(out-expo);
     }
     &__label {
-      padding-left: 12px;
-      padding-right: 12px;
+      padding-left: .375em;
+      padding-right: .375em;
       font-size: 1em;
       font-weight: 400;
-      color: $colorTextBase;
+      color: $labelColor;
     }
   }
 }

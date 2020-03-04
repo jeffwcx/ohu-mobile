@@ -1,18 +1,19 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $listPrefixClass: #{$prefix}list;
+
 .#{$listPrefixClass} {
   list-style: none;
   margin: 0;
   padding: 0;
   &__bottom {
-    line-height: 70px;
+    line-height: 2.5em;
     text-align: center;
-    font-size: 28px;
+    font-size: $listBottomFontSize;
     color: $colorTextMinor;
     .#{$prefix}loading {
       vertical-align: middle;
-      font-size: 28px;
+      font-size: $listBottomFontSize;
     }
     > .#{$prefix}skeleton, > .#{$prefix}skeleton--compound {
       padding: $listItemPadding;
@@ -24,12 +25,12 @@ $listPrefixClass: #{$prefix}list;
     background: $listSubheaderBackground;
     z-index: 2;
     line-height: 2em;
-    font-size: 28px;
+    font-size: $listSubheaderFontSize;
     transition: all .5s ease;
     &.is-sticky {
-      color: $colorTextHighlight;
-      background: $colorTextBaseInverse;
-      box-shadow: 0 1Px 10Px 0 #eee;
+      color: $listSubheaderStickyColor;
+      background: $listSubheaderStickyBackground;
+      box-shadow: $listSubheaderStickyBoxShadow;
     }
   }
 }

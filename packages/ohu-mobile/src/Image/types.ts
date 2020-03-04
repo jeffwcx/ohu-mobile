@@ -15,5 +15,8 @@ export interface ImageProps {
   height?: string;
   fit?: ImageFitMode;
   lazy?: Omit<LazyloadProps, 'src' | 'asyncComponent'> | boolean;
-  errorTip?: string;
+  errorTip?: string | boolean;
+  round?: boolean;
+  reloadStopPropagation?: boolean;
+  reload?: boolean;
 }

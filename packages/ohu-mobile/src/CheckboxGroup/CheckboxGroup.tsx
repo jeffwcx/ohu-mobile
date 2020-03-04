@@ -1,17 +1,13 @@
-import { componentFactoryOf } from 'vue-tsx-support';
 import Checkbox from '../Checkbox';
-import ancestorMixin from '../_utils/ancestorMixin';
-import { CheckboxGroupEvents, CheckboxOption, CheckboxGroupScopedSlots } from './types';
-import { $prefix } from '../_config/variables';
+import { CheckboxGroupEvents, CheckboxOption, CheckboxGroupScopedSlots, CheckboxGroupProps } from './types';
 import checkBoxGroupProps from './props';
+import { defineAncestorComponent } from '../_utils/defineComponent';
 
 
-const baseCheckboxGroupName = `${$prefix}checkbox-group`;
 
-export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>().mixin(
-  ancestorMixin('checkboxGroup')
+export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, CheckboxGroupScopedSlots>(
+  'checkbox-group',
 ).create({
-  name: baseCheckboxGroupName,
   model: {
     prop: 'value',
     event: 'change',
@@ -40,13 +36,18 @@ export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>
     childrenChange(value: any, checked: boolean) {
       const valueIndex = this.result.indexOf(value);
       if (checked && valueIndex < 0) {
-        if (this.result.length >= this.max) return;
+        if (this.result.length >= this.max) return false;
         this.result.push(value);
       }
       if (!checked && valueIndex >= 0) {
         this.result.splice(valueIndex, 1);
       }
-      this.$emit('change', this.result, this.selectOptions());
+      if (this.options) {
+        this.$emit('change', this.result, this.selectOptions());
+      } else {
+        this.$emit('change', this.result);
+      }
+      return true;
     },
     isChildChecked(value: any) {
       return this.result.indexOf(value) >= 0;
@@ -66,6 +67,7 @@ export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>
     },
   },
   render() {
+    const root = this.root();
     const { $slots, $scopedSlots, options } = this;
     const content = options && !$slots.default
       ? (
@@ -79,7 +81,7 @@ export default componentFactoryOf<CheckboxGroupEvents, CheckboxGroupScopedSlots>
       )
       : $slots.default;
     return (
-      <div class={baseCheckboxGroupName} role="checkboxgroup">
+      <div class={root} role="checkboxgroup">
         {content}
       </div>
     );

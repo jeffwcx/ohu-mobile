@@ -1,11 +1,5 @@
 $popupHeaderPrefixClass: #{$popupPrefixClass}-header;
 
-$popupHeaderBackground: #FFF;
-$popupHeaderTextFontSize: 32px;
-$popupHeaderColor: $colorTextBase;
-$popupHeaderMinorTextColor: $colorTextMinor;
-$popupHeaderMinorTextFontSize: 28px;
-
 .#{$popupHeaderPrefixClass} {
   padding: 20px 120px 20px 30px;
   display: flex;

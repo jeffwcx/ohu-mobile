@@ -43,7 +43,7 @@ export const basic = () => Vue.extend({
   },
   render() {
     return (
-      <div>
+      <div class="demo">
         <Card shadow>
           <Card.Header>basic</Card.Header>
           <Select v-model={this.v1}
@@ -78,6 +78,22 @@ export const basic = () => Vue.extend({
         <Card shadow>
           <Card.Header>multiple</Card.Header>
           <Select v-model={this.v2}
+            style="min-width: 165px;"
+            title="选择科目"
+            multiple
+            placeholder="选择科目" options={[
+              { label: '艺术', value: '艺术' },
+              { label: '体育', value: '体育' },
+              { label: '科学', value: '科学' },
+              { label: '物理', value: '物理' },
+              { label: '计算机', value: '计算机' },
+              { label: '化学', value: '化学' },
+            ]} />
+        </Card>
+        <Card shadow>
+          <Card.Header>disabled</Card.Header>
+          <Select v-model={this.v2}
+            disabled
             style="min-width: 165px;"
             title="选择科目"
             multiple
@@ -193,7 +209,7 @@ export const outline = () => Vue.extend({
   },
   render() {
     return (
-      <div>
+      <div class="demo">
         <Card shadow>
           <Card.Header>basic</Card.Header>
           <Select outline v-model={this.v1}
@@ -202,6 +218,21 @@ export const outline = () => Vue.extend({
             placeholder="选择科目"
             maxHeight="30vh"
             options={[
+              { label: '艺术', value: '艺术' },
+              { label: '体育', value: '体育' },
+              { label: '科学', value: '科学' },
+              { label: '物理', value: '物理' },
+              { label: '计算机', value: '计算机' },
+              { label: '化学', value: '化学' },
+            ]} />
+        </Card>
+        <Card shadow>
+          <Card.Header>confirm</Card.Header>
+          <Select outline v-model={this.v1}
+            style="min-width: 165px;"
+            title="选择科目"
+            confirm
+            placeholder="选择科目" options={[
               { label: '艺术', value: '艺术' },
               { label: '体育', value: '体育' },
               { label: '科学', value: '科学' },
@@ -296,21 +327,12 @@ export const outline = () => Vue.extend({
             ]} />
         </Card>
         <Card shadow>
-          <Card.Header>popup custom</Card.Header>
+          <Card.Header>fullscreen</Card.Header>
           <Select outline v-model={this.v1}
             style="min-width: 165px;"
             title="选择科目"
             icon={ArrowRightSOutlined}
-            popupProps={{
-              position: 'right',
-              fullscreen: true,
-              mask: false,
-            }}
-            headerProps={{
-              closeIcon: ArrowLeftOutlined,
-              center: true,
-              closeIconPosition: 'left',
-            }}
+            fullScreen
             placeholder="选择科目" options={[
               { label: '艺术', value: '艺术', disabled: true },
               { label: '体育', value: '体育' },

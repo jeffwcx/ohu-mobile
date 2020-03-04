@@ -12,7 +12,7 @@ import CheckList from '@/CheckList';
 import RadioList from '@/RadioList';
 import { RadioOption } from '@/RadioGroup';
 import { CheckboxOption } from '@/CheckboxGroup';
-import { ArrowRightOutlined } from '~/icons/index';
+import { ArrowRightOutlined, ArrowRightSOutlined, FolderOutlined } from '~/icons/index';
 
 export default {
   title: 'Components|DataDisplay/List',
@@ -92,7 +92,7 @@ export const finished = () => Vue.extend({
           text="解放院区"
           minorText="浙江杭州市解放路88号">
           <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
-          <Icon slot="action" type="arrow-right-s" />
+          <Icon slot="action" type={ArrowRightSOutlined} />
         </List.Item>
       </List>
     );
@@ -149,13 +149,13 @@ export const thumb = () => Vue.extend({
         <List.Item button
           text="解放院区"
           minorText="浙江杭州市解放路88号">
-          <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
+          <img slot="thumb" style="object-fit: contain; width: 90px;" src="http://via.placeholder.com/240x144/EEEEEE" />
           <Icon slot="action" type="arrow-right-s" />
         </List.Item>
         <List.Item button
           text="解放院区"
           minorText="浙江杭州市解放路88号">
-          <img slot="thumb" style="object-fit: contain; width: 120px;" src="http://via.placeholder.com/240x144/EEEEEE" />
+          <img slot="thumb" style="object-fit: contain; width: 90px;" src="http://via.placeholder.com/240x144/EEEEEE" />
           <Icon slot="action" type="arrow-right-s" />
         </List.Item>
       </List>
@@ -169,18 +169,18 @@ export const icon = () => Vue.extend({
       <List>
         <List.Item button
           text="芬兰 | 副主任医师">
-          <Icon slot="icon" type="folder" color="#999"></Icon>
-          <Icon type="arrow-right-s" slot="action"></Icon>
+          <Icon slot="icon" type={FolderOutlined} color="#999"></Icon>
+          <Icon type={ArrowRightSOutlined} slot="action"></Icon>
         </List.Item>
         <List.Item button
           text="芬兰 | 副主任医师">
-          <Icon slot="icon" type="folder" color="#999"></Icon>
-          <Icon type="arrow-right-s" slot="action"></Icon>
+          <Icon slot="icon" type={FolderOutlined} color="#999"></Icon>
+          <Icon type={ArrowRightSOutlined} slot="action"></Icon>
         </List.Item>
         <List.Item button
           text="芬兰 | 副主任医师">
-          <Icon slot="icon" type="folder" color="#999"></Icon>
-          <Icon type="arrow-right-s" slot="action"></Icon>
+          <Icon slot="icon" type={FolderOutlined} color="#999"></Icon>
+          <Icon type={ArrowRightSOutlined} slot="action"></Icon>
         </List.Item>
       </List>
     );
@@ -190,16 +190,42 @@ export const icon = () => Vue.extend({
 export const subheader = () => Vue.extend({
   data() {
     return {
-      list: new Array(4).fill(new Array(8).fill({
+      list: new Array(1).fill(new Array(8).fill({
         text: '张斌 | 副主任医师',
         minorText: '擅长：肺结核、肺癌、胸腔积液、慢性咳嗽'
       })),
       top: 0,
+      count: 0,
+      load: false,
+      finished: false,
     };
   },
   render() {
     return (
-      <List>
+      <List style="height: 80vh; overflow: scroll;"
+        infinite
+        finished={this.finished}
+        loading={this.load}
+        scrollContainer={(self) => {
+          return self.$el;
+        }}
+        onInfinite={() => {
+          if (this.load || this.finished) {
+            return;
+          }
+          this.load = true;
+          console.log('开始请求');
+          setTimeout(() => {
+            this.list.push(new Array(8).fill({
+              text: '张斌 | 副主任医师',
+              minorText: '擅长：肺结核、肺癌、胸腔积液、慢性咳嗽'
+            }));
+            if (this.list.length === 8) {
+              this.finished = true;
+            }
+            this.load = false;
+          }, 1500);
+        }}>
         {
           this.list.map((items: any[], index: number) => {
             return (

@@ -1,13 +1,10 @@
-import { component } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import Sticky from '../Sticky';
-import { $prefix } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
+import { ListSubheaderProps } from './types';
 
 
-const baseListSubheaderName = `${$prefix}list-subheader`;
 
-export default component({
-  name: baseListSubheaderName,
+export default defineComponent<ListSubheaderProps>('list-subheader').create({
   props: {
     sticky: props(Boolean).default(false),
   },
@@ -23,14 +20,12 @@ export default component({
   },
   render() {
     const { $slots, sticky } = this;
+    const root = this.root();
     if (sticky) {
-      const rootClass = {
-        [baseListSubheaderName]: true,
-        [`is-${this.state}`]: true,
-      };
+      root.is(this.state);
       return (
         <Sticky
-          class={rootClass}
+          class={root}
           onFixed={this.setState}
           onStuck={this.setState}
           onNormal={this.setState}>
@@ -39,7 +34,7 @@ export default component({
       );
     }
     return (
-      <div class={baseListSubheaderName}>
+      <div class={root}>
         {$slots.default}
       </div>
     );

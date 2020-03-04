@@ -1,30 +1,24 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import Button from '../Button';
-import { ArrowLeftOutlined } from '@ohu-mobile/icons';
 import { VNodeData } from 'vue';
+import { BackOutlined } from '@ohu-mobile/icons';
 import Divider from '../Divider';
-import { NavBarEvents } from './types';
-import { $prefix, $colorBorderBase } from '../_config/variables';
+import { NavBarEvents, NavBarProps } from './types';
+import { $navBarBorderColor } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
 
 
-const baseNavBarName = `${$prefix}nav-bar`;
-const navBarInner = `${$prefix}nav-bar-inner`;
-const navBarLeftCls = `${baseNavBarName}__left`;
-const navBarCenterCls = `${baseNavBarName}__center`;
-const navBarTitleCls = `${baseNavBarName}__title`;
-const navBarRightCls = `${baseNavBarName}__right`;
-const NavBar = componentFactoryOf<NavBarEvents>().create({
-  name: baseNavBarName,
+const NavBar = defineComponent<NavBarProps, NavBarEvents>('nav-bar').create({
   props: {
     type: props.ofStringLiterals('light', 'primary').default('light'),
     title: String,
     leftArrow: props(Boolean).default(false),
     leftText: String,
     divider: props(Boolean).default(false),
+    segmentation: props<Array<number>>(Array).default(() => []),
   },
   render() {
-    const { $slots, title, leftArrow, leftText, divider, type } = this;
+    const root = this.root();
+    const { $slots, title, leftArrow, leftText, divider, type, segmentation } = this;
     let leftArea;
     if ($slots.left) {
       leftArea = $slots.left;
@@ -42,28 +36,33 @@ const NavBar = componentFactoryOf<NavBarEvents>().create({
         },
       };
       if (leftArrow && btnProps.props) {
-        btnProps.props.icon = ArrowLeftOutlined;
+        btnProps.props.icon = BackOutlined;
       }
       leftArea = <Button {...btnProps}>{ leftText }</Button>
     }
     let centerArea;
     if (title) {
-      centerArea = <div class={navBarTitleCls}>{ title }</div>;
+      centerArea = <div class={root.element('title')}>{ title }</div>;
     } else if ($slots.default) {
       centerArea = $slots.default;
     }
-    const navBarCls = {
-      [baseNavBarName]: true,
-      [`is-${type}`]: true
-    };
+    root.is(type);
+    const leftStyle: Partial<CSSStyleDeclaration> = {};
+    const centerStyle: Partial<CSSStyleDeclaration> = {};
+    const rightStyle: Partial<CSSStyleDeclaration> = {};
+    const [left = 1, center = 4, right = 1] = segmentation;
+    const sum = left + center + right;
+    leftStyle.width = `${left * 100 / sum}%`;
+    centerStyle.width = `${center * 100 / sum}%`;
+    rightStyle.width = `${right * 100 / sum}%`;
     return (
-      <div class={navBarCls}>
-        <div class={navBarInner}>
-          <div class={navBarLeftCls}>{ leftArea }</div>
-          <div class={navBarCenterCls}>{ centerArea }</div>
-          <div class={navBarRightCls}>{ $slots.right }</div>
+      <div class={root}>
+        <div class={root.block('inner')}>
+          <div class={root.element('left')} style={leftStyle}>{ leftArea }</div>
+          <div class={root.element('center')} style={centerStyle}>{ centerArea }</div>
+          <div class={root.element('right')} style={rightStyle}>{ $slots.right }</div>
         </div>
-        { divider && <Divider color={$colorBorderBase}></Divider> }
+        { divider && <Divider color={$navBarBorderColor}></Divider> }
       </div>
     );
   },

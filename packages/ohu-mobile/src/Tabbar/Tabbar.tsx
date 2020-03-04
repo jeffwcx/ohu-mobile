@@ -60,10 +60,11 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
     computeChildrenRect() {
       this.childrenRects = this.$children.map((child) => {
         const el = child.$el;
+        const { width, height } = el.getBoundingClientRect();
         return {
           key: (child as any).selfKey,
-          width: el.clientWidth,
-          height: el.clientHeight,
+          width,
+          height,
         };
       });
     },

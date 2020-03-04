@@ -9,6 +9,7 @@ export interface TagProps {
   fontColor?: string;
   deleteable?: boolean;
   outline?: boolean;
+  disabled?: boolean;
 }
 
 export interface TagEvents {

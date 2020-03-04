@@ -1,20 +1,8 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import { VNodeData } from 'vue';
-import { ListItemEvents } from './types';
-import { $prefix } from '../_config/variables';
+import { ListItemEvents, ListItemProps } from './types';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-const baseListItemName = `${$prefix}list-item`;
-const listItemAvatarCls = `${baseListItemName}-avatar`;
-const listItemThumbCls = `${baseListItemName}-thumb`;
-const listItemIconCls = `${baseListItemName}-icon`;
-const listItemMainCls = `${baseListItemName}__main`;
-const listItemTextCls = `${baseListItemName}-text`;
-const listItemTextPrimaryCls = `${listItemTextCls}__primary`;
-const listItemTextMinorCls = `${listItemTextCls}__minor`;
-const listItemActionCls = `${baseListItemName}-action`;
-export default componentFactoryOf<ListItemEvents>().create({
-  name: baseListItemName,
+export default defineComponent<ListItemProps, ListItemEvents>('list-item').create({
   props: {
     text: String,
     minorText: String,
@@ -22,20 +10,30 @@ export default componentFactoryOf<ListItemEvents>().create({
     button: props(Boolean).default(false),
     divider: props(Boolean).default(true),
     paddingDivider: props(Boolean).default(true),
+    layoutReverse: props(Boolean).default(false),
   },
   render() {
-    const { $slots, text, minorText, button, divider, disabled, paddingDivider } = this;
+    const {
+      $slots,
+      text, minorText,
+      button, divider,
+      disabled, paddingDivider,
+      layoutReverse,
+    } = this;
     const hasAction = !!$slots.action;
-    const rootClass = {
-      [baseListItemName]: true,
-      'has-action': hasAction,
-      'is-button': button,
-      'has-divider': divider,
-      'is-disabled': disabled,
-      'has-divider-padding': paddingDivider,
-    };
+    const root = this.root();
+    root.has([
+      hasAction && 'action',
+      divider && 'divider',
+      paddingDivider && 'divider-padding',
+    ]);
+    root.is([
+      button && 'button',
+      disabled && 'disabled',
+      layoutReverse && 'reverse',
+    ]);
     const props: VNodeData = {
-      class: rootClass,
+      class: root,
     };
     if (button) {
       props.on = {
@@ -50,46 +48,47 @@ export default componentFactoryOf<ListItemEvents>().create({
     }
     const textNode = $slots.text || text;
     const minorTextNode = $slots.minorText || minorText;
+    let textClass = root.block('text');
     const centerNode = $slots.default
       ? $slots.default
       : (
-        <div class={listItemTextCls}>
+        <div class={textClass}>
           {
             textNode
             &&
-            <span class={listItemTextPrimaryCls}>{textNode}</span>
+            <span class={textClass.element('primary')}>{textNode}</span>
           }
           {
             minorTextNode
             &&
-            <p class={listItemTextMinorCls}>{minorTextNode}</p>
+            <p class={textClass.element('minor')}>{minorTextNode}</p>
           }
         </div>
       );
     return (
       <li {...props}>
-        <div class={listItemMainCls}>
+        <div class={root.element('main')}>
           {
             $slots.thumb
             &&
-            <div class={listItemThumbCls}>{$slots.thumb}</div>
+            <div class={root.block('thumb')}>{$slots.thumb}</div>
           }
           {
             $slots.avatar
             &&
-            <div class={listItemAvatarCls}>{$slots.avatar}</div>
+            <div class={root.block('avatar')}>{$slots.avatar}</div>
           }
           {
             $slots.icon
             &&
-            <div class={listItemIconCls}>{$slots.icon}</div>
+            <div class={root.block('icon')}>{$slots.icon}</div>
           }
           {centerNode}
         </div>
         {
           hasAction
           &&
-          <div class={listItemActionCls}>
+          <div class={root.block('action')}>
             { $slots.action }
           </div>
         }

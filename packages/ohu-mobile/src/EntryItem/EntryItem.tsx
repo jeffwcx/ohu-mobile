@@ -33,6 +33,17 @@ export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').cr
         replace ? window.location.replace(url) : window.location.href = url;
       }
     },
+    wrapBadge(vnode: VNode[] | VNode | string) {
+      const { badge } = this;
+      if (badge === undefined) return;
+      let badgeProps: BadgeProps = {};
+      if (typeof badge === 'string' || typeof badge === 'number') {
+        badgeProps.text = badge;
+      } else {
+        badgeProps = badge;
+      }
+      return <Badge {...{ props: badgeProps }}>{vnode}</Badge>
+    },
   },
   render() {
     const root = this.root();
@@ -46,7 +57,7 @@ export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').cr
       iconStyle.width = iconSize;
       iconStyle.height = iconSize;
     }
-    const textContent = $slots.default || text;
+    let textContent: string | VNode[] | VNode | undefined = $slots.default || text;
     let iconArea: VNode[] | VNode | undefined = $slots.icon;
     if (!iconArea) {
       if (icon) {
@@ -57,13 +68,10 @@ export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').cr
       }
     }
     if (badge && iconArea) {
-      let badgeProps: BadgeProps = {};
-      if (typeof badge === 'string' || typeof badge === 'number') {
-        badgeProps.text = badge;
-      } else {
-        badgeProps = badge;
-      }
-      iconArea = <Badge {...{ props: badgeProps }}>{iconArea}</Badge>
+      iconArea = this.wrapBadge(iconArea);
+    }
+    if (!iconArea && badge && textContent) {
+      textContent = this.wrapBadge(textContent);
     }
     return (
       <div class={root} onClick={this.onClick} role="button">

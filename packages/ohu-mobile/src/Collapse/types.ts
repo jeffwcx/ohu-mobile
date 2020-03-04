@@ -22,4 +22,7 @@ export interface CollapseItemProps {
   disabled?: boolean;
 }
 
-export interface CollapseItemEvents {}
+export interface CollapseItemEvents {
+  onExpand: boolean;
+  onShrink: boolean;
+}

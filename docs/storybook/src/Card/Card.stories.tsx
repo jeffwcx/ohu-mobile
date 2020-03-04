@@ -70,7 +70,7 @@ export const boldHeader = () => ({
         <Card divider style="margin-bottom: 10px;" borderless>
           <Card.Header status="success" bold>
             常用工具
-            <Button type="link" slot="extra" size="sm">更多 > </Button>
+            <Button link slot="extra" size="sm">更多 > </Button>
           </Card.Header>
           这就是内容部分了。
         </Card>
@@ -91,3 +91,17 @@ export const withShadow = () => ({
     );
   }
 });
+
+export const noPadding = () => ({
+  render() {
+    return (
+      <div style="padding: 10px; background: #F5F5F5;">
+        <Card divider style="margin-bottom: 10px;" shadow padding={false}>
+          <Card.Header status="success" extra="已支付">订单状态</Card.Header>
+          you see
+        </Card>
+      </div>
+    );
+  }
+});
+

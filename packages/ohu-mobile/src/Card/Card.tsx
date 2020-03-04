@@ -1,30 +1,24 @@
-import { componentFactory } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import { getVNodesByName } from '../_utils/vnode';
 import { cardHeaderBaseName } from './CardHeader';
-import { $prefix } from '../_config/variables';
 import Divider from '../Divider';
+import { CardProps } from './types';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-const cardBaseName = `${$prefix}card`;
-const cardContentCls = `${cardBaseName}__content`;
-const Card = componentFactory.create({
-  name: cardBaseName,
+const Card = defineComponent<CardProps>('card').create({
   props: {
     shadow: props(Boolean).default(false),
     borderless: props(Boolean).default(false),
     divider: props(Boolean).default(false),
-  },
-  computed: {
-    cls() {
-      return {
-        [cardBaseName]: true,
-        'has-shadow': !this.borderless && this.shadow,
-        'has-radius': !this.borderless,
-      };
-    },
+    padding: props(Boolean).default(true),
   },
   render() {
-    const { cls, $slots, divider } = this;
+    const root= this.root();
+    const { $slots, divider } = this;
+    root.has([
+      (!this.borderless && this.shadow) && 'shadow',
+      !this.borderless && 'radius',
+      this.padding && 'padding',
+    ]);
     // detect card-header, extra other vnode as content
     if ($slots.default instanceof Array) {
       const headerNodes = getVNodesByName($slots.default, cardHeaderBaseName);
@@ -33,13 +27,13 @@ const Card = componentFactory.create({
           return name !== cardHeaderBaseName;
         });
         return (
-          <div class={cls}>
+          <div class={root}>
             {headerNodes}
             { divider && <Divider></Divider> }
             {
               contentNodes.length > 0
               &&
-              <div class={cardContentCls}>
+              <div class={root.element('content')}>
                 { contentNodes }
               </div>
             }
@@ -48,8 +42,8 @@ const Card = componentFactory.create({
       }
     }
     return (
-      <div class={cls}>
-        <div class={cardContentCls}>
+      <div class={root}>
+        <div class={root.element('content')}>
           {$slots.default}
         </div>
       </div>

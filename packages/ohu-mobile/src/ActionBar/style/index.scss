@@ -2,10 +2,9 @@
 @import '../../_styles/mixins.scss';
 
 $actionBarPrefixClass: #{$prefix}action-bar;
-$actionBarBackground: #FFF;
 
 .#{$actionBarPrefixClass} {
-  padding: 20px 32px;
+  padding: $actionBarPadding;
   display: flex;
   flex-flow: row nowrap;
   &-wrapper {
@@ -16,12 +15,13 @@ $actionBarBackground: #FFF;
     flex-flow: row nowrap;
     align-items: center;
     overflow: hidden;
+    font-size: $actionBarFontSize;
   }
   &.is-normal {
     .#{$prefix}btn {
       flex: 1;
-      &:nth-of-type(1n+2) {
-        margin-left: 22px;
+      &:nth-of-type(n+2) {
+        margin-left: $actionBarButtonGap;
       }
     }
     .#{$actionBarPrefixClass}__text {
@@ -30,9 +30,9 @@ $actionBarBackground: #FFF;
   }
   &.is-toolbar {
     justify-content: space-between;
-    padding: 20px 16px;
+    padding: $actionBarToolBarPadding;
     .#{$prefix}btn {
-      font-size: 32px;
+      font-size: $actionBarFontSize;
     }
   }
 }

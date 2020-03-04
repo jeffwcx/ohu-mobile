@@ -15,6 +15,7 @@ $noticeBarPrefixClass: #{$prefix}notice-bar;
 .#{$noticeBarPrefixClass} {
   position: relative;
   padding: $noticeBarPadding 30px;
+  font-size: $noticeBarFontSize;
   &.is-default {
     background: $noticeBarDefaultBackground;
     color: $noticeBarDefaultColor;
@@ -40,7 +41,6 @@ $noticeBarPrefixClass: #{$prefix}notice-bar;
     justify-content: center;
   }
   &__text {
-    font-size: $noticeBarFontSize;
     line-height: 1.43em;
     &.is-inline {
       overflow: hidden;

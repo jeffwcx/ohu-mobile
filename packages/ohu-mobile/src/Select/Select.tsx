@@ -2,13 +2,15 @@ import { defineComponent, props } from '../_utils/defineComponent';
 import { SelectProps, SelectEvents, SelectOption, SelectScopedSlots } from './types';
 import Popup, { PopupProps, PopupHeaderProps } from '../Popup';
 import RadioList from '../RadioList';
-import { CheckOutlined, ArrowDownSFilled } from '@ohu-mobile/icons';
+import { CheckOutlined, ArrowDownSFilled, BackOutlined, ArrowRightSOutlined } from '@ohu-mobile/icons';
 import CheckList from '../CheckList';
 import Icon from '../Icon';
 import { IconDef } from '../types';
 import { SyntheticEvent, SelectHTMLAttributes } from 'vue-tsx-support/types/dom';
 import { BlockContext } from '../_utils/classHelper';
 import { VNodeData } from 'vue/types/umd';
+import { RadioOption } from '../RadioGroup';
+import { CheckboxOption } from '../CheckboxGroup';
 
 interface SelectMethods {
   unconfirmStateValue: any | any[] | undefined;
@@ -22,9 +24,21 @@ const defaultPopupProps: PopupProps = {
   round: true,
 };
 
+const fullScreenPopupProps: PopupProps = {
+  position: 'right',
+  fullscreen: true,
+  mask: false,
+};
+
 const defaultPopupHeaderProps: PopupHeaderProps = {
   center: true,
 }
+
+const fullScreenPopupHeaderProps: PopupHeaderProps = {
+  closeIcon: BackOutlined,
+  closeIconPosition: 'left',
+  center: true,
+};
 
 export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, SelectMethods>(
   'select'
@@ -35,20 +49,23 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
   },
   props: {
     name: String,
+    visible: props(Boolean).default(false),
     value: props.ofType<any | any[]>().optional,
     options: props.ofType<SelectOption[]>().default(() => []),
     title: props(String).optional,
     multiple: props(Boolean).default(false),
     placeholder: props(String).optional,
-    icon: props.ofType<IconDef>().default(() => ArrowDownSFilled),
+    icon: props.ofType<IconDef | null>().optional,
     confirm: props(Boolean).default(false),
     minHeight: props(String).default('auto'),
     maxHeight: props(String).default('auto'),
     native: props(Boolean).default(false),
     outline: props(Boolean).default(false),
     noBorder: props(Boolean).default(false),
-    popupProps: props.ofType<PopupProps>().default(() => defaultPopupProps),
-    headerProps: props.ofType<PopupHeaderProps>().default(() => defaultPopupHeaderProps),
+    fullScreen: props(Boolean).default(false),
+    popupProps: props.ofType<PopupProps>().optional,
+    headerProps: props.ofType<PopupHeaderProps>().optional,
+    disabled: props(Boolean).default(false),
   },
   watch: {
     value(cur) {
@@ -56,6 +73,9 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       const currentOption = this.getCurrentSelectedOption(currentValue);
       this.stateValue = currentValue;
       this.selectedOption = currentOption;
+    },
+    visible(cur) {
+      this.popupVisible = cur;
     },
   },
   computed: {
@@ -73,7 +93,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     const currentValue = this.getCurrentStateValue(this.value);
     const currentOption = this.getCurrentSelectedOption(currentValue);
     return {
-      popupVisible: false,
+      popupVisible: this.disabled ? false : this.visible,
       stateValue: currentValue,
       selectedOption: currentOption,
       unconfirmStateValue: undefined,
@@ -149,7 +169,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
           ?
           <CheckList
             value={this.checkedValue}
-            options={this.options}
+            options={this.options as CheckboxOption[]}
             onChange={this.handleChange}>
           </CheckList>
           :
@@ -157,14 +177,17 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
             value={this.checkedValue}
             checkedIcon={CheckOutlined}
             unCheckedIcon={null}
-            options={this.options}
+            options={this.options as RadioOption[]}
             onChange={this.handleChange}>
           </RadioList>
       );
     },
     renderNative() {
       return (
-        <select name={this.name} onChange={this.handleNativeChange}>
+        <select
+          disabled={this.disabled}
+          name={this.name}
+          onChange={this.handleNativeChange}>
           {
             this.options.map(({ label, value, disabled }) => {
               return (
@@ -181,6 +204,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     renderPopup(popupClass: BlockContext, contentStyle: Partial<CSSStyleDeclaration>) {
       const nodeData: VNodeData = {
         props: {
+          ...(this.fullScreen ? fullScreenPopupProps : defaultPopupProps),
           ...this.popupProps,
           visible: this.popupVisible,
           targetClass: popupClass,
@@ -192,6 +216,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       };
       const headerNodeData = {
         props: {
+          ...(this.fullScreen ? fullScreenPopupHeaderProps : defaultPopupHeaderProps),
           ...this.headerProps,
           confirm: this.shouldConfirm,
         } as PopupHeaderProps,
@@ -215,19 +240,21 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       );
     },
     open() {
-      if (this.native) return;
+      if (this.native || this.disabled) return;
       if (this.shouldConfirm) {
         this.unconfirmStateValue = this.stateValue;
         this.unconfirmSelectedOption = this.selectedOption;
       }
       this.popupVisible = true;
       this.$emit('show');
+      this.$emit('visibleChange', this.popupVisible);
     },
     close() {
       this.popupVisible = false;
       this.unconfirmSelectedOption = undefined;
       this.unconfirmStateValue = undefined;
       this.$emit('hide');
+      this.$emit('visibleChange', this.popupVisible);
     },
   },
   render() {
@@ -235,8 +262,9 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     const {
       placeholder, icon, outline, noBorder,
       maxHeight, minHeight, native,
-      stateValue,
+      stateValue, disabled,
     } = this;
+    root.is([ disabled && 'disabled' ]);
     const inputNode = root.element('input');
     const inputControl = inputNode.element('control');
     const placeholderNode = inputNode.element('placeholder');
@@ -247,6 +275,10 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       minHeight,
       maxHeight,
     };
+    let iconType = icon;
+    if (iconType === undefined) {
+      iconType = this.fullScreen ? ArrowRightSOutlined : ArrowDownSFilled;
+    }
     return (
       <div class={root}>
         {!native && this.renderPopup(popupNode, contentStyle)}
@@ -264,9 +296,13 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
             &&
             <div class={placeholderNode}>{placeholder}</div>
           }
-          <div class={iconNode}>
-            <Icon type={icon} />
-          </div>
+          {
+            iconType
+            &&
+            <div class={iconNode}>
+              <Icon type={iconType} />
+            </div>
+          }
           {
             !native
               ? <input type="hidden" value={stateValue} />

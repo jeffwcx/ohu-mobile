@@ -171,6 +171,7 @@ export default defineComponent<RadioProps, RadioListEvents, RadioListScopedSlots
                 },
                 on: {
                   click: () => {
+                    if (this.disabled) return;
                     const group = this.$refs.group as InstanceType<typeof RadioGroup>;
                     if (group) {
                       group.childrenChange(optionValue, !this.getCheckedStatus(optionValue), checkOption);

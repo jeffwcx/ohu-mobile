@@ -13,7 +13,7 @@ export default {
     defaultFinishedText: '没有更多了',
   },
   OhuImage: {
-    defaultErrorTip: '加载失败，点击重试',
+    defaultErrorTip: '加载失败',
   },
   OhuPopupHeader: {
     confirmText: '确认',

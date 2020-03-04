@@ -1,5 +1,8 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
+
+$navBarPrefixClass: #{$prefix}nav-bar;
+
 @mixin nav-bar-btns($color) {
   > .#{$prefix}btn {
     padding: 0 20px;
@@ -11,22 +14,20 @@
   }
 }
 
-$navBarPrefixClass: #{$prefix}nav-bar;
-
 .#{$navBarPrefixClass} {
   &.is-primary {
-    background: $colorPrimary;
+    background: $navBarPrimaryBackground;
     .#{$navBarPrefixClass}__left {
-      @include nav-bar-btns($colorTextBaseInverse) {
+      @include nav-bar-btns($navBarPrimaryColor) {
         &:active {
-          background: transparent;
+          background: $navBarPrimaryActiveBackground;
         }
       };
     }
     .#{$navBarPrefixClass}__right {
-      @include nav-bar-btns($colorTextBaseInverse) {
+      @include nav-bar-btns($navBarPrimaryColor) {
         &:active {
-          background: transparent;
+          background: $navBarPrimaryActiveBackground;
         }
       };
     }
@@ -36,47 +37,44 @@ $navBarPrefixClass: #{$prefix}nav-bar;
   }
   &-inner {
     display: flex;
-    height: 98px;
+    height: $navBarHeight - 2px;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: space-between;
   }
   &__left {
     height: 100%;
-    flex: 1;
-    padding-left: 20px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    @include nav-bar-btns($colorTextBase) {
+    @include nav-bar-btns($navBarColor) {
       &:active {
-        color: $colorTextBase;
+        color: $navBarColor
       }
     };
   }
   &__center {
-    flex: 1;
     height: 100%;
-    color: $colorTextBase;
+    color: $navBarColor;
   }
   &__title {
     box-sizing: border-box;
-    padding: 24px 0;
+    padding: (($navBarHeight - $navBarTitleLineHeight) / 2) 0;
     text-align: center;
-    font-size: 36px;
-    font-weight: 400;
-    line-height: (50/36) * 1em;
+    font-size: $navBarFontSize;
+    font-weight: normal;
+    line-height: ($navBarTitleLineHeight/$navBarFontSize) * 1em;
+    @include ellipsis;
   }
   &__right {
     height: 100%;
-    flex: 1;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 20px;
-    @include nav-bar-btns($colorTextBase) {
+    @include nav-bar-btns($navBarColor) {
       &:active {
-        color: $colorTextBase;
+        color: $navBarColor;
       }
     };
   }

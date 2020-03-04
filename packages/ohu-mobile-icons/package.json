@@ -37,7 +37,8 @@
     "build": "npm run build:es && npm run build:lib",
     "preg": "npm run build:cli",
     "g": "npm run generate",
-    "generate": "rm -rf ./icons && node ./bin/generate-svg-icons -o \"./icons\" -t \"./scripts/svg-template.art\" \"./remixicon/**/*.svg\" -f --types \"./scripts/svg-types.art\""
+    "generate": "rm -rf ./icons && node ./bin/generate-svg-icons -o \"./icons\" -t \"./scripts/svg-template.art\" \"./remixicon/**/*.svg\" -f --types \"./scripts/svg-types.art\"",
+    "prepublish": "npm run build"
   },
   "bugs": {
     "url": "https://github.com/jeffwcx/ohu-mobile/issues"

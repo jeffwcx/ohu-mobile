@@ -1,5 +1,8 @@
-import { CheckBaseProps, CheckBaseEvents } from '../_checkbase/CheckBase';
+import { SwitchBaseProps, SwitchBaseEvents, SwitchBaseScopedSlots } from '../_internal/SwitchBase';
 
-export interface RadioProps extends CheckBaseProps {}
+export type RadioProps = Omit<SwitchBaseProps, 'indeterminate' | 'indeterminateIcon'>
 
-export interface RadioEvents extends CheckBaseEvents {}
+export interface RadioEvents extends SwitchBaseEvents {}
+
+
+export interface RadioScopedSlots extends SwitchBaseScopedSlots {}

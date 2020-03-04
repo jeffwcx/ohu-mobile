@@ -1,17 +1,25 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $cardPrefixClass: #{$prefix}card;
+$cardBorderRadius: 8px;
+$cardContentPadding: 24px;
+$cardHeaderFontSize: 32px;
 $cardHeaderPrefixClass: #{$cardPrefixClass}-header;
 $cardHeaderTopOffset: 22px;
 $cardHeaderLeftOffset: 24px;
+$cardHeaderExtraFontSize: 32px;
+$cardHeaderExtraColor: $colorTextMinor;
+$cardHeaderExtraErrorColor: $colorTextError;
+$cardHeaderExtraSuccessColor: $colorTextHighlight;
+$cardHeaderBoldFontSize: 36px;
 
 .#{$cardPrefixClass} {
   background: $cardBackground;
-  &__content {
-    padding: 24px;
+  &.has-padding &__content {
+    padding: $cardContentPadding;
   }
   &.has-radius {
-    border-radius: 8px;
+    border-radius: $cardBorderRadius;
   }
   &.has-shadow {
     box-shadow: $cardBoxShadow;
@@ -21,30 +29,30 @@ $cardHeaderLeftOffset: 24px;
 .#{$cardHeaderPrefixClass} {
   position: relative;
   padding: $cardHeaderTopOffset $cardHeaderLeftOffset;
-  font-size: 32px;
+  font-size: $cardHeaderFontSize;
   line-height: 1.375em;
   color: $colorTextBase;
   font-weight: 400;
   &__extra {
     @include center(y);
     right: $cardHeaderLeftOffset;
-    color: $colorTextMinor;
-    font-size: 32px;
+    color: $cardHeaderExtraColor;
+    font-size: $cardHeaderExtraFontSize;
   }
   &.is-bold {
-    font-size: 36px;
+    font-size: $cardHeaderBoldFontSize;
     line-height: 1.38888889em;
     font-weight: bold;
   }
   // ================== state ==================
   &.is-error {
     .#{$cardHeaderPrefixClass}__extra {
-      color: $colorTextError;
+      color: $cardHeaderExtraErrorColor;
     }
   }
   &.is-success {
     .#{$cardHeaderPrefixClass}__extra {
-      color: $colorTextHighlight;
+      color: $cardHeaderExtraSuccessColor;
     }
   }
 }

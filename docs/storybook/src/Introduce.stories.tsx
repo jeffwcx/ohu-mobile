@@ -1,4 +1,5 @@
 import docs from '../../../README.md';
+import * as variables from '@/_config/variables';
 import MarkdownIt from 'markdown-it';
 import props from 'vue-strict-prop';
 import { component } from 'vue-tsx-support';
@@ -59,4 +60,20 @@ export const README = () => ({
       <Markdown source={docs}></Markdown>
     );
   },
+});
+
+let vars: Record<string, string | number> = variables;
+let varstr = Object.keys(vars).map((key) => `${key}: ${vars[key]};`).join('\n\n');
+export const theme = () => ({
+
+  render() {
+    const source = `
+\`\`\`
+${varstr}
+\`\`\`
+    `;
+    return (
+      <Markdown source={source}></Markdown>
+    );
+  }
 });
