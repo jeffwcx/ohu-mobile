@@ -5,7 +5,7 @@ exports[`Bottom DOM structure 1`] = `
   class="ohu-bottom"
 >
   <div
-    class="ohu-card has-radius"
+    class="ohu-card has-radius has-padding"
   >
     <div
       class="ohu-card__content"

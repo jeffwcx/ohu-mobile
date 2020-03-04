@@ -1,17 +1,7 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $cardPrefixClass: #{$prefix}card;
-$cardBorderRadius: 8px;
-$cardContentPadding: 24px;
-$cardHeaderFontSize: 32px;
 $cardHeaderPrefixClass: #{$cardPrefixClass}-header;
-$cardHeaderTopOffset: 22px;
-$cardHeaderLeftOffset: 24px;
-$cardHeaderExtraFontSize: 32px;
-$cardHeaderExtraColor: $colorTextMinor;
-$cardHeaderExtraErrorColor: $colorTextError;
-$cardHeaderExtraSuccessColor: $colorTextHighlight;
-$cardHeaderBoldFontSize: 36px;
 
 .#{$cardPrefixClass} {
   background: $cardBackground;

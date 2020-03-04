@@ -59,6 +59,16 @@ export let $buttonSizeSm: string = process.env.$buttonSizeSm || '64px';
 // Component/Card
 export let $cardBackground: string = process.env.$cardBackground || '#FFF';
 export let $cardBoxShadow: string = process.env.$cardBoxShadow || '0px 4px 20px 0px rgba(153,153,153,0.2)';
+export let $cardBorderRadius: string = process.env.$cardBorderRadius || '8px';
+export let $cardContentPadding: string = process.env.$cardContentPadding || '24px';
+export let $cardHeaderFontSize: string =  process.env.$cardHeaderFontSize || '32px';
+export let $cardHeaderTopOffset: string = process.env.$cardHeaderTopOffset || '22px';
+export let $cardHeaderLeftOffset: string = process.env.$cardHeaderLeftOffset || '24px';
+export let $cardHeaderExtraFontSize: string = process.env.$cardHeaderExtraFontSize || '32px';
+export let $cardHeaderExtraColor: string = process.env.$cardHeaderExtraColor || $colorTextMinor;
+export let $cardHeaderExtraErrorColor: string = process.env.$cardHeaderExtraErrorColor || $colorTextError;
+export let $cardHeaderExtraSuccessColor: string = process.env.$cardHeaderExtraSuccessColor || $colorTextHighlight;
+export let $cardHeaderBoldFontSize: string = process.env.$cardHeaderBoldFontSize || '36px';
 
 // Component/Skeleton
 export let $skeletonBackground: string = process.env.$skeletonBackground || $colorBackgroundBase;
