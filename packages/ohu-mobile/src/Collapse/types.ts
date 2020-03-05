@@ -20,9 +20,10 @@ export interface CollapseItemProps {
   title?: string;
   hasList?: boolean;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 export interface CollapseItemEvents {
-  onExpand: boolean;
-  onShrink: boolean;
+  onExpand: string | number;
+  onShrink: string | number;
 }

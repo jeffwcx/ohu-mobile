@@ -229,8 +229,22 @@ export let $navBarBorderColor: string = process.env.$navBarBorderColor || $color
 
 
 // Component/ActionBar
-export let $actionBarBackground = process.env.$actionBarBackground || '#FFF';
-export let $actionBarPadding = process.env.$actionBarPadding || '20px 32px';
-export let $actionBarToolBarPadding =  process.env.$actionBarToolBarPadding || '8px 16px 12px 16px';
-export let $actionBarFontSize = process.env.$actionBarFontSize || '32px';
-export let $actionBarButtonGap = process.env.$actionBarButtonGap || '22px';
+export let $actionBarBackground: string = process.env.$actionBarBackground || '#FFF';
+export let $actionBarPadding: string = process.env.$actionBarPadding || '20px 32px';
+export let $actionBarToolBarPadding: string =  process.env.$actionBarToolBarPadding || '8px 16px 12px 16px';
+export let $actionBarFontSize: string = process.env.$actionBarFontSize || '32px';
+export let $actionBarButtonGap: string = process.env.$actionBarButtonGap || '22px';
+
+
+// Compoment/TreeSelect
+
+export let $treeSelectLeftColor: string = process.env.$treeSelectLeftColor || $colorTextBase;
+export let $treeSelectLeftBackground: string = process.env.$treeSelectLeftBackground || $colorBackgroundBase;
+export let $treeSelectLeftActiveColor: string = process.env.$treeSelectLeftActiveColor || $colorTextBase;
+export let $treeSelectLeftActiveBackground: string = process.env.$treeSelectLeftActiveBackground || '#FFF';
+export let $treeSelectItemPadding: string = process.env.$treeSelectItemPadding || '26px 32px 30px 32px';
+export let $treeSelectItemFontSize: string = process.env.$treeSelectItemFontSize || '32px';
+export let $treeSelectRightColor: string = process.env.$treeSelectRightColor || $colorTextBase;
+export let $treeSelectRightBackground: string = process.env.$treeSelectRightBackground || '#FFF';
+export let $treeSelectRightActiveColor: string = process.env.$treeSelectRightActiveColor || $colorPrimary;
+export let $treeSelectCollapseColor: string = process.env.$treeSelectCollapseColor || $colorTextMinor;

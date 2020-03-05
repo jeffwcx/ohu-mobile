@@ -5,6 +5,7 @@ import Icon from '../Icon';
 import Divider from '../Divider';
 import animate from '../_utils/animate';
 import { easeOutQuint } from '../_utils/easing';
+import { LoaderTailOutlined } from '@ohu-mobile/icons';
 
 interface CollapseItemMethods {
   getExpandState: () => boolean;
@@ -18,6 +19,7 @@ export default defineDescendantComponent<InstanceType<typeof Collapse>, Collapse
     title: props(String).default(''),
     hasList: props(Boolean).default(false),
     disabled: props(Boolean).default(false),
+    loading: props(Boolean).default(false),
   },
   computed: {
     expandState() {
@@ -39,15 +41,16 @@ export default defineDescendantComponent<InstanceType<typeof Collapse>, Collapse
       return value instanceof Array ? value.indexOf(key) >= 0 : value === key;
     },
     handleHeaderClick(expandState: boolean) {
+      if (this.loading) return;
       if (this.disabled) return;
       const key = this.$vnode.key;
       if (key) {
         this.ancestor.itemChange(key, !expandState);
       }
       if (this.expandState) {
-        this.$emit('expand');
+        this.$emit('expand', key);
       } else {
-        this.$emit('shrink');
+        this.$emit('shrink', key);
       }
     },
     beforeContentEnter(el: HTMLElement) {
@@ -103,9 +106,17 @@ export default defineDescendantComponent<InstanceType<typeof Collapse>, Collapse
           </div>
           {
             ancestor.expandIcon
+            && !this.loading
+            &&
+            <div class={header.element('icon').is([expandState && 'expand'])}>
+              <Icon type={ancestor.expandIcon}></Icon>
+            </div>
+          }
+          {
+            this.loading
             &&
             <div class={header.element('icon')}>
-              <Icon type={ancestor.expandIcon}></Icon>
+              <Icon type={LoaderTailOutlined} spin></Icon>
             </div>
           }
         </div>

@@ -30,6 +30,9 @@ $collapsePrefixClass: #{$prefix}collapse;
         color: $collapseExpandIconColor;
         transition: all 400ms easing(out-quint);
         transform: rotate(0);
+        &.is-expand {
+          transform: rotate(-180deg);
+        }
         > .#{$prefix}icon {
           transform: scale(1.2, 1.2);
         }
@@ -67,11 +70,6 @@ $collapsePrefixClass: #{$prefix}collapse;
             }
           }
         }
-      }
-    }
-    &.is-expand {
-      .#{$collapsePrefixClass}-item__header__icon {
-        transform: rotate(-180deg);
       }
     }
     &.is-disabled {

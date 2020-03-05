@@ -3,3 +3,68 @@
 
 $treeSelectPrefixClass: #{$prefix}tree-select;
 
+.#{$treeSelectPrefixClass} {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  &__left {
+    flex-shrink: 0;
+    flex-grow: 0;
+    height: 100%;
+    background: $treeSelectLeftBackground;
+    color: $treeSelectLeftColor;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    &__item {
+      font-size: $treeSelectItemFontSize;
+      line-height: (44 / 32) * 1em;
+      padding: $treeSelectItemPadding;
+      color: $treeSelectLeftColor;
+      transition: all .2s ease-out;
+      &.is-active {
+        color: $treeSelectLeftActiveColor;
+        background: $treeSelectLeftActiveBackground;
+      }
+    }
+  }
+  &__right {
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 100%;
+    background: $treeSelectRightBackground;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    &__loading {
+      width: 100%;
+      height: 70%;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .#{$prefix}collapse-item__content__inner {
+      padding: 0;
+      color: $treeSelectCollapseColor;
+      .#{$prefix}list-item__main {
+        color: $treeSelectCollapseColor;
+      }
+    }
+    .#{$prefix}list-item-action {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      left: 0;
+      top: 0;
+      label {
+        box-sizing: border-box;
+        padding-right: 30px;
+        width: 100%;
+        height: 100%;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

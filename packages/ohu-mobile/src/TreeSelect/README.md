@@ -1,7 +1,6 @@
 # TreeSelect
 
-Tabbar + CheckList/RadioList = TreeSelect
-
+Limited number of data loads. For unlimited situation, use `Cascader`.
 
 # Usage
 

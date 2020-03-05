@@ -41,6 +41,9 @@ import Input from './Input';
 import Cascader from './Cascader';
 import Tabs from './Tabs';
 import Tab from './Tab';
+import CheckTag from './CheckTag';
+import RadioTag from './RadioTag';
+import TreeSelect from './TreeSelect';
 
 const components = [
   Icon,
@@ -84,6 +87,9 @@ const components = [
   Cascader,
   Tabs,
   Tab,
+  CheckTag,
+  RadioTag,
+  TreeSelect,
 ];
 
 // global use ui library
@@ -136,6 +142,9 @@ export {
   Cascader,
   Tabs,
   Tab,
+  CheckTag,
+  RadioTag,
+  TreeSelect,
 };
 
 export * from './Icon';
@@ -177,6 +186,9 @@ export * from './NoticeBar';
 export * from './Input';
 export * from './Cascader';
 export * from './Tabs';
+export * from './CheckTag';
+export * from './RadioTag';
+export * from './TreeSelect';
 export * from './types';
 export * from './vueTypes';
 
