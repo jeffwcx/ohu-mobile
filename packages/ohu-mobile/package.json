@@ -43,7 +43,7 @@
     "build:components": "npm run build:lib && npm run build:lib-rem",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "prepublish": "npm run build:components"
+    "prepublish": "npm run build:components && npm run test"
   },
   "bugs": {
     "url": "https://github.com/jeffwcx/ohu-mobile/issues"
