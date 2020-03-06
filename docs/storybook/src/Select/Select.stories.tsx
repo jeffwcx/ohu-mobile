@@ -8,6 +8,8 @@ import Card from '@/Card';
 import '@/Card/style';
 import Dialog from '@/Dialog';
 import '@/Dialog/style';
+import Toast from '@/Toast';
+import '@/Toast/style';
 import { ArrowLeftOutlined, ArrowRightSOutlined } from '~/icons/index';
 
 
@@ -63,9 +65,10 @@ export const basic = () => Vue.extend({
         <Card shadow>
           <Card.Header>confirm</Card.Header>
           <Select v-model={this.v1}
-            style="min-width: 165px;"
+            style="width: 100%;"
             title="选择科目"
             confirm
+            allowClear
             placeholder="选择科目" options={[
               { label: '艺术', value: '艺术' },
               { label: '体育', value: '体育' },
@@ -197,6 +200,7 @@ export const outline = () => Vue.extend({
       v1: '艺术',
       v2: ['体育', '科学'],
       v3: '计算机',
+      v: false,
     };
   },
   methods: {
@@ -215,6 +219,7 @@ export const outline = () => Vue.extend({
           <Select outline v-model={this.v1}
             style="min-width: 165px;"
             title="选择科目"
+            visible={this.v}
             placeholder="选择科目"
             maxHeight="30vh"
             options={[
@@ -263,6 +268,31 @@ export const outline = () => Vue.extend({
             title="选择科目"
             multiple
             placeholder="选择科目" options={[
+              { label: '艺术', value: '艺术' },
+              { label: '体育', value: '体育' },
+              { label: '科学', value: '科学' },
+              { label: '物理', value: '物理' },
+              { label: '计算机', value: '计算机' },
+              { label: '化学', value: '化学' },
+            ]} />
+        </Card>
+        <Card shadow>
+          <Card.Header>beforeOpen</Card.Header>
+          <Select outline
+            beforeOpen={() => {
+              return new Promise((resolve, reject) => {
+                const instance = Toast.loading('延时打开');
+                setTimeout(() => {
+                  instance.close();
+                  resolve(true);
+                }, 2000);
+              });
+            }}
+            style="min-width: 165px;"
+            title="选择科目"
+            placeholder="选择科目"
+            maxHeight="30vh"
+            options={[
               { label: '艺术', value: '艺术' },
               { label: '体育', value: '体育' },
               { label: '科学', value: '科学' },

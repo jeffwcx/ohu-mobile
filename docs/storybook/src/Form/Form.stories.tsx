@@ -224,6 +224,7 @@ export const inline = () => Vue.extend({
                       noBorder
                       outline
                       title="选择科目"
+                      allowClear
                       placeholder="选择科目" options={[
                         { label: '艺术', value: '艺术' },
                         { label: '体育', value: '体育' },

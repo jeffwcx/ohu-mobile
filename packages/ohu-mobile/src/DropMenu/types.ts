@@ -52,7 +52,7 @@ export interface DropMenuItemEvents extends PopupOutSideEvents {
 }
 
 export interface DropMenuItemScopedSlots {
-  default: {
+  default?: {
     checked?: DropMenuItemOptions,
     options: DropMenuItemOptions[],
     instance: InstanceType<typeof DropMenuItem>,

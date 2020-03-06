@@ -36,10 +36,11 @@ export interface FormFieldProps {
 }
 
 export interface FormScopedSlots {
-  default: {
+  default?: {
     errors: Record<string, ValidationError>;
     model: Record<string, any>;
     reset: () => void;
     validate: () => Promise<Record<string, any> | void>;
+    setFieldName: (name: string, value: any) => void;
   };
 }

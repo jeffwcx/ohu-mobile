@@ -67,6 +67,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
         return Promise.resolve(this.model[name]);
       }
     },
+    // dont need catch
     validate() {
       this.errors = {};
       const validatingChildren = this.children
@@ -85,7 +86,10 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
           p = p.then((r) => {
             return Promise.all([r, name, func()]);
           }).then(([r, n, value]) => {
-            r[n] = value;
+            // filter undefined ''
+            if (value !== undefined) {
+              r[n] = value;
+            }
             return r;
           }).catch((error) => {
             if (this.validateFirst && hasEmit) throw error;
@@ -117,6 +121,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     getFieldValue(name: string) {
       return this.model[name];
     },
+    // error
     setFieldValue(name: string, value: any) {
       this.$set(this.model, name, value);
       this.$emit('valuesChange', { prop: name, value, allValues: this.model });
@@ -136,7 +141,8 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
       reset,
       validate,
       handleSubmit,
-      errors
+      errors,
+      setFieldValue,
     } = this;
     return (
       <form class={root} onSubmit={handleSubmit}>
@@ -147,6 +153,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
             model,
             reset,
             validate,
+            setFieldValue,
           })
         }
       </form>

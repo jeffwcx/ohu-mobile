@@ -59,6 +59,8 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
         role: 'button',
         disabled,
         tabindex,
+        // fix 'Form submission canceled because the form is not connected'
+        type: 'button',
       },
       on: {
         click: this.onClick,

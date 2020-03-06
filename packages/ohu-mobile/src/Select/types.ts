@@ -5,6 +5,8 @@ import { PopupProps, PopupHeaderProps } from '../Popup';
 
 export type SelectOption = RadioOption | CheckboxOption;
 
+export type SelectBeforeFunc = () => (Promise<boolean> | boolean | void);
+
 export interface SelectProps {
   name?: string;
   visible?: boolean;
@@ -23,6 +25,10 @@ export interface SelectProps {
   popupProps?: PopupProps;
   headerProps?: PopupHeaderProps;
   disabled?: boolean;
+  placeholder?: string;
+  allowClear?: boolean;
+  beforeOpen?: SelectBeforeFunc;
+  beforeClose?: SelectBeforeFunc;
 }
 
 export interface SelectEvents {
@@ -35,5 +41,5 @@ export interface SelectEvents {
 }
 
 export interface SelectScopedSlots {
-  control: SelectOption[] | SelectOption;
+  control?: SelectOption[] | SelectOption;
 }

@@ -57,6 +57,7 @@ exports[`Input allowClear 1`] = `
       class="ohu-btn is-round is-default is-link is-md is-icon-only"
       role="button"
       tabindex="-1"
+      type="button"
     >
       <i>
         <svg
@@ -99,6 +100,7 @@ exports[`Input allowTogglePassword 1`] = `
       class="ohu-btn is-round is-default is-link is-md is-icon-only"
       role="button"
       tabindex="-1"
+      type="button"
     >
       <i>
         <svg
@@ -141,6 +143,7 @@ exports[`Input allowTogglePassword 2`] = `
       class="ohu-btn is-round is-default is-link is-md is-icon-only"
       role="button"
       tabindex="-1"
+      type="button"
     >
       <i>
         <svg
@@ -194,6 +197,7 @@ exports[`Input buttonAdornment 1`] = `
       class="ohu-btn is-default is-lg is-block"
       role="button"
       tabindex="0"
+      type="button"
     />
   </div>
 </div>

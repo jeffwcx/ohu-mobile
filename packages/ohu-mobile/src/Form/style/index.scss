@@ -3,11 +3,6 @@
 $formPrefixClass: #{$prefix}form;
 $formFieldPrefixClass: #{$formPrefixClass}-field;
 
-$formFontSize: 32px;
-$formFieldControlPadding: 12px 0;
-$formFieldControlErrorPadding: 20px 0;
-$formFieldLabelColor: $colorTextBase;
-
 @mixin add-align {
   &.is-left {
     text-align: left;

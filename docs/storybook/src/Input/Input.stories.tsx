@@ -56,14 +56,14 @@ export const basic = () => Vue.extend({
         </Card>
         <Card shadow divider>
           <Card.Header>ButtonAdornment</Card.Header>
-          <Input v-model={this.adornment} startAdornment={EditOutlined}>
+          <Input v-model={this.adornment} placeholder="请输入验证码" startAdornment={EditOutlined}>
             <Button slot="endAdornment" type="primary" size="sm">获取验证码</Button>
           </Input>
           <p>{this.adornment}</p>
         </Card>
         <Card shadow divider>
           <Card.Header>Password</Card.Header>
-          <Input v-model={this.password} type="password" allowClear style="width: 100%" placeholder="please input password" />
+          <Input v-model={this.password} type="password" allowClear style="width: 100%" placeholder="请输入密码" />
           <p>{this.password}</p>
         </Card>
       </div>
@@ -111,7 +111,7 @@ export const outline = () => Vue.extend({
         </Card>
         <Card shadow divider>
           <Card.Header>Password</Card.Header>
-          <Input outline v-model={this.password} type="password" allowClear style="width: 100%" placeholder="please input password" />
+          <Input outline v-model={this.password} type="password" allowClear style="width: 100%" placeholder="请输入密码" />
           <p>{this.password}</p>
         </Card>
       </div>
@@ -131,7 +131,7 @@ export const textarea = () => Vue.extend({
       <div>
         <Card shadow divider>
           <Card.Header>Basic</Card.Header>
-          <Input v-model={this.value} type="textarea" rows={3} cols={30} />
+          <Input v-model={this.value} placeholder="请输入" type="textarea" rows={3} cols={30} />
           <p>{this.value}</p>
         </Card>
         <Card shadow divider>

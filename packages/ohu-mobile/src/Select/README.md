@@ -12,9 +12,10 @@ import { Select } from '@ohu-mobile/core';
 
 + ✅Single Select.
 + ✅Multi Select.
-+ Common interface for `Cascader`, `Picker`, etc.
++ Common interface for `Cascader`, `Picker`, `TreeSelect` etc.
 + ✅Custom text of Select.
 + ✅Can using native select.
++ ✅Can clear
 
 # Props
 

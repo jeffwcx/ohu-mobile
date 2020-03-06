@@ -37,6 +37,7 @@ $selectPrefixClass: #{$prefix}select;
     line-height: 1.375em;
     border: 0;
     display: inline-flex;
+    align-items: center;
     cursor: pointer;
     &.is-normal {
       padding: $selectInputPadding;
@@ -54,19 +55,28 @@ $selectPrefixClass: #{$prefix}select;
     &__control {
       color: $selectColor;
       min-height: 1.375em;
+      flex-grow: 1;
     }
     &__placeholder {
       color: $selectPlaceholderColor;
+      flex-grow: 1;
     }
     &__icon {
+      margin-left: $selectIconMargin;
       width: 1.5em;
       height: 1.5em;
-      @include center(y);
-      right: .6875em;
-      text-align: center;
       color: $selectPlaceholderColor;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: center;
       .#{$prefix}icon {
         font-size: 1.3em;
+      }
+      &.is-close {
+        .#{$prefix}icon {
+          font-size: 1.125em;
+        }
       }
     }
     select {

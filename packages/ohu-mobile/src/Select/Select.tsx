@@ -1,8 +1,8 @@
 import { defineComponent, props } from '../_utils/defineComponent';
-import { SelectProps, SelectEvents, SelectOption, SelectScopedSlots } from './types';
+import { SelectProps, SelectEvents, SelectOption, SelectScopedSlots, SelectBeforeFunc } from './types';
 import Popup, { PopupProps, PopupHeaderProps } from '../Popup';
 import RadioList from '../RadioList';
-import { CheckOutlined, ArrowDownSFilled, BackOutlined, ArrowRightSOutlined } from '@ohu-mobile/icons';
+import { CheckOutlined, ArrowDownSFilled, BackOutlined, ArrowRightSOutlined, CloseCircleFilled } from '@ohu-mobile/icons';
 import CheckList from '../CheckList';
 import Icon from '../Icon';
 import { IconDef } from '../types';
@@ -17,6 +17,7 @@ interface SelectMethods {
   stateValue: any | any[] | undefined;
   getCurrentSelectedOption(value?: any): SelectOption | SelectOption[] | undefined;
   getCurrentStateValue(value?: any): any | any[] | undefined;
+  handleOpen: () => void;
 }
 
 const defaultPopupProps: PopupProps = {
@@ -66,6 +67,8 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     popupProps: props.ofType<PopupProps>().optional,
     headerProps: props.ofType<PopupHeaderProps>().optional,
     disabled: props(Boolean).default(false),
+    allowClear: props(Boolean).default(false),
+    beforeOpen: props<SelectBeforeFunc>(Function).optional,
   },
   watch: {
     value(cur) {
@@ -75,7 +78,11 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       this.selectedOption = currentOption;
     },
     visible(cur) {
-      this.popupVisible = cur;
+      if (cur) {
+        this.open();
+      } else {
+        this.close();
+      }
     },
   },
   computed: {
@@ -92,12 +99,19 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
   data() {
     const currentValue = this.getCurrentStateValue(this.value);
     const currentOption = this.getCurrentSelectedOption(currentValue);
+    let visible = this.disabled ? false : this.visible;
+    if (visible) {
+      this.$nextTick(() => {
+        this.handleOpen();
+      });
+    }
     return {
-      popupVisible: this.disabled ? false : this.visible,
+      popupVisible: visible,
       stateValue: currentValue,
       selectedOption: currentOption,
       unconfirmStateValue: undefined,
       unconfirmSelectedOption: undefined as SelectOption | undefined | SelectOption[],
+      delay: false,
     };
   },
   methods: {
@@ -240,6 +254,27 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       );
     },
     open() {
+      if (this.popupVisible || this.delay) return;
+      if (this.beforeOpen) {
+        const shouldOpen = this.beforeOpen();
+        if (shouldOpen === false) {
+          return;
+        }
+        if (shouldOpen instanceof Promise) {
+          this.delay = true;
+          return shouldOpen.then((o) => {
+            if (o) {
+              this.handleOpen();
+            }
+            this.delay = false;
+          }).catch(() => {
+            this.delay = false;
+          });
+        }
+      }
+      this.handleOpen();
+    },
+    handleOpen() {
       if (this.native || this.disabled) return;
       if (this.shouldConfirm) {
         this.unconfirmStateValue = this.stateValue;
@@ -255,6 +290,17 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       this.unconfirmStateValue = undefined;
       this.$emit('hide');
       this.$emit('visibleChange', this.popupVisible);
+    },
+    handleClear(e: Event) {
+      e.stopPropagation();
+      this.clear();
+    },
+    clear() {
+      this.stateValue = undefined;
+      this.unconfirmStateValue = undefined;
+      this.unconfirmSelectedOption = undefined;
+      this.selectedOption = undefined;
+      this.$emit('change', this.stateValue, this.selectedOption);
     },
   },
   render() {
@@ -295,6 +341,15 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
             && !controlContent
             &&
             <div class={placeholderNode}>{placeholder}</div>
+          }
+          {
+            this.allowClear
+            &&
+            this.stateValue
+            &&
+            <div class={inputNode.element('icon').is('close')} onClick={this.handleClear}>
+              <Icon type={CloseCircleFilled} />
+            </div>
           }
           {
             iconType

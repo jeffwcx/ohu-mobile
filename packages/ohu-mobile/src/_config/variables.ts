@@ -179,6 +179,8 @@ export let $formFieldErrorColor: string = process.env.$formFieldErrorColor || $c
 
 // Component/Input
 export let $inputFontSize: string = process.env.$inputFontSize || '32px';
+export let $inputLineHeight: string = process.env.$inputLineHeight || '48px';
+export let $inputTextAreaLineHeight: string = process.env.$inputTextAreaLineHeight || '42px';
 export let $inputColor: string = process.env.$inputColor || $colorTextBase;
 export let $inputDisabledColor: string = process.env.$inputDisabledColor || $colorTextMinor;
 export let $inputBorderRadius: string = process.env.$inputBorderRadius || '8Px';
@@ -186,11 +188,11 @@ export let $inputBorderColor: string =  process.env.inputBorderColor || $colorBo
 export let $inputFocusBorderColor: string = process.env.$inputFocusBorderColor || 'rgba(45, 126, 255, 0.75)';
 export let $inputPlaceholderColor: string = process.env.$inputPlaceholderColor || $colorTextMinor;
 export let $inputAdornmentColor: string = process.env.$inputAdornmentColor || $colorTextMinor;
-export let $inputPadding: string = process.env.$inputPadding || '.625em .625em .625em .8em';
-export let $inputPaddingWithAdornment: string = process.env.inputPaddingWithAdornment || '.625em';
-export let $inputOutlinePadding: string = process.env.$inputOutlinePadding || '.625em .5em';
-export let $inputOutlinePaddingWithAdornment: string = process.env.$inputOutlinePaddingWithAdornment || '.625em';
-export let $inputAdornmentFontSize: string = process.env.$inputAdornmentFontSize || '1em';
+export let $inputPadding: string = process.env.$inputPadding || '20px 20px 20px 26px';
+export let $inputPaddingWithAdornment: string = process.env.inputPaddingWithAdornment || '20px';
+export let $inputOutlinePadding: string = process.env.$inputOutlinePadding || '20px 16px';
+export let $inputOutlinePaddingWithAdornment: string = process.env.$inputOutlinePaddingWithAdornment || '20px';
+export let $inputAdornmentFontSize: string = process.env.$inputAdornmentFontSize || '32px';
 export let $inputAdornmentMargin: string = process.env.$inputAdornmentMargin || '20px';
 
 
@@ -203,9 +205,9 @@ export let $selectPlaceholderColor: string = process.env.$selectPlaceholderColor
 export let $selectPopupBackground: string = process.env.$selectPopupBackground || '#FFF';
 export let $selectPopupHeaderBackground: string = process.env.$selectPopupHeaderBackground || '#FFF';
 export let $selectPopupHeaderColor: string = process.env.$selectPopupHeaderColor || $colorTextBase;
-export let $selectInputPadding: string = process.env.$selectInputPadding || '.625em 2.3em .625em 1em';
-export let $selectInputOutlinePadding: string = process.env.$selectInputOutlinePadding || '.625em 2.3em .625em .5em';
-
+export let $selectInputPadding: string = process.env.$selectInputPadding || '20px 20px 20px 26px';
+export let $selectInputOutlinePadding: string = process.env.$selectInputOutlinePadding || '20px 16px';
+export let $selectIconMargin: string = process.env.$inputIcontMargin || '20px';
 
 // Component/NoticeBar
 export let $noticeBarDefaultBackground: string = process.env.$noticeBarDefaultBackground || '#FEFCEB';
