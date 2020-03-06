@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.13.0...storybook@0.13.1) (2020-03-06)
+
+
+### Bug Fixes
+
+* **button:** remove padding ([7eca5b3](https://github.com/jeffwcx/ohu-mobile/commit/7eca5b30f9e0237545bbdfb4d7331da91fd831cc))
+
+
+
+
+
 # [0.13.0](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.12.0...storybook@0.13.0) (2020-03-05)
 
 

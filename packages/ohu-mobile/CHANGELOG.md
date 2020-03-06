@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.13.0...@ohu-mobile/core@0.13.1) (2020-03-06)
+
+
+### Bug Fixes
+
+* **button:** remove padding ([7eca5b3](https://github.com/jeffwcx/ohu-mobile/commit/7eca5b30f9e0237545bbdfb4d7331da91fd831cc))
+* **test:** collapse test ([390ce59](https://github.com/jeffwcx/ohu-mobile/commit/390ce595886e9925f335794bd0beb907e5281580))
+
+
+
+
+
 # [0.13.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.12.0...@ohu-mobile/core@0.13.0) (2020-03-05)
 
 
