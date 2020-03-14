@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.2](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.13.1...storybook@0.13.2) (2020-03-14)
+
+
+### Features
+
+* **form-field:** use fieldMixin ([01f1945](https://github.com/jeffwcx/ohu-mobile/commit/01f19454f2b27661b4fdee120e9cc5d6c39f1180))
+
+
+
+
+
 ## [0.13.1](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.13.0...storybook@0.13.1) (2020-03-06)
 
 
