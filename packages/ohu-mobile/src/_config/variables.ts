@@ -32,8 +32,28 @@ export let $gridGapLevel: number = process.env.$gridGapLevel ? +process.env.$gri
 export let $gridGapRate: string = process.env.$gridGapRate || '8px'
 
 // Component/Tag
-export let $tagBackgroundOrange: string = process.env.tagBackgroundOrange || 'rgba(255, 185, 76, 0.149)';
-export let $tagBackgroundBlue: string =  process.env.$tagBackgroundBlue || 'rgba(47, 131, 255, 0.102)';
+export let $tagGreyColor: string = process.env.$tagGreyColor || $colorTextBase;
+export let $tagGreyBackground: string = process.env.$tagGreyBackground || $colorGrey;
+export let $tagGreenColor: string = process.env.$tagGreenColor || $colorGreen;
+export let $tagGreenBackground: string = process.env.$tagGreenBackground || 'rgba($tagGreenColor, .15)';
+export let $tagOrangeColor: string = process.env.$tagOrangeColor || $colorOrange;
+export let $tagOrangeBackground: string = process.env.$tagOrangeBackground || 'rgba(255, 148, 52, 0.15)';
+export let $tagRedColor: string = process.env.$tagRedColor || $colorRed;
+export let $tagRedBackground: string = process.env.$tagRedBackground || 'rgba($tagRedColor, .15)';
+export let $tagBlueColor: string = process.env.$tagBlueColor || $colorBlue;
+export let $tagBlueBackground: string = process.env.$tagBlueBackground || 'rgba($tagBlueColor, .15)';
+export let $tagPrimaryColor: string = process.env.$tagPrimaryColor || $colorPrimary;
+export let $tagPrimaryBackground: string = process.env.$tagPrimaryBackground || 'rgba($tagPrimaryColor, .15)';
+export let $tagOutlineBackground: string = process.env.$tagOutlineBackground || $colorTextBaseInverse;
+export let $tagBorderRadiusSm: number = process.env.$tagBorderRadiusSm ? +process.env.$tagBorderRadiusSm : 4;
+export let $tagBorderRadiusMd: number = process.env.$tagBorderRadiusMd ? +process.env.$tagBorderRadiusMd : 8;
+export let $tagBorderRadiusLg: number = process.env.$tagBorderRadiusLg ? +process.env.$tagBorderRadiusLg : 8;
+export let $tagPaddingSm: string = process.env.$tagPaddingSm || '0 12px';
+export let $tagPaddingMd: string = process.env.$tagPaddingMd || '12px 24px';
+export let $tagPaddingLg: string = process.env.$tagPaddingLg || '16px 40px';
+export let $tagFontSizeSm: string = process.env.$tagFontSizeSm || '24px';
+export let $tagFontSizeMd: string = process.env.$tagFontSizeMd || '24px';
+export let $tagFontSizeLg: string = process.env.$tagFontSizeLg || '28px';
 
 // Component/Badge
 export let $badgeDotSize =  process.env.$badgeDotSize || '12px';
@@ -208,6 +228,7 @@ export let $selectPopupHeaderColor: string = process.env.$selectPopupHeaderColor
 export let $selectInputPadding: string = process.env.$selectInputPadding || '20px 20px 20px 26px';
 export let $selectInputOutlinePadding: string = process.env.$selectInputOutlinePadding || '20px 16px';
 export let $selectIconMargin: string = process.env.$inputIcontMargin || '20px';
+export let $selectIconColor: string = process.env.$selectIconColor || $colorTextMinor;
 
 // Component/NoticeBar
 export let $noticeBarDefaultBackground: string = process.env.$noticeBarDefaultBackground || '#FEFCEB';

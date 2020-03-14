@@ -5,9 +5,14 @@ $tagPrefixClass: #{$prefix}tag;
 
 .#{$tagPrefixClass} {
   box-sizing: border-box;
-  display: inline-block;
-  text-align: center;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  &__text {
+    display: inline-block;
+  }
   .#{$prefix}icon {
     @include center(y);
   }
@@ -19,99 +24,133 @@ $tagPrefixClass: #{$prefix}tag;
   }
   // ================= size =================
   &.is-sm {
-    @include padding(_ 12px _ 12px);
+    padding: $tagPaddingSm;
+    font-size: $tagFontSizeSm;
     .#{$tagPrefixClass}__text {
-      font-size: 24px;
+      font-size: $tagFontSizeSm;
       line-height: (32 / 20) * 1em;
       transform: scale(0.833333, 0.833333);
       transform-origin: center center;
     }
     .#{$prefix}icon {
-      font-size: 24px;
-      right: 12px;
+      font-size: $tagFontSizeSm;
+      right: .5em;
     }
     &[role="button"] {
-      padding-right: 36px;
+      padding-right: 1.5em;
     }
   }
   &.is-md {
-    @include padding(12px 24px);
-    font-size: 24px;
+    padding: $tagPaddingMd;
+    font-size: $tagFontSizeMd;
     line-height: (34 / 24) * 1em;
     .#{$prefix}icon {
-      font-size: 28px;
-      right: 18px;
+      font-size: 1.1666666667em;
+      right: .642857em;
     }
     &[role="button"] {
-      padding-right: 56px;
+      padding-right: 2.333333333em;
     }
   }
   &.is-lg {
-    @include padding(16px 40px);
-    font-size: 28px;
+    padding: $tagPaddingLg;
+    font-size: $tagFontSizeLg;
     line-height: (40 / 28) * 1em;
     .#{$prefix}icon {
-      font-size: 32px;
-      right: 24px;
+      font-size: 1.1429em;
+      right: .75em;
     }
     &[role="button"] {
-      padding-right: 64px;
+      padding-right: 2.28571em;
     }
   }
   // ================= shape =================
   &.is-square {
-    border-radius: 8px;
+    &.is-sm {
+      border-radius: $tagBorderRadiusSm * 1px;
+    }
+    &.is-md {
+      border-radius: $tagBorderRadiusMd * 1px;
+    }
+    &.is-lg {
+      border-radius: $tagBorderRadiusLg * 1px;
+    }
   }
   &.is-fillet {
-    border-radius: 0 8px;
+    &.is-sm {
+      border-radius: 0 $tagBorderRadiusSm * 1px;
+    }
+    &.is-md {
+      border-radius: 0 $tagBorderRadiusMd * 1px;
+    }
+    &.is-lg {
+      border-radius: 0 $tagBorderRadiusLg * 1px;
+    }
   }
   // ================= color ================
   &.is-solid {
     &.is-grey {
-      color: $colorTextBase;
-      background: $colorGrey;
+      color: $tagGreyColor;
+      background: $tagGreyBackground;
     }
     &.is-green {
-      color: $colorGreen;
-      background: rgba($colorGreen, .15);
+      color: $tagGreenColor;
+      background: $tagGreenBackground;
     }
     &.is-orange {
-      color: $colorOrange;
-      background: rgba($colorOrange, .15);
+      color: $tagOrangeColor;
+      background: $tagOrangeBackground;
     }
     &.is-red {
-      color: $colorRed;
-      background: rgba($colorRed, .15);
+      color: $tagRedColor;
+      background: $tagRedBackground;
     }
-    &.is-blue, &.is-primary {
-      color: $colorBlue;
-      background: rgba($colorBlue, .15);
+    &.is-blue {
+      color: $tagBlueColor;
+      background: $tagBlueBackground;
+    }
+    &.is-primary {
+      color: $tagPrimaryColor;
+      background: $tagPrimaryBackground;
     }
   }
   &.is-outline {
-    background: $colorTextBaseInverse;
+    background: $tagOutlineBackground;
     &.is-grey {
-      color: $colorTextBase;
-      @include hair-border($colorGrey, all, 8px);
+      color: $tagGreyColor;
+      @include hair-border($tagGreyBackground, all);
       .#{$prefix}icon {
-        color: $colorTextMinor;
+        color: $tagGreyColor;
       }
     }
     &.is-green {
-      color: $colorGreen;
-      @include hair-border($colorGreen, all, 8px);
+      color: $tagGreenColor;
+      @include hair-border($tagGreenColor, all);
     }
     &.is-orange {
-      color: $colorOrange;
-      @include hair-border($colorOrange, all, 8px);
+      color: $tagOrangeColor;
+      @include hair-border($tagOrangeColor, all);
     }
     &.is-red {
-      color: $colorRed;
-      @include hair-border($colorRed, all, 8px);
+      color: $tagRedColor;
+      @include hair-border($tagRedColor, all);
     }
-    &.is-blue, &.is-primary {
-      color: $colorBlue;
-      @include hair-border($colorBlue, all, 8px);
+    &.is-blue {
+      color: $tagBlueColor;
+      @include hair-border($tagBlueColor, all);
+    }
+    &.is-primary {
+      color: $tagPrimaryColor;
+      @include hair-border($tagPrimaryColor, all);
+    }
+    &.is-sm:after {
+      border-radius: $tagBorderRadiusSm * 1Px;
+    }
+    &.is-md:after {
+      border-radius: $tagBorderRadiusMd * 1Px;
+    }
+    &.is-lg:after {
+      border-radius: $tagBorderRadiusLg * 1Px;
     }
   }
 }

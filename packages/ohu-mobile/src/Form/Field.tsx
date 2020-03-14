@@ -1,13 +1,18 @@
-import { cloneElement, getVModelOption } from '../_utils/vnode';
 import Form from './Form';
 import { Schema } from 'yup';
 import { defineDescendantComponent, props } from '../_utils/defineComponent';
-import { FormFieldProps, FormAlign, FormTrigger } from './types';
+import { FormFieldProps, FormAlign, FormTrigger, FormFieldInput, FormFieldInnerMethods } from './types';
+import { getVModelOption } from '../_utils/vnode';
 
-export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldProps>(
+export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldProps, {}, {}, FormFieldInnerMethods>(
   'form',
   'form-field',
 ).create({
+  provide() {
+    return {
+      'form-field': this,
+    };
+  },
   props: {
     initialValue: props.ofAny().optional,
     label: props(String).optional,
@@ -17,9 +22,24 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     contentAlign: props.ofType<FormAlign>().optional,
     trigger: props.ofType<FormTrigger>().optional,
   },
+  watch: {
+    fieldValue(cur) {
+      if (this.ancestor && this.name) {
+        this.ancestor.setFieldValue(this.name, cur);
+      }
+      if (this.triggerEvent === 'change') {
+        this.validate();
+      }
+    },
+  },
   data() {
+    if (this.initialValue !== undefined && this.ancestor) {
+      this.ancestor.setFieldValue(this.name, this.initialValue);
+    }
     return {
-      stateValue: this.initialValue,
+      fieldValue: this.name ? this.ancestor.getFieldValue(this.name) : '',
+      children: null as FormFieldInput | null,
+      otherChildren: [] as FormFieldInput[],
     };
   },
   computed: {
@@ -39,39 +59,67 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     },
   },
   methods: {
-    getValueState() {
-      if (this.ancestor && this.name) {
-        return this.ancestor.getFieldValue(this.name)
-      }
-      return this.stateValue;
-    },
-    innerValidate() {
-      return this.validate()
+    validate() {
+      return this.formValidate()
         .then((value) => {
-          if (this.name) {
+          if (this.name && this.ancestor) {
             this.ancestor.removeError(this.name);
           }
           return value;
         })
         .catch((error) => {
-          if (this.name) {
+          if (this.name && this.ancestor) {
             this.ancestor.addError(this.name, error);
           }
         });
     },
-    validate() {
-      let value = this.getValueState();
+    resetField(value: any) {
+      this.fieldValue = value;
+      if (this.children && this.children.resetFieldValue) {
+        this.children.resetFieldValue(this.initialValue || value);
+      }
+    },
+    formValidate() {
+      let value = this.fieldValue;
       if (this.ancestor && this.name && this.schema) {
         return this.schema.validate(value);
       } else {
         return Promise.resolve(value);
       }
     },
+    onBlur() {
+      if (this.triggerEvent === 'blur') {
+        this.validate();
+      }
+    },
+    addChildren(input: FormFieldInput) {
+      if (this.children) {
+        this.otherChildren.push(input);
+      } else {
+        this.children = input;
+        const { event } = getVModelOption(this.children.$vnode);
+        this.children.$on(event, (value: any) => {
+          this.fieldValue = value;
+        });
+      }
+      input.$on('blur', () => {
+        this.onBlur();
+      });
+    },
+    removeChildren(input?: FormFieldInput) {
+      if (this.children === input) {
+        this.children = null;
+        return;
+      }
+      if (input) {
+        this.otherChildren = this.otherChildren.filter(item => item !== input);
+      }
+    },
   },
   mounted() {
     if (this.ancestor) {
       this.ancestor.addFormField(this);
-      this.$once('hook:beforeDestroyed', () => {
+      this.$once('hook:beforeDestroy', () => {
         if (this.ancestor) {
           this.ancestor.removeFormField(this);
         }
@@ -81,36 +129,9 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
   render() {
     const root = this.root();
     const {
-      $slots,
-      error, triggerEvent,
+      $slots, error,
       label, name, labelAlign, labelWidth, contentAlign,
     } = this;
-    let component = $slots.default && $slots.default[0];
-    if (component) {
-      const { event, prop } = getVModelOption(component);
-      // Todo: Sometimes Blur event may triggered by deeper component, so this is a temporary plan.
-      // This is a design error.
-      component = cloneElement(component, {
-        props: { name, [prop]: this.getValueState() },
-        on: {
-          [event]: (value: any) => {
-            if (this.ancestor && name) {
-              this.ancestor.setFieldValue(name, value);
-            } else {
-              this.stateValue = value;
-            }
-            if (triggerEvent === 'change') {
-              this.innerValidate();
-            }
-          },
-          blur: () => {
-            if (triggerEvent === 'blur') {
-              this.innerValidate();
-            }
-          },
-        },
-      });
-    }
     if (this.ancestor) {
       root.is([this.ancestor.inline ? 'inline' : 'block']);
     }
@@ -131,10 +152,10 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
       <div class={root.has([error && 'error'])}>
         { label && <label class={labelClass} style={labelStyle} for={name}>{label}</label> }
         {
-          component
+          $slots.default
           &&
           <div class={controlClass}>
-            {component}
+            {$slots.default}
             {
               error
               &&

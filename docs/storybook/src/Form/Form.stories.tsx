@@ -142,6 +142,7 @@ export const inline = () => Vue.extend({
         labelAlign: 'left' as FormAlign,
         validateFirst: false,
         trigger: 'blur' as FormTrigger,
+        scrollToError: true,
       },
     };
   },
@@ -169,8 +170,8 @@ export const inline = () => Vue.extend({
             </Form.Field>
             <Form.Field label="validateFirst" name="validateFirst">
               <RadioGroup>
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
+                <Radio value={true}>true</Radio>
+                <Radio value={false}>false</Radio>
               </RadioGroup>
             </Form.Field>
             <Form.Field label="trigger" name="trigger">
@@ -179,21 +180,35 @@ export const inline = () => Vue.extend({
                 <Radio value="change">change</Radio>
               </RadioGroup>
             </Form.Field>
+            <Form.Field label="scrollToError" name="scrollToError">
+              <RadioGroup>
+                <Radio value={true}>true</Radio>
+                <Radio value={false}>false</Radio>
+              </RadioGroup>
+            </Form.Field>
           </Form>
         </Card>
         <Form
+          onSubmit={(result) => {
+            Dialog.alert({
+              content: JSON.stringify(result),
+              targetStyle: { 'height': '180px' },
+            });
+          }}
+          onFail={(errors) => {
+            console.log(errors);
+          }}
           trigger={this.config.trigger}
           contentAlign={this.config.contentAlign}
           labelAlign={this.config.labelAlign}
           validateFirst={this.config.validateFirst}
+          scrollToError={this.config.scrollToError}
           initialValues={{
             hobby: ['coding', 'sport'],
             gendar: 'man',
-            username: '',
+            username: 'jeffwcx',
             password: '',
-            note: '',
-            verifyCode: '',
-            subject: '',
+            subject: '艺术',
           }}
           validateSchema={{
             hobby: yup.array().min(2, '需要最少选2个').required(),
@@ -201,10 +216,10 @@ export const inline = () => Vue.extend({
             password: yup.string().trim().min(8, '最少8个字符').required('请输入密码'),
           }}
           scopedSlots={{
-            default: ({ model, reset, validate }) => {
+            default: ({ model, reset, submit }) => {
               return (
                 <div>
-                  <Form.Field label="爱好" name="hobby" trigger="change">
+                  <Form.Field label="爱好" name="hobby">
                     <CheckboxGroup>
                       <Checkbox value="coding">编程</Checkbox>
                       <Checkbox value="reading">阅读</Checkbox>
@@ -212,7 +227,7 @@ export const inline = () => Vue.extend({
                       <Checkbox value="movie">电影</Checkbox>
                     </CheckboxGroup>
                   </Form.Field>
-                  <Form.Field label="性别" name="gendar" trigger="change">
+                  <Form.Field label="性别" name="gendar">
                     <RadioGroup>
                       <Radio value="man">男</Radio>
                       <Radio value="woman">女</Radio>
@@ -235,9 +250,9 @@ export const inline = () => Vue.extend({
                       ]} />
                   </Form.Field>
                   <Form.Field label="用户名" name="username">
-                    <Input noBorder outline  placeholder="请输入用户名" allowClear />
+                    <Input autofocus noBorder outline  placeholder="请输入用户名" allowClear />
                   </Form.Field>
-                  <Form.Field label="验证码" name="verifyCode">
+                  <Form.Field label="验证码" name="verifyCode" initialValue="123">
                     <Input noBorder outline type="number" placeholder="请输入验证码">
                       <Button slot="endAdornment" type="primary" size="sm">获取验证码</Button>
                     </Input>
@@ -246,25 +261,15 @@ export const inline = () => Vue.extend({
                     <Input noBorder outline type="password" placeholder="请输入密码" allowClear />
                   </Form.Field>
                   <Form.Field label="备注" name="note">
-                    <Input type="textarea" noBorder outline placeholder="请输入备注" rows={4} />
+                    <Input type="textarea" noBorder outline placeholder="请输入备注" rows={4} onEnter={() => {
+                      submit();
+                    }} />
                   </Form.Field>
                   <div style="padding: 10px;">
                     <Agree disabled={!(!!model.gendar && model.hobby.length > 0)}>您仔细阅读以下条款，如果您对本协议的任何条款表示异议，意味着您（即「用户」）完全接受本协议项下的全部条款。</Agree>
                   </div>
                   <div style="padding: 10px 10px 0 10px;">
-                    <Button type="primary" onClick={async () => {
-                      try {
-                        const result = await validate();
-                        if(result) {
-                          Dialog.alert({
-                            content: JSON.stringify(result),
-                            targetStyle: { 'height': '180px' },
-                          });
-                        }
-                      } catch (error) {
-                        console.log(error.errors);
-                      }
-                    }}>提交</Button>
+                    <Button type="primary" htmlType="submit">提交</Button>
                   </div>
                   <div style="padding: 10px;">
                     <Button onClick={reset}>重置</Button>

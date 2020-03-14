@@ -2,12 +2,11 @@ import Checkbox from '../Checkbox';
 import { CheckboxGroupEvents, CheckboxOption, CheckboxGroupScopedSlots, CheckboxGroupProps } from './types';
 import checkBoxGroupProps from './props';
 import { defineAncestorComponent } from '../_utils/defineComponent';
-
-
+import { fieldMixin } from '../Form/fieldMixin';
 
 export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, CheckboxGroupScopedSlots>(
   'checkbox-group',
-).create({
+).mixin(fieldMixin).create({
   model: {
     prop: 'value',
     event: 'change',
@@ -20,12 +19,13 @@ export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, 
   },
   data() {
     return {
-      result: [...this.value],
-    } as {
-      result: any[];
+      result:  [...this.getFieldValue(this.value)] as any[],
     };
   },
   methods: {
+    resetFieldValue(value: any = []) {
+      this.result = [...value];
+    },
     selectOptions() {
       if (!this.options) return [];
       return this.options.filter(option => {

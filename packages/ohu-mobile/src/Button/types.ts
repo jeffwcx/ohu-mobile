@@ -19,4 +19,5 @@ export interface ButtonProps {
   round?: boolean;
   link?: boolean;
   tabindex?: number;
+  htmlType?: string;
 }

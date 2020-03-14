@@ -2,6 +2,7 @@ import Radio from '../Radio';
 import { RadioOption, RadioGroupEvents, RadioGroupProps } from './types';
 import { IconProperty } from '../types';
 import { defineAncestorComponent, props } from '../_utils/defineComponent';
+import { fieldMixin } from '../Form/fieldMixin';
 
 export const radioGroupProps = {
   name: props(String).optional,
@@ -16,6 +17,7 @@ export const radioGroupProps = {
 
 
 export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio-group')
+  .mixin(fieldMixin)
   .create({
     model: {
       prop: 'value',
@@ -29,12 +31,13 @@ export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio
     },
     data() {
       return {
-        valueState: this.value,
-      } as {
-        valueState: any;
-      };
+        valueState:  this.getFieldValue(this.value),
+      }
     },
     methods: {
+      resetFieldValue(value: any) {
+        this.valueState = value;
+      },
       childrenChange(value: any, checked: boolean, option?: RadioOption) {
         if (this.disabled) return false;
         if (checked) {

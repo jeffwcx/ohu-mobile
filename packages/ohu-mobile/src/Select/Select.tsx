@@ -11,6 +11,7 @@ import { BlockContext } from '../_utils/classHelper';
 import { VNodeData } from 'vue/types/umd';
 import { RadioOption } from '../RadioGroup';
 import { CheckboxOption } from '../CheckboxGroup';
+import { fieldMixin } from '../Form/fieldMixin';
 
 interface SelectMethods {
   unconfirmStateValue: any | any[] | undefined;
@@ -43,7 +44,7 @@ const fullScreenPopupHeaderProps: PopupHeaderProps = {
 
 export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, SelectMethods>(
   'select'
-).create({
+).mixin(fieldMixin).create({
   model: {
     prop: 'value',
     event: 'change',
@@ -72,9 +73,10 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
   },
   watch: {
     value(cur) {
-      const currentValue = this.getCurrentStateValue(cur);
-      const currentOption = this.getCurrentSelectedOption(currentValue);
-      this.stateValue = currentValue;
+      this.stateValue = this.getCurrentStateValue(cur);
+    },
+    stateValue(cur) {
+      const currentOption = this.getCurrentSelectedOption(cur);
       this.selectedOption = currentOption;
     },
     visible(cur) {
@@ -97,7 +99,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     },
   },
   data() {
-    const currentValue = this.getCurrentStateValue(this.value);
+    const currentValue = this.getCurrentStateValue(this.getFieldValue(this.value));
     const currentOption = this.getCurrentSelectedOption(currentValue);
     let visible = this.disabled ? false : this.visible;
     if (visible) {
@@ -115,6 +117,9 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     };
   },
   methods: {
+    resetFieldValue(value: any) {
+      this.stateValue = this.getCurrentStateValue(value);
+    },
     getCurrentStateValue(value: any | any[]) {
       if (!value) return;
       if (this.multiple && !(value instanceof Array)) {
@@ -200,7 +205,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       return (
         <select
           disabled={this.disabled}
-          name={this.name}
+          name={this.fieldName || this.name}
           onChange={this.handleNativeChange}>
           {
             this.options.map(({ label, value, disabled }) => {
@@ -360,7 +365,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
           }
           {
             !native
-              ? <input type="hidden" value={stateValue} />
+              ? <input type="hidden" name={this.fieldName || this.name} value={stateValue} />
               : this.renderNative()
           }
         </div>

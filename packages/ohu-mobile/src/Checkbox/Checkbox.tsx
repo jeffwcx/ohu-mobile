@@ -3,6 +3,7 @@ import { CheckboxProps, CheckboxEvents, CheckboxScopedSlots } from './types';
 import { defineDescendantComponent } from '../_utils/defineComponent';
 import SwitchBase, { SwitchBaseOutsideProps, switchBaseProps } from '../_internal/SwitchBase';
 import CheckboxGroup from '../CheckboxGroup';
+import { fieldMixin } from '../Form/fieldMixin';
 
 interface CheckboxMethods {
   toggle: () => void;
@@ -12,7 +13,7 @@ interface CheckboxMethods {
 export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,CheckboxProps, CheckboxEvents, CheckboxScopedSlots, CheckboxMethods>(
   'checkbox-group',
   'checkbox'
-).create({
+).mixin(fieldMixin).create({
   model: {
     prop: 'checked',
     event: 'change',
@@ -27,7 +28,9 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
   },
   data() {
     return {
-      checkedValue: this.ancestor ? this.ancestor.isChildChecked(this.value) : this.checked,
+      checkedValue: this.ancestor
+        ? this.ancestor.isChildChecked(this.value)
+        : this.getFieldValue(this.checked),
     };
   },
   computed: {
@@ -39,6 +42,9 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
     },
   },
   methods: {
+    resetFieldValue(value: any) {
+      this.checkedValue = value;
+    },
     toggle() {
       this.handleChange(!this.getChecked());
     },
@@ -93,6 +99,9 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
         on: {
           ...this.$listeners,
           change: this.handleChange,
+          blur: (e: Event) => {
+            this.$emit('blur', e);
+          },
         },
         scopedSlots: $scopedSlots,
       }}>

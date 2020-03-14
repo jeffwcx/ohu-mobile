@@ -1,16 +1,9 @@
-import Vue from 'vue';
-import { FormEvents, FormScopedSlots, FormProps, FormAlign, FormTrigger } from './types';
+import { FormEvents, FormScopedSlots, FormProps, FormAlign, FormTrigger, FormFieldInstance } from './types';
 import { SyntheticEvent, FormHTMLAttributes } from 'vue-tsx-support/types/dom';
 import deepmerge from 'deepmerge';
 import { ObjectSchemaDefinition } from 'yup';
 import { FormError } from './FormError';
 import { defineAncestorComponent, props } from '../_utils/defineComponent';
-import { CombinedVueInstance } from 'vue/types/vue';
-
-type DescendantType = CombinedVueInstance<Vue, {}, {
-  validate: () => Promise<Record<string, any>>;
-  innerValidate: () => Promise<Record<string, any>>;
-}, {}, {}>;
 
 export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('form').create({
   props: {
@@ -22,59 +15,61 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     labelWidth: props(String).optional,
     contentAlign: props.ofType<FormAlign>().optional,
     trigger: props.ofType<FormTrigger>().default('change'),
+    scrollToError: props(Boolean).default(false),
   },
   data() {
     return {
-      model: deepmerge({}, this.initialValues),
-      errors: {},
-      children: [],
-    } as {
-      model: Record<string, any>,
-      errors: any,
-      children: DescendantType[],
+      model: deepmerge({}, this.initialValues) as Record<string, any>,
+      errors: {} as Record<string, any>,
+      errorNames: [] as string[],
+      children: [] as FormFieldInstance[],
     };
   },
   methods: {
-    reset() {
-      this.model = deepmerge({}, this.initialValues);
-      this.errors = {};
-    },
     addError(name: string, error: Error) {
       this.$set(this.errors, name, error);
+      this.errorNames.push(name);
     },
     removeError(name: string) {
       if (this.errors[name]) {
         this.$delete(this.errors, name);
+        this.errorNames = this.errorNames.filter(errorName => errorName !== name);
       }
     },
-    addFormField(field: DescendantType) {
+    addFormField(field: FormFieldInstance) {
       if (this.children.indexOf(field) < 0) {
         this.children.push(field);
       }
     },
-    removeFormField(field: DescendantType) {
-      const index = this.children.indexOf(field);
-      if (index >= 0) {
-        this.children.splice(index, 1);
-      }
+    removeFormField(field: FormFieldInstance) {
+      this.children = this.children.filter((item) => field !== item);
     },
     // 👇 open api
+    reset() {
+      this.errors = {};
+      this.errorNames = [];
+      this.children.forEach((item) => {
+        if (item.name) {
+          item.resetField(this.initialValues[item.name]);
+        }
+      });
+    },
     validateField(name: string) {
       const child = this.children.find((item) => item.$props.name === name);
       if (child) {
-        return child.innerValidate();
+        return child.formValidate();
       } else {
         return Promise.resolve(this.model[name]);
       }
     },
-    // dont need catch
     validate() {
       this.errors = {};
+      this.errorNames = [];
       const validatingChildren = this.children
         .filter((child) => child.$props.name !== undefined);
       const tasks = validatingChildren.map((component) => {
         const name = component.$props.name;
-        return [name, () => component.validate()];
+        return [name, () => component.formValidate()];
       });
       const doTask = () => {
         // using serial running
@@ -126,23 +121,46 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
       this.$set(this.model, name, value);
       this.$emit('valuesChange', { prop: name, value, allValues: this.model });
     },
-    validateAndScroll() {},
+    scrollToField(name: string) {
+      const field = this.children.find((item) => item.name === name);
+      if (field) {
+        field.$el.scrollIntoView();
+      }
+    },
+    submit() {
+      return this.validate().then((values: any) => {
+        this.$emit('submit', values);
+      }).catch(({ errors }) => {
+        if (this.scrollToError) {
+          const errorName = this.errorNames[0];
+          this.$nextTick(() => {
+            this.scrollToField(errorName);
+          })
+        }
+        this.$emit('failed', errors);
+      });
+    },
     // 👆 open api
     handleSubmit(e: SyntheticEvent<FormHTMLAttributes, Event>) {
       e.preventDefault();
-      return false;
+      this.submit();
     },
   },
   render() {
     const root = this.root();
     const {
       $scopedSlots,
+      $slots,
       model,
       reset,
       validate,
       handleSubmit,
       errors,
       setFieldValue,
+      getFieldValue,
+      validateField,
+      scrollToField,
+      submit,
     } = this;
     return (
       <form class={root} onSubmit={handleSubmit}>
@@ -154,6 +172,10 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
             reset,
             validate,
             setFieldValue,
+            getFieldValue,
+            validateField,
+            submit,
+            scrollToField,
           })
         }
       </form>

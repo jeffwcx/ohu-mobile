@@ -1,5 +1,5 @@
 import 'vue-tsx-support/enable-check';
-import { VueConstructor } from 'vue';
+import Vue, { VueConstructor } from 'vue';
 import { IconProps } from './Icon';
 import { SVGIconDef } from '@ohu-mobile/icons/lib/types';
 
@@ -15,3 +15,4 @@ export type PickProperty<T, K extends keyof T> = T[K];
 export type TsxProps<T extends VueConstructor> = Omit<PickProperty<InstanceType<T>, '_tsxattrs'>,
 'style' | 'domPropsInnerHTML' | 'id' | 'key' | 'class' | 'ref' | 'refInFor' | 'scopedSlots' | 'staticClass' | 'slot'>;
 
+export type Mixin<T> = InstanceType<typeof Vue> & T;

@@ -8,6 +8,7 @@ import { defineComponent, props } from '../_utils/defineComponent';
 
 const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
   props: {
+    htmlType: props(String).default('button'),
     type: props.ofType<ButtonTypes>().default('default'),
     plain: props(Boolean).default(false),
     size: props.ofType<ButtonSizes>().default('lg'),
@@ -60,7 +61,7 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
         disabled,
         tabindex,
         // fix 'Form submission canceled because the form is not connected'
-        type: 'button',
+        type: this.htmlType,
       },
       on: {
         click: this.onClick,

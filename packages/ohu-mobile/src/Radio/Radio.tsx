@@ -5,6 +5,7 @@ import { $radioActiveColor, $radioColor } from '../_config/variables';
 import { IconProperty } from '../types';
 import { RadioProps, RadioEvents, RadioScopedSlots } from './types';
 import RadioGroup from '../RadioGroup';
+import { fieldMixin } from '../Form/fieldMixin';
 
 interface RadioMethods {
   check: () => void;
@@ -14,7 +15,7 @@ interface RadioMethods {
 export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioProps, RadioEvents, RadioScopedSlots, RadioMethods>(
   'radio-group',
   'radio'
-).create({
+).mixin(fieldMixin).create({
   model: {
     prop: 'checked',
     event: 'change',
@@ -40,7 +41,9 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
   },
   data() {
     return {
-      checkedValue: this.ancestor ? this.ancestor.isChildChecked(this.value) : this.checked,
+      checkedValue: this.ancestor
+        ? this.ancestor.isChildChecked(this.value)
+        : this.getFieldValue(this.checked),
     };
   },
   computed: {
@@ -52,6 +55,9 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
     },
   },
   methods: {
+    resetFieldValue(value: any) {
+      this.checkedValue = value;
+    },
     check() {
       this.handleChange(true);
     },
@@ -109,6 +115,9 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
         on: {
           ...this.$listeners,
           change: this.handleChange,
+          blur: (e: Event) => {
+            this.$emit('blur', e);
+          },
         },
         scopedSlots: $scopedSlots,
       }}>

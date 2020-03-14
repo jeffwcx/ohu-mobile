@@ -7,3 +7,5 @@ export default Object.assign(Form, {
 });
 
 export * from './types';
+
+export { fieldMixin } from './fieldMixin';
