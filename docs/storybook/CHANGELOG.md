@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.3](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.13.2...storybook@0.13.3) (2020-03-16)
+
+
+### Features
+
+* **list,drop-menu:** watch infinite for list, add scoped slots title for drop-menu ([8527cc3](https://github.com/jeffwcx/ohu-mobile/commit/8527cc3f4bab9a34273f11b05453af1b3b075c40))
+
+
+
+
+
 ## [0.13.2](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.13.1...storybook@0.13.2) (2020-03-14)
 
 
