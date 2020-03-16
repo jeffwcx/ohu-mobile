@@ -18,8 +18,9 @@ export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, 
     },
   },
   data() {
+    let fieldValue = this.getFieldValue(this.value);
     return {
-      result:  [...this.getFieldValue(this.value)] as any[],
+      result: fieldValue === undefined ? [] : [...fieldValue] as any[],
     };
   },
   methods: {

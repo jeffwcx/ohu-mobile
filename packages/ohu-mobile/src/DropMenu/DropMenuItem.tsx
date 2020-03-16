@@ -1,7 +1,7 @@
 import DropMenu, { baseDropMenuItemName } from './DropMenu';
 import { componentFactoryOf } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { DropMenuEvents, DropMenuItemOptions, DropMenuChangeEvent, DropMenuDataModel, DropMenuChangeOption, DropMenuItemScopedSlots } from './types';
+import { DropMenuItemOptions, DropMenuChangeEvent, DropMenuDataModel, DropMenuChangeOption, DropMenuItemScopedSlots, DropMenuItemEvents } from './types';
 import Popup, { PopupOpenEvent } from '../Popup';
 import Divider from '../Divider';
 import { VNode, PropOptions, VNodeData } from 'vue';
@@ -9,6 +9,7 @@ import { getIcon } from '../_utils/icon-utils';
 import isPlainObject from '../_utils/isPlainObject';
 import { addTargetClass } from '../_utils/targetClass';
 import { IconProperty } from '../types';
+import { ScopedSlotReturnValue } from 'vue/types/vnode';
 
 const dropMenuItemOptionsCls = `${baseDropMenuItemName}-options`;
 const dropMenuItemOptionCls = `${baseDropMenuItemName}-option`;
@@ -24,7 +25,7 @@ const defaultCheckedFunc = function (checkedOption?: DropMenuItemOptions, option
   return false;
 }
 
-const DropMenuItem = componentFactoryOf<DropMenuEvents, DropMenuItemScopedSlots>().create({
+const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSlots>().create({
   name: baseDropMenuItemName,
   props: {
     title: String,
@@ -134,7 +135,7 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents, DropMenuItemScopedSlots>
       dropDownIcon,
     } = this.getParent();
     let popupContent;
-    let checkedText = title;
+    let checkedText: string | ScopedSlotReturnValue = title;
     let hasCheckedOption = false;
     let key = this.getKey();
     let componentIndex = this.getIndex();
@@ -215,6 +216,12 @@ const DropMenuItem = componentFactoryOf<DropMenuEvents, DropMenuItemScopedSlots>
       },
     };
     let icon2 = getIcon(this.$createElement, this.dropDownIcon || dropDownIcon);
+    if ($scopedSlots.title) {
+      checkedText = $scopedSlots.title({
+        defaultTitle: title,
+        checked: checkedOption,
+      });
+    }
     return (
       <div class={dropMenuCls}
         onClick={this.handleClick}>

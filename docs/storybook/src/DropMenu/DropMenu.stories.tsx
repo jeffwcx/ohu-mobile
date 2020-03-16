@@ -90,6 +90,9 @@ const Demo = component({
               },
             ]}
             scopedSlots={{
+              title: ({ checked, defaultTitle }) => {
+                return defaultTitle + (checked?.value || '');
+              },
               default: ({ checked, instance, options }) =>
                 <div style="padding: 10px; font-size: 14px; display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center;">
                   <span>

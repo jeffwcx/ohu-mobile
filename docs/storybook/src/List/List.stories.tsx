@@ -198,12 +198,13 @@ export const subheader = () => Vue.extend({
       count: 0,
       load: false,
       finished: false,
+      infinite: true,
     };
   },
   render() {
     return (
       <List style="height: 80vh; overflow: scroll;"
-        infinite
+        infinite={this.infinite}
         finished={this.finished}
         loading={this.load}
         scrollContainer={(self) => {

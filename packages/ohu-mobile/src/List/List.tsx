@@ -22,27 +22,48 @@ export default defineComponent<ListProps, ListEvents>('list')
   .mixin(localeMixin('OhuList'))
   .create({
     props: listProps,
+    data() {
+      return {
+        scrollHandler: null as (() => void) | null,
+        scroller: window as  Window | Element,
+      };
+    },
+    watch: {
+      infinite(cur) {
+        if (cur) {
+          this.registryScroll();
+        } else {
+          this.clearHandler();
+        }
+      },
+    },
     methods: {
       registryScroll() {
-        let scroller: Window | Element = window;
         if (this.scrollContainer instanceof Function) {
-          scroller = this.scrollContainer(this);
+          this.scroller = this.scrollContainer(this);
         }
         let handler = () => {
           if (this.finished) {
-            scroller.removeEventListener('scroll', handler);
+            this.scroller.removeEventListener('scroll', handler);
           }
           if (reachBottom(window, this.infiniteDistance)) {
             this.$emit('infinite');
           }
         };
+        this.scrollHandler = handler;
         if (this.infiniteCheck) {
           handler();
         }
-        scroller.addEventListener('scroll', handler);
+        this.scroller.addEventListener('scroll', this.scrollHandler);
         this.$once('hook:beforeDestroy', () => {
-          scroller.removeEventListener('scroll', handler);
+          this.clearHandler();
         });
+      },
+      clearHandler() {
+        if (this.scrollHandler) {
+          this.scroller.removeEventListener('scroll', this.scrollHandler);
+          this.scrollHandler = null;
+        }
       },
     },
     mounted() {

@@ -6,6 +6,7 @@ export interface DropMenuProps {
   defaultValue?: Record<string, any> | any[];
   direction?: 'up' | 'down';
   divider?: boolean;
+  border?: boolean;
   itemActive?: boolean;
   mask?: boolean;
   checkIcon?: IconProperty;
@@ -56,6 +57,10 @@ export interface DropMenuItemScopedSlots {
     checked?: DropMenuItemOptions,
     options: DropMenuItemOptions[],
     instance: InstanceType<typeof DropMenuItem>,
+  };
+  title?: {
+    defaultTitle?: string;
+    checked?: DropMenuItemOptions,
   };
 }
 

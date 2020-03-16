@@ -33,10 +33,14 @@ $skeletonPrefixClass: #{$prefix}skeleton;
     display: flex;
     flex-flow: row nowrap;
   }
+  & ~ {
+    .#{$skeletonPrefixClass}__content {
+      margin-left: 36px;
+    }
+  }
   &__content {
     flex-grow: 1;
     padding-top: 6px;
-    margin-left: 36px;
   }
   // ==================== shape =======================
   &.is-circle {

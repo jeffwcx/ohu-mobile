@@ -22,6 +22,7 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
     defaultValue: props<DropMenuDataModel, Array<any>>(Object, Array).default(() => ({})),
     direction: props.ofStringLiterals('up', 'down').default('down'),
     divider: props(Boolean).default(true),
+    border: props(Boolean).default(true),
     itemActive: props(Boolean).default(true),
     mask: props(Boolean).default(true),
     popupClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
@@ -122,9 +123,8 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
     };
     return (
       <div class={baseDropMenuName} ref="dropMenu">
-        <Divider />
         <div class={dropMenuInnerCls} style={style}>{inner}</div>
-        <Divider />
+        {this.border &&  <Divider />}
       </div>
     );
   },
