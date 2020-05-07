@@ -14,13 +14,13 @@ import Button from '@/Button';
 import '@/Button/style';
 import Dialog from '@/Dialog';
 import '@/Dialog/style';
-import * as yup from 'yup';
 import Input from '@/Input';
 import '@/Input/style';
 import Card from '@/Card';
 import '@/Card/style';
 import Select from '@/Select';
 import '@/Select/style';
+import Ajv from 'ajv';
 
 
 export default {
@@ -52,11 +52,11 @@ export const basic = () => Vue.extend({
           verifyCode: '',
           subject: '艺术',
         }}
-        validateSchema={{
+        validateSchema={(yup) => ({
           hobby: yup.array().min(2, '需要最少选2个').required(),
           username: yup.string().required('请输入用户名'),
           password: yup.string().required('请输入密码'),
-        }}
+        })}
         scopedSlots={{
           default: ({ model, reset, validate }) => {
             return (
@@ -143,6 +143,8 @@ export const inline = () => Vue.extend({
         validateFirst: false,
         trigger: 'blur' as FormTrigger,
         scrollToError: true,
+        validateFunc: false,
+        inline: true,
       },
     };
   },
@@ -186,10 +188,23 @@ export const inline = () => Vue.extend({
                 <Radio value={false}>false</Radio>
               </RadioGroup>
             </Form.Field>
+            <Form.Field label="validateFunc" name="validateFunc">
+              <RadioGroup>
+                <Radio value={true}>true</Radio>
+                <Radio value={false}>false</Radio>
+              </RadioGroup>
+            </Form.Field>
+            <Form.Field label="inline" name="inline">
+              <RadioGroup>
+                <Radio value={true}>true</Radio>
+                <Radio value={false}>false</Radio>
+              </RadioGroup>
+            </Form.Field>
           </Form>
         </Card>
         <Form
-          onSubmit={(result) => {
+          inline={this.config.inline}
+          onSubmit={(result: any) => {
             Dialog.alert({
               content: JSON.stringify(result),
               targetStyle: { 'height': '180px' },
@@ -198,6 +213,26 @@ export const inline = () => Vue.extend({
           onFail={(errors) => {
             console.log(errors);
           }}
+          validateFunc={this.config.validateFunc ? (values, props) => {
+            const ajv = new Ajv({ allErrors: !props.validateFirst });
+            const validator = ajv.compile({
+              required: ['hobby', 'username', 'password'],
+              properties: {
+                hobby: { type: 'array', maxItems: 2 },
+                username: { type: 'string', maxLength: 8 },
+                password: { type: 'string', maxLength: 8 },
+              },
+            });
+            const errors: Record<string, string> = {};
+            const valid = validator(values);
+            if (!valid) return (validator.errors || []).reduce((acc, { dataPath, message }) => {
+              if (dataPath && message) {
+                acc[dataPath.replace('.', '')] = message;
+              }
+              return acc;
+            }, errors);
+            return errors;
+          }: undefined}
           trigger={this.config.trigger}
           contentAlign={this.config.contentAlign}
           labelAlign={this.config.labelAlign}
@@ -210,16 +245,19 @@ export const inline = () => Vue.extend({
             password: '',
             subject: '艺术',
           }}
-          validateSchema={{
-            hobby: yup.array().min(2, '需要最少选2个').required(),
-            username: yup.string().min(8, '最少8个字符').max(20, '最多20个字符').required('请输入用户名'),
-            password: yup.string().trim().min(8, '最少8个字符').required('请输入密码'),
+          excludeFields={['confirmPassword']}
+          validateSchema={(yup) => {
+            return {
+              hobby: yup.array().min(2, '需要最少选2个').required(),
+              username: yup.string().min(8, '最少8个字符').max(20, '最多20个字符').required('请输入用户名'),
+              password: yup.string().trim().min(8, '最少8个字符').required('请输入密码'),
+            };
           }}
           scopedSlots={{
-            default: ({ model, reset, submit }) => {
+            default: ({ model, reset, submit, getFieldValue }) => {
               return (
                 <div>
-                  <Form.Field label="爱好" name="hobby">
+                  <Form.Field label="爱好" name="hobby" required>
                     <CheckboxGroup>
                       <Checkbox value="coding">编程</Checkbox>
                       <Checkbox value="reading">阅读</Checkbox>
@@ -236,8 +274,8 @@ export const inline = () => Vue.extend({
                   </Form.Field>
                   <Form.Field label="科目" name="subject">
                     <Select
-                      noBorder
-                      outline
+                      noBorder={this.config.inline}
+                      outline={this.config.inline}
                       title="选择科目"
                       allowClear
                       placeholder="选择科目" options={[
@@ -249,21 +287,39 @@ export const inline = () => Vue.extend({
                         { label: '化学', value: '化学' },
                       ]} />
                   </Form.Field>
-                  <Form.Field label="用户名" name="username">
-                    <Input autofocus noBorder outline  placeholder="请输入用户名" allowClear />
+                  <Form.Field label="用户名" name="username" required>
+                    <Input
+                      noBorder={this.config.inline}
+                      outline={this.config.inline}  placeholder="请输入用户名" allowClear />
                   </Form.Field>
                   <Form.Field label="验证码" name="verifyCode" initialValue="123">
-                    <Input noBorder outline type="number" placeholder="请输入验证码">
+                    <Input
+                      noBorder={this.config.inline}
+                      outline={this.config.inline} type="number" placeholder="请输入验证码">
                       <Button slot="endAdornment" type="primary" size="sm">获取验证码</Button>
                     </Input>
                   </Form.Field>
-                  <Form.Field label="密码" name="password">
-                    <Input noBorder outline type="password" placeholder="请输入密码" allowClear />
+                  <Form.Field label="密码" name="password" required>
+                    <Input
+                      noBorder={this.config.inline}
+                      outline={this.config.inline} type="password" placeholder="请输入密码" allowClear />
+                  </Form.Field>
+                  <Form.Field label="确认密码" name="confirmPassword" validate={(value) => {
+                    const password = getFieldValue('password');
+                    if (!value) return '请输入确认密码';
+                    if (value !== password) return '确认密码与密码不一致';
+                    return '';
+                  }}>
+                    <Input
+                      noBorder={this.config.inline}
+                      outline={this.config.inline} type="password" placeholder="请输入密码" allowClear />
                   </Form.Field>
                   <Form.Field label="备注" name="note">
-                    <Input type="textarea" noBorder outline placeholder="请输入备注" rows={4} onEnter={() => {
-                      submit();
-                    }} />
+                    <Input type="textarea" noBorder={this.config.inline}
+                      outline={this.config.inline}
+                      placeholder="请输入备注" rows={4} onEnter={() => {
+                        submit();
+                      }} />
                   </Form.Field>
                   <div style="padding: 10px;">
                     <Agree disabled={!(!!model.gendar && model.hobby.length > 0)}>您仔细阅读以下条款，如果您对本协议的任何条款表示异议，意味着您（即「用户」）完全接受本协议项下的全部条款。</Agree>

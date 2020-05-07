@@ -59,6 +59,7 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
     props: {
       treeData: props<TreeNode[]>(Array).default(() => []),
       value: props.ofAny().optional,
+      keyPath: props<(string | number)[]>(Array).optional,
       multiple: props(Boolean).default(false),
       loadData: props<TreeSelectLoadDataFunc>(Function).optional,
       leftWidth: props(String).default('38.4%'),
@@ -92,6 +93,8 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
             isLeaf: node.isLeaf,
             children: keys,
             hasChildren: node.hasChildren,
+            loading: false,
+            loaded: false,
           };
           if (expandKeys.length > 0) {
             if (!leftKey) {
@@ -115,9 +118,15 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
           cachedExpandKey,
         };
       },
-      handleChange(value: any) {
+      handleChange(value: any, keyPath: string[]) {
         this.internalValue = value;
-        this.$emit('change', value);
+        const leafKey = keyPath[keyPath.length - 1];
+        const params: any = {};
+        if (leafKey) {
+          params.node = this.internalTreeData[leafKey];
+          params.path = keyPath.map((key) => (this.internalTreeData[key]));
+        }
+        this.$emit('change', value, params);
       },
       handleLeftPanelClick(key: string) {
         this.leftKey = key;
@@ -126,24 +135,61 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
           this.loadDataWhenExpand(key, leftOption);
         }
       },
-      loadDataWhenExpand(key: string, option: InternalTreeNode) {
+      cascadeLoad(keyPath: (string | number)[], depth = 0, keys: string[] = []) {
+        const keyOrValue = keyPath[depth];
+        if (depth === 0) {
+          keys = this.leftData;
+        }
+        keys.some((item) => {
+          const node = this.internalTreeData[item];
+          if (node.key === keyOrValue || node.value === keyOrValue) {
+            if (node.children && node.children.length > 0) {
+              this.cachedExpandKey[item] = true;
+              this.cascadeLoad(keyPath, depth + 1, node.children);
+            } else if (node.hasChildren && !node.isLeaf) {
+              this.loadDataWhenExpand(item, node, () => {
+                this.cascadeLoad(keyPath, depth + 1, node.children);
+              });
+            }
+            return true;
+          }
+          return false;
+        });
+      },
+      formatNodes(key: string, nodes: TreeNode[], option: InternalTreeNode) {
+        const { cachedExpandKey, internalTreeData, leftData } = this.formatData(nodes, key);
+        this.internalTreeData = Object.assign({}, this.internalTreeData, internalTreeData);
+        this.$set(this.cachedExpandKey, key, true);
+        this.cachedExpandKey[key] = true;
+        this.cachedExpandKey = Object.assign(this.cachedExpandKey, cachedExpandKey);
+        if (leftData.length > 0) {
+          this.$set(option, 'children', leftData);
+        }
+      },
+      loadDataWhenExpand(key: string, option: InternalTreeNode, success?: () => void) {
         if (this.loadData) {
           if (option.loading || option.loaded) return;
-          this.$set(option, 'loading', true);
-          this.loadData(option)
-            .then((nodes) => {
-              const { cachedExpandKey, internalTreeData, leftData  } = this.formatData(nodes, key);
-              this.internalTreeData = Object.assign(this.internalTreeData, internalTreeData);
-              this.cachedExpandKey[key] = true;
-              this.cachedExpandKey = Object.assign(this.cachedExpandKey, cachedExpandKey);
-              this.$set(option, 'children', leftData);
+          const loadDataInstance = this.loadData(option);
+          if (loadDataInstance instanceof Promise) {
+            this.$set(option, 'loading', true);
+            loadDataInstance.then((nodes) => {
+              this.formatNodes(key, nodes, option);
               this.$set(option, 'loaded', true);
               this.$set(option, 'loading', false);
-            })
-            .catch((error) => {
+              this.$nextTick(() => {
+                success && success();
+              });
+            }).catch((error) => {
               this.$set(option, 'loading', false);
               this.$emit('loadError', error);
             });
+          } else {
+            this.formatNodes(key, loadDataInstance, option);
+            this.$set(option, 'loaded', true);
+            this.$nextTick(() => {
+              success && success();
+            });
+          }
         }
       },
       handleCollapseExpand(key: string | number) {
@@ -154,23 +200,13 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
           delete this.cachedExpandKey[key];
         }
       },
-      renderRightPanel(keys: string[], depth = 0) {
+      renderRightPanel(keys: string[], keyPath: string[], depth = 0) {
         return (
           <List>
             {
               keys.map((key) => {
                 let option = this.internalTreeData[key];
-                if (!option.isLeaf && option.children) {
-                  return (
-                    <Collapse.Item
-                      onExpand={this.handleCollapseExpand}
-                      onShrink={this.handleCollapseShrink}
-                      title={option.title}
-                      key={key}>
-                      {this.renderRightPanel(option.children, depth + 1)}
-                    </Collapse.Item>
-                  );
-                }
+                let newKeyPath = keyPath.concat(key);
                 if (!option.isLeaf && option.hasChildren && !option.loaded) {
                   return (
                     <Collapse.Item
@@ -179,6 +215,17 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
                       title={option.title}
                       onExpand={() => this.loadDataWhenExpand(key, option)}
                       onShrink={this.handleCollapseShrink}>
+                    </Collapse.Item>
+                  );
+                }
+                if (!option.isLeaf && option.children && option.children.length > 0) {
+                  return (
+                    <Collapse.Item
+                      onExpand={this.handleCollapseExpand}
+                      onShrink={this.handleCollapseShrink}
+                      title={option.title}
+                      key={key}>
+                      {this.renderRightPanel(option.children, newKeyPath, depth + 1)}
                     </Collapse.Item>
                   );
                 }
@@ -192,11 +239,13 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
                         this.multiple
                           ? <Checkbox
                             slot="action"
+                            attach={newKeyPath}
                             value={option.value}
                             checkedIcon={this.checkedIcon}
                             unCheckedIcon={this.unCheckedIcon}  />
                           : <Radio
                             slot="action"
+                            attach={newKeyPath}
                             value={option.value}
                             checkedIcon={this.checkedIcon}
                             unCheckedIcon={this.unCheckedIcon} />
@@ -210,6 +259,13 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
         )
       }
     },
+    mounted() {
+      if (this.keyPath) {
+        this.cascadeLoad(this.keyPath);
+      } else if (this.leftKey) {
+        this.loadDataWhenExpand(this.leftKey, this.internalTreeData[this.leftKey]);
+      }
+    },
     render() {
       const root = this.root();
       const leftClass = root.element('left');
@@ -219,7 +275,7 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
       const rightChildren = this.internalTreeData[leftKey]?.children;
       let rightPanel;
       if (rightChildren) {
-        let panelContent = this.renderRightPanel(rightChildren);
+        let panelContent = this.renderRightPanel(rightChildren, [leftKey]);
         if (this.multiple) {
           rightPanel = (
             <CheckboxGroup value={this.internalValue} onChange={this.handleChange}>

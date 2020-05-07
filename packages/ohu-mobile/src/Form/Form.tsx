@@ -1,14 +1,15 @@
-import { FormEvents, FormScopedSlots, FormProps, FormAlign, FormTrigger, FormFieldInstance } from './types';
+import { FormEvents, FormScopedSlots, FormProps, FormAlign, FormTrigger, FormFieldInstance, FormValidateSchemaProp } from './types';
 import { SyntheticEvent, FormHTMLAttributes } from 'vue-tsx-support/types/dom';
 import deepmerge from 'deepmerge';
-import { ObjectSchemaDefinition } from 'yup';
+import * as Yup from 'yup';
 import { FormError } from './FormError';
 import { defineAncestorComponent, props } from '../_utils/defineComponent';
 
 export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('form').create({
   props: {
     initialValues: props(Object).default(() => ({})),
-    validateSchema: props<ObjectSchemaDefinition<Record<string, any>>>(Object).optional,
+    validateFunc: props<(values: any, props: FormProps) => Record<string, any>>(Function).optional,
+    validateSchema: props.ofType<FormValidateSchemaProp>().optional,
     validateFirst: props(Boolean).default(false),
     inline: props(Boolean).default(true),
     labelAlign: props.ofType<FormAlign>().optional,
@@ -16,6 +17,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     contentAlign: props.ofType<FormAlign>().optional,
     trigger: props.ofType<FormTrigger>().default('change'),
     scrollToError: props(Boolean).default(false),
+    excludeFields: props<string[]>(Array).default(() => []),
   },
   data() {
     return {
@@ -65,6 +67,14 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     validate() {
       this.errors = {};
       this.errorNames = [];
+      if (this.validateFunc) {
+        const errors = this.validateFunc(this.model, this.$props);
+        const errorNames = Object.keys(errors);
+        if (errorNames.length === 0) return Promise.resolve(this.model);
+        this.errors = errors;
+        this.errorNames = errorNames;
+        return Promise.reject(new FormError(errors));
+      }
       const validatingChildren = this.children
         .filter((child) => child.$props.name !== undefined);
       const tasks = validatingChildren.map((component) => {
@@ -83,7 +93,9 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
           }).then(([r, n, value]) => {
             // filter undefined ''
             if (value !== undefined) {
-              r[n] = value;
+              if (this.excludeFields.indexOf(n) < 0) {
+                r[n] = value;
+              }
             }
             return r;
           }).catch((error) => {
@@ -111,12 +123,14 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
       return doTask();
     },
     getFieldValidation(name: string) {
+      if (typeof this.validateSchema === 'function') {
+        return this.validateSchema(Yup)[name];
+      }
       if (this.validateSchema) return this.validateSchema[name];
     },
     getFieldValue(name: string) {
       return this.model[name];
     },
-    // error
     setFieldValue(name: string, value: any) {
       this.$set(this.model, name, value);
       this.$emit('valuesChange', { prop: name, value, allValues: this.model });
@@ -150,7 +164,6 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     const root = this.root();
     const {
       $scopedSlots,
-      $slots,
       model,
       reset,
       validate,

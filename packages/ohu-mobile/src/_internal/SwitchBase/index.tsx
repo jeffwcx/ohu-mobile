@@ -19,6 +19,7 @@ export interface SwitchBaseProps {
   indeterminate?: boolean;
   indeterminateIcon?: IconProperty | null;
   labelClickable?: boolean;
+  attach?: any;
 }
 
 export const switchBaseProps = {
@@ -34,6 +35,7 @@ export const switchBaseProps = {
   unCheckedIcon: props.ofType<IconProperty | null>().default(() => CheckboxBlankOutlined),
   indeterminate: props(Boolean).default(false),
   indeterminateIcon: props.ofType<IconProperty | null>().default(() => CheckboxIndeterminateFilled),
+  attach: props.ofAny().optional,
 };
 
 export interface SwitchBaseOutsideProps extends SwitchBaseProps {

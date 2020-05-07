@@ -61,6 +61,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     confirm: props(Boolean).default(false),
     minHeight: props(String).default('auto'),
     maxHeight: props(String).default('auto'),
+    popupContentStyle: props(Object).optional,
     native: props(Boolean).default(false),
     outline: props(Boolean).default(false),
     noBorder: props(Boolean).default(false),
@@ -253,7 +254,14 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
             </Popup.Header>
           }
           <div class={popupClass.element('content')} style={contentStyle}>
-            {this.renderCheckList()}
+            {
+              this.$scopedSlots.content
+                ? this.$scopedSlots.content({
+                  value: this.checkedValue,
+                  handleChange: this.handleChange
+                })
+                : this.renderCheckList()
+            }
           </div>
         </Popup>
       );
@@ -314,6 +322,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       placeholder, icon, outline, noBorder,
       maxHeight, minHeight, native,
       stateValue, disabled,
+      popupContentStyle,
     } = this;
     root.is([ disabled && 'disabled' ]);
     const inputNode = root.element('input');
@@ -325,6 +334,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     const contentStyle: Partial<CSSStyleDeclaration> = {
       minHeight,
       maxHeight,
+      ...popupContentStyle,
     };
     let iconType = icon;
     if (iconType === undefined) {

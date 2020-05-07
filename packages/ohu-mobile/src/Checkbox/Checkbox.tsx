@@ -54,14 +54,14 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
     handleChange(checked: boolean) {
       if (this.internalDisabled) return;
       if (this.ancestor) {
-        const success = this.ancestor.childrenChange(this.value, checked);
+        const success = this.ancestor.childrenChange(this.value, checked, this.attach);
         if (success) {
           this.checkedValue = checked;
         }
       } else {
         this.checkedValue = checked;
       }
-      this.$emit('change', checked);
+      this.$emit('change', checked, this.attach);
     },
   },
   render() {

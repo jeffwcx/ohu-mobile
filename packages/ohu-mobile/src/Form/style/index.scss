@@ -61,10 +61,22 @@ $formFieldPrefixClass: #{$formPrefixClass}-field;
   &__label {
     flex-shrink: 0;
     flex-grow: 0;
+    position: relative;
     box-sizing: border-box;
     color: $formFieldLabelColor;
     font-size: 1em;
     @include add-align;
+    &.is-required {
+      &::before {
+        content: '*';
+        position: absolute;
+        display: inline-block;
+        color: $colorRed;
+        top: 0;
+        left: -.5em;
+        font-size: 1.2em;
+      }
+    }
   }
   &__control {
     flex-grow: 1;

@@ -15,20 +15,22 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
   },
   props: {
     initialValue: props.ofAny().optional,
+    validate: props<(value: any) => string>(Function).optional,
     label: props(String).optional,
     name: props(String).optional,
     labelAlign: props.ofType<FormAlign>().optional,
     labelWidth: props(String).default('25.6%'),
     contentAlign: props.ofType<FormAlign>().optional,
     trigger: props.ofType<FormTrigger>().optional,
+    required: props(Boolean).default(false),
   },
   watch: {
-    fieldValue(cur) {
-      if (this.ancestor && this.name) {
-        this.ancestor.setFieldValue(this.name, cur);
+    fieldValue(value) {
+      if (this.ancestor) {
+        this.ancestor.setFieldValue(this.name, value);
       }
       if (this.triggerEvent === 'change') {
-        this.validate();
+        this.fieldValidate();
       }
     },
   },
@@ -59,7 +61,7 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     },
   },
   methods: {
-    validate() {
+    fieldValidate() {
       return this.formValidate()
         .then((value) => {
           if (this.name && this.ancestor) {
@@ -81,15 +83,25 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     },
     formValidate() {
       let value = this.fieldValue;
-      if (this.ancestor && this.name && this.schema) {
-        return this.schema.validate(value);
-      } else {
-        return Promise.resolve(value);
+      if (this.validate) {
+        return new Promise((resolve, reject) => {
+          if (this.validate) {
+            const error = this.validate(value);
+            if (error) return reject(error);
+          }
+          resolve(value);
+        });
       }
+      if (this.ancestor && this.name) {
+        if (this.schema) {
+          return this.schema.validate(value);
+        }
+      }
+      return Promise.resolve(value);
     },
     onBlur() {
       if (this.triggerEvent === 'blur') {
-        this.validate();
+        this.fieldValidate();
       }
     },
     addChildren(input: FormFieldInput) {
@@ -130,7 +142,9 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     const root = this.root();
     const {
       $slots, error,
-      label, name, labelAlign, labelWidth, contentAlign,
+      label, name, labelAlign,
+      labelWidth, contentAlign,
+      required,
     } = this;
     if (this.ancestor) {
       root.is([this.ancestor.inline ? 'inline' : 'block']);
@@ -139,6 +153,9 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     const align = labelAlign || this.ancestor.labelAlign;
     if (align) {
       labelClass.is(align);
+    }
+    if (required) {
+      labelClass.is('required');
     }
     const labelStyle = {
       width: labelWidth || this.ancestor.labelWidth,
@@ -160,7 +177,7 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
               error
               &&
               <div class={controlClass.element('error')}>
-                <span>{error.message}</span>
+                <span>{error.message ? error.message : error}</span>
               </div>
             }
           </div>

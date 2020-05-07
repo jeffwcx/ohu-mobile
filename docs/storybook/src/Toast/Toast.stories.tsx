@@ -85,7 +85,7 @@ export const successAndFail = () => Vue.extend({
     return (
       <Card>
         <Button onClick={() => {
-          Toast.success('成功');
+          Toast.success('成功', 100000);
         }}>success</Button>
         <Button onClick={() => {
           Toast.fail('失败了');

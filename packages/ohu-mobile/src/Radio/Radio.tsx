@@ -31,6 +31,7 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
     unCheckedColor: props(String).default($radioColor),
     checkedIcon: props.ofType<IconProperty | null>().default(() => CheckboxCircleFilled),
     unCheckedIcon: props.ofType<IconProperty | null>().default(() => CheckboxBlankCircleOutlined),
+    attach: props.ofAny().optional,
   },
   watch: {
     checked(cur) {
@@ -70,14 +71,14 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
     handleChange(checked: boolean) {
       if (this.internalDisabled) return;
       if (this.ancestor) {
-        const success = this.ancestor.childrenChange(this.value, checked);
+        const success = this.ancestor.childrenChange(this.value, checked, this.attach);
         if (success) {
           this.checkedValue = checked;
         }
       } else {
         this.checkedValue = checked;
       }
-      this.$emit('change', checked);
+      this.$emit('change', checked, this.attach);
     },
   },
   render() {

@@ -59,8 +59,9 @@ export default defineDescendantComponent<InstanceType<typeof Collapse>, Collapse
         animate(el, {
           timingFunction: easeOutQuint,
           duration: 300,
-          done() {
+          done: () => {
             el.style.height = '';
+            this.$emit('expanded');
           },
           props: {
             height: [0, el.offsetHeight],
@@ -75,6 +76,7 @@ export default defineDescendantComponent<InstanceType<typeof Collapse>, Collapse
         duration: 300,
         done: () => {
           el.style.height = '';
+          this.$emit('shrinked');
           done();
         },
         props: {

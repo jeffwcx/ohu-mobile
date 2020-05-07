@@ -25,5 +25,7 @@ export interface CollapseItemProps {
 
 export interface CollapseItemEvents {
   onExpand: string | number;
+  onExpanded: void;
   onShrink: string | number;
+  onShrinked: void;
 }

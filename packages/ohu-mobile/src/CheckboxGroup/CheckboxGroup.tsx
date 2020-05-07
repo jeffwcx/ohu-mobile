@@ -34,7 +34,7 @@ export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, 
         return this.result.indexOf(value) >= 0;
       });
     },
-    childrenChange(value: any, checked: boolean) {
+    childrenChange(value: any, checked: boolean, attach?: any) {
       const valueIndex = this.result.indexOf(value);
       if (checked && valueIndex < 0) {
         if (this.result.length >= this.max) return false;
@@ -46,7 +46,7 @@ export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, 
       if (this.options) {
         this.$emit('change', this.result, this.selectOptions());
       } else {
-        this.$emit('change', this.result);
+        this.$emit('change', this.result, attach);
       }
       return true;
     },

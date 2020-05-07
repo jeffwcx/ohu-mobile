@@ -11,7 +11,8 @@ import '@/Dialog/style';
 import Toast from '@/Toast';
 import '@/Toast/style';
 import { ArrowLeftOutlined, ArrowRightSOutlined } from '~/icons/index';
-
+import TreeSelect, { InternalTreeNode, TreeNode } from '@/TreeSelect';
+import '@/TreeSelect/style';
 
 export default {
   title: 'Components|Form/Select',
@@ -33,6 +34,8 @@ export const basic = () => Vue.extend({
       v1: '艺术',
       v2: ['体育', '科学'],
       v3: '计算机',
+      v4: '淳安县',
+      control: '淳安县',
     };
   },
   methods: {
@@ -42,6 +45,40 @@ export const basic = () => Vue.extend({
         this.v2.splice(index, 1);
       }
     },
+    loadData(node: InternalTreeNode): Promise<TreeNode[]> {
+      return new Promise((resolve, reject) => {
+        if (node.value === '杭州') {
+          return setTimeout(() => {
+            resolve([
+              {
+                title: '滨江区',
+                value: '滨江区',
+                isLeaf: true,
+              },
+              {
+                title: '淳安县',
+                value: '淳安县',
+                isLeaf: true,
+              },
+              {
+                title: '拱墅区',
+                value: '拱墅区',
+                isLeaf: true,
+              }
+            ]);
+          }, 2000);
+        } else if (node.value === '湖州') {
+          return resolve([
+            {
+              title: '长兴',
+              value: '长兴',
+              isLeaf: true,
+            },
+          ]);
+        }
+        resolve([]);
+      });
+    }
   },
   render() {
     return (
@@ -188,6 +225,51 @@ export const basic = () => Vue.extend({
               { label: '计算机', value: '计算机' },
               { label: '化学', value: '化学' },
             ]} />
+        </Card>
+        <Card shadow>
+          <Card.Header>scoped-slots content（use TreeSelect）</Card.Header>
+          <Select v-model={this.v4}
+            style="min-width: 165px;"
+            title="选择高中"
+            popupContentStyle={{
+              height: '100%'
+            }}
+            icon={ArrowRightSOutlined}
+            fullScreen
+            placeholder="选择高中"
+            scopedSlots={{
+              control: () => {
+                return this.control;
+              },
+              content: ({ value, handleChange }) => {
+                return <TreeSelect
+                  style={{ height: '100%' }}
+                  value={value}
+                  keyPath={['杭州', '淳安县']}
+                  treeData={[
+                    {
+                      title: '杭州',
+                      value: '杭州',
+                      hasChildren: true,
+                    },
+                    {
+                      title: '湖州',
+                      value: '湖州',
+                      hasChildren: true,
+                    },
+                    {
+                      title: '嘉兴',
+                      value: '嘉兴',
+                      hasChildren: true,
+                    },
+                  ]}
+                  onChange={(value: any, { node, path }: { node: InternalTreeNode, path: InternalTreeNode[] }) => {
+                    this.control = path.map((n) => n.title).join('/');
+                    handleChange(value, { label: node.title, value: node.value });
+                  }}
+                  loadData={this.loadData} />
+              },
+            }} />
         </Card>
       </div>
     );

@@ -22,10 +22,11 @@ export interface InternalTreeNode {
   loaded?: boolean;
 }
 
-export type TreeSelectLoadDataFunc = (node: InternalTreeNode) => Promise<TreeNode[]>;
+export type TreeSelectLoadDataFunc = (node: InternalTreeNode) => (Promise<TreeNode[]> | TreeNode[]);
 
 export interface TreeSelectProps {
   value?: any | any[];
+  keyPath?: any[];
   treeData: TreeNode[];
   multiple?: boolean;
   loadData?: TreeSelectLoadDataFunc;

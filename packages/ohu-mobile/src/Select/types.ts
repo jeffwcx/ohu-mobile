@@ -18,6 +18,7 @@ export interface SelectProps {
   icon?: IconDef | null;
   minHeight?: string;
   maxHeight?: string;
+  popupContentStyle?: object;
   native?: boolean;
   outline?: boolean;
   noBorder?: boolean;
@@ -42,4 +43,8 @@ export interface SelectEvents {
 
 export interface SelectScopedSlots {
   control?: SelectOption[] | SelectOption;
+  content?: {
+    value: any;
+    handleChange: (value: any, option: SelectOption | SelectOption[]) => void;
+  };
 }
