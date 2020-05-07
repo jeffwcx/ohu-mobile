@@ -8,6 +8,7 @@ export interface TreeNode {
   isLeaf?: boolean;
   hasChildren?: boolean;
   children?: TreeNode[];
+  attach?: any;
 }
 
 export interface InternalTreeNode {
@@ -20,6 +21,7 @@ export interface InternalTreeNode {
   children?: string[];
   loading?: boolean;
   loaded?: boolean;
+  attach?: any;
 }
 
 export type TreeSelectLoadDataFunc = (node: InternalTreeNode) => (Promise<TreeNode[]> | TreeNode[]);

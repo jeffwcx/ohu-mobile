@@ -95,6 +95,7 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
             hasChildren: node.hasChildren,
             loading: false,
             loaded: false,
+            attach: node.attach,
           };
           if (expandKeys.length > 0) {
             if (!leftKey) {
