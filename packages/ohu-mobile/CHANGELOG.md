@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.1](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.14.0...@ohu-mobile/core@0.14.1) (2020-05-07)
+
+
+### Features
+
+* **tree-select:** add attach for TreeNode ([3063d80](https://github.com/jeffwcx/ohu-mobile/commit/3063d80e19994f8597416b4073940e8bf993c555))
+
+
+
+
+
 # [0.14.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.13.3...@ohu-mobile/core@0.14.0) (2020-05-07)
 
 
