@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.2](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.14.1...@ohu-mobile/core@0.14.2) (2020-05-11)
+
+
+### Bug Fixes
+
+* **tree-select:** set corrent leftKey for keyPath ([3db46a1](https://github.com/jeffwcx/ohu-mobile/commit/3db46a128413fb0540bd26bd14a45b8326b2c5d3))
+
+
+
+
+
 ## [0.14.1](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.14.0...@ohu-mobile/core@0.14.1) (2020-05-07)
 
 
