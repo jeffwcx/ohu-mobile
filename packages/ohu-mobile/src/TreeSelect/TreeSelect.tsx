@@ -141,9 +141,12 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
         if (depth === 0) {
           keys = this.leftData;
         }
-        keys.some((item) => {
+        keys.some((item, index) => {
           const node = this.internalTreeData[item];
           if (node.key === keyOrValue || node.value === keyOrValue) {
+            if (depth === 0) {
+              this.leftKey = index.toString();
+            }
             if (node.children && node.children.length > 0) {
               this.cachedExpandKey[item] = true;
               this.cascadeLoad(keyPath, depth + 1, node.children);

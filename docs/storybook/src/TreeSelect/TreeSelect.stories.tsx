@@ -113,7 +113,7 @@ export const basic = () => Vue.extend({
           <TreeSelect
             style="height: 500px"
             value="刑法"
-            keyPath={['法学', '法学类', '法学2', '刑法']}
+            keyPath={['管理学', '政治', '刑法']}
             loadData={this.loadData} treeData={this.treeData} onLoadError={(error) => {
               Toast.fail(error.toString());
             }}></TreeSelect>
