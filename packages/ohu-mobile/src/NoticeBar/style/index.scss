@@ -26,10 +26,10 @@ $noticeBarPrefixClass: #{$prefix}notice-bar;
     color: $noticeBarWarningColor;
   }
   &.has-icon {
-    padding-left: $noticeBarPadding + $noticeBarIconSize + 6px;
+    padding-left: $noticeBarPadding + $noticeBarIconSize + 22px;
   }
   &.has-action {
-    padding-right: $noticeBarPadding + $noticeBarIconSize + 6px;
+    padding-right: $noticeBarPadding + $noticeBarIconSize + 22px;
   }
   &__icon {
     font-size: 1.4em;
@@ -60,7 +60,7 @@ $noticeBarPrefixClass: #{$prefix}notice-bar;
     }
   }
   &__action {
-    font-size: 1.1em;
+    font-size: 1.4em;
     @include center(y);
     right: $noticeBarPadding;
     width: $noticeBarIconSize;

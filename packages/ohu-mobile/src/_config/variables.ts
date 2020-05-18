@@ -237,7 +237,7 @@ export let $noticeBarWarningBackground: string = process.env.$noticeBarWarningBa
 export let $noticeBarWarningColor: string = process.env.$noticeBarWarningColor || $colorTextError;
 export let $noticeBarFontSize: string = process.env.$noticeBarFontSize || '28px';
 export let $noticeBarIconSize: string = process.env.$noticeBarIconSize || '48px';
-export let $noticeBarPadding: string =  process.env.$noticeBarPadding || '12px';
+export let $noticeBarPadding: string =  process.env.$noticeBarPadding || '8px';
 
 
 // Component/NavBar
