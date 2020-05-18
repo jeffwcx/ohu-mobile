@@ -131,12 +131,20 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     getFieldValue(name: string) {
       return this.model[name];
     },
+    getChild(name: string) {
+      const field = this.children.find((item) => item.name === name);
+      return field;
+    },
     setFieldValue(name: string, value: any) {
       this.$set(this.model, name, value);
+      const field = this.getChild(name);
+      if (field) {
+        field.resetField(value);
+      }
       this.$emit('valuesChange', { prop: name, value, allValues: this.model });
     },
     scrollToField(name: string) {
-      const field = this.children.find((item) => item.name === name);
+      const field = this.getChild(name);
       if (field) {
         field.$el.scrollIntoView();
       }

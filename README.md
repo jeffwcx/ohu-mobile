@@ -75,5 +75,13 @@ yarn add @ohu-mobile/styles
 
 + Use CDN
 
+## Three ways to customize.
+
++ Use theme variables.
+
++ Change default behavior of component.
+
++ Import the component library into your source code.
+
 
 

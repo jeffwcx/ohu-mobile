@@ -3,6 +3,7 @@ import { CheckboxGroupEvents, CheckboxOption, CheckboxGroupScopedSlots, Checkbox
 import checkBoxGroupProps from './props';
 import { defineAncestorComponent } from '../_utils/defineComponent';
 import { fieldMixin } from '../Form/fieldMixin';
+import { InputHTMLAttributes, SyntheticEvent } from 'vue-tsx-support/types/dom';
 
 export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, CheckboxGroupScopedSlots>(
   'checkbox-group',
@@ -34,10 +35,16 @@ export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, 
         return this.result.indexOf(value) >= 0;
       });
     },
-    childrenChange(value: any, checked: boolean, attach?: any) {
+    childrenChange(value: any, checked: boolean, attach?: any, e?: SyntheticEvent<InputHTMLAttributes, Event>) {
       const valueIndex = this.result.indexOf(value);
       if (checked && valueIndex < 0) {
-        if (this.result.length >= this.max) return false;
+        if (this.result.length >= this.max) {
+          if (e) {
+            // keep old state
+            e.target.checked = !checked;
+          }
+          return false;
+        }
         this.result.push(value);
       }
       if (!checked && valueIndex >= 0) {

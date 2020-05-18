@@ -1,7 +1,7 @@
 import { RadioOption } from '../RadioGroup';
 import { CheckboxOption } from '../CheckboxGroup';
 import { IconDef } from '../types';
-import { PopupProps, PopupHeaderProps } from '../Popup';
+import { PopupProps, PopupHeaderProps, PopupEvents } from '../Popup';
 
 export type SelectOption = RadioOption | CheckboxOption;
 
@@ -32,7 +32,7 @@ export interface SelectProps {
   beforeClose?: SelectBeforeFunc;
 }
 
-export interface SelectEvents {
+export interface SelectEvents extends PopupEvents {
   onChange: any | any[];
   onConfirm: any;
   onSelect: any;

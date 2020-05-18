@@ -84,7 +84,7 @@ export default defineComponent<SwitchBaseOutsideProps, SwitchBaseEvents, SwitchB
     methods: {
       handleInputChange(e: SyntheticEvent<InputHTMLAttributes, Event>) {
         if (e.target.checked !== undefined) {
-          this.$emit('change', e.target.checked);
+          this.$emit('change', e.target.checked, e);
         }
       },
       handleBlur(e: SyntheticEvent<InputHTMLAttributes, FocusEvent>) {

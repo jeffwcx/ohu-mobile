@@ -4,6 +4,7 @@ import { defineDescendantComponent } from '../_utils/defineComponent';
 import SwitchBase, { SwitchBaseOutsideProps, switchBaseProps } from '../_internal/SwitchBase';
 import CheckboxGroup from '../CheckboxGroup';
 import { fieldMixin } from '../Form/fieldMixin';
+import { SyntheticEvent, InputHTMLAttributes } from 'vue-tsx-support/types/dom';
 
 interface CheckboxMethods {
   toggle: () => void;
@@ -51,10 +52,10 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
     getChecked() {
       return this.ancestor ? this.ancestor.isChildChecked(this.value) : this.checkedValue;
     },
-    handleChange(checked: boolean) {
+    handleChange(checked: boolean, e?: SyntheticEvent<InputHTMLAttributes, Event>) {
       if (this.internalDisabled) return;
       if (this.ancestor) {
-        const success = this.ancestor.childrenChange(this.value, checked, this.attach);
+        const success = this.ancestor.childrenChange(this.value, checked, this.attach, e);
         if (success) {
           this.checkedValue = checked;
         }

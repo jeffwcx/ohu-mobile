@@ -35,6 +35,8 @@ export interface TreeSelectProps {
   leftWidth?: string;
   checkedIcon?: IconProperty | null;
   unCheckedIcon?: IconProperty | null;
+  max?: number;
+  scrollIntoView?: boolean;
 }
 
 export interface TreeSelectEvents {

@@ -31,7 +31,7 @@ export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio
     },
     data() {
       return {
-        valueState:  this.getFieldValue(this.value),
+        valueState: this.getFieldValue(this.value),
       }
     },
     methods: {

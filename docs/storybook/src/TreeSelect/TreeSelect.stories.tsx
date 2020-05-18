@@ -6,6 +6,7 @@ import Toast from '@/Toast';
 import '@/Toast/style';
 import TreeSelect, { TreeNode, InternalTreeNode } from '@/TreeSelect';
 import '@/TreeSelect/style';
+import { Skeleton } from '../../../../packages/ohu-mobile/src';
 // import {  } from '~/icons/index';
 
 
@@ -31,19 +32,7 @@ export const basic = () => Vue.extend({
           key: '法学',
           title: '法学',
           value: '法学',
-          children: [
-            {
-              key: '法学类',
-              title: '法学类',
-              value: '法学类',
-              hasChildren: true,
-            },
-            { key: '公安学类', title: '公安学类', value: '公安学类' },
-            { key: '马克思主义理论类', title: '马克思主义理论类', value: '马克思主义理论类' },
-            { key: '社会学类', title: '社会学类', value: '社会学类' },
-            { key: '民族学类', title: '民族学类', value: '民族学类', isLeaf: true },
-            { key: '政治学类', title: '政治学类', value: '政治学类' },
-          ],
+          hasChildren: true,
         },
         {
           title: '工学',
@@ -73,6 +62,21 @@ export const basic = () => Vue.extend({
   methods: {
     loadData(node: InternalTreeNode): Promise<TreeNode[]> {
       return new Promise((resolve, reject) => {
+        if (node.key === '法学') {
+          return resolve([
+            {
+              key: '法学类',
+              title: '法学类',
+              value: '法学类',
+              hasChildren: true,
+            },
+            { key: '公安学类', title: '公安学类', value: '公安学类' },
+            { key: '马克思主义理论类', title: '马克思主义理论类', value: '马克思主义理论类' },
+            { key: '社会学类', title: '社会学类', value: '社会学类' },
+            { key: '民族学类', title: '民族学类', value: '民族学类', isLeaf: true },
+            { key: '政治学类', title: '政治学类', value: '政治学类' },
+          ]);
+        }
         if (node.key === '法学2' || node.key === '政治') {
           return setTimeout(() => {
             resolve([
@@ -116,27 +120,30 @@ export const basic = () => Vue.extend({
             keyPath={['管理学', '政治', '刑法']}
             loadData={this.loadData} treeData={this.treeData} onLoadError={(error) => {
               Toast.fail(error.toString());
-            }}></TreeSelect>
+            }}>
+            <Skeleton slot="loading" style={{ padding: '10px' }} row rows={3} rowWidth={['100%', '100%', '100%']} />
+          </TreeSelect>
         </Card>
         <Card shadow padding={false}>
           <Card.Header>Multiple</Card.Header>
           <TreeSelect
             value={['监狱学', '兵器类']}
             keyPath={['法学', '法学类', '监狱学']}
-            onChange={(values: any) => {
-              console.log(values);
+            onChange={(values: any, params: any) => {
+              console.log(values, params);
             }}
             style="height: 500px"
             loadData={this.loadData}
             multiple
+            max={2}
             treeData={this.treeData} />
         </Card>
         <Card shadow padding={false}>
           <Card.Header>Icon</Card.Header>
           <TreeSelect
-            style="height: 500px"
+            style="height: 200px"
             keyPath={['法学', '法学类', '法学2', '刑法']}
-            value="刑法"
+            value="民族学类"
             unCheckedIcon={null}
             loadData={this.loadData}
             treeData={this.treeData} />
