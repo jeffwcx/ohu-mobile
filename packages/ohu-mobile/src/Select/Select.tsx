@@ -44,7 +44,7 @@ const fullScreenPopupHeaderProps: PopupHeaderProps = {
 
 export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, SelectMethods>(
   'select'
-).mixin(fieldMixin).create({
+).mixin(fieldMixin('stateValue', 'value', true)).create({
   model: {
     prop: 'value',
     event: 'change',
@@ -100,7 +100,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     },
   },
   data() {
-    const currentValue = this.getCurrentStateValue(this.getFieldValue(this.value));
+    const currentValue = this.getCurrentStateValue(this.initFieldValue(this.value));
     const currentOption = this.getCurrentSelectedOption(currentValue);
     let visible = this.disabled ? false : this.visible;
     if (visible) {
@@ -118,7 +118,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     };
   },
   methods: {
-    resetFieldValue(value: any) {
+    setFieldValue(value: any) {
       this.stateValue = this.getCurrentStateValue(value);
     },
     getCurrentStateValue(value: any | any[]) {

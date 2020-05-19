@@ -35,6 +35,7 @@ export interface BemHelperOptions {
   blockJoin?: string | ClassTransformFunc;
   isJoin?: string | ClassTransformFunc;
   hasJoin?: string | ClassTransformFunc;
+  noJoin?: string | ClassTransformFunc;
 }
 
 export interface CreateBemHelper {
@@ -65,6 +66,7 @@ function transformJoin(option: string | ClassTransformFunc) {
 export class BlockContext extends Array<string> {
   public baseName!: string;
   private isJoinTransform!: ClassTransformFunc;
+  private noJoinTransform!: ClassTransformFunc;
   private hasJoinTransform!: ClassTransformFunc;
   private blockJoinTransform!:ClassTransformFunc;
   private modiferJoinTransform!: ClassTransformFunc
@@ -74,12 +76,13 @@ export class BlockContext extends Array<string> {
     this.baseName = (options && options.prefix) ? `${options.prefix}${rootName}` : rootName;
     this.push(this.baseName);
     if (options) {
-      const { isJoin, hasJoin, blockJoin, elementJoin, modifierJoin } = options;
+      const { isJoin, hasJoin, blockJoin, elementJoin, modifierJoin, noJoin } = options;
       if (isJoin) this.isJoinTransform = transformJoin(isJoin);
       if (hasJoin) this.hasJoinTransform = transformJoin(hasJoin);
       if (blockJoin) this.blockJoinTransform = transformJoin(blockJoin);
       if (elementJoin) this.elementJoinTransform = transformJoin(elementJoin);
       if (modifierJoin) this.modiferJoinTransform = transformJoin(modifierJoin);
+      if (noJoin) this.noJoinTransform = transformJoin(noJoin);
     }
   }
   private addClassItem(cls: string, transformClass?: ClassTransformFunc) {
@@ -151,6 +154,10 @@ export class BlockContext extends Array<string> {
     const opts = transformArgs(options, items);
     return this.removeClasses(opts, this.isJoinTransform);
   }
+  no(options: ClassOptions | string, ...items: string[]) {
+    const opts = transformArgs(options, items);
+    return this.addClasses(opts, this.noJoinTransform);
+  }
   has(options: ClassOptions | string, ...items: string[]) {
     const opts = transformArgs(options, items);
     return this.addClasses(opts, this.hasJoinTransform);
@@ -184,9 +191,12 @@ const defaultOptions: BemHelperOptions = {
   isJoin: (_: string, classItem: string) => {
     return `is-${classItem}`;
   },
-  hasJoin(_: string, classItem: string) {
+  hasJoin: (_: string, classItem: string) => {
     return `has-${classItem}`;
   },
+  noJoin: (_: string, classItem: string) => {
+    return `no-${classItem}`;
+  }
 };
 
 

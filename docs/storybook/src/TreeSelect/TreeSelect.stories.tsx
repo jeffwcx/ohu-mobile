@@ -6,8 +6,8 @@ import Toast from '@/Toast';
 import '@/Toast/style';
 import TreeSelect, { TreeNode, InternalTreeNode } from '@/TreeSelect';
 import '@/TreeSelect/style';
-import { Skeleton } from '../../../../packages/ohu-mobile/src';
-// import {  } from '~/icons/index';
+import Skeleton from '@/Skeleton';
+import '@/Skeleton/style';
 
 
 export default {

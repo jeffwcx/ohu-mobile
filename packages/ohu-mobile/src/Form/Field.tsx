@@ -23,6 +23,7 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     contentAlign: props.ofType<FormAlign>().optional,
     trigger: props.ofType<FormTrigger>().optional,
     required: props(Boolean).default(false),
+    padding: props(Boolean).default(true),
   },
   watch: {
     fieldValue(value) {
@@ -41,7 +42,6 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     return {
       fieldValue: this.name ? this.ancestor.getFieldValue(this.name) : '',
       children: null as FormFieldInput | null,
-      otherChildren: [] as FormFieldInput[],
     };
   },
   computed: {
@@ -76,9 +76,10 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
         });
     },
     resetField(value: any) {
+      if (value === this.fieldValue) return;
       this.fieldValue = value;
-      if (this.children && this.children.resetFieldValue) {
-        this.children.resetFieldValue(this.initialValue || value);
+      if (this.children && this.children.setFieldValue) {
+        this.children.setFieldValue(value || this.initialValue);
       }
     },
     formValidate() {
@@ -106,25 +107,22 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     },
     addChildren(input: FormFieldInput) {
       if (this.children) {
-        this.otherChildren.push(input);
-      } else {
-        this.children = input;
-        const { event } = getVModelOption(this.children.$vnode);
-        this.children.$on(event, (value: any) => {
-          this.fieldValue = value;
-        });
+        return false;
       }
+      this.children = input;
+      const { event } = getVModelOption(this.children.$vnode);
+      this.children.$on(event, (value: any) => {
+        this.fieldValue = value;
+      });
       input.$on('blur', () => {
         this.onBlur();
       });
+      return true;
     },
     removeChildren(input?: FormFieldInput) {
       if (this.children === input) {
         this.children = null;
         return;
-      }
-      if (input) {
-        this.otherChildren = this.otherChildren.filter(item => item !== input);
       }
     },
   },
@@ -144,10 +142,13 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
       $slots, error,
       label, name, labelAlign,
       labelWidth, contentAlign,
-      required,
+      required, padding,
     } = this;
     if (this.ancestor) {
       root.is([this.ancestor.inline ? 'inline' : 'block']);
+    }
+    if (!padding) {
+      root.no('padding');
     }
     const labelClass = root.element('label');
     const align = labelAlign || this.ancestor.labelAlign;

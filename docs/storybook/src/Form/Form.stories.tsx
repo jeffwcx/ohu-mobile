@@ -43,6 +43,7 @@ export const basic = () => Vue.extend({
         onValuesChange={({ prop, value }) => {
           console.log(prop, value);
         }}
+        autocomplete="off"
         initialValues={{
           hobby: ['coding', 'sport'],
           gendar: 'man',

@@ -8,6 +8,7 @@ import Icon from '@/Icon';
 import '@/Icon/style';
 import Divider from '@/Divider';
 import '@/Divider/style';
+import { CheckboxCircleFilled } from '~/icons/index';
 
 export default {
   title: 'Components|FeedBack/Result',
@@ -90,7 +91,7 @@ export const iconSlot = () => Vue.extend({
   render() {
     return (
       <Result title="预约成功，订单待支付" subTitle="请在就诊当日支付">
-        <Icon slot="icon" type="circle-check-f" color="#36b365"></Icon>
+        <Icon slot="icon" type={CheckboxCircleFilled} color="#36b365"></Icon>
       </Result>
     );
   }

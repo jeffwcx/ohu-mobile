@@ -9,7 +9,7 @@ import { fieldMixin } from '../Form/fieldMixin';
 
 
 export default defineComponent<AgreeProps, AgreeEvents>('agree')
-  .mixin(fieldMixin)
+  .mixin(fieldMixin('checkedValue', 'checked'))
   .create({
     model: {
       prop: 'checked',
@@ -29,19 +29,11 @@ export default defineComponent<AgreeProps, AgreeEvents>('agree')
         this.checkedValue = cur;
       },
     },
-    data() {
-      return {
-        checkedValue: this.getFieldValue(this.checked),
-      };
-    },
     methods: {
       handleChange(checked: boolean) {
         if (this.disabled) return;
         this.checkedValue = checked;
         this.$emit('change', checked);
-      },
-      resetFieldValue(value: any) {
-        this.checkedValue = value;
       },
     },
     render() {

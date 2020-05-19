@@ -58,6 +58,9 @@ $formFieldPrefixClass: #{$formPrefixClass}-field;
       padding: $formFieldControlErrorPadding;
     }
   }
+  &.no-padding {
+    padding: 0;
+  }
   &__label {
     flex-shrink: 0;
     flex-grow: 0;

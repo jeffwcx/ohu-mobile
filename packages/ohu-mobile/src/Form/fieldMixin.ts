@@ -1,36 +1,55 @@
+import Vue from 'vue';
 import { Mixin } from '../types';
 import { FormFieldInnerMethods } from './types';
 
-export const fieldMixin = {
-  inject: {
-    field: {
-      from: 'form-field',
-      default: null,
-    }
-  },
-  computed: {
-    fieldName() {
-      let instance = this as Mixin<{ field: FormFieldInnerMethods }>;
-      let field = instance.field;
-      return field?.name;
+export interface FieldMixinOptions  {
+  field?: FormFieldInnerMethods;
+  initFieldValue(initValue?: any): any;
+  setFieldValue(value: any): void;
+  [key: string]: any;
+};
+
+type FieldMixinInstance = Mixin<FieldMixinOptions>;
+
+export const fieldMixin = (
+  internalValueName: string,
+  initValueName: any,
+  initInternalValueSelf = false,
+) => {
+  return {
+    inject: {
+      field: {
+        from: 'form-field',
+        default: null,
+      }
     },
-  },
-  methods: {
-    getFieldValue(initValue?: any) {
-      let instance = this as Mixin<{ field: FormFieldInnerMethods }>;
-      let field = instance.field;
-      if (field) return field.fieldValue;
-      return initValue;
+    data() {
+      let instance = this as FieldMixinInstance;
+      const selfValue = instance[initValueName];
+      let initValue = instance.initFieldValue(selfValue);
+      if (initInternalValueSelf) {
+        return {};
+      }
+      return {
+        [internalValueName]: initValue,
+      };
     },
-  },
-  created() {
-    let instance = this as Mixin<{ field: FormFieldInnerMethods }>;
-    let field = instance.field;
-    if (field) {
-      field.addChildren(instance);
-      instance.$once('hook:beforeDestroy', () => {
-        field.removeChildren(instance);
-      });
-    }
-  },
+    methods: {
+      setFieldValue(value: any) {
+        let instance = this as FieldMixinInstance;
+        instance[internalValueName] = value;
+      },
+      initFieldValue(initValue?: any) {
+        let instance = this as Mixin<{ field: FormFieldInnerMethods }>;
+        let field = instance.field;
+        if (!field) return initValue;
+        const success = field.addChildren(instance);
+        if (!success) return initValue;
+        instance.$once('hook:beforeDestroy', () => {
+          field.removeChildren(instance);
+        });
+        return field.fieldValue;
+      }
+    },
+  };
 };

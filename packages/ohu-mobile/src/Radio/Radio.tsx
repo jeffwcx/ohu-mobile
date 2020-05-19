@@ -15,7 +15,7 @@ interface RadioMethods {
 export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioProps, RadioEvents, RadioScopedSlots, RadioMethods>(
   'radio-group',
   'radio'
-).mixin(fieldMixin).create({
+).mixin(fieldMixin('checkedValue', 'checked', true)).create({
   model: {
     prop: 'checked',
     event: 'change',
@@ -44,7 +44,7 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
     return {
       checkedValue: this.ancestor
         ? this.ancestor.isChildChecked(this.value)
-        : this.getFieldValue(this.checked),
+        : this.initFieldValue(this.checked),
     };
   },
   computed: {
@@ -56,9 +56,6 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
     },
   },
   methods: {
-    resetFieldValue(value: any) {
-      this.checkedValue = value;
-    },
     check() {
       this.handleChange(true);
     },

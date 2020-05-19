@@ -28,7 +28,7 @@ interface InputMethods extends FormFieldInnerMethods {
 }
 
 export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input')
-  .mixin(fieldMixin)
+  .mixin(fieldMixin('stateValue', 'value'))
   .create({
     model: {
       prop: 'value',
@@ -74,15 +74,11 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
     },
     data() {
       return {
-        stateValue: this.getFieldValue(this.value),
         showPassword: false,
         isInputFocus: false,
       };
     },
     methods: {
-      resetFieldValue(value: any) {
-        this.stateValue = value;
-      },
       togglePassword(e: Event) {
         e.stopPropagation();
         this.showPassword = !this.showPassword;

@@ -4,6 +4,7 @@ import deepmerge from 'deepmerge';
 import * as Yup from 'yup';
 import { FormError } from './FormError';
 import { defineAncestorComponent, props } from '../_utils/defineComponent';
+import { VNodeData } from 'vue/types/umd';
 
 export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('form').create({
   props: {
@@ -172,6 +173,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     const root = this.root();
     const {
       $scopedSlots,
+      $attrs,
       model,
       reset,
       validate,
@@ -183,8 +185,15 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
       scrollToField,
       submit,
     } = this;
+    const formProps: VNodeData = {
+      class: root,
+      attrs: $attrs,
+      on: {
+        submit: handleSubmit,
+      },
+    };
     return (
-      <form class={root} onSubmit={handleSubmit}>
+      <form {...formProps}>
         {
           $scopedSlots.default &&
           $scopedSlots.default({

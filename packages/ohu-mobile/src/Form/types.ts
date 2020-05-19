@@ -1,23 +1,19 @@
 import Vue from 'vue';
 import * as Yup from 'yup';
 import { CombinedVueInstance } from 'vue/types/vue';
+import { FieldMixinOptions } from './fieldMixin';
 
 export type FormAlign = 'left' | 'right' | 'center';
 
 export type FormTrigger = 'blur' | 'change';
 
-
-export interface FormFieldMixinMethods {
-  resetFieldValue?: (value?: any) => void;
-  getFieldValue?: (initValues?: any) => any;
-}
-
-export type FormFieldInput = InstanceType<typeof Vue> & FormFieldMixinMethods;
+export type FormFieldInput = InstanceType<typeof Vue> & FieldMixinOptions;
 
 export interface FormFieldInnerMethods {
   name: string;
+  children?: FormFieldInput | null;
   fieldValue: any;
-  addChildren(input: InstanceType<typeof Vue>): void;
+  addChildren(input: InstanceType<typeof Vue>): boolean;
   removeChildren(input?: InstanceType<typeof Vue>): void;
   fieldValidate(): Promise<any>;
   formValidate(): Promise<any>;
@@ -53,6 +49,8 @@ export interface FormProps {
   trigger?: FormTrigger;
   scrollToError?: boolean;
   excludeFields?: string[];
+  padding?: boolean;
+  [key: string]: any;
 }
 
 export interface FormFieldProps {

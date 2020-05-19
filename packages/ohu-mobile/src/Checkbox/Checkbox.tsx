@@ -14,7 +14,7 @@ interface CheckboxMethods {
 export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,CheckboxProps, CheckboxEvents, CheckboxScopedSlots, CheckboxMethods>(
   'checkbox-group',
   'checkbox'
-).mixin(fieldMixin).create({
+).mixin(fieldMixin('checkedValue', 'checked', true)).create({
   model: {
     prop: 'checked',
     event: 'change',
@@ -31,7 +31,7 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
     return {
       checkedValue: this.ancestor
         ? this.ancestor.isChildChecked(this.value)
-        : this.getFieldValue(this.checked),
+        : this.initFieldValue(this.value),
     };
   },
   computed: {
@@ -43,9 +43,6 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
     },
   },
   methods: {
-    resetFieldValue(value: any) {
-      this.checkedValue = value;
-    },
     toggle() {
       this.handleChange(!this.getChecked());
     },

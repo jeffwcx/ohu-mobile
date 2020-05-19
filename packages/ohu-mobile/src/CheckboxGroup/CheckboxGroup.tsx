@@ -7,7 +7,7 @@ import { InputHTMLAttributes, SyntheticEvent } from 'vue-tsx-support/types/dom';
 
 export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, CheckboxGroupScopedSlots>(
   'checkbox-group',
-).mixin(fieldMixin).create({
+).mixin(fieldMixin('result', 'value', true)).create({
   model: {
     prop: 'value',
     event: 'change',
@@ -19,13 +19,13 @@ export default defineAncestorComponent<CheckboxGroupProps, CheckboxGroupEvents, 
     },
   },
   data() {
-    let fieldValue = this.getFieldValue(this.value);
+    let fieldValue = this.initFieldValue(this.value);
     return {
       result: fieldValue === undefined ? [] : [...fieldValue] as any[],
     };
   },
   methods: {
-    resetFieldValue(value: any = []) {
+    setFieldValue(value: any = []) {
       this.result = [...value];
     },
     selectOptions() {

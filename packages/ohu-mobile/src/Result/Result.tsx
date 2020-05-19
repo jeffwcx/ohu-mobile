@@ -1,15 +1,10 @@
-import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
 import Icon from '../Icon';
 import { NoDataIllustration, NoNetworkIllustration, NoNewsIllustration, NoQueryDataIllustration } from './assets';
 import { CheckboxCircleFilled, CloseCircleFilled } from '@ohu-mobile/icons';
-import { $prefix, $colorPrimary, $colorTextError } from '../_config/variables';
-
-const resultBaseName = `${$prefix}result`;
-const resultIconCls = `${resultBaseName}__icon`;
-const resultTitleCls = `${resultBaseName}__title`;
-const resultSubTitleCls = `${resultBaseName}__subtitle`;
-const resultExtraCls = `${resultBaseName}__extra`;
+import { $colorPrimary, $colorTextError } from '../_config/variables';
+import { defineComponent } from '../_utils/defineComponent';
+import { ResultProps } from './types';
 
 const statusMap = {
   'network-broken': NoNetworkIllustration,
@@ -20,8 +15,7 @@ const statusMap = {
   'error': CloseCircleFilled,
 };
 
-const Result = componentFactory.create({
-  name: resultBaseName,
+const Result = defineComponent<ResultProps>('result').create({
   props: {
     title: String,
     subTitle: String,
@@ -36,6 +30,7 @@ const Result = componentFactory.create({
   },
   render() {
     const { title, subTitle, status, $slots } = this;
+    const root = this.root();
     let iconArea;
     if ($slots.icon) {
       iconArea = $slots.icon;
@@ -51,25 +46,25 @@ const Result = componentFactory.create({
       iconArea = <Icon type={statusMap[status]} style={style}></Icon>
     }
     return (
-      <div class={resultBaseName}>
-        <div class={resultIconCls}>
+      <div class={root}>
+        <div class={root.element('icon')}>
           { iconArea }
         </div>
         {
           title &&
-          <h2 class={resultTitleCls}>{title}</h2>
+          <h2 class={root.element('title')}>{title}</h2>
         }
         {
           subTitle &&
-          <h3 class={resultSubTitleCls}>{subTitle}</h3>
+          <h3 class={root.element('subtitle')}>{subTitle}</h3>
         }
         {
           $slots.extra &&
-          <div class={resultExtraCls}>{ $slots.extra }</div>
+          <div class={root.element('extra')}>{ $slots.extra }</div>
         }
       </div>
     );
   },
 });
 
-export default Result;
+export default Object.assign(Result, { statusMap });

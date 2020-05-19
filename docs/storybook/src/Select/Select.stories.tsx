@@ -13,6 +13,12 @@ import '@/Toast/style';
 import { ArrowLeftOutlined, ArrowRightSOutlined } from '~/icons/index';
 import TreeSelect, { InternalTreeNode, TreeNode } from '@/TreeSelect';
 import '@/TreeSelect/style';
+import CheckboxGroup from '@/CheckboxGroup';
+import '@/CheckboxGroup/style';
+import Checkbox from '@/Checkbox';
+import '@/Checkbox/style';
+import Form from '@/Form';
+import '@/Form/style';
 
 export default {
   title: 'Components|Form/Select',
@@ -228,48 +234,62 @@ export const basic = () => Vue.extend({
         </Card>
         <Card shadow>
           <Card.Header>scoped-slots content（use TreeSelect）</Card.Header>
-          <Select v-model={this.v4}
-            style="min-width: 165px;"
-            title="选择高中"
-            popupContentStyle={{
-              height: '100%'
-            }}
-            icon={ArrowRightSOutlined}
-            fullScreen
-            placeholder="选择高中"
-            scopedSlots={{
-              control: () => {
-                return this.control;
-              },
-              content: ({ value, handleChange }) => {
-                return <TreeSelect
-                  style={{ height: '100%' }}
-                  value={value}
-                  keyPath={['杭州', '淳安县']}
-                  treeData={[
-                    {
-                      title: '杭州',
-                      value: '杭州',
-                      hasChildren: true,
-                    },
-                    {
-                      title: '湖州',
-                      value: '湖州',
-                      hasChildren: true,
-                    },
-                    {
-                      title: '嘉兴',
-                      value: '嘉兴',
-                      hasChildren: true,
-                    },
-                  ]}
-                  onChange={(value: any, { node, path }: { node: InternalTreeNode, path: InternalTreeNode[] }) => {
-                    this.control = path.map((n) => n.title).join('/');
-                    handleChange(value, { label: node.title, value: node.value });
-                  }}
-                  loadData={this.loadData} />
-              },
-            }} />
+          <Form initialValues={{
+            x: this.v4,
+          }} inline>
+            <Form.Field name="x" label="x">
+              <Select
+                style="min-width: 165px;"
+                title="选择高中"
+                popupContentStyle={{
+                  height: '100%'
+                }}
+                icon={ArrowRightSOutlined}
+                fullScreen
+                placeholder="选择高中"
+                scopedSlots={{
+                  control: () => {
+                    return this.control;
+                  },
+                  content: ({ value, handleChange }) => {
+                    return (
+                      <div style={{ height: '100%' }}>
+                        <CheckboxGroup value={['1', '2']}>
+                          <Checkbox value="1">男</Checkbox>
+                          <Checkbox value="2">女</Checkbox>
+                        </CheckboxGroup>
+                        <TreeSelect
+                          style={{ height: '100%' }}
+                          value={value}
+                          keyPath={['杭州', '淳安县']}
+                          treeData={[
+                            {
+                              title: '杭州',
+                              value: '杭州',
+                              hasChildren: true,
+                            },
+                            {
+                              title: '湖州',
+                              value: '湖州',
+                              hasChildren: true,
+                            },
+                            {
+                              title: '嘉兴',
+                              value: '嘉兴',
+                              hasChildren: true,
+                            },
+                          ]}
+                          onChange={(value: any, { node, path }: { node: InternalTreeNode, path: InternalTreeNode[] }) => {
+                            this.control = path.map((n) => n.title).join('/');
+                            handleChange(value, { label: node.title, value: node.value });
+                          }}
+                          loadData={this.loadData} />
+                      </div>
+                    );
+                  },
+                }} />
+            </Form.Field>
+          </Form>
         </Card>
       </div>
     );

@@ -17,7 +17,7 @@ export const radioGroupProps = {
 
 
 export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio-group')
-  .mixin(fieldMixin)
+  .mixin(fieldMixin('valueState', 'value'))
   .create({
     model: {
       prop: 'value',
@@ -29,15 +29,7 @@ export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio
         this.valueState = nv;
       },
     },
-    data() {
-      return {
-        valueState: this.getFieldValue(this.value),
-      }
-    },
     methods: {
-      resetFieldValue(value: any) {
-        this.valueState = value;
-      },
       childrenChange(value: any, checked: boolean, option?: RadioOption) {
         if (this.disabled) return false;
         if (checked) {
