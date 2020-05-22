@@ -15,4 +15,6 @@ export type PickProperty<T, K extends keyof T> = T[K];
 export type TsxProps<T extends VueConstructor> = Omit<PickProperty<InstanceType<T>, '_tsxattrs'>,
 'style' | 'domPropsInnerHTML' | 'id' | 'key' | 'class' | 'ref' | 'refInFor' | 'scopedSlots' | 'staticClass' | 'slot'>;
 
-export type Mixin<T> = InstanceType<typeof Vue> & T;
+export type VueInstance = InstanceType<typeof Vue>;
+
+export type Mixin<T> = VueInstance & T;

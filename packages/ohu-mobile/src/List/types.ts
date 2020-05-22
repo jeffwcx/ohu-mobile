@@ -32,5 +32,9 @@ export interface ListItemEvents {
 
 
 export interface ListSubheaderProps {
-  sticky: boolean;
+  sticky?: boolean;
+}
+
+export interface ListSubheaderEvents {
+  onChange: 'default' | 'sticky' | 'stuck';
 }

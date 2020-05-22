@@ -78,7 +78,7 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
       checkedIcon: props.ofType<IconProperty | null>().optional,
       unCheckedIcon: props.ofType<IconProperty | null>().optional,
       max: props(Number).optional,
-      scrollIntoView: props(Boolean).default(true),
+      scrollIntoView: props(Boolean).default(false),
     },
     data() {
       return {

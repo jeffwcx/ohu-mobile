@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="180px" height="180px" viewBox="0 0 180 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="849px" height="180px" viewBox="0 0 849 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
     <title>ohu</title>
     <desc>Created with Sketch.</desc>
@@ -9,11 +9,14 @@
             <stop stop-color="#6479FC" offset="100%"></stop>
         </linearGradient>
     </defs>
-    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="ohu" transform="translate(-38.000000, -38.000000)" fill="url(#linearGradient-1)">
-            <g transform="translate(128.000000, 128.000000) rotate(-180.000000) translate(-128.000000, -128.000000) translate(38.000000, 38.000000)" id="形状结合">
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ohu" transform="translate(-38.000000, -38.000000)">
+            <g stroke-width="1" fill-rule="evenodd" transform="translate(128.000000, 128.000000) rotate(-180.000000) translate(-128.000000, -128.000000) translate(38.000000, 38.000000)" fill="url(#linearGradient-1)" id="形状结合">
                 <path d="M90,0 C99.2236037,0 108.123138,1.38750495 116.501268,3.96517885 C100.874268,11.0225459 90,26.7413623 90,45 C90,69.8528137 110.147186,90 135,90 C153.258638,90 168.977454,79.1257325 176.033375,63.5002721 C178.612495,71.8768618 180,80.7763963 180,90 C180,139.705627 139.705627,180 90,180 C80.7763963,180 71.8768618,178.612495 63.4987324,176.034821 C79.1257325,168.977454 90,153.258638 90,135 C90,110.147186 69.8528137,90 45,90 C26.7413623,90 11.0225459,100.874268 3.96662539,116.499728 C1.38750495,108.123138 0,99.2236037 0,90 C0,40.2943725 40.2943725,0 90,0 Z"></path>
             </g>
+            <text id="ohu-mobile" font-family="GillSansMT, Gill Sans MT" font-size="130" font-weight="normal" fill="#535353">
+                <tspan x="291.509766" y="165">ohu-mobile</tspan>
+            </text>
         </g>
     </g>
 </svg>

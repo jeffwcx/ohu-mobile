@@ -1,10 +1,10 @@
 import Sticky from '../Sticky';
 import { defineComponent, props } from '../_utils/defineComponent';
-import { ListSubheaderProps } from './types';
+import { ListSubheaderProps as Props, ListSubheaderEvents as Events } from './types';
 
+const createListSubHeader = defineComponent<Props, Events>('list-subheader');
 
-
-export default defineComponent<ListSubheaderProps>('list-subheader').create({
+export default createListSubHeader.create({
   props: {
     sticky: props(Boolean).default(false),
   },
@@ -16,6 +16,7 @@ export default defineComponent<ListSubheaderProps>('list-subheader').create({
   methods: {
     setState(state: string) {
       this.state = state;
+      this.$emit('change', state);
     },
   },
   render() {

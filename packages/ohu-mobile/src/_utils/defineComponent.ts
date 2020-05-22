@@ -69,3 +69,7 @@ export function defineDescendantComponent<
     });
 }
 
+export const defineDsc = defineDescendantComponent;
+
+export const defineAnc = defineAncestorComponent;
+

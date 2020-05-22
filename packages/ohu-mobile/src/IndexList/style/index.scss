@@ -1,0 +1,110 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+$indexListPrefixClass: #{$prefix}index-list;
+// subheader hide
+.subheader-active, .subheader-leave-active {
+  transition: transform 300ms ease-in;
+}
+
+.subheader-enter, .subheader-leave-to {
+  transform: scaleY(0.1);
+  transform-origin: top;
+}
+
+.#{$indexListPrefixClass} {
+  position: relative;
+  .#{$prefix}list {
+    &.is-scroll {
+      height: 100%;
+      overflow: scroll;
+    }
+  }
+  &__bar {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: $indexListRightOffset;
+    height: 100%;
+    z-index: $indexListZIndex;
+    width: $indexListBarWidth;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    user-select: none;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 100%;
+      width: $indexListTouchAreaWidth;
+      height: 100%;
+    }
+    &.is-fixed {
+      position: fixed;
+    }
+    > ul {
+      @include reset-list;
+      width: 100%;
+      border-radius: $indexListBarWidth;
+      background: $indexListBackground;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      padding: ($indexListBarWidth / 2) 0;
+      li {
+        box-sizing: content-box;
+        padding-top: $indexListBarItemTopOffset;
+        padding-bottom: $indexListBarItemBottomOffset;
+        width: $indexListBarItemWidth;
+        height: $indexListBarItemHeight;
+        line-height: $indexListBarItemLineHeight;
+        font-size: $indexListBarItemFontSize;
+        color: $indexListColor;
+        cursor: pointer;
+        span {
+          display: block;
+          text-align: center;
+        }
+        &.is-active, &.is-enter {
+          color: $indexListBarItemActiveColor;
+        }
+        &.is-pressed {
+          span {
+            background: $indexListBarPressedBackground;
+            border-radius: $indexListBarItemWidth;
+            color: $indexListBarPressedColor;
+          }
+        }
+      }
+    }
+    &__label {
+      $triangleSize: ($indexListBarLabelSize / 2) * 0.7;
+      position: absolute;
+      top: -($indexListBarLabelSize / 2);
+      left: -$indexListBarLabelSize * 0.2;
+      padding: 0 ($indexListBarLabelSize / 4);
+      height: $indexListBarLabelSize;
+      border-radius: $indexListBarLabelSize;
+      background: $indexListBarLabelBackground;
+      color: $indexListBarLabelColor;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: center;
+      font-size: $indexListBarLabelFontSize;
+      &:after {
+        position: absolute;
+        right: -$indexListBarLabelSize * 0.2 + 2px;
+        top: ($indexListBarLabelSize - $triangleSize * 2) / 2;
+        content: '';
+        @include triangle(left, $triangleSize, $indexListBarLabelBackground);
+      }
+      span {
+        @include ellipsis;
+        min-width: ($indexListBarLabelSize / 2);
+        text-align: center;
+      }
+    }
+  }
+}

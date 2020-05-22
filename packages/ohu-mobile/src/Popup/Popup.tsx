@@ -37,10 +37,10 @@ export const popupProps = {
 }
 
 const positionTransitionMap = {
-  top: 'slide-up',
-  bottom: 'slide-down',
-  left: 'slide-left',
-  right: 'slide-right',
+  top: `${$prefix}slide-up`,
+  bottom: `${$prefix}slide-down`,
+  left: `${$prefix}slide-left`,
+  right: `${$prefix}slide-right`,
 };
 
 const basePopupName = `${$prefix}popup`;
@@ -309,7 +309,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         && this.position !== 'center') {
         return positionTransitionMap[this.position];
       }
-      return this.animate;
+      return `${$prefix}${this.animate}`;
     },
     computeDocumentPosition() {
       const { position, isAnchorMode } = this;

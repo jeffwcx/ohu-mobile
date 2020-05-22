@@ -1,6 +1,39 @@
-$slideAnimateDuration: 240ms;
+$slideAnimateDuration: 320ms;
 $slideAnimateTimingFunction: easing(out-cubic);
 $slideLeaveAnimateTimingFunction: easing(out-quart);
+
+// slide-left transition
+.#{$prefix}slide-left-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.#{$prefix}slide-left-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.#{$prefix}slide-left-enter, .#{$prefix}slide-left-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+
+// slide-right transition
+.#{$prefix}slide-right-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.#{$prefix}slide-right-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.#{$prefix}slide-right-enter, .#{$prefix}slide-right-leave-to {
+  transform: translate3d(100%, 0, 0);
+}
+
+// slide-up transition
+.#{$prefix}slide-up-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.#{$prefix}slide-up-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.#{$prefix}slide-up-enter, .#{$prefix}slide-up-leave-to {
+  transform: translate3d(0, -100%, 0);
+}
 
 // slide-down transition
 .#{$prefix}slide-down-enter-active {
@@ -11,4 +44,76 @@ $slideLeaveAnimateTimingFunction: easing(out-quart);
 }
 .#{$prefix}slide-down-enter, .#{$prefix}slide-down-leave-to {
   transform: translate3d(0, 100%, 0);
+}
+
+
+// subheader hide
+.#{$prefix}scale-top-active, .#{$prefix}scale-top-leave-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+  transform-origin: top;
+}
+
+.#{$prefix}scale-top-enter, .#{$prefix}scale-top-leave-to {
+  transform: scale3d(1, 0, 1);
+  transform-origin: top;
+}
+
+// scale-up transition
+.#{$prefix}scale-up-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.#{$prefix}scale-up-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.#{$prefix}scale-up-enter, .#{$prefix}scale-up-leave-to {
+  transform: scale3d(1, 0, 1);
+}
+
+//  scale-down transition
+.#{$prefix}scale-down-enter-active {
+  transition: transform $slideAnimateDuration $slideAnimateTimingFunction;
+}
+.#{$prefix}scale-down-leave-active {
+  transition: transform $slideAnimateDuration $slideLeaveAnimateTimingFunction;
+}
+.#{$prefix}scale-down-enter, .#{$prefix}scale-down-leave-to {
+  transform: scale3d(1, 0, 1);
+}
+
+// zoom transition
+.#{$prefix}zoom-scale-enter-active, .#{$prefix}zoom-scale-leave-active {
+  transition: all 330ms easing(out-quint);
+}
+.#{$prefix}zoom-scale-enter {
+  transform: scale3d(3, 3, 1);
+  opacity: 0;
+}
+.#{$prefix}zoom-scale-leave-to {
+  transform: scale3d(1.5, 1.5, 1);
+  opacity: 0;
+}
+
+// zoom-big transition
+.#{$prefix}zoom-enter-active, .#{$prefix}zoom-leave-active {
+  transition: opacity 211ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 141ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.#{$prefix}zoom-enter, .#{$prefix}zoom-leave-to {
+  transform: scale3d(0.75, 0.5623, 1);
+  opacity: 0;
+}
+
+// fade transition
+.#{$prefix}fade-enter-active, .#{$prefix}fade-leave-active {
+  transition: all 300ms easing(out-quart);
+}
+.#{$prefix}fade-enter, .#{$prefix}fade-leave-to {
+  opacity: 0;
+}
+
+
+.#{$prefix}mask-fade-enter-active, .#{$prefix}mask-fade-leave-active {
+  transition: opacity 250ms;
+}
+.#{$prefix}mask-fade-enter, .#{$prefix}mask-fade-leave-to {
+  opacity: 0;
 }

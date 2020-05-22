@@ -16,7 +16,9 @@ const locale = {
     if (this.installed) return;
     const { prototype, util } = Vue;
     proto = prototype;
-    util.defineReactive(prototype, langVar, defaultLang);
+    if (util) {
+      util.defineReactive(prototype, langVar, defaultLang);
+    }
     prototype[messagesVar] = {
       [defaultLang]: defaultMessages,
     };

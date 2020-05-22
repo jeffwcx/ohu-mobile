@@ -31,7 +31,7 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
     return {
       checkedValue: this.ancestor
         ? this.ancestor.isChildChecked(this.value)
-        : this.initFieldValue(this.value),
+        : this.initFieldValue(this.checked),
     };
   },
   computed: {

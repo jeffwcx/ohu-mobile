@@ -154,7 +154,7 @@ export let $listSubheaderColor: string = process.env.$listSubheaderColor || '#99
 
 export let $listBottomFontSize: string =  '28px';
 export let $listSubheaderFontSize: string =  process.env.$listSubheaderFontSize || '28px';
-export let $listSubheaderStickyColor: string = process.env.$listSubheaderStickyColor || $colorTextHighlight;
+export let $listSubheaderStickyColor: string = process.env.$listSubheaderStickyColor || $colorPrimary;
 export let $listSubheaderStickyBackground: string = process.env.$listSubheaderStickyBackground || $colorTextBaseInverse;
 export let $listSubheaderStickyBoxShadow: string = process.env.$listSubheaderStickyBoxShadow || '0 1Px 10Px 0 #eee';
 
@@ -271,3 +271,27 @@ export let $treeSelectRightColor: string = process.env.$treeSelectRightColor || 
 export let $treeSelectRightBackground: string = process.env.$treeSelectRightBackground || '#FFF';
 export let $treeSelectRightActiveColor: string = process.env.$treeSelectRightActiveColor || $colorPrimary;
 export let $treeSelectCollapseColor: string = process.env.$treeSelectCollapseColor || $colorTextMinor;
+
+
+// Component/IndexList
+
+
+export let $indexListBarWidth: string = process.env.$indexListBarWidth || '48px';
+export let $indexListRightOffset: string = process.env.$indexListRightOffset || '4px';
+export let $indexListZIndex: string = process.env.$indexListZIndex || '3';
+export let $indexListTouchAreaWidth: string = process.env.$indexListTouchAreaWidth || '40px';
+export let $indexListBarItemFontSize: string = process.env.$indexListBarItemFontSize || '28px';
+export let $indexListBarItemTopOffset: string = process.env.$indexListBarItemTopOffset || '4px';
+export let $indexListBarItemBottomOffset: string = process.env.$indexListBarItemBottomOffset || '4px';
+export let $indexListBarItemWidth: string = process.env.$indexListBarItemWidth || '1.5em';
+export let $indexListBarItemHeight: string = process.env.$indexListBarItemHeight || $indexListBarItemWidth;
+export let $indexListBarItemLineHeight: string = process.env.$indexListBarItemLineHeight || $indexListBarItemHeight;
+export let $indexListBarItemActiveColor: string = process.env.$indexListBarItemActiveColor || $colorPrimary;
+export let $indexListColor: string = process.env.$indexListColor || $colorTextMinor;
+export let $indexListBackground: string = process.env.$indexListBackground || 'transparent';
+export let $indexListBarPressedBackground: string = process.env.$indexListPressedBackground || $indexListBackground;
+export let $indexListBarPressedColor: string = process.env.$indexListPressedColor || $indexListBarItemActiveColor;
+export let $indexListBarLabelSize: string = process.env.$indexListBarLabelSize || '72px';
+export let $indexListBarLabelColor: string = process.env.$indexListBarLabelColor || $colorTextBaseInverse;
+export let $indexListBarLabelBackground: string = process.env.$indexListBarLabelBackground || $colorPrimary;
+export let $indexListBarLabelFontSize: string = process.env.$indexListBarLabelFontSize || '32px';

@@ -46,7 +46,7 @@ export default defineComponent<ListProps, ListEvents>('list')
           if (this.finished) {
             this.scroller.removeEventListener('scroll', handler);
           }
-          if (reachBottom(window, this.infiniteDistance)) {
+          if (reachBottom(this.scroller, this.infiniteDistance)) {
             this.$emit('infinite');
           }
         };
