@@ -8,6 +8,9 @@ export interface AnimateOptions {
   props: {
     height?: number | [number, number];
     width?: number | [number, number];
+    scaleX?: number | [number, number];
+    scaleY?: number | [number, number];
+    scaleZ?: number | [number, number];
     // to be expanded
   };
 }

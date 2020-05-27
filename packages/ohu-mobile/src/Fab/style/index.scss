@@ -1,0 +1,206 @@
+@import '../../_styles/variables.scss';
+@import '../../_styles/mixins.scss';
+
+$fabPrefixClass: #{$prefix}fab;
+
+@mixin animateDelay {
+  $indexes: 2 3 4 5 6 7 8;
+  @each $nth in $indexes {
+    &:nth-child(#{$nth}) {
+      transition-delay: ($nth - 1) * $fabActionAnimateDelayStep;
+    }
+  }
+}
+
+
+.#{$fabPrefixClass} {
+  position: fixed;
+  z-index: 2;
+  &.is-shadow {
+    > button.is-primary {
+      box-shadow: $fabBtnShadow;
+    }
+    .#{$fabPrefixClass}-action {
+      > button.is-primary {
+        box-shadow: $fabBtnShadow;
+      }
+    }
+  }
+  // ==================== position =======================
+  &.is-left-top, &.is-left-center, &.is-left-bottom {
+    left: $fabMarginLeft;
+  }
+  &.is-right-top, &.is-right-center, &.is-right-bottom {
+    right: $fabMarginLeft;
+  }
+  &.is-center-top, &.is-center-bottom {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &.is-left-top, &.is-right-top, &.is-center-top {
+    top: $fabMarginTop;
+  }
+  &.is-left-bottom, &.is-right-bottom, &.is-center-bottom {
+    bottom: $fabMarginTop;
+  }
+  &.is-left-center, &.is-right-center {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &.is-center-center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__mask {
+    position: fixed;
+    z-index: -1;
+    background: $fabMaskBackground;
+    transform: scale3d(1, 1, 1);
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+  &__icon {
+    position: relative;
+    width: 1em;
+    height: 100%;
+    .#{$prefix}icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -.5em;
+    }
+  }
+  &__actions {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    display: flex;
+    .#{$fabPrefixClass}-action {
+      transform: translate3d(0, 8Px, 0) scale(.3);
+    }
+  }
+  &-action {
+    position: relative;
+    transition: $fabActionTransition;
+    opacity: 0;
+    @include animateDelay;
+    &__label {
+      box-sizing: border-box;
+      padding: $fabActionLabelPadding;
+      position: absolute;
+      top: 50%;
+      display: inline-block;
+      font-size: $fabActionLabelFontSize;
+      line-height: $fabActionLabelLineHeight;
+      border-radius: $fabActionLabelBorderRadius;
+      color: $fabActionLabelColor;
+      background: $fabActionLabelBackground;
+      @include ellipsis;
+    }
+  }
+  // ============== actions position =======================
+  &.is-left, &.is-right {
+    .#{$fabPrefixClass}__actions {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &.is-up, &.is-down {
+    .#{$fabPrefixClass}__actions {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  &.is-left {
+    .#{$fabPrefixClass}__actions {
+      margin-right: $fabActionMargin;
+      right: 100%;
+      flex-flow: row-reverse nowrap;
+    }
+    .#{$fabPrefixClass}-action {
+      margin-left: $fabActionMargin;
+      transform-origin: right center;
+    }
+  }
+  &.is-right {
+    .#{$fabPrefixClass}__actions {
+      margin-left: $fabActionMargin;
+      left: 100%;
+      flex-flow: row nowrap;
+    }
+    .#{$fabPrefixClass}-action {
+      margin-right: $fabActionMargin;
+      transform-origin: left center;
+    }
+  }
+  &.is-up {
+    .#{$fabPrefixClass}__actions {
+      margin-bottom: $fabActionMargin;
+      bottom: 100%;
+      flex-flow: column-reverse;
+    }
+    .#{$fabPrefixClass}-action {
+      margin-top: $fabActionMargin;
+      transform-origin: center bottom;
+    }
+  }
+  &.is-down {
+    .#{$fabPrefixClass}__actions {
+      margin-top: $fabActionMargin;
+      top: 100%;
+      flex-flow: column;
+    }
+    .#{$fabPrefixClass}-action {
+      margin-bottom: $fabActionMargin;
+      transform-origin: center top;
+    }
+  }
+  // ===================== label position ======================
+  &.is-label-right {
+    .#{$fabPrefixClass}-action__label {
+      left: $fabActionLabelMargin;
+      transform: translate(100%, -50%);
+      text-align: left;
+    }
+  }
+  &.is-label-left {
+    .#{$fabPrefixClass}-action__label {
+      right: $fabActionLabelMargin;
+      transform: translate(-100%, -50%);
+      text-align: right;
+    }
+  }
+  &.is-label-bottom {
+    .#{$fabPrefixClass}-action__label {
+      margin-top: $fabActionLabelMargin;
+      transform: translate(-50%, 100%);
+      text-align: center;
+      left: 50%;
+    }
+  }
+  &.is-label-top {
+    .#{$fabPrefixClass}-action__label {
+      margin-top: -$fabActionLabelMargin;
+      transform: translate(-50%, -100%);
+      text-align: center;
+      top: 0;
+      left: 50%;
+    }
+  }
+  &.is-expand {
+    .#{$fabPrefixClass}__actions {
+      visibility: visible;
+      pointer-events: auto;
+      .#{$fabPrefixClass}-action {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+    .#{$fabPrefixClass}_mask {
+      visibility: visible;
+    }
+  }
+}

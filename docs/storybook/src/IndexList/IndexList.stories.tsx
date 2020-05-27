@@ -7,7 +7,8 @@ import '@/Icon/style';
 import Dialog from '@/Dialog';
 import '@/Dialog/style';
 import { MapPinOutlined } from '~/icons/index';
-import { Checkbox } from '../../../../packages/ohu-mobile/src';
+import Checkbox from '@/Checkbox';
+import '@/Checkbox/style';
 
 export default {
   title: 'Components|Navigation/IndexList',

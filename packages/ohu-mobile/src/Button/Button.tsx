@@ -5,21 +5,22 @@ import { ButtonEvents, ButtonProps, ButtonTypes, ButtonSizes } from './types';
 import { LoaderTailOutlined } from '@ohu-mobile/icons';
 import { defineComponent, props } from '../_utils/defineComponent';
 
+export const buttonProps = {
+  htmlType: props(String).default('button'),
+  type: props.ofType<ButtonTypes>().default('default'),
+  plain: props(Boolean).default(false),
+  size: props.ofType<ButtonSizes>().default('lg'),
+  loading: props(Boolean).default(false),
+  disabled: props(Boolean).default(false),
+  inline: props(Boolean).default(false),
+  icon: props<string, IconDef>(String, Object).optional,
+  round: props(Boolean).default(false),
+  link: props(Boolean).default(false),
+  tabindex: props(Number).default(0),
+};
 
 const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
-  props: {
-    htmlType: props(String).default('button'),
-    type: props.ofType<ButtonTypes>().default('default'),
-    plain: props(Boolean).default(false),
-    size: props.ofType<ButtonSizes>().default('lg'),
-    loading: props(Boolean).default(false),
-    disabled: props(Boolean).default(false),
-    inline: props(Boolean).default(false),
-    icon: props<string, IconDef>(String, Object).optional,
-    round: props(Boolean).default(false),
-    link: props(Boolean).default(false),
-    tabindex: props(Number).default(0),
-  },
+  props: buttonProps,
   methods: {
     onClick(e: Event) {
       if (!this.disabled) {

@@ -295,3 +295,22 @@ export let $indexListBarLabelSize: string = process.env.$indexListBarLabelSize |
 export let $indexListBarLabelColor: string = process.env.$indexListBarLabelColor || $colorTextBaseInverse;
 export let $indexListBarLabelBackground: string = process.env.$indexListBarLabelBackground || $colorPrimary;
 export let $indexListBarLabelFontSize: string = process.env.$indexListBarLabelFontSize || '32px';
+
+
+// Component/Fab
+export let $fabMarginLeft: string = process.env.$fabMarginLeft || '32px';
+export let $fabMarginRight: string = process.env.$fabMarginRight || $fabMarginLeft;
+export let $fabMarginTop: string = process.env.$fabMarginTop || '40px';
+export let $fabMarginBottom: string = process.env.$fabMarginBottom || $fabMarginTop;
+export let $fabBtnShadow: string = process.env.$fabBtnShadow || '0 2Px 8Px 0 #7aadff';
+export let $fabActionMargin: string = process.env.$fabActionMargin || '22px';
+export let $fabActionAnimateDelayStep: string = process.env.$fabActionAnimateDelayStep || '50ms';
+export let $fabActionTransition: string = process.env.$fabActionTransition || 'all 300ms ease'
+export let $fabMaskBackground: string = process.env.$fabMaskBackground || 'rgba(255, 255, 255, .9)';
+export let $fabActionLabelMargin: string = process.env.$fabActionLabelMargin || '12px';
+export let $fabActionLabelPadding: string = process.env.$fabActionLabelPadding || '6px 18px';
+export let $fabActionLabelFontSize: string = process.env.$fabActionLabelFontSize || '28px';
+export let $fabActionLabelBorderRadius: string = process.env.$fabActionLabelBorderRadius || '2Px';
+export let $fabActionLabelLineHeight: string = process.env.$fabActionLabelLineHeight || '1.375em';
+export let $fabActionLabelColor: string = process.env.$fabActionLabelColor || $colorTextBase;
+export let $fabActionLabelBackground: string = process.env.$fabActionLabelBackground || 'transparent';

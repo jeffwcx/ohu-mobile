@@ -117,3 +117,23 @@ $slideLeaveAnimateTimingFunction: easing(out-quart);
 .#{$prefix}mask-fade-enter, .#{$prefix}mask-fade-leave-to {
   opacity: 0;
 }
+
+
+
+// spin
+.#{$prefix}spin-enter-active, .#{$prefix}spin-leave-active {
+  transition: transform 300ms ease;
+}
+.#{$prefix}spin-enter, .#{$prefix}spin-leave-to {
+  transform: rotateZ(90deg);
+  opacity: 0;
+}
+
+// spin
+.#{$prefix}spin-reverse-enter-active, .#{$prefix}spin-reverse-leave-active {
+  transition: transform 300ms ease;
+}
+.#{$prefix}spin-reverse-enter, .#{$prefix}spin-reverse-leave-to {
+  transform: rotateZ(-90deg);
+  opacity: 0;
+}
