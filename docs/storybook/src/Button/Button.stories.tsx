@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 import Button from '@/Button';
 import '@/Button/style';
 import docs from '@/Button/README.md';
@@ -138,6 +139,22 @@ export const loading = () => Vue.extend({
           onClick={e => { this.loading = !this.loading }}>
           { this.loading ? 'loading...' : 'click to load' }
         </Button>
+      </div>
+    );
+  }
+});
+
+
+Vue.use(VueRouter);
+const router = new VueRouter({
+  mode: 'hash',
+});
+export const to = () => Vue.extend({
+  router,
+  render() {
+    return (
+      <div class="demo">
+        <Button inline type="primary" url="https://github.com/jeffwcx/ohu-mobile">github</Button>
       </div>
     );
   }

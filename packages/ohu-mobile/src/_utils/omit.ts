@@ -1,7 +1,6 @@
-import { Dictionary } from 'vue-router/types/router';
 import deepMerge from 'deepmerge';
-export default function omit<T extends Dictionary<{}>, K extends keyof T>(target: T, keys: Array<K>) {
-  const result : Dictionary<{}> = {};
+export default function omit<T extends Record<string, any>, K extends keyof T>(target: T, keys: Array<K>) {
+  const result: Record<string, any> = {};
   for (const key in target) {
     if (target.hasOwnProperty(key)) {
       const element: any = deepMerge({}, target[key]);

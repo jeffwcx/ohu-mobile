@@ -4,6 +4,7 @@ import { IconDef } from '../types';
 import { ButtonEvents, ButtonProps, ButtonTypes, ButtonSizes } from './types';
 import { LoaderTailOutlined } from '@ohu-mobile/icons';
 import { defineComponent, props } from '../_utils/defineComponent';
+import navigate from '../_utils/navigate';
 
 export const buttonProps = {
   htmlType: props(String).default('button'),
@@ -17,6 +18,9 @@ export const buttonProps = {
   round: props(Boolean).default(false),
   link: props(Boolean).default(false),
   tabindex: props(Number).default(0),
+  to: props<string, Location>(String, Object).optional,
+  url: String,
+  replace: props(Boolean).default(false),
 };
 
 const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
@@ -24,6 +28,7 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
   methods: {
     onClick(e: Event) {
       if (!this.disabled) {
+        navigate(this);
         this.$emit('click', e);
       }
     },

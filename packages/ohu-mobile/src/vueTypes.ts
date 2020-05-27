@@ -1,4 +1,5 @@
 import { LocaleDef } from './locale/types';
+import 'vue-router';
 
 declare module 'vue/types/vue' {
   interface VueConstructor {

@@ -1,8 +1,8 @@
 import { IconDef } from '../types';
-import { Location } from 'vue-router';
 import { BadgeProps } from '../Badge';
+import { NavigateProps } from '../_utils/navigate';
 
-export interface EntryItemProps {
+export interface EntryItemProps extends NavigateProps {
   icon?: string | IconDef;
   image?: string;
   iconSize?: string;
@@ -10,9 +10,6 @@ export interface EntryItemProps {
   text?: string;
   textSize?: 'xsm' | 'sm' | 'md' | 'lg';
   minorText?: string;
-  to?: string | Location;
-  url?: string;
-  replace?: boolean;
   badge?: number | string | BadgeProps;
 }
 

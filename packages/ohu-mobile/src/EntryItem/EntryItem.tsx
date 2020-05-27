@@ -1,11 +1,11 @@
 
 import Icon from '../Icon';
-import { Location } from 'vue-router';
 import { VNode } from 'vue';
 import { IconDef } from '../types';
 import { EntryItemEvents, EntryItemProps } from './types';
 import { defineComponent, props } from '../_utils/defineComponent';
 import Badge, { BadgeProps } from '../Badge';
+import navigate from '../_utils/navigate';
 
 export const entryItemProps = {
   icon: props<string, IconDef>(String, Object).optional,
@@ -15,7 +15,7 @@ export const entryItemProps = {
   text: String,
   textSize: props.ofStringLiterals('xsm', 'sm', 'md', 'lg').default('md'),
   minorText: String,
-  to: props<string, Location>(String, Object).optional,
+  to: props<string, object>(String, Object).optional,
   url: String,
   replace: props(Boolean).default(false),
   badge: props<string, number, BadgeProps>(String, Number, Object).optional,
@@ -25,13 +25,8 @@ export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').cr
   props: entryItemProps,
   methods: {
     onClick(e: Event) {
+      navigate(this);
       this.$emit('click', e);
-      const { to, $router, url, replace } = this;
-      if (to && $router) {
-        replace ? $router.replace(to) : $router.push(to);
-      } else if (url) {
-        replace ? window.location.replace(url) : window.location.href = url;
-      }
     },
     wrapBadge(vnode: VNode[] | VNode | string) {
       const { badge } = this;
