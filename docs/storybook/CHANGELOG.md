@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.15.0...storybook@0.15.1) (2020-05-31)
+
+
+### Bug Fixes
+
+* many small fixs ([152a70d](https://github.com/jeffwcx/ohu-mobile/commit/152a70d80d377b036d48db1cb5763990784066bd))
+
+
+
+
+
 # [0.15.0](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.14.2...storybook@0.15.0) (2020-05-27)
 
 
