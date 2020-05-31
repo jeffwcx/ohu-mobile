@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.2](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.1...@ohu-mobile/core@0.15.2) (2020-05-31)
+
+
+### Bug Fixes
+
+* **drop-menu:** afterOpen fix ([863e77c](https://github.com/jeffwcx/ohu-mobile/commit/863e77cdfee49e2ff094332d64ab4d5ccb569869))
+
+
+
+
+
 ## [0.15.1](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.0...@ohu-mobile/core@0.15.1) (2020-05-31)
 
 
