@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.3](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.2...@ohu-mobile/core@0.15.3) (2020-05-31)
+
+
+### Bug Fixes
+
+* **select:** fix popupProps targetClass ([10542f1](https://github.com/jeffwcx/ohu-mobile/commit/10542f1a48e97043b358455bd3b75fb60933fd54))
+
+
+
+
+
 ## [0.15.2](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.1...@ohu-mobile/core@0.15.2) (2020-05-31)
 
 
