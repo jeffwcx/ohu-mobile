@@ -226,6 +226,9 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       );
     },
     renderPopup(popupClass: BlockContext, contentStyle: Partial<CSSStyleDeclaration>) {
+      if (this.popupProps && this.popupProps.targetClass) {
+        popupClass.addClasses(this.popupProps.targetClass);
+      }
       const nodeData: VNodeData = {
         props: {
           ...(this.fullScreen ? fullScreenPopupProps : defaultPopupProps),
