@@ -217,7 +217,7 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       on: {
         ...this.$listeners,
         open: this.handlePopupOpen,
-        afterOpen: this.handlePopupOpen,
+        afterOpen: this.handleAfterOpen,
         visibleChange: this.handleVisibleChange,
       },
     };
