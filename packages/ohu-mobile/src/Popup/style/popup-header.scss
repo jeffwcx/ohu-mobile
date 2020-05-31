@@ -20,7 +20,9 @@ $popupHeaderPrefixClass: #{$popupPrefixClass}-header;
     }
   }
   &__close {
-    @include center(y);
+    &.#{$prefix}btn {
+      @include center(y);
+    }
   }
   &.is-close-icon-right {
     .#{$popupHeaderPrefixClass}__close {

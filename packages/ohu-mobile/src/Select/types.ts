@@ -44,6 +44,8 @@ export interface SelectEvents extends PopupEvents {
 export interface SelectScopedSlots {
   control?: SelectOption[] | SelectOption;
   content?: {
+    visible: boolean;
+    opened: boolean;
     value: any;
     handleChange: (value: any, option: SelectOption | SelectOption[]) => void;
   };

@@ -1,15 +1,6 @@
 @import '../../_styles/variables.scss';
 @import '../../_styles/mixins.scss';
 $indexListPrefixClass: #{$prefix}index-list;
-// subheader hide
-.subheader-active, .subheader-leave-active {
-  transition: transform 300ms ease-in;
-}
-
-.subheader-enter, .subheader-leave-to {
-  transform: scaleY(0.1);
-  transform-origin: top;
-}
 
 .#{$indexListPrefixClass} {
   position: relative;
@@ -65,6 +56,7 @@ $indexListPrefixClass: #{$prefix}index-list;
         span {
           display: block;
           text-align: center;
+          background: $indexListBarItemBackground;
         }
         &.is-active, &.is-enter {
           color: $indexListBarItemActiveColor;

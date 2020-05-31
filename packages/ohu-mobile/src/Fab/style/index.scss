@@ -161,14 +161,14 @@ $fabPrefixClass: #{$prefix}fab;
   // ===================== label position ======================
   &.is-label-right {
     .#{$fabPrefixClass}-action__label {
-      left: $fabActionLabelMargin;
+      margin-left: $fabActionLabelMargin;
       transform: translate(100%, -50%);
       text-align: left;
     }
   }
   &.is-label-left {
     .#{$fabPrefixClass}-action__label {
-      right: $fabActionLabelMargin;
+      margin-left: -$fabActionLabelMargin;
       transform: translate(-100%, -50%);
       text-align: right;
     }

@@ -33,9 +33,7 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
   },
   watch: {
     value(changedValue) {
-      if (this.stateValue !== changedValue) {
-        this.stateValue = changedValue;
-      }
+      this.stateValue = changedValue;
     },
     indicatorWidth() {
       this.relayout();

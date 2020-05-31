@@ -36,10 +36,11 @@ export default defineDescendantComponent<InstanceType<typeof CheckboxGroup> ,Che
   },
   computed: {
     internalDisabled() {
-      if (this.ancestor) {
+      if (this.ancestor && this.ancestor.disabled !== undefined) {
         return this.ancestor.disabled;
       }
-      return this.disabled;
+      if (this.disabled !== undefined) return this.disabled;
+      return false;
     },
   },
   methods: {

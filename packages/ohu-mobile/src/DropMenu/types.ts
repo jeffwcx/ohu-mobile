@@ -57,6 +57,7 @@ export interface DropMenuItemScopedSlots {
     checked?: DropMenuItemOptions,
     options: DropMenuItemOptions[],
     instance: InstanceType<typeof DropMenuItem>,
+    opened: boolean;
   };
   title?: {
     defaultTitle?: string;

@@ -115,6 +115,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       unconfirmStateValue: undefined,
       unconfirmSelectedOption: undefined as SelectOption | undefined | SelectOption[],
       delay: false,
+      opened: false,
     };
   },
   methods: {
@@ -163,6 +164,9 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       this.selectedOption = this.unconfirmSelectedOption;
       this.emitChange();
       this.$emit('confirm', this.stateValue, this.selectedOption);
+    },
+    handleAfterOpen() {
+      this.opened = true;
     },
     emitChange() {
       this.$emit('change', this.stateValue, this.selectedOption);
@@ -232,6 +236,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
         on: {
           open: this.open,
           close: this.close,
+          afterOpen: this.handleAfterOpen,
         },
       };
       const headerNodeData = {
@@ -257,6 +262,8 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
             {
               this.$scopedSlots.content
                 ? this.$scopedSlots.content({
+                  opened: this.opened,
+                  visible: this.popupVisible,
                   value: this.checkedValue,
                   handleChange: this.handleChange
                 })
@@ -299,6 +306,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     },
     close() {
       this.popupVisible = false;
+      this.opened = false;
       this.unconfirmSelectedOption = undefined;
       this.unconfirmStateValue = undefined;
       this.$emit('hide');

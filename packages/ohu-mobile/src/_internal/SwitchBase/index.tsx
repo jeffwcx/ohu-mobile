@@ -27,7 +27,7 @@ export const switchBaseProps = {
   value: props.ofType<any>().optional,
   defaultChecked: props(Boolean).default(false),
   checked: props(Boolean).optional,
-  disabled: props(Boolean).default(false),
+  disabled: props(Boolean).optional,
   labelClickable: props(Boolean).default(true),
   color: props(String).default($checkboxActiveColor),
   unCheckedColor: props(String).default($checkboxColor),
@@ -119,7 +119,7 @@ export default defineComponent<SwitchBaseOutsideProps, SwitchBaseEvents, SwitchB
       const wrapper = root.block('wrapper');
       wrapper.is([
         checked && 'checked',
-        disabled && 'disabled',
+        disabled === true && 'disabled',
       ]);
       let iconNode: VNode | undefined = h('i');
       const iconType = indeterminate ? indeterminateIcon : (

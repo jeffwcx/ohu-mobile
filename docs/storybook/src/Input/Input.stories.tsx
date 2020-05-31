@@ -51,12 +51,12 @@ export const basic = () => Vue.extend({
         </Card>
         <Card shadow divider>
           <Card.Header>Adornment</Card.Header>
-          <Input v-model={this.adornment} startAdornment={EditOutlined} endAdornment="kg"  />
+          <Input allowClear v-model={this.adornment} startAdornment={EditOutlined} endAdornment="kg"  />
           <p>{this.adornment}</p>
         </Card>
         <Card shadow divider>
           <Card.Header>ButtonAdornment</Card.Header>
-          <Input v-model={this.adornment} placeholder="请输入验证码" startAdornment={EditOutlined}>
+          <Input v-model={this.adornment} allowClear placeholder="请输入验证码" startAdornment={EditOutlined}>
             <Button slot="endAdornment" type="primary" size="sm">获取验证码</Button>
           </Input>
           <p>{this.adornment}</p>

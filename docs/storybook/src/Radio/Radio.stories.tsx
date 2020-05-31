@@ -89,7 +89,7 @@ export const group = () => Vue.extend({
         <Card shadow divider>
           <Card.Header>RadioGroup Icon({ JSON.stringify(this.value) })</Card.Header>
           <RadioGroup checkedIcon={CheckboxOutlined} unCheckedIcon={CheckboxBlankOutlined} disabled={this.disabled} v-model={this.value}>
-            <Radio value="思政">思政</Radio>
+            <Radio disabled value="思政">思政</Radio>
             <Radio value="历史">历史</Radio>
             <Radio value="地理">地理</Radio>
             <Radio value="数学">数学</Radio>

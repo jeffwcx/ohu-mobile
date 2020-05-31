@@ -31,6 +31,7 @@ export default createFab.create({
     ...buttonProps,
     type: props.ofType<ButtonTypes>().default('primary'),
     icon: props<string, IconDef>(String, Object).default(() => AddOutlined),
+    closeIcon: props<string, IconDef>(String, Object).default(() => CloseOutlined),
     round: props(Boolean).default(true),
     inline: props(Boolean).default(true),
     expand: props(Boolean).default(false),
@@ -192,6 +193,7 @@ export default createFab.create({
       mask,
       label,
       icon,
+      closeIcon,
       text,
       maskClosable,
       maskTransition,
@@ -251,7 +253,7 @@ export default createFab.create({
                 <Icon type={icon} v-show={!this.internalExpand} />
               </transition>
               <transition name={`${$prefix}spin-reverse`}>
-                <Icon type={CloseOutlined} v-show={this.internalExpand} />
+                <Icon type={closeIcon || CloseOutlined} v-show={this.internalExpand} />
               </transition>
             </i>
             { text && <span>{text}</span> }

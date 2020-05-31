@@ -287,6 +287,7 @@ export let $indexListBarItemWidth: string = process.env.$indexListBarItemWidth |
 export let $indexListBarItemHeight: string = process.env.$indexListBarItemHeight || $indexListBarItemWidth;
 export let $indexListBarItemLineHeight: string = process.env.$indexListBarItemLineHeight || $indexListBarItemHeight;
 export let $indexListBarItemActiveColor: string = process.env.$indexListBarItemActiveColor || $colorPrimary;
+export let $indexListBarItemBackground: string = process.env.$indexListBarItemBackground || 'transparent';
 export let $indexListColor: string = process.env.$indexListColor || $colorTextMinor;
 export let $indexListBackground: string = process.env.$indexListBackground || 'transparent';
 export let $indexListBarPressedBackground: string = process.env.$indexListPressedBackground || $indexListBackground;

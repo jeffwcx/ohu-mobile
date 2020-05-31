@@ -253,6 +253,9 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         this.$emit('enter', enterEvent);
       });
     },
+    onDocumentAfterEnter() {
+      this.$emit('afterOpen');
+    },
     computeDocAndAnchorRect() {
       if (this.docEl) {
         // use offsetWidth and offsetHeight, when getBoudingClientRect is not correct.
@@ -456,6 +459,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
             name={this.getDocumentTransition()}
             onBeforeEnter={this.onBeforeDocumentEnter}
             onEnter={this.onDocumentEnter}
+            onAfterEnter={this.onDocumentAfterEnter}
             onAfterLeave={this.onAfterDocumentLeave}>
             <div v-show={this.documentVisible}
               role="document"

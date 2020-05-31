@@ -44,6 +44,8 @@ import Tab from './Tab';
 import CheckTag from './CheckTag';
 import RadioTag from './RadioTag';
 import TreeSelect from './TreeSelect';
+import IndexList from './IndexList';
+import Fab from './Fab';
 
 const components = [
   Icon,
@@ -90,6 +92,8 @@ const components = [
   CheckTag,
   RadioTag,
   TreeSelect,
+  IndexList,
+  Fab,
 ];
 
 // global use ui library
@@ -145,6 +149,8 @@ export {
   CheckTag,
   RadioTag,
   TreeSelect,
+  IndexList,
+  Fab,
 };
 
 export * from './Icon';
@@ -189,6 +195,8 @@ export * from './Tabs';
 export * from './CheckTag';
 export * from './RadioTag';
 export * from './TreeSelect';
+export * from './IndexList';
+export * from './Fab';
 export * from './types';
 export * from './vueTypes';
 

@@ -1,4 +1,5 @@
 import { ButtonProps, ButtonEvents } from '../Button';
+import { IconDef } from '../types';
 
 export type FabPositions = 'left-top' | 'left-center' | 'left-bottom' |
 'right-top' | 'right-center' | 'right-bottom' |
@@ -53,6 +54,8 @@ export interface FabProps extends ButtonProps {
   zIndex?: number;
 
   shadow?: boolean;
+
+  closeIcon?: IconDef | string;
 }
 
 export interface FabEvents {

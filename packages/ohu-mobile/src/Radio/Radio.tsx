@@ -25,7 +25,7 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
     value: props.ofType<any>().optional,
     defaultChecked: props(Boolean).default(false),
     checked: props(Boolean).optional,
-    disabled: props(Boolean).default(false),
+    disabled: props(Boolean).optional,
     labelClickable: props(Boolean).default(true),
     color: props(String).default($radioActiveColor),
     unCheckedColor: props(String).default($radioColor),
@@ -49,10 +49,11 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
   },
   computed: {
     internalDisabled() {
-      if (this.ancestor) {
+      if (this.ancestor && this.ancestor.disabled !== undefined) {
         return this.ancestor.disabled;
       }
-      return this.disabled;
+      if (this.$props.disabled !== undefined) return this.$props.disabled;
+      return false;
     },
   },
   methods: {

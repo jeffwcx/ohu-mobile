@@ -123,7 +123,7 @@ $buttonPrefixClass: #{$prefix}btn;
   &.is-md {
     height: $buttonSizeMd;
     line-height: $buttonSizeMd;
-    font-size: 36px;
+    font-size: 30px;
     @include padding(_ 36px _ 36px);
     &.is-round {
       border-radius: $buttonSizeMd;

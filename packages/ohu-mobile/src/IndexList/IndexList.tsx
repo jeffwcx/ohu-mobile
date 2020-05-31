@@ -190,7 +190,7 @@ export default createIndexList.create({
                   active: isEnter,
                   ...group.$props,
                 })
-                : {index}
+                : index
             }
           </span>
         </li>

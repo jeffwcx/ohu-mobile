@@ -43,10 +43,8 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
   data() {
     return {
       popupVisible: false,
-      checkedOption: undefined,
-    } as {
-      popupVisible: boolean,
-      checkedOption: DropMenuItemOptions | undefined,
+      checkedOption: undefined as DropMenuItemOptions | undefined,
+      opened: false,
     };
   },
   created() {
@@ -101,6 +99,9 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
     },
     handleVisibleChange(visible: boolean) {
       this.popupVisible = visible;
+      if (visible === false) {
+        this.opened = false;
+      }
       this.$emit('visibleChange', visible);
     },
     handleClick() {
@@ -125,6 +126,9 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       this.getParent().zIndex = documentZIndex + 1;
       this.$emit('open', e);
     },
+    handleAfterOpen() {
+      this.opened = true;
+    }
   },
   render() {
     const { $scopedSlots, title, options, disabled } = this;
@@ -142,6 +146,7 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
     let checkedOption = this.checkedOption;
     if ($scopedSlots.default) {
       popupContent = $scopedSlots.default({
+        opened: this.opened,
         checked: checkedOption,
         options: this.options,
         instance: this,
@@ -212,6 +217,7 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       on: {
         ...this.$listeners,
         open: this.handlePopupOpen,
+        afterOpen: this.handlePopupOpen,
         visibleChange: this.handleVisibleChange,
       },
     };

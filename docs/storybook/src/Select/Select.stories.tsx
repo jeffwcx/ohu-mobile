@@ -251,7 +251,7 @@ export const basic = () => Vue.extend({
                   control: () => {
                     return this.control;
                   },
-                  content: ({ value, handleChange }) => {
+                  content: ({ value, handleChange, opened }) => {
                     return (
                       <div style={{ height: '100%' }}>
                         <CheckboxGroup value={['1', '2']}>

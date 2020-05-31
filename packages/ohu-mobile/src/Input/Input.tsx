@@ -188,7 +188,6 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
         return [
           start,
           <input {...inputProps} />,
-          end,
           allowClear
           && !this.readonly
           && !this.disabled
@@ -205,6 +204,7 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
                 onClick={this.clear} />
             }
           </div>,
+          end,
           type === 'password'
           &&
           allowTogglePassword

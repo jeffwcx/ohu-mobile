@@ -24,6 +24,7 @@ export interface PopupEvents {
   onAfterLeave: boolean;
   onEnter: PopupEnterEvent;
   onOpen: PopupOpenEvent;
+  onAfterOpen: void;
   onClose: boolean;
 }
 

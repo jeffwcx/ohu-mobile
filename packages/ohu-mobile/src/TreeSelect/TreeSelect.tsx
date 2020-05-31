@@ -80,6 +80,11 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
       max: props(Number).optional,
       scrollIntoView: props(Boolean).default(false),
     },
+    watch: {
+      value(cur) {
+        this.internalValue = cur;
+      },
+    },
     data() {
       return {
         ...this.formatData(this.treeData) as InitData,
@@ -207,7 +212,9 @@ export default defineComponent<TreeSelectProps, TreeSelectEvents, {}, TreeSelect
         if (!hasTarget && depth === 0) {
           this.leftKey = '0';
           const node = this.internalTreeData[this.leftKey];
-          this.cascadeNodeLoad(node, this.leftKey, depth, keyPath);
+          if (node) {
+            this.cascadeNodeLoad(node, this.leftKey, depth, keyPath);
+          }
         }
       },
       formatNodes(key: string, nodes: TreeNode[], option: InternalTreeNode) {
