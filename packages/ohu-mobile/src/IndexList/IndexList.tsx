@@ -4,6 +4,7 @@ import List, { ListProps } from '../List';
 import { isElementSticky } from '../_utils/bom';
 import { VueInstance } from '../types';
 import { $prefix } from '../_config/variables';
+import { ClassOptions } from '../_utils/classHelper';
 
 
 const createIndexList = defineAnc<IndexListProps, IndexListEvents, IndexListScopedSlots>('index-list');
@@ -16,6 +17,7 @@ export default createIndexList.create({
     innerScroll: props(Boolean).default(false),
     indexes: props<(string | number)[]>(Array).optional,
     listProps: props.ofObject<ListProps>().optional,
+    barClass: props.ofType<ClassOptions>().optional,
   },
   watch: {
     enableIndex(cur) {
@@ -122,9 +124,10 @@ export default createIndexList.create({
       const indexBarItems = indexBar.querySelectorAll('li');
       const items = [...indexBarItems];
       let currentOffsetY = -1;
+      const indexBarRect = indexBar.getBoundingClientRect();
       const meetEl = items.find((node, index) => {
         const { top, bottom, height } = node.getBoundingClientRect();
-        currentOffsetY = top + height / 2;
+        currentOffsetY = (top - indexBarRect.top) + height / 2;
         if (index === 0 && touchTop < top) {
           return true;
         }
@@ -216,6 +219,9 @@ export default createIndexList.create({
     if (!this.innerScroll) {
       indexBar.is('fixed');
     }
+    if (this.barClass) {
+      indexBar.addClasses(this.barClass);
+    }
     const labelStyle = {
       transform: `translate(-100%, ${currentSwipeY}px)`,
     };
@@ -233,13 +239,14 @@ export default createIndexList.create({
             this.enableIndex
             &&
             <div class={indexBar}
+              ref="indexBar"
               onTouchstart={this.handleIndexBarTouchStart}
               onTouchmove={this.handleIndexBarTouchMove}
               onTouchend={this.handleIndexBarEventEnd}
               onMousedown={this.handleIndexBarMouseDown}
               onMousemove={this.handleIndexBarMouseMove}
               onMouseup={this.handleIndexBarEventEnd}>
-              <ul ref="indexBar">
+              <ul>
                 {
                   this.indexes instanceof Array
                     ? this.indexes.map((index) => {

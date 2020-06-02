@@ -71,6 +71,7 @@ export const basic = () => component({
           onSelect={({ index, group }) => {
             console.log(index, group);
           }}
+          barClass="custom-bar"
           enableIndex={this.enableIndex}
           scopedSlots={{
             anchor: ({ index }) => {

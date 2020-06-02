@@ -1,4 +1,5 @@
 import { ListSubheaderProps, ListProps } from '../List';
+import { ClassOptions } from '../_utils/classHelper';
 
 export interface IndexListProps {
   /**
@@ -8,6 +9,7 @@ export interface IndexListProps {
   indexes?: (string | number)[];
   innerScroll?: boolean;
   enableIndex?: boolean;
+  barClass?: ClassOptions;
   listProps?: ListProps;
 }
 

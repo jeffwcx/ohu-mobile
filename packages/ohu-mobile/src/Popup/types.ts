@@ -1,5 +1,6 @@
 import Vue, { CreateElement, VNode } from 'vue';
 import { VueEventWrapper, IconDef } from '../types';
+import { ClassOptions } from '../_utils/classHelper';
 
 interface PopupSimpleRect {
   width: number;
@@ -67,7 +68,7 @@ export interface PopupProps {
   fullscreen?: boolean;
   animate?: PopupAnimateType;
   targetStyle?: Partial<CSSStyleDeclaration>;
-  targetClass?: string | Record<string, boolean> | Array<string>;
+  targetClass?: ClassOptions;
   scrollBody?: boolean;
   tapThrough?: boolean;
   zIndex?: number;
