@@ -48,5 +48,6 @@ export interface CarouselProps extends CarouselStageProps {
   indicatorDarkMode?: boolean;
   width?: string;
   height?: string;
+  resize?: boolean;
 }
 

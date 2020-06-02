@@ -2,6 +2,7 @@ import { CarouselChangeEvent, CarouselEvents, CarouselProps } from './types';
 import { defineComponent, props } from '../_utils/defineComponent';
 import Stage, { stageProps } from './Stage';
 import debounce from '../_utils/debounce';
+import bindEvent from '../_utils/bindEvent';
 
 const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').create({
   props: {
@@ -11,6 +12,7 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
     indicatorDarkMode: props(Boolean).default(false),
     width: String,
     height: String,
+    resize: props(Boolean).default(false),
     ...stageProps,
   },
   computed: {
@@ -18,9 +20,18 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
       return this.$refs.stage as InstanceType<typeof Stage>;
     },
   },
+  watch: {
+    autoplay(cur) {
+      cur === true && this.startPlay();
+    },
+    resize(cur) {
+      cur === true && this.handleResize();
+    }
+  },
   data() {
     return {
       timer: null as NodeJS.Timeout | null,
+      frozen: false,
     };
   },
   methods: {
@@ -35,30 +46,61 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
     },
     startPlay() {
       if (!this.autoplay) return;
+      this.stopPlay();
       this.timer = setInterval(() => {
         this.next();
       }, this.interval);
       this.$once('hook:beforeDestroy', () => {
         this.timer && clearTimeout(this.timer);
       });
+      // when use keepAlive
+      this.$once('hook:activated', () => {
+        if (this.timer) return;
+        this.startPlay();
+        this.frozen = false;
+      });
+
+      this.$once('hook:deactivated', () => {
+        this.stopPlay();
+        this.frozen = true;
+      });
+
     },
     stopPlay() {
       if (!this.autoplay) return;
       this.timer && clearTimeout(this.timer);
+      this.timer = null;
+    },
+    relayout() {
+      this.stopPlay();
+      this.stage?.init();
+      this.startPlay();
     },
     handleResize() {
       const handler = debounce(() => {
-        this?.stage?.init();
+        if (this.frozen) return;
+        this.relayout();
       }, 500);
-      window.addEventListener('resize', handler);
-      this.$once('hook:beforeDestroy', () => {
-        window.removeEventListener('resize', handler);
-      });
+      bindEvent(this, 'resize', handler);
+    },
+    handleVisibleChange() {
+      const handler = () => {
+        if (this.frozen) return;
+        if (document.hidden) {
+          this.stopPlay();
+        } else {
+          this.startPlay();
+        }
+      };
+      bindEvent(this, 'visibilitychange' as keyof WindowEventMap, handler);
     },
   },
   mounted() {
     this.startPlay();
-    this.handleResize();
+    if (this.resize) {
+      this.handleResize();
+    }
+    this.handleVisibleChange();
   },
   render() {
     const root = this.root();

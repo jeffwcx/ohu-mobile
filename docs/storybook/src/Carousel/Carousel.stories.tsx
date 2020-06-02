@@ -36,7 +36,7 @@ export const basic = () => Vue.extend({
           <Card.Header>
             basic
           </Card.Header>
-          <Carousel v-model={this.v1} style={{ background: '#aaa' }}>
+          <Carousel v-model={this.v1} style={{ background: '#aaa' }} resize>
             <div class="basic-demo-item">1</div>
             <div class="basic-demo-item">2</div>
           </Carousel>
