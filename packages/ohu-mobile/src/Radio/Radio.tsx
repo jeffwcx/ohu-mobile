@@ -1,9 +1,9 @@
 import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '@ohu-mobile/icons';
-import { defineDescendantComponent, props } from '../_utils/defineComponent';
+import { props, defineDsc } from '../_utils/defineComponent';
 import SwitchBase, { SwitchBaseOutsideProps } from '../_internal/SwitchBase';
 import { $radioActiveColor, $radioColor } from '../_config/variables';
 import { IconProperty } from '../types';
-import { RadioProps, RadioEvents, RadioScopedSlots } from './types';
+import { RadioProps as Props, RadioEvents as Events, RadioScopedSlots as SS } from './types';
 import RadioGroup from '../RadioGroup';
 import { fieldMixin } from '../Form/fieldMixin';
 
@@ -12,10 +12,17 @@ interface RadioMethods {
   uncheck: () => void;
 }
 
-export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioProps, RadioEvents, RadioScopedSlots, RadioMethods>(
+type Methods = RadioMethods;
+
+type Group = InstanceType<typeof RadioGroup>;
+
+const createRadio = defineDsc<Group, Props, Events, SS, Methods>(
   'radio-group',
   'radio'
-).mixin(fieldMixin('checkedValue', 'checked', true)).create({
+).mixin(fieldMixin('checkedValue', 'checked', true));
+
+
+export default createRadio.create({
   model: {
     prop: 'checked',
     event: 'change',
@@ -49,11 +56,11 @@ export default defineDescendantComponent<InstanceType<typeof RadioGroup>, RadioP
   },
   computed: {
     internalDisabled() {
+      if (this.disabled === true) return true;
       if (this.ancestor && this.ancestor.disabled !== undefined) {
         return this.ancestor.disabled;
       }
-      if (this.$props.disabled !== undefined) return this.$props.disabled;
-      return false;
+      return this.disabled;
     },
   },
   methods: {

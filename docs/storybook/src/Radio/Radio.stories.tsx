@@ -154,7 +154,7 @@ export const list = () => Vue.extend({
           <RadioList
             v-model={this.value}
             options={[
-              { label: '思政', value: '思政' },
+              { label: '思政', value: '思政', disabled: true },
               { label: '历史', value: '历史' },
               { label: '地理', value: '地理' },
               { label: '数学', value: '数学' },

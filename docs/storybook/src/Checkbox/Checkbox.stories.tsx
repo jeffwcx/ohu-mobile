@@ -83,8 +83,8 @@ export const group = () => Vue.extend({
         <Card shadow divider>
           <Card.Header>CheckboxGroup({ JSON.stringify(this.value) })</Card.Header>
           <CheckboxGroup disabled={this.disabled} v-model={this.value}>
-            <Checkbox value="思政">思政</Checkbox>
-            <Checkbox value="历史">历史</Checkbox>
+            <Checkbox disabled value="思政">思政</Checkbox>
+            <Checkbox disabled value="历史">历史</Checkbox>
             <Checkbox value="地理">地理</Checkbox>
             <Checkbox value="数学">数学</Checkbox>
           </CheckboxGroup>
