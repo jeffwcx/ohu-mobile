@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.4](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.3...@ohu-mobile/core@0.15.4) (2020-06-02)
+
+
+### Bug Fixes
+
+* **carousel:** fix [#2](https://github.com/jeffwcx/ohu-mobile/issues/2) ([a29aa02](https://github.com/jeffwcx/ohu-mobile/commit/a29aa022e37b35840eb39d8532141327ff294165))
+* **radio/checkbox:** fix disabled feature in group ([c0c40d0](https://github.com/jeffwcx/ohu-mobile/commit/c0c40d0939ba6f331c5f0d76053cd8479f2a3248))
+
+
+### Features
+
+* **index-list:** enable press area to be customized ([b43232b](https://github.com/jeffwcx/ohu-mobile/commit/b43232b111102e1b6487b15d805ddf8a93d493ef))
+
+
+
+
+
 ## [0.15.3](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.2...@ohu-mobile/core@0.15.3) (2020-05-31)
 
 
