@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.5](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.4...@ohu-mobile/core@0.15.5) (2020-06-19)
+
+
+### Features
+
+* **fab:** add label and pure button ([f542503](https://github.com/jeffwcx/ohu-mobile/commit/f54250302f533806a85058ea200b09d48e56af00))
+
+
+
+
+
 ## [0.15.4](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.3...@ohu-mobile/core@0.15.4) (2020-06-02)
 
 
