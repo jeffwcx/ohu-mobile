@@ -109,6 +109,9 @@ export default createFab.create({
       }
       return 'right';
     },
+    hasAction() {
+      return !!this.$slots.default;
+    },
   },
   data() {
     return {
@@ -169,10 +172,21 @@ export default createFab.create({
         };
       }
     },
-    triggerChange(expand: boolean) {
-      this.internalExpand = expand;
-      this.$emit('change', expand);
-      this.mask && this.maskAnimate();
+    triggerChange(expand?: boolean, e?: MouseEvent) {
+      if (expand !== undefined) {
+        this.internalExpand = expand;
+        this.$emit('change', expand);
+        this.mask && this.maskAnimate();
+      }
+      this.$emit('click', e);
+    },
+    handleClick(e: MouseEvent) {
+      e.stopPropagation();
+      if (this.hasAction) {
+        this.triggerChange(!this.internalExpand, e);
+      } else {
+        this.triggerChange(undefined, e);
+      }
     },
     close() {
       this.triggerChange(false);
@@ -227,6 +241,7 @@ export default createFab.create({
     if (zIndex) {
       rootStyle.zIndex = (this.internalExpand ? zIndex + 1 : zIndex).toString();
     }
+    const actions = this.$slots.default;
     return (
       <div class={root} style={rootStyle}>
         {
@@ -235,33 +250,45 @@ export default createFab.create({
           <div {...maskNodeData} />
         }
         {
-          icon
+          this.label
           &&
+          <span class={root.element('label')}>{this.label}</span>
+        }
+        {
           <Button {...{
             class: !this.text ? 'is-icon-only' : undefined,
             props,
             ref: 'button',
-            on: {
-              click: (e: MouseEvent) => {
-                e.stopPropagation();
-                this.triggerChange(!this.internalExpand);
-              },
-            },
+            on: { click: this.handleClick },
           }}>
-            <i class={iconClass}>
-              <transition name={`${$prefix}spin`}>
-                <Icon type={icon} v-show={!this.internalExpand} />
-              </transition>
-              <transition name={`${$prefix}spin-reverse`}>
-                <Icon type={closeIcon || CloseOutlined} v-show={this.internalExpand} />
-              </transition>
-            </i>
+            {
+              icon
+              &&
+              (
+                this.hasAction
+                  ?
+                  <i class={iconClass}>
+                    <transition name={`${$prefix}spin`}>
+                      <Icon type={icon} v-show={!this.internalExpand} />
+                    </transition>
+                    <transition name={`${$prefix}spin-reverse`}>
+                      <Icon type={closeIcon || CloseOutlined} v-show={this.internalExpand} />
+                    </transition>
+                  </i>
+                  : <i class={iconClass}><Icon type={icon} /></i>
+              )
+
+            }
             { text && <span>{text}</span> }
           </Button>
         }
-        <div class={actionClass}>
-          {this.$slots.default}
-        </div>
+        {
+          actions
+          &&
+          <div class={actionClass}>
+            {actions}
+          </div>
+        }
       </div>
     );
   },

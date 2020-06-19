@@ -60,6 +60,7 @@ export interface FabProps extends ButtonProps {
 
 export interface FabEvents {
   onChange?: boolean;
+  onClick?: MouseEvent;
 }
 
 

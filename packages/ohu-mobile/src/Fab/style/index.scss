@@ -12,6 +12,20 @@ $fabPrefixClass: #{$prefix}fab;
   }
 }
 
+@mixin label {
+  box-sizing: border-box;
+  padding: $fabActionLabelPadding;
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  font-size: $fabActionLabelFontSize;
+  line-height: $fabActionLabelLineHeight;
+  border-radius: $fabActionLabelBorderRadius;
+  color: $fabActionLabelColor;
+  background: $fabActionLabelBackground;
+  @include ellipsis;
+}
+
 
 .#{$fabPrefixClass} {
   position: fixed;
@@ -82,23 +96,16 @@ $fabPrefixClass: #{$prefix}fab;
       transform: translate3d(0, 8Px, 0) scale(.3);
     }
   }
+  &__label {
+    @include label();
+  }
   &-action {
     position: relative;
     transition: $fabActionTransition;
     opacity: 0;
     @include animateDelay;
     &__label {
-      box-sizing: border-box;
-      padding: $fabActionLabelPadding;
-      position: absolute;
-      top: 50%;
-      display: inline-block;
-      font-size: $fabActionLabelFontSize;
-      line-height: $fabActionLabelLineHeight;
-      border-radius: $fabActionLabelBorderRadius;
-      color: $fabActionLabelColor;
-      background: $fabActionLabelBackground;
-      @include ellipsis;
+      @include label();
     }
   }
   // ============== actions position =======================
@@ -160,21 +167,21 @@ $fabPrefixClass: #{$prefix}fab;
   }
   // ===================== label position ======================
   &.is-label-right {
-    .#{$fabPrefixClass}-action__label {
+    .#{$fabPrefixClass}-action__label, .#{$fabPrefixClass}__label {
       margin-left: $fabActionLabelMargin;
       transform: translate(100%, -50%);
       text-align: left;
     }
   }
   &.is-label-left {
-    .#{$fabPrefixClass}-action__label {
+    .#{$fabPrefixClass}-action__label, .#{$fabPrefixClass}__label {
       margin-left: -$fabActionLabelMargin;
       transform: translate(-100%, -50%);
       text-align: right;
     }
   }
   &.is-label-bottom {
-    .#{$fabPrefixClass}-action__label {
+    .#{$fabPrefixClass}-action__label, .#{$fabPrefixClass}__label {
       margin-top: $fabActionLabelMargin;
       transform: translate(-50%, 100%);
       text-align: center;
@@ -182,7 +189,7 @@ $fabPrefixClass: #{$prefix}fab;
     }
   }
   &.is-label-top {
-    .#{$fabPrefixClass}-action__label {
+    .#{$fabPrefixClass}-action__label, .#{$fabPrefixClass}__label {
       margin-top: -$fabActionLabelMargin;
       transform: translate(-50%, -100%);
       text-align: center;

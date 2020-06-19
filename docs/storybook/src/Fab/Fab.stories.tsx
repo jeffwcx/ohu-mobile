@@ -32,6 +32,17 @@ export default {
 };
 
 
+export const noAction = () => component({
+  render() {
+    return (
+      <Fab style="bottom: 50px;" label="标签" onClick={() => {
+        console.log('hello');
+      }}></Fab>
+    );
+  },
+});
+
+
 export const basic = () => component({
   data() {
     return {
@@ -48,7 +59,7 @@ export const basic = () => component({
             return this.y.map((yd) => {
               const d = (xd + '-' + yd) as FabPositions;
               return (
-                <Fab mask maskClosable position={d} direction={yd === 'center' && xd === 'right' ? 'left' : undefined}>
+                <Fab mask label="标签" maskClosable position={d} direction={yd === 'center' && xd === 'right' ? 'left' : undefined}>
                   <Fab.Action icon={UserSmileOutlined} label="笑脸"></Fab.Action>
                   <Fab.Action icon={CustomerServiceOutlined} label="客服"></Fab.Action>
                   <Fab.Action icon={HomeOutlined} label="首页"></Fab.Action>
