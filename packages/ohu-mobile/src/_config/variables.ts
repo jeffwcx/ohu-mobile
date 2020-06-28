@@ -27,7 +27,7 @@ export let $colorBorderBase: string = process.env.$colorBorderBase || '#ccc';
 export let $fontFamily: string =  process.env.$fontFamily || 'Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,微软雅黑,Arial,sans-serif';
 export let $fontSizeBase: string = process.env.$fontSizeBase || '32px';
 // Grid
-export let $gridUnits: number = process.env.$gridUnits ? +process.env.$gridUnits : 12;
+export let $gridUnits: number = process.env.$gridUnits ? +process.env.$gridUnits : 24;
 export let $gridGapLevel: number = process.env.$gridGapLevel ? +process.env.$gridGapLevel : 10;
 export let $gridGapRate: string = process.env.$gridGapRate || '8px'
 

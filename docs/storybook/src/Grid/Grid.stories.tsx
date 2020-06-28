@@ -33,7 +33,7 @@ const Row = component({
         <Grid m={this.m} gap={this.gap} wrap={this.wrap} style={this.targetStyle} x={this.x} y={this.y}>
           { new Array(this.units).fill(0).map((_, index) =>
             <Grid.Item
-              span={3}
+              span={4}
               style={{
                 background: '#efefef',
                 height: '100px',
@@ -124,7 +124,7 @@ export const y = () => Vue.extend({
 export const wrap = () => Vue.extend({
   render() {
     return (
-      <Row wrap></Row>
+      <Row units={7} wrap></Row>
     );
   },
 });
