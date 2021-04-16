@@ -308,6 +308,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
       this.$emit('visibleChange', this.popupVisible);
     },
     close() {
+      if (this.popupVisible === false) return;
       this.popupVisible = false;
       this.opened = false;
       this.unconfirmSelectedOption = undefined;
