@@ -6,10 +6,14 @@ import { TabbarItemEvents, TabbarItemProps } from './types';
 import { $colorPrimary } from '../_config/variables';
 import { defineComponent, props } from '../_utils/defineComponent';
 import Tabbar from './Tabbar';
-
+interface ComputedProps {
+  index: number;
+  selfKey: string | number;
+  active: boolean;
+}
 
 const TabbarItemWrapper = function(Item: typeof EntryItem) {
-  return defineComponent<TabbarItemProps ,TabbarItemEvents, {}, { index: number }>('tabbar-item').create({
+  return defineComponent<TabbarItemProps ,TabbarItemEvents, {}, ComputedProps>('tabbar-item').create({
     props: {
       ...entryItemProps,
       name: props<string, number>(String, Number).optional,
@@ -20,6 +24,10 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
       },
       selfKey() {
         return this.name || this.index;
+      },
+      active() {
+        let { stateValue } = this.$parent as any;
+        return this.selfKey === stateValue
       },
     },
     methods: {
@@ -39,16 +47,18 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
         icon, text,
       } = this;
       const style: Partial<CSSStyleDeclaration> = {};
-      let { activeColor, inActiveColor, stateValue } = this.$parent as any;
+      let { activeColor, inActiveColor } = this.$parent as any;
       if (activeColor && inActiveColor) {
         if (activeColor === 'primary') {
           activeColor = $colorPrimary;
         }
-        style.color = (this.selfKey) === stateValue ? activeColor : inActiveColor;
+        style.color = this.active ? activeColor : inActiveColor;
       }
-
+      const root = this.root();
+      this.active && root.is('active');
+      (!!(icon && (text || $slots.default))) && root.has('padding')
       const nodeData: VNodeData = {
-        class: (!!(icon && (text || $slots.default))) && 'has-padding',
+        class: root,
         on: {
           ...$listeners,
           click: this.handleClick,
