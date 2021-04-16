@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.2](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/icons@0.12.1...@ohu-mobile/icons@0.12.2) (2021-04-16)
+
+**Note:** Version bump only for package @ohu-mobile/icons
+
+
+
+
+
 ## [0.12.1](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/icons@0.12.0...@ohu-mobile/icons@0.12.1) (2020-03-16)
 
 **Note:** Version bump only for package @ohu-mobile/icons

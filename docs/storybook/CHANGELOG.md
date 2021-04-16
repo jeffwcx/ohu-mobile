@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.7](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.15.6...storybook@0.15.7) (2021-04-16)
+
+
+### Features
+
+* **tabbar:** add className 'is-active' to TabbarItem which is active ([4485129](https://github.com/jeffwcx/ohu-mobile/commit/4485129f442783d888ec1a75bc410825cde1f045))
+
+
+
+
+
 ## [0.15.6](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.15.5...storybook@0.15.6) (2020-06-28)
 
 **Note:** Version bump only for package storybook
