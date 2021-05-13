@@ -33,7 +33,7 @@ export function defineComponent<
         return helper.block(name);
       },
     },
-  } as any) as ComponentFactory<
+  } as any) as unknown as ComponentFactory<
   TProps,
   TEvents,
   TScopedSlots,

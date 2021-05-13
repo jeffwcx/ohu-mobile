@@ -59,11 +59,13 @@
   "dependencies": {
     "@ohu-mobile/core": "^0.15.7",
     "@ohu-mobile/icons": "^0.12.2",
+    "@storybook/addon-docs": "^6.2.9",
     "@types/markdown-it": "^0.0.9",
     "@types/node": "^13.7.0",
     "@types/yup": "^0.26.27",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "ajv": "^6.12.2",
+    "highlight.js": "^10.7.2",
     "markdown-it": "^10.0.0",
     "post-style": "^1.0.3",
     "vue": "^2.6.11",

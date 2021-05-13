@@ -6,7 +6,7 @@ $resultPrefixClass: #{$prefix}result;
   flex-flow: row wrap;
   justify-content: center;
   &__icon {
-    font-size: 80px;
+    font-size: 100px;
     pointer-events: none;
   }
   &__title {
@@ -15,7 +15,7 @@ $resultPrefixClass: #{$prefix}result;
     text-align: center;
     line-height: (44/32) * 1em;
     font-size: 32px;
-    margin: 48px 0 8px 0;
+    margin: 32px 0 0 0;
     font-weight: 400;
     padding: 0 20px;
     color: $colorTextBase;
@@ -25,20 +25,21 @@ $resultPrefixClass: #{$prefix}result;
     box-sizing: border-box;
     width: 100%;
     text-align: center;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 400;
     color: $colorTextMinor;
-    margin: 0 0 10px 0;
+    margin: 12px 0 10px 0;
   }
   &__extra {
     width: 100%;
     text-align: center;
     margin-top: 70px;
     > .#{$prefix}btn {
-      width: 40%;
+      min-width: 40%;
     }
     > * {
       margin-right: 50px;
+      margin-bottom: 30px;
     }
     > *:last-child {
       margin-right: 0;

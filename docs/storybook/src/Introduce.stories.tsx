@@ -1,6 +1,8 @@
 import docs from '../../../README.md';
 import * as variables from '@/_config/variables';
 import MarkdownIt from 'markdown-it';
+import hightlight from 'highlight.js';
+import 'highlight.js/styles/paraiso-dark.css';
 import props from 'vue-strict-prop';
 import { component } from 'vue-tsx-support';
 import 'post-style/lib/post.min.css';
@@ -38,8 +40,16 @@ const Markdown = component({
     },
   },
   created() {
-    const md = new MarkdownIt({
+    const md: MarkdownIt = new MarkdownIt({
       html: true,
+      highlight: (str, lang) => {
+        if (lang && hightlight.getLanguage(lang)) {
+          try {
+            return `<pre class="hljs"><code>${hightlight.highlight(str, { language: lang, ignoreIllegals: true }).value}</code></pre>`;
+          } catch (__) {}
+        }
+        return `<pre><code>${md.utils.escapeHtml(str)}</code></pre>`;
+      },
     });
     this.$on('hook:mounted', () => {
       this.instance = md;
@@ -68,7 +78,11 @@ export const theme = () => ({
 
   render() {
     const source = `
-\`\`\`
+## Theme Customization
+
+Users can customize their own theme through the following variables.
+
+\`\`\`scss
 ${varstr}
 \`\`\`
     `;

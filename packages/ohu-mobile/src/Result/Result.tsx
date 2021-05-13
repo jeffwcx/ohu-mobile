@@ -4,9 +4,11 @@ import { NoDataIllustration, NoNetworkIllustration, NoNewsIllustration, NoQueryD
 import { CheckboxCircleFilled, CloseCircleFilled } from '@ohu-mobile/icons';
 import { $colorPrimary, $colorTextError } from '../_config/variables';
 import { defineComponent } from '../_utils/defineComponent';
-import { ResultProps } from './types';
+import { ResultProps, ResultStatusMap } from './types';
+import { IconDef } from '../types';
 
-const statusMap = {
+
+const statusMap: ResultStatusMap = {
   'network-broken': NoNetworkIllustration,
   'empty': NoDataIllustration,
   'no-message': NoNewsIllustration,
@@ -19,6 +21,8 @@ const Result = defineComponent<ResultProps>('result').create({
   props: {
     title: String,
     subTitle: String,
+    statusMap: props.ofType<Partial<ResultStatusMap>>().default(() => ({})),
+    svgSize: props(String).default('140px'),
     status: props.ofStringLiterals(
       'network-broken',
       'empty',
@@ -28,27 +32,39 @@ const Result = defineComponent<ResultProps>('result').create({
       'error',
     ).default('empty'),
   },
-  render() {
-    const { title, subTitle, status, $slots } = this;
-    const root = this.root();
-    let iconArea;
-    if ($slots.icon) {
-      iconArea = $slots.icon;
-    } else {
+  computed: {
+    svgMap() {
+      return Object.assign({}, statusMap, this.statusMap);
+    },
+  },
+  methods: {
+    renderIconArea() {
+      const { $slots, status } = this;
+      if ($slots.icon) return $slots.icon;
       const style: Partial<CSSStyleDeclaration> = {};
       if (status === 'success') {
         style.color = $colorPrimary;
       } else if (status === 'error') {
         style.color = $colorTextError;
       } else {
-        style.fontSize = '140px';
+        style.fontSize = this.svgSize;
       }
-      iconArea = <Icon type={statusMap[status]} style={style}></Icon>
+      // support dymanic generate svg
+      const statusSvg = this.svgMap[status];
+      let svg: IconDef = statusSvg instanceof Function ? statusSvg() : statusSvg;
+      if (svg) {
+        return <Icon type={svg} style={style}></Icon>
+      }
+      return '';
     }
+  },
+  render() {
+    const { title, subTitle, $slots } = this;
+    const root = this.root();
     return (
       <div class={root}>
         <div class={root.element('icon')}>
-          { iconArea }
+          {this.renderIconArea()}
         </div>
         {
           title &&

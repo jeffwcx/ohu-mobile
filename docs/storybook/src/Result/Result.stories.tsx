@@ -9,6 +9,8 @@ import '@/Icon/style';
 import Divider from '@/Divider';
 import '@/Divider/style';
 import { CheckboxCircleFilled } from '~/icons/index';
+import Card from '@/Card';
+import '@/Card/style';
 
 export default {
   title: 'Components|FeedBack/Result',
@@ -24,7 +26,10 @@ export default {
 export const basic = () => Vue.extend({
   render() {
     return (
-      <Result></Result>
+      <div>
+        <Result></Result>
+        <Result></Result>
+      </div>
     );
   },
 });
@@ -49,12 +54,24 @@ export const subtitle = () => Vue.extend({
 export const extraSlot = () => Vue.extend({
   render() {
     return (
-      <Result>
-        <template slot="extra">
-          <Button round inline>设置网络</Button>
-          <Button type="primary" round inline>点击重试</Button>
-        </template>
-      </Result>
+      <div>
+        <Card>
+          <Result>
+            <template slot="extra">
+              <Button round inline>设置网络</Button>
+              <Button type="primary" round inline>点击重试</Button>
+            </template>
+          </Result>
+        </Card>
+        <Card>
+          <Result>
+            <template slot="extra">
+              <Button round>设置网络</Button>
+              <Button type="primary" round>点击重试</Button>
+            </template>
+          </Result>
+        </Card>
+      </div>
     );
   }
 });
@@ -90,7 +107,7 @@ export const status = () => Vue.extend({
 export const iconSlot = () => Vue.extend({
   render() {
     return (
-      <Result title="预约成功，订单待支付" subTitle="请在就诊当日支付">
+      <Result status="success" title="预约成功，订单待支付" subTitle="请在就诊当日支付">
         <Icon slot="icon" type={CheckboxCircleFilled} color="#36b365"></Icon>
       </Result>
     );

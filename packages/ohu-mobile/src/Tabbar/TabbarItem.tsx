@@ -13,7 +13,7 @@ interface ComputedProps {
 }
 
 const TabbarItemWrapper = function(Item: typeof EntryItem) {
-  return defineComponent<TabbarItemProps ,TabbarItemEvents, {}, ComputedProps>('tabbar-item').create({
+  return defineComponent<TabbarItemProps, TabbarItemEvents, {}, ComputedProps>('tabbar-item').create({
     props: {
       ...entryItemProps,
       name: props<string, number>(String, Number).optional,

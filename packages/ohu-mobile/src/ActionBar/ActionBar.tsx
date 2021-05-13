@@ -2,7 +2,6 @@ import { defineComponent, props } from '../_utils/defineComponent';
 import Button from '../Button';
 import { ActionBarProps, ActionBarEvents, ActionOption } from './types';
 import Bottom from '../Bottom';
-import Divider from '../Divider';
 
 
 export default defineComponent<ActionBarProps, ActionBarEvents>('action-bar').create({

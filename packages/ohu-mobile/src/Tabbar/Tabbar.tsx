@@ -3,6 +3,8 @@ import { TabbarEvents, TabbarProps } from './types';
 import { $colorTextBase } from '../_config/variables';
 import { defineComponent, props } from '../_utils/defineComponent';
 import scrollIntoCenter, { ScrollToTargetPosition } from '../_utils/scrollIntoCenter';
+import debounce from '../_utils/debounce';
+import bindEvent from '../_utils/bindEvent';
 
 
 export interface SimpleRect {
@@ -49,11 +51,9 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
       }
     },
     onChange(key: string | number, index: number, name?: string | number) {
-      if (this.stateValue !== key) {
-        this.stateValue = key;
-        this.$emit('change', { key, index, name });
-        this.$emit('input', this.stateValue);
-      }
+      this.stateValue = key;
+      this.$emit('change', { key, index, name });
+      this.$emit('input', this.stateValue);
     },
     computeChildrenRect() {
       this.childrenRects = this.$children.map((child) => {
@@ -93,10 +93,17 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
       this.computeIndicator();
       this.scrollIntoCenter();
     },
+    handleResize() {
+      const handler = debounce(() => {
+        this.relayout();
+      }, 500);
+      bindEvent(this, 'resize', handler);
+    },
   },
   mounted() {
     if (this.hasIndicator || this.scroll) {
       this.relayout();
+      this.handleResize();
     }
   },
   render() {
