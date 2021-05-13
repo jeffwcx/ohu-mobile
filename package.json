@@ -1,10 +1,13 @@
 {
   "name": "ohu-mobile",
-  "version": "0.14.2",
+  "version": "1.0.0",
   "description": "Fantastic UI Toolkit",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "start": "lerna run start --scope=storybook",
+    "build:components": "lerna run build:components --scope=@ohu-mobile/core",
+    "build:icons": "lerna run build --scope=@ohu-mobile/icons",
+    "create-icons": "lerna run g --scope=@ohu-mobile/icons"
   },
   "repository": {
     "type": "git",

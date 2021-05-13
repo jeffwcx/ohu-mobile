@@ -24,7 +24,7 @@ export const fieldMixin = (
       }
     },
     data() {
-      let instance = this as FieldMixinInstance;
+      let instance = this as unknown as FieldMixinInstance;
       const selfValue = instance[initValueName];
       let initValue = instance.initFieldValue(selfValue);
       if (initInternalValueSelf) {
@@ -40,7 +40,7 @@ export const fieldMixin = (
         instance[internalValueName] = value;
       },
       initFieldValue(initValue?: any) {
-        let instance = this as Mixin<{ field: FormFieldInnerMethods }>;
+        let instance = this as unknown as Mixin<{ field: FormFieldInnerMethods }>;
         let field = instance.field;
         if (!field) return initValue;
         const success = field.addChildren(instance);

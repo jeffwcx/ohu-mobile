@@ -8,9 +8,8 @@ import filesize from 'rollup-plugin-filesize';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import { terser } from 'rollup-plugin-terser';
-import generateScss from './generate-scss';
+import generateScss from './generateScss';
 import variables from '../src/_styles/variables';
-import * as componentVariables from '../src/_styles/component.variables';
 
 const isProd = process.env.NODE_ENV === 'production';
 const isRem = process.env.CSS_EDITION === 'rem';
@@ -70,7 +69,6 @@ export default {
         outputStyle: isProd ? 'compressed' : 'expanded',
         includePaths: [ 'src/_styles' ],
         data: `${generateScss(variables)}
-          ${generateScss(componentVariables)}
           @import "mixins";`,
       },
       processor: css =>

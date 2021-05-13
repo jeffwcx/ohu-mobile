@@ -3,6 +3,7 @@
     "packages/*",
     "docs/**"
   ],
+  "npmClient": "yarn",
   "command": {
     "version": {
       "conventionalCommits": true,

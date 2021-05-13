@@ -154,7 +154,7 @@ async function compileStyles(
     const relativePath = path.relative(inputPath, file);
     const sassPath = path.join(outputPath, relativePath);
     const cssPath = sassPath.replace('.scss', '.css');
-    spinner.text = 'sass proccessing | 正在转换sass';
+    spinner.text = '🚀 SCSS file proccessing';
     return compileStyle(file)
       .then(async ({ code }) => {
         const { dir } = path.parse(cssPath);
@@ -162,13 +162,13 @@ async function compileStyles(
           await fs.mkdirp(dir);
         }
         await fs.writeFile(cssPath, code.toString());
-        spinner.text = 'sass processing succeed, transfer to postcss | sass转换成功，转入postcss处理';
+        spinner.text = '🚩 SCSS file processing succeed, transfer to postcss';
         return cssPath;
       }).then(async (cssPath: string) => {
         const css = await fs.readFile(cssPath, { encoding: 'utf8' });
         const result = await usePostcss(css, cssPath, useRem);
         await fs.writeFile(cssPath, result.css);
-        spinner.text = 'postcss proccessing succced!';
+        spinner.text = '🚩 PostCSS proccessing succced!';
       });
   });
   await Promise.all(tasks);
@@ -217,26 +217,26 @@ async function main(options: BuildLibOptions) {
   const allJsFilePath = path.join(outputPath, '**/*.+(js|jsx)');
   const allInputStyleFilePath = path.join(inputPath, '**/index.+(sass|scss)');
   const scriptFiles = glob.sync(allJsFilePath);
-  spinner.start('start to compile scripts | 开始编译脚本');
+  spinner.start('🚀 Start to compile scripts');
   try {
     await compileScripts(scriptFiles, { babelConfig, inputPath, outputPath });
   } catch (error) {
-    spinner.fail('compile scripts error! | 脚本编译失败！');
+    spinner.fail('❌ Compile scripts error');
     console.error(error);
     process.exitCode = 1;
     return;
   }
-  spinner.succeed('script compiled! | 脚本编译成功');
-  spinner.start('start to compile scss | 开始编译scss');
+  spinner.succeed('🚩 Script compiled');
+  spinner.start('🚀 Start to compile SCSS');
   const styleFiles = glob.sync(allInputStyleFilePath);
-  spinner.start('start to copy scss files | 开始复制scss文件');
+  spinner.start('🚀 Start to copy SCSS files');
   const allStyleFilePath = path.join(inputPath, '**/*.+(sass|scss)');
   const styleFilePaths = glob.sync(allStyleFilePath);
   try {
     await copyStyles(styleFilePaths, { inputPath, outputPath });
-    spinner.succeed('scss files copied! | scss文件拷贝成功！');
+    spinner.succeed('🚩 SCSS files copied');
   } catch (error) {
-    spinner.fail('scss files copy failed | scss文件copy失败');
+    spinner.fail('❌ SCSS files copy failed');
     console.error(error);
     process.exitCode = 1;
     return;
@@ -244,14 +244,14 @@ async function main(options: BuildLibOptions) {
 
   try {
     await compileStyles(styleFiles, { inputPath, outputPath, useRem: options.useRem });
-    spinner.succeed('scss compiled! | scss编译成功');
+    spinner.succeed('🚩 SCSS files compiled successfully');
   } catch (error) {
-    spinner.fail('scss compile failed! | scss编译失败！');
+    spinner.fail('❌ SCSS files compiltion failed');
     console.error(error);
     process.exitCode = 1;
     return;
   }
-  spinner.succeed('compiled success! | 全部编译成功');
+  spinner.succeed('🎉 All files compiled successfully');
   spinner.clear();
 }
 
@@ -290,5 +290,5 @@ const options = yargs
     // },
   }).help().argv;
 
-const spinner = ora('start compile | 开始编译').start();
+const spinner = ora('🚀 Start compiling').start();
 main(options as BuildLibOptions);

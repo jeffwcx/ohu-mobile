@@ -6,13 +6,11 @@ lib
 lib-rem
 storybook-static
 coverage
+.npmrc
 
 # local env files
 .env.local
 .env.*.local
-
-# lock
-yarn.lock
 
 # Log files
 npm-debug.log*
