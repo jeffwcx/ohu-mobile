@@ -70,7 +70,7 @@ export const boldHeader = () => ({
         <Card divider style="margin-bottom: 10px;" borderless>
           <Card.Header status="success" bold>
             常用工具
-            <Button link slot="extra" size="sm">更多 > </Button>
+            <Button link slot="extra" size="sm">更多&gt; </Button>
           </Card.Header>
           这就是内容部分了。
         </Card>

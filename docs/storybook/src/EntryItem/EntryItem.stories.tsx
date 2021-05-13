@@ -64,7 +64,7 @@ export const size = () => Vue.extend({
         <Card shadow>
           <Card.Header bold>
             我的订单
-            <Button slot="extra" type="link" size="sm">查看全部服务 ></Button>
+            <Button slot="extra" type="link" size="sm">查看全部服务 &gt;</Button>
           </Card.Header>
           <div style="display: flex; flex-flow: row wrap;">
             <EntryItem style="width: 25%;" iconAreaSize="lg" icon={WdghFilled}>我的挂号</EntryItem>

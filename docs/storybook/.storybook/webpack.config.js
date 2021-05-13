@@ -63,7 +63,8 @@ module.exports = ({ config }) => {
     include: [
       resolve('../src'),
       resolve('../node_modules/@ohu-mobile/core'),
-      resolve('../../../packages/ohu-mobile/src')
+      resolve('../../../packages/ohu-mobile/src'),
+      resolve('../node_modules/post-style')
     ],
     use: [
       'vue-style-loader',
@@ -78,7 +79,7 @@ module.exports = ({ config }) => {
             require('postcss-pxtorem')({
               rootValue: 75,
               propList: ['*', '!border'],
-              selectorBlackList: [/^(html)/]
+              selectorBlackList: [/^(html)/, 'markdown']
             }),
           ],
         },

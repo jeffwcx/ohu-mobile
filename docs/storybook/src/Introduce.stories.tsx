@@ -5,7 +5,7 @@ import hightlight from 'highlight.js';
 import 'highlight.js/styles/paraiso-dark.css';
 import props from 'vue-strict-prop';
 import { component } from 'vue-tsx-support';
-import 'post-style/lib/post.min.css';
+import 'post-style';
 
 export default {
   title: 'Overview|Introduce',
