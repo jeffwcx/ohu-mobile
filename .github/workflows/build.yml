@@ -29,6 +29,5 @@ jobs:
         flags: unittests
         directory: coverage
         verbose: true
-        files: ./clover.xml,./coverage-final.json,./lcov.info
       env:
         CI: true
