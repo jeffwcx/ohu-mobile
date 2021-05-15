@@ -3,14 +3,14 @@
 
 $noticeBarPrefixClass: #{$prefix}notice-bar;
 
-@keyframes notice-bar-scroll-animation {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+// @keyframes notice-bar-scroll-animation {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   100% {
+//     transform: translateX(-100%);
+//   }
+// }
 
 .#{$noticeBarPrefixClass} {
   box-sizing: border-box;
@@ -43,16 +43,13 @@ $noticeBarPrefixClass: #{$prefix}notice-bar;
   }
   &__text {
     line-height: 1.43em;
+    &.is-wrap div {
+      @include text-wrap;
+    }
     &.is-inline {
       overflow: hidden;
       div {
         white-space: nowrap;
-      }
-    }
-    &.is-scrollable {
-      div {
-        padding-left: 100%;
-        animation: notice-bar-scroll-animation linear infinite both;
       }
     }
     div {

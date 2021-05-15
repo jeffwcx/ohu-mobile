@@ -5,88 +5,166 @@ import Icon from '../Icon';
 import { CloseOutlined, ArrowRightSOutlined } from '@ohu-mobile/icons';
 import { VNodeData } from 'vue/types/umd';
 
+interface NoticeBarData {
+  isShow: boolean;
+  marqueeMoveDistance: number;
+  marqueeWidth: number;
+  marqueeContainerWidth: number;
+  translateX: number | string;
+  marqueeStyle: Partial<CSSStyleDeclaration>;
+  getInitMarqueeStyle: () => Partial<CSSStyleDeclaration>;
+}
 
-export default defineComponent<NoticeBarProps, NoticeBarEvents>('notice-bar').create({
+
+export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarData>('notice-bar').create({
   props: {
     text: String,
     icon: props<IconDef>(Object).optional,
     action: props.ofType<NoticeBarAction>().optional,
     type: props.ofType<NoticeBarType>().default('default'),
     multiline: props(Boolean).default(false),
-    timeout: props(Number).default(-1),
-    scrollable: props(Boolean).default(false),
+    scrollable: props.ofType<Boolean | undefined>().optional,
+    offset: props(String).default('100%'),
     delay: props(Number).default(1000),
     speed: props(Number).default(50),
   },
   data() {
     return {
+      timeoutId: null as ReturnType<typeof setTimeout> | null,
       isShow: true,
-      animationDuration: -1,
+      translateX: 0,
+      marqueeMoveDistance: 0,
+      marqueeWidth: 0,
+      marqueeContainerWidth: 0,
+      marqueeStyle: this.getInitMarqueeStyle(),
     };
   },
+  computed: {
+    isScroll() {
+      if (this.scrollable !== undefined) return this.scrollable;
+      return this.marqueeContainerWidth < this.marqueeWidth;
+    },
+    offsetLeft() {
+      const match = this.offset.match(/(0|[^0]\d{0,1}|100)%?/);
+      if (match && match[1]) {
+        const value = +match[1];
+        return value >= 0 && value <= 100 ? value : 0;
+      }
+      return 0;
+    },
+  },
   methods: {
-    handleAction() {
+    getInitMarqueeStyle() {
+      return this.offset !== '100%' && !this.multiline
+        ? { marginLeft: this.offset }
+        : {};
+    },
+    handleAction(e: Event) {
       if (this.action === 'closable') {
+        e.stopPropagation();
         this.isShow = false;
-        this.$emit('close');
+        this.$emit('close', e);
       }
     },
-    computeAnimationDuration() {
+    setMarqueStyle(translateX?: number, duration?: number) {
+      let translate = translateX !== undefined ? translateX : -this.marqueeWidth;
+      const style: Partial<CSSStyleDeclaration> = {
+        transitionTimingFunction: 'linear',
+        transform: `translateX(${translate}px)`,
+        transitionDuration: duration === undefined
+          ? `${this.marqueeMoveDistance / this.speed}s`
+          : `${duration}s`,
+      };
+      this.marqueeStyle = style;
+    },
+    setMarqueeWidth() {
       const marquee = this.$refs.marquee as HTMLDivElement;
-      this.animationDuration = (marquee.clientWidth) / this.speed;
+      const marqueeInner = this.$refs.marqueeInner as HTMLDivElement;
+      if (!marqueeInner || !marquee) return;
+      return {
+        marqueeContainerWidth: marquee.clientWidth,
+        marqueeWidth: marqueeInner.clientWidth,
+      };
+    },
+    initMarquee() {
+      if (this.timeoutId) clearTimeout(this.timeoutId);
+      Object.assign(this, this.setMarqueeWidth());
+      if (!this.isScroll) return;
+      this.marqueeMoveDistance = this.marqueeContainerWidth * (this.offsetLeft / 100) + this.marqueeWidth;
+      this.timeoutId = setTimeout(() => {
+        this.setMarqueStyle();
+        this.timeoutId = null;
+      }, this.delay);
+      this.$on('hook:beforeDestroy', () => {
+        this.timeoutId && clearTimeout(this.timeoutId);
+      });
+    },
+    resetMarquee() {
+      Object.assign(this, this.setMarqueeWidth());
+      if (!this.isScroll) {
+        return this.marqueeStyle = this.getInitMarqueeStyle();
+      }
+      this.marqueeMoveDistance = this.marqueeContainerWidth + this.marqueeWidth;
+      this.setMarqueStyle(this.marqueeContainerWidth, 0);
+      setTimeout(() => {
+        this.setMarqueStyle();
+      }, 200);
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      this.computeAnimationDuration();
-    });
+    this.initMarquee();
   },
   render() {
-    const root = this.root();
-    const { $slots, isShow,
+    const {
+      $slots, isShow,
       icon, action, multiline, type,
-      scrollable, text, delay, animationDuration,
+      isScroll, text,
     } = this;
+    const root = this.root()
+      .has([
+        icon && 'icon',
+        action && 'action',
+      ])
+      .is(type);
     const textNode: VNodeData = {
+      ref: 'marquee',
       class: root.element('text')
-        .is([!multiline && 'inline', scrollable && 'scrollable']),
+        .is([
+          multiline ? 'wrap' : 'inline',
+          isScroll && 'scrollable',
+        ]),
     };
-    let innerStyle: Partial<CSSStyleDeclaration> = {};
-    if (scrollable) {
-      textNode.attrs = {
-        role: 'marquee',
+    if (isScroll) {
+      textNode.on = {
+        transitionend: this.resetMarquee,
       };
-      innerStyle.animationDelay = `${delay}ms`;
-      if (this.animationDuration > 0) {
-        innerStyle.animationDuration = `${animationDuration}s`;
-      }
     }
     return (
       <div v-show={isShow}
-        class={root.has([
-          icon && 'icon',
-          action && 'action',
-        ]).is(type)}
+        class={root}
         onClick={(e) => this.$emit('click', e)}>
         {
           $slots.icon
-            ?
-            <div class={root.element('icon')}>
-              {$slots.icon}
-            </div>
+            ? (
+              <div class={root.element('icon')}>
+                {$slots.icon}
+              </div>
+            )
             : (
               icon
               &&
-              <div class={root.element('icon')}><Icon type={icon} /></div>
+              <div class={root.element('icon')}>
+                <Icon type={icon} />
+              </div>
             )
         }
         <div {...textNode}>
-          <div ref="marquee" style={innerStyle}>{text || $slots.default}</div>
+          <div ref="marqueeInner" style={this.marqueeStyle}>{text || $slots.default}</div>
         </div>
         {
           action
           &&
-          <div class={root.element('action')} onClick={this.handleAction}>
+          <div role="button" class={root.element('action')} onClick={this.handleAction}>
             <Icon type={action === 'closable' ? CloseOutlined : ArrowRightSOutlined} />
           </div>
         }
