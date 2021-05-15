@@ -7,7 +7,7 @@ module.exports = {
     '/node_modules/',
   ],
   testRegex: '(/test/.*|\\.(test|spec))\\.(ts|tsx|js)$',
-  coverageDirectory: './coverage',
+  coverageDirectory: '../../coverage',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   snapshotSerializers: ['jest-serializer-vue'],
   globals: {

@@ -8,7 +8,9 @@
     "build:components": "lerna run build:components --scope=@ohu-mobile/core",
     "build:icons": "lerna run build --scope=@ohu-mobile/icons",
     "create-icons": "lerna run g --scope=@ohu-mobile/icons",
-    "storybook": "lerna run build --scope=storybook"
+    "storybook": "lerna run build --scope=storybook",
+    "test": "lerna run test --scope=@ohu-mobile/core",
+    "coverage": "lerna run test:cov --scope=@ohu-mobile/core"
   },
   "repository": {
     "type": "git",

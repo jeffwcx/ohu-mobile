@@ -17,10 +17,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npx lerna bootstrap
-    - run: cd packages/ohu-mobile-icons && npm run build
-    - run: cd packages/ohu-mobile && npm run build:components
-    - run: cd packages/ohu-mobile && npm test
+    - run: yarn install
+    - run: yarn lerna bootstrap
+    - run: yarn run build:icons
+    - run: yarn run build:components
+    - run: yarn run coverage
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        name: codecov-umbrella
+        flags: unittests
+        directory: coverage
+        verbose: true
+        files: ./clover.xml,./coverage-final.json,./lcov.info
       env:
         CI: true
