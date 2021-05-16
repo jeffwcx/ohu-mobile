@@ -9,7 +9,12 @@
 </p>
 
 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjeffwcx%2Fohu-mobile.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjeffwcx%2Fohu-mobile?ref=badge_large)
+
 ## Install
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjeffwcx%2Fohu-mobile.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjeffwcx%2Fohu-mobile?ref=badge_shield)
+
 
 `@ohu-mobile/core`  contains all the components.
 
@@ -82,6 +87,3 @@ yarn add @ohu-mobile/styles
 + Change default behavior of component.
 
 + Import the component library into your source code.
-
-
-
