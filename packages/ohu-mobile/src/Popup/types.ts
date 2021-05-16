@@ -1,5 +1,5 @@
 import Vue, { CreateElement, VNode } from 'vue';
-import { VueEventWrapper, IconDef } from '../types';
+import { VueEventWrapper, IconDef, CSSProps } from '../types';
 import { ClassOptions } from '../_utils/classHelper';
 
 interface PopupSimpleRect {
@@ -53,26 +53,88 @@ export type PopupAnimateType = 'none' | 'fade' | 'zoom' | 'zoom-scale' |
 export type PopupPosition = PopupAnyPosition | PopupAnchorPosition | PopupVerticalPosition | PopupHorizontalPosition;
 
 export interface PopupProps {
+  /**
+   * 弹窗是否可视
+   */
   visible?: boolean;
-  anchor?: HTMLElement | (() => HTMLElement);
-  transformOrigin?: PopupTransformOrigin;
-  marginThreshold?: number;
-  edgeDetect?: boolean;
-  lockScroll?: boolean;
-  position?: PopupPosition;
-  mask?: boolean;
-  maskFrosted?: boolean;
-  maskClosable?: boolean;
-  maskAnimate?: 'mask-fade' | 'none';
-  partialMask?: 'top' | 'bottom';
-  fullscreen?: boolean;
-  animate?: PopupAnimateType;
-  targetStyle?: Partial<CSSStyleDeclaration>;
+  /**
+   * 弹窗主体的CSS样式
+   */
+  targetStyle?: CSSProps;
+  /**
+   * 弹窗主体的CSS类
+   */
   targetClass?: ClassOptions;
+  /**
+   * 锚点，围绕锚点展开的弹出层
+   */
+  anchor?: HTMLElement | (() => HTMLElement);
+  /**
+   * 锚点模式下，弹层动画属性transform-origin
+   */
+  transformOrigin?: PopupTransformOrigin;
+  /**
+   * 是否进行边界检测，确保在页面可视范围内
+   */
+  edgeDetect?: boolean;
+  /**
+   * 进行边界检测时，距离页面可视边界的间隔
+   */
+  marginThreshold?: number;
+  lockScroll?: boolean;
+  /**
+   * 弹出位置
+   */
+  position?: PopupPosition;
+  /**
+   * 是否开始遮罩层
+   */
+  mask?: boolean;
+  /**
+   * 遮罩层毛玻璃效果
+   */
+  maskFrosted?: boolean;
+  /**
+   * 点击遮罩层是否可关闭
+   */
+  maskClosable?: boolean;
+  /**
+   * 遮罩层动画
+   */
+  maskAnimate?: 'mask-fade' | 'none';
+  /**
+   * 部分遮罩效果
+   */
+  partialMask?: 'top' | 'bottom';
+  /**
+   * 全屏效果
+   */
+  fullscreen?: boolean;
+  /**
+   * 弹出动画
+   */
+  animate?: PopupAnimateType;
+  /**
+   * 弹层主体超出视窗范围是否可滚动
+   */
   scrollBody?: boolean;
+  /**
+   * 弹窗主体是否能点透
+   */
   tapThrough?: boolean;
+  /**
+   * 弹窗层级
+   */
   zIndex?: number;
   round?: boolean;
+  /**
+   * 是否使用传送门
+   */
+  usePortal?: boolean;
+  /**
+   * 在deactivated状态下隐藏弹出层
+   */
+  hideOnDeactivated?: boolean;
 };
 
 

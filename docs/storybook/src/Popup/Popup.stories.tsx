@@ -7,6 +7,7 @@ import '@/Card/style';
 import Button from '@/Button';
 import '@/Button/style';
 import { CloseOutlined } from '~/icons/index';
+import VueRouter from 'vue-router';
 
 export default {
   title: 'Components|FeedBack/Popup',
@@ -109,6 +110,7 @@ export const animate = () => Vue.extend({
       <div style="padding: 8px;">
         <Popup
           v-model={this.vz}
+          usePortal={false}
           animate="zoom"
           targetStyle={{ width: '8rem', height: '8rem', background: '#fff' }}>
         </Popup>
@@ -154,7 +156,7 @@ export const mask = () => Vue.extend({
           v-model={this.vmf}
           maskFrosted
           animate="fade"
-          targetStyle={{ width: '8rem', height: '8rem', background: '#000' }}>
+          targetStyle={{ width: '8rem', height: '8rem', background: '#FFF' }}>
         </Popup>
         <Card shadow>
           <Card.Header>mask</Card.Header>
@@ -165,6 +167,8 @@ export const mask = () => Vue.extend({
     );
   },
 });
+
+Vue.use(VueRouter);
 
 export const fullscreen = () => Vue.extend({
   data() {
@@ -181,12 +185,75 @@ export const fullscreen = () => Vue.extend({
           fullscreen
           targetStyle={{ background: '#FFF' }}
           round>
-          <Popup.Header center closeIcon={CloseOutlined} confirm>标题</Popup.Header>
+          <Popup.Header
+            center
+            closeIcon={CloseOutlined}>
+            标题
+          </Popup.Header>
           <div style="height: 200vh"></div>
         </Popup>
         <Card shadow>
           <Card.Header>fullscreen</Card.Header>
           <Button type="primary" onClick={() => this.vfs = true}>fullscreen</Button>
+        </Card>
+      </div>
+    );
+  },
+});
+
+const A = Vue.extend({
+  data() {
+    return {
+      visible: false,
+    };
+  },
+  render() {
+    return (
+      <div class="demo">
+        <Popup v-model={this.visible}
+          animate="slide-down"
+          position="bottom"
+          targetStyle={{ width: '100%', height: '300px', background: '#FFF' }}
+          round>
+          <Button type="primary" to="/b">打开B</Button>
+        </Popup>
+        <Card shadow>
+          <Button type="primary" onClick={() => this.visible = true}>
+            A 打开Popup
+          </Button>
+        </Card>
+      </div>
+    );
+  },
+});
+const B = Vue.extend({
+  render() {
+    return (
+      <div class="demo">
+        <Button type="primary" to="/a">打开A</Button>
+      </div>
+    );
+  }
+});
+
+const router = new VueRouter({
+  mode: 'hash',
+  routes: [
+    { path: '/a', component: A, alias: '/' },
+    { path: '/b', component: B },
+  ],
+});
+
+export const keepState = () => Vue.extend({
+  router,
+  render() {
+    return (
+      <div class="demo">
+        <Card shadow>
+          <h1>Keep State</h1>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </Card>
       </div>
     );

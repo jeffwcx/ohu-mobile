@@ -18,3 +18,5 @@ export type TsxProps<T extends VueConstructor> = Omit<PickProperty<InstanceType<
 export type VueInstance = InstanceType<typeof Vue>;
 
 export type Mixin<T> = VueInstance & T;
+
+export type CSSProps = Partial<CSSStyleDeclaration>;

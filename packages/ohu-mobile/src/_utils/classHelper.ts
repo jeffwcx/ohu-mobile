@@ -42,7 +42,7 @@ export interface CreateBemHelper {
   block(name: string): BlockContext;
 }
 
-export type ClassOptions = any[] | Record<string, boolean> | string;
+export type ClassOptions = any[] | Record<string, boolean> | string | false;
 
 type ClassTransformFunc = (...classItem: string[]) => string;
 
@@ -103,7 +103,8 @@ export class BlockContext extends Array<string> {
     }
     return this;
   }
-  addClasses(options: ClassOptions, transformClass?: ClassTransformFunc) {
+  addClasses(options?: ClassOptions, transformClass?: ClassTransformFunc) {
+    if (!options) return this;
     if (typeof options === 'string') {
       this.addClassItem(options);
       return this;
@@ -123,7 +124,8 @@ export class BlockContext extends Array<string> {
     });
     return this;
   }
-  removeClasses(options: ClassOptions, transformClass?: ClassTransformFunc) {
+  removeClasses(options?: ClassOptions, transformClass?: ClassTransformFunc) {
+    if (!options) return this;
     if (typeof options === 'string') {
       this.removeClassItem(options);
       return this;
@@ -146,31 +148,38 @@ export class BlockContext extends Array<string> {
     });
     return this;
   }
-  is(options: ClassOptions | string, ...items: string[]) {
+  is(options?: ClassOptions | string, ...items: string[]) {
+    if (!options) return this;
     const opts = transformArgs(options, items);
     return this.addClasses(opts, this.isJoinTransform);
   }
-  isNot(options: ClassOptions | string, ...items: string[]) {
+  isNot(options?: ClassOptions | string, ...items: string[]) {
+    if (!options) return this;
     const opts = transformArgs(options, items);
     return this.removeClasses(opts, this.isJoinTransform);
   }
-  no(options: ClassOptions | string, ...items: string[]) {
+  no(options?: ClassOptions | string, ...items: string[]) {
+    if (!options) return this;
     const opts = transformArgs(options, items);
     return this.addClasses(opts, this.noJoinTransform);
   }
-  has(options: ClassOptions | string, ...items: string[]) {
+  has(options?: ClassOptions | string, ...items: string[]) {
+    if (!options) return this;
     const opts = transformArgs(options, items);
     return this.addClasses(opts, this.hasJoinTransform);
   }
-  without(options: ClassOptions | string, ...items: string[]) {
+  without(options?: ClassOptions | string, ...items: string[]) {
+    if (!options) return this;
     const opts = transformArgs(options, items);
     return this.removeClasses(opts, this.hasJoinTransform);
   }
-  modifer(options: ClassOptions | string, ...items: string[]) {
+  modifer(options?: ClassOptions | string, ...items: string[]) {
+    if (!options) return this;
     const opts = transformArgs(options, items);
     return this.addClasses(opts, this.modiferJoinTransform);
   }
-  noModifer(options: ClassOptions | string, ...items: string[]) {
+  noModifer(options?: ClassOptions | string, ...items: string[]) {
+    if (!options) return this;
     const opts = transformArgs(options, items);
     return this.removeClasses(opts, this.modiferJoinTransform);
   }

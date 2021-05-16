@@ -1,16 +1,42 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import { getScrollEventTarget } from '../_utils/dom';
 import manager from './manager';
 import debounce from '../_utils/debounce';
 import { PopupTransformOrigin, PopupPosition,
   PopupAnimateType, PopupEvents,
-  PopupAnchorPosition, PopupEnterEvent,
+  PopupAnchorPosition, PopupEnterEvent, PopupProps,
 } from './types';
 import { isAnyPosition, computeRect, getAnchorPosition, getTransformOrigin } from './utils';
-import { addTargetClass } from '../_utils/targetClass';
 import { $prefix } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
+import { ClassOptions } from '../_utils/classHelper';
+import { CSSProps } from '../types';
+import bindEvent from '../_utils/bindEvent';
 
+
+interface PopupData {
+  wrapperVisible: boolean;
+  documentVisible: boolean;
+  docEl: HTMLElement | null;
+  docRect: { width: number, height: number } | null;
+  anchorEl: HTMLElement | null;
+  docPos: {
+    top: number,
+    bottom: number,
+    left: number,
+    right: number,
+    transformOrigin: string,
+  } | null;
+  anchorRect: DOMRect | ClientRect | null;
+  maskZIndex: number;
+  documentZIndex: number;
+  touchData: {
+    scrollY: number,
+    pageY: number,
+    scrollEl: HTMLElement | null,
+    maxHeight: number,
+  };
+  rootStyle: CSSProps;
+}
 
 export const popupProps = {
   visible: Boolean,
@@ -28,12 +54,13 @@ export const popupProps = {
   closeOnMaskTouched: props(Boolean).default(false),
   fullscreen: props(Boolean).default(false),
   animate: props.ofType<PopupAnimateType>().default('none'),
-  targetStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
-  targetClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
+  targetStyle: props.ofType<CSSProps>().optional,
+  targetClass: props.ofType<ClassOptions>().optional,
   scrollBody: props(Boolean).default(false),
   tapThrough: props(Boolean).default(false),
   zIndex: Number,
   round: props(Boolean).default(false),
+  hideOnDeactivated: props(Boolean).default(true),
 }
 
 const positionTransitionMap = {
@@ -43,12 +70,10 @@ const positionTransitionMap = {
   right: `${$prefix}slide-right`,
 };
 
-const basePopupName = `${$prefix}popup`;
-const baseMaskName = `${$prefix}mask`;
-const popupWrapperCls = `${basePopupName}-wrapper`;
+const createPopup = defineComponent<PopupProps, PopupEvents>('popup-main');
+
 export const POPUP_EVENT = 'visibleChange';
-const Popup = componentFactoryOf<PopupEvents>().create({
-  name: basePopupName + '-main',
+const Popup = createPopup.create({
   model: {
     prop: 'visible',
     event: POPUP_EVENT,
@@ -71,31 +96,8 @@ const Popup = componentFactoryOf<PopupEvents>().create({
         scrollEl: null,
         maxHeight: 0,
       },
-      resizeHandler: null,
-    } as {
-      wrapperVisible: boolean,
-      documentVisible: boolean,
-      docEl: HTMLElement | null,
-      docRect: { width: number, height: number } | null,
-      anchorEl: HTMLElement | null,
-      docPos: {
-        top: number,
-        bottom: number,
-        left: number,
-        right: number,
-        transformOrigin: string,
-      } | null,
-      anchorRect: DOMRect | ClientRect | null,
-      maskZIndex: number,
-      documentZIndex: number,
-      resizeHandler: ((this: Window, ev: any) => any) | null,
-      touchData: {
-        scrollY: number,
-        pageY: number,
-        scrollEl: HTMLElement | null,
-        maxHeight: number,
-      },
-    };
+      rootStyle: {},
+    } as PopupData;
   },
   watch: {
     visible(newValue) {
@@ -106,29 +108,53 @@ const Popup = componentFactoryOf<PopupEvents>().create({
     isAnchorMode() {
       return !!this.anchor;
     },
+    documentClass() {
+      return this.bem.block('popup')
+        .is([
+          this.fullscreen && 'fullscreen',
+          this.round && 'round',
+        ])
+        .addClasses(this.targetClass);
+    },
+    documentTransition() {
+      if (this.animate === 'none'
+        && typeof this.position === 'string'
+        && this.position !== 'center') {
+        return positionTransitionMap[this.position];
+      }
+      return `${$prefix}${this.animate}`;
+    },
   },
-  mounted() {
-    this.visible ? this.open() : this.close();
+  created() {
+    this.$on('hook:activated', () => {
+      this.rootStyle = {};
+      if (this.hideOnDeactivated && manager.isLock > 0) {
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    this.$on('hook:deactivated', () => {
+      if (this.hideOnDeactivated) {
+        this.rootStyle = { display: 'none' };
+        if (manager.isLock > 0) {
+          document.body.style.overflow = '';
+        }
+      }
+    });
     const resizeHandler = debounce(() => {
       if (this.documentVisible) {
         this.computeDocAndAnchorRect();
       }
     });
-    if (resizeHandler) {
-      this.resizeHandler = resizeHandler;
-      window.addEventListener('resize', resizeHandler);
-      window.addEventListener('scroll', resizeHandler);
-    }
-  },
-  beforeDestroy() {
-    if (this.documentVisible) {
-      this.close();
-    }
-    if (this.resizeHandler) {
-      window.removeEventListener('resize', this.resizeHandler);
-      window.removeEventListener('scroll', this.resizeHandler);
-      this.resizeHandler = null;
-    }
+    this.$on('hook:mounted', () => {
+      this.visible ? this.open() : this.close();
+      bindEvent(this, 'resize', resizeHandler);
+      bindEvent(this, 'scroll', resizeHandler);
+    });
+    this.$on('hook:beforeDestroy', () => {
+      if (this.documentVisible) {
+        this.close();
+      }
+    });
   },
   methods: {
     // ⬇️ open api
@@ -274,10 +300,8 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       this.docPos = this.computeDocumentPosition();
     },
     renderMask() {
-      const maskCls = {
-        [baseMaskName]: true,
-        'is-frosted': this.maskFrosted
-      };
+      const maskCls = this.bem.block('mask')
+        .is(this.maskFrosted && 'frosted');
       const maskStyle: Partial<CSSStyleDeclaration> = {
         zIndex: this.maskZIndex.toString(),
         top: '0px',
@@ -305,14 +329,6 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       if (this.mask) {
         return maskNode;
       }
-    },
-    getDocumentTransition() {
-      if (this.animate === 'none'
-        && typeof this.position === 'string'
-        && this.position !== 'center') {
-        return positionTransitionMap[this.position];
-      }
-      return `${$prefix}${this.animate}`;
     },
     computeDocumentPosition() {
       const { position, isAnchorMode } = this;
@@ -413,33 +429,23 @@ const Popup = componentFactoryOf<PopupEvents>().create({
       }
       return docStyle;
     },
-    getDocumentClass() {
-      const cls = { [basePopupName]: true };
-      cls['is-fullscreen'] = this.fullscreen;
-      cls['is-round'] = this.round;
-      if (this.targetClass) {
-        addTargetClass(cls, this.targetClass);
-      }
-      return cls;
-    },
+
     renderDocument() {
-      const wrapperCls: { [key: string]: boolean } = {
-        [popupWrapperCls]: true,
-        'is-tap-through': this.tapThrough,
-      };
-      if (this.scrollBody) {
-        wrapperCls['is-scrollable'] = true;
-      }
+      const wrapperCls = this.bem.block('popup-wrapper');
+      wrapperCls.is([
+        this.tapThrough && 'tap-through',
+        this.scrollBody && 'scrollable',
+      ]);
       if (!this.isAnchorMode) {
         const { horizontal, vertical } = getAnchorPosition(this.position);
         if (horizontal || vertical) {
-          wrapperCls['has-position'] = true;
+          wrapperCls.has('position');
         }
         if (horizontal) {
-          wrapperCls[`is-x-${horizontal}`] = true;
+          wrapperCls.is(`x-${horizontal}`);
         }
         if (vertical && !this.scrollBody) {
-          wrapperCls[`is-y-${vertical}`] = true;
+          wrapperCls.is(`y-${vertical}`);
         }
       }
       const wrapperStyle = {
@@ -456,7 +462,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
           onTouchend={this.onWrapperTouchend}
           tabindex={-1}>
           <transition
-            name={this.getDocumentTransition()}
+            name={this.documentTransition}
             onBeforeEnter={this.onBeforeDocumentEnter}
             onEnter={this.onDocumentEnter}
             onAfterEnter={this.onDocumentAfterEnter}
@@ -464,7 +470,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
             <div v-show={this.documentVisible}
               role="document"
               ref="document"
-              class={this.getDocumentClass()}
+              class={this.documentClass}
               style={this.getDocumentStyle()}
               onTouchstart={this.onDocumentTouch}
               onTouchmove={this.onDocumentTouch}
@@ -479,7 +485,7 @@ const Popup = componentFactoryOf<PopupEvents>().create({
   },
   render() {
     return (
-      <div role="presentation">
+      <div role="presentation" style={this.rootStyle}>
         { this.renderMask() }
         { this.renderDocument() }
       </div>

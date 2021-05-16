@@ -51,6 +51,7 @@ export default extendFrom(PortalVue).create({
       const container = this.container;
       if (!this._wrapper) {
         const wrapper = document.createElement('div');
+        process.env.NODE_ENV === 'test' && (wrapper.title = 'TEST');
         this._wrapper = wrapper;
         container.appendChild(wrapper);
       }

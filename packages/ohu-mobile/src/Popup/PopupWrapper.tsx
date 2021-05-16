@@ -1,22 +1,19 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import PortalRender from '../_utils/PortalRender';
 import Popup, { popupProps, POPUP_EVENT } from './Popup';
 import { VNodeData } from 'vue';
-import { PopupOutSideEvents, PopupGetContainerFunc } from './types';
-import { $prefix } from '../_config/variables';
-
-
-const basePopupWrapperName = `${$prefix}popup`;
+import { PopupOutSideEvents, PopupOutSideProps, PopupGetContainerFunc } from './types';
+import { defineComponent, props } from '../_utils/defineComponent';
 
 export const popupOutSideProps = {
   getContainer: props.ofType<PopupGetContainerFunc>().default(() => document.body),
   dynamic: props(Boolean).default(false),
+  usePortal: props(Boolean).default(true),
   ...popupProps,
 };
 
-const PopupWrapper = componentFactoryOf<PopupOutSideEvents>().create({
-  name: basePopupWrapperName,
+const createPopupWrapper = defineComponent<PopupOutSideProps, PopupOutSideEvents>('popup');
+
+const PopupWrapper = createPopupWrapper.create({
   model: {
     prop: 'visible',
     event: POPUP_EVENT,
@@ -32,18 +29,20 @@ const PopupWrapper = componentFactoryOf<PopupOutSideEvents>().create({
   },
   render() {
     const {
-      getContainer,
       $props,
       $listeners,
       $attrs,
+      $slots,
       visible,
+      getContainer,
+      dynamic,
     } = this;
     const popupNodeData: VNodeData = {
       props: $props,
       on: {
         ...$listeners,
         afterLeave: () => {
-          if (this.dynamic) {
+          if (dynamic && this.$refs.portal) {
             (this.$refs.portal as any).remove();
           }
           this.$emit('afterClose');
@@ -52,6 +51,9 @@ const PopupWrapper = componentFactoryOf<PopupOutSideEvents>().create({
       attrs: $attrs,
       ref: 'popup',
     };
+    if (!this.usePortal) return (
+      <Popup {...popupNodeData}>{$slots.default}</Popup>
+    );
     const container = getContainer instanceof Function
       ? getContainer()
       : getContainer;
@@ -60,7 +62,9 @@ const PopupWrapper = componentFactoryOf<PopupOutSideEvents>().create({
         ref="portal"
         visible={visible}
         container={container}
-        children={() => <Popup {...popupNodeData}>{ this.$slots.default }</Popup>}>
+        children={() => (
+          <Popup {...popupNodeData}>{$slots.default}</Popup>
+        )}>
       </PortalRender>
     )
   },

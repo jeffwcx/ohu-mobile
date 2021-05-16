@@ -4,9 +4,9 @@ import { VueConstructor } from 'vue/types/vue';
 import { PopupOpenOptions } from './types';
 import PopupHeader from './PopupHeader';
 import manager from './manager';
+import noop from '../_utils/noop';
 
 let instance: InstanceType<VueConstructor> & { visible: boolean };
-let noop = (e: any) => {};
 const Popup = Object.assign(PopupWrapper, {
   Header: PopupHeader,
   open: (props: PopupOpenOptions) => {
@@ -34,6 +34,7 @@ const Popup = Object.assign(PopupWrapper, {
             ...popupProps,
             visible: this.visible,
             dynamic: true,
+            usePortal: true,
           },
           on: {
             enter: onEnter || noop,
