@@ -156,7 +156,6 @@ describe('Popup', () => {
         maskFrosted: true,
         usePortal: false,
         tapThrough: true,
-        partialMask: 'bottom',
       },
       listeners: {
         close: onClose,
