@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.7...@ohu-mobile/core@0.16.0) (2021-05-23)
+
+
+### Bug Fixes
+
+* **popup:** popup test ([1f38850](https://github.com/jeffwcx/ohu-mobile/commit/1f38850166124d0040bae17886ffddaa8b571947))
+
+
+### Features
+
+* create @ohu/cli package ([9104d3c](https://github.com/jeffwcx/ohu-mobile/commit/9104d3ce46bd6ec3795e2b39aca523561cb3e68e)), closes [#25](https://github.com/jeffwcx/ohu-mobile/issues/25)
+* **noticebar:** add `offset` property ([86676c5](https://github.com/jeffwcx/ohu-mobile/commit/86676c523bf4e33f1ba8039f6e6da965820205aa)), closes [#24](https://github.com/jeffwcx/ohu-mobile/issues/24)
+* **popup:** add `hideOnDeactivated` and `usePortal` ([79a6483](https://github.com/jeffwcx/ohu-mobile/commit/79a6483bd9be9d99569b3a6769f1767710714b9f)), closes [#23](https://github.com/jeffwcx/ohu-mobile/issues/23)
+
+
+
+
+
 ## [0.15.7](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.6...@ohu-mobile/core@0.15.7) (2021-04-16)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.15.7...storybook@0.16.0) (2021-05-23)
+
+
+### Features
+
+* **noticebar:** add `offset` property ([86676c5](https://github.com/jeffwcx/ohu-mobile/commit/86676c523bf4e33f1ba8039f6e6da965820205aa)), closes [#24](https://github.com/jeffwcx/ohu-mobile/issues/24)
+* **popup:** add `hideOnDeactivated` and `usePortal` ([79a6483](https://github.com/jeffwcx/ohu-mobile/commit/79a6483bd9be9d99569b3a6769f1767710714b9f)), closes [#23](https://github.com/jeffwcx/ohu-mobile/issues/23)
+
+
+
+
+
 ## [0.15.7](https://github.com/jeffwcx/ohu-mobile/compare/storybook@0.15.6...storybook@0.15.7) (2021-04-16)
 
 
