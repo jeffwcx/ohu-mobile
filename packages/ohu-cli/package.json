@@ -7,7 +7,7 @@
     "ohu"
   ],
   "author": "jeffwcx <cunxuanwang@163.com>",
-  "homepage": "https://github.com/jeffwcx/ohu-mobile/tree/master/packages/cli#readme",
+  "homepage": "https://github.com/jeffwcx/ohu-mobile/tree/master/packages/ohu-cli#readme",
   "license": "MIT",
   "bin": {
     "ohu": "bin/ohu"
