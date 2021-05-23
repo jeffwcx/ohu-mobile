@@ -9,7 +9,7 @@ const BackOutlined: SVGIconDef = {
   attrs: {
     viewBox: '0 0 24 24',
   },
-  children: '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g><polygon points="0 0 24 0 24 24 0 24"></polygon><g transform="translate(7.000000, 2.000000)" fill="currentColor"><path d="M11,18.75 L9.72193752,20 L0.216404648,10.7031806 C-0.180669848,10.3148247 -0.185351562,9.68975425 0.216404648,9.29681942 L9.72193752,-4.17966315e-14 L11,1.25 L2.05356264,10 L11,18.75 Z"></path></g></g></g>',
+  children: '<g fill="none" fill-rule="evenodd"><path d="M0 0 24 0 24 24 0 24z"/><path fill="currentColor" d="M11 18.75 9.722 20 .216 10.703a.975.975 0 0 1 0-1.406L9.722 0 11 1.25 2.054 10 11 18.75z" transform="translate(7.000000, 2.000000)"/></g>',
 };
 
 export default BackOutlined;

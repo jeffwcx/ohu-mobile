@@ -43,7 +43,8 @@
     "build:components": "yarn run build:lib && yarn run build:lib-rem",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "prepublish": "yarn run build:components && yarn run test"
+    "prepublish": "yarn run test && yarn run build:components",
+    "result:build": "ohu icon"
   },
   "bugs": {
     "url": "https://github.com/jeffwcx/ohu-mobile/issues"
@@ -99,6 +100,7 @@
   "dependencies": {
     "@ohu-mobile/icons": "^0.12.2",
     "@ohu-mobile/styles": "^0.10.1",
+    "@ohu/cli": "^0.1.0",
     "@types/node": "^13.7.0",
     "@types/raf": "^3.4.0",
     "@types/yup": "^0.26.27",

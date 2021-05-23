@@ -1,0 +1,17 @@
+// Automatically generated, do not modify manually
+import { IconDef } from '../../types';
+
+const {{fileName}}: () => IconDef = () => {
+  const id = Date.now();
+  return {
+    name: '{{name}}',
+    {{if theme}}theme: '{{theme}}',
+    {{/if}}attrs: {
+      viewBox: '{{viewBox}}',
+    },
+    children: `{{@children}}`,
+  };
+}
+
+export default {{fileName}};
+

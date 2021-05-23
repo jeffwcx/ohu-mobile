@@ -12,9 +12,6 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "bin": {
-    "generate-icons": "bin/generate-svg-icons.js"
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -31,13 +28,11 @@
     "directory": "packages/ohu-mobile-icons"
   },
   "scripts": {
-    "build:cli": "rm -rf ./bin & tsc --project tsconfig.scripts.json",
     "build:es": "rm -rf ./es & tsc --project tsconfig.json --module esnext --outDir es --declarationDir es",
     "build:lib": "rm -rf ./lib & tsc --project tsconfig.json --module commonjs --outDir lib --declarationDir lib",
     "build": "yarn run build:es && npm run build:lib",
-    "preg": "yarn run build:cli",
     "g": "yarn run generate",
-    "generate": "rm -rf ./icons && node ./bin/generate-svg-icons -o \"./icons\" -t \"./scripts/svg-template.art\" \"./remixicon/**/*.svg\" -f --types \"./scripts/svg-types.art\"",
+    "generate": "ohu icon",
     "prepublish": "yarn run build"
   },
   "bugs": {
@@ -57,6 +52,7 @@
   },
   "devDependencies": {
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "@ohu/cli": "^0.1.0"
   }
 }

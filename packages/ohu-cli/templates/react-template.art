@@ -1,0 +1,13 @@
+// Automatically generated, do not modify manually
+
+import * as React from 'react';
+
+const {{fileName}} = (props: React.SVGProps<SVGSVGElement>) => {
+{{if dynamicId}}  const id = Date.now();{{/if}}
+  return (
+    <svg viewBox="{{viewBox}}" {...props}>{{@ children | indent 4 }}</svg>
+  );
+};
+
+export default {{fileName}};
+

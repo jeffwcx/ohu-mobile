@@ -1,0 +1,10 @@
+// Automatically generated, do not modify manually
+
+export interface SVGIconDef {
+  name: string;
+  theme?: {{if themes}}{{@themes}}{{else if !themes}}string{{/if}};
+  attrs: {
+    viewBox?: string;
+  },
+  children?: string;
+}

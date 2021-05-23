@@ -1,0 +1,13 @@
+import Vue from 'vue';
+
+const {{fileName}} = Vue.extend({
+  name: '{{fileName}}',
+  render () {
+{{if dynamicId}}    const id = Date.now();
+{{/if}}    return (
+      <svg viewBox="{{viewBox}}">{{@ children | indent 6 }}</svg>
+    );
+  }
+});
+
+export default {{fileName}};

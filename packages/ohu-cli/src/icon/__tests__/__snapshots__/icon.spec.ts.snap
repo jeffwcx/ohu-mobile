@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`\`ohu icon\` jsx plugin 1`] = `
+Object {
+  "data": "<svg viewBox=\\"0 0 135 120\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"><defs><linearGradient x1=\\"67.787%\\" y1=\\"-30.265%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"m\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"50%\\" y1=\\"116.813%\\" x2=\\"50%\\" y2=\\"0%\\" id=\\"b\\"><stop offset=\\"0%\\" stopColor=\\"#FFF\\"/><stop offset=\\"100%\\" stopColor=\\"#E7F0FF\\"/></linearGradient><linearGradient x1=\\"12.03%\\" y1=\\"46.922%\\" x2=\\"20.148%\\" y2=\\"52.633%\\" id=\\"d\\"><stop offset=\\"0%\\" stopColor=\\"#FFF\\"/><stop offset=\\"100%\\" stopColor=\\"#D6E3FA\\"/></linearGradient><linearGradient x1=\\"50.745%\\" y1=\\"50.813%\\" x2=\\"50%\\" y2=\\"46.301%\\" id=\\"e\\"><stop offset=\\"0%\\" stopColor=\\"#FFF\\"/><stop offset=\\"100%\\" stopColor=\\"#D6E3FA\\"/></linearGradient><linearGradient x1=\\"46.152%\\" y1=\\"-9.213%\\" x2=\\"60.497%\\" y2=\\"50%\\" id=\\"f\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"50%\\" y1=\\"0%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"g\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"50%\\" y1=\\"0%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"h\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"50%\\" y1=\\"0%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"i\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"50%\\" y1=\\"0%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"j\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"68.165%\\" y1=\\"-30.265%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"k\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"67.787%\\" y1=\\"-30.265%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"l\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"10.719%\\" y1=\\"73.265%\\" x2=\\"71.259%\\" y2=\\"21.608%\\" id=\\"v\\"><stop offset=\\"0%\\" stopColor=\\"#EDF3FD\\"/><stop offset=\\"100%\\" stopColor=\\"#D6E3FA\\"/></linearGradient><linearGradient x1=\\"68.141%\\" y1=\\"-30.265%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"n\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"68.074%\\" y1=\\"-30.265%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"o\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"68.021%\\" y1=\\"-30.265%\\" x2=\\"50%\\" y2=\\"100%\\" id=\\"p\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"203.728%\\" y1=\\"-20.016%\\" x2=\\"-41.694%\\" y2=\\"115.005%\\" id=\\"q\\"><stop offset=\\"0%\\" stopColor=\\"#D2E0F9\\" stopOpacity=\\"0\\"/><stop offset=\\"100%\\" stopColor=\\"#B1C6E7\\" stopOpacity=\\".465\\"/></linearGradient><linearGradient x1=\\"203.728%\\" y1=\\"-23.652%\\" x2=\\"-41.694%\\" y2=\\"118.381%\\" id=\\"r\\"><stop offset=\\"0%\\" stopColor=\\"#D2E0F9\\" stopOpacity=\\"0\\"/><stop offset=\\"100%\\" stopColor=\\"#B1C6E7\\" stopOpacity=\\".465\\"/></linearGradient><linearGradient x1=\\"50%\\" y1=\\"69.878%\\" x2=\\"50%\\" y2=\\"0%\\" id=\\"s\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"28.046%\\" y1=\\"86.068%\\" x2=\\"28.046%\\" y2=\\"-18.137%\\" id=\\"t\\"><stop offset=\\"0%\\" stopColor=\\"#ACC5E9\\"/><stop offset=\\"43.65%\\" stopColor=\\"#D3E3FB\\"/><stop offset=\\"100%\\" stopColor=\\"#EAF2FF\\"/></linearGradient><linearGradient x1=\\"13.837%\\" y1=\\"50%\\" x2=\\"100%\\" y2=\\"50%\\" id=\\"u\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><linearGradient x1=\\"0%\\" y1=\\"106.763%\\" x2=\\"28.554%\\" y2=\\"0%\\" id=\\"w\\"><stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/><stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/></linearGradient><circle id=\\"a\\" cx=\\"60\\" cy=\\"60\\" r=\\"60\\"/></defs><g fill=\\"none\\" fillRule=\\"evenodd\\"><path d=\\"M-5-6h136v130H-5z\\"/><g><mask id=\\"c\\" fill=\\"#fff\\"><use xlinkHref=\\"#a\\"/></mask><use fill=\\"url(#b)\\" xlinkHref=\\"#a\\"/><g mask=\\"url(#c)\\"><path d=\\"M31 61.164C39.633 57.86 61.623 50 80.96 50c19.338 0 43.309 12.722 58.778 14.166 10.313.962 28.734 1.777 55.262 2.443V86H31V61.164z\\" fill=\\"url(#d)\\" transform=\\"matrix(-1 0 0 1 200 16)\\"/><path d=\\"M0 75.573C10.422 72.444 36.971 65 60.318 65c23.346 0 52.287 12.05 70.963 13.417 12.451.911 60.358 1.675 143.719 2.29L276 115H0V75.573z\\" fill=\\"url(#e)\\" transform=\\"translate(-26 16)\\"/><g opacity=\\".3\\"><path d=\\"M24.071 41.964c-1.05.926-5.027-.9-6.594-3.753-1.567-2.854 1.367-3.884-2.599-8.442-3.965-4.558-6.515-6.3-4.065-13.85 2.45-7.55-.873-11.727 3.55-13.712C18.786.22 21.301 6.739 20.77 12.484c-.53 5.745.5 6.93 4.82 6.318 4.32-.614.644 7.833.637 9.673-.008 1.84 2.596 5.248 2.042 7.822-.555 2.574-3.146 4.741-4.198 5.667z\\" fill=\\"url(#f)\\" transform=\\"scale(-1 1) rotate(31 -67.825 -16.341)\\"/><path d=\\"M18.745 34.745c.006-1.413.384-5.815 2.348-8.504\\" stroke=\\"url(#g)\\" transform=\\"scale(-1 1) rotate(31 -67.825 -10.83)\\" strokeLinecap=\\"round\\"/><path d=\\"M19.716 23.787c.006-1.413 3.999-2.421 5.962-5.11\\" stroke=\\"url(#h)\\" transform=\\"rotate(31 -51.15 30.02)\\" strokeLinecap=\\"round\\"/><path d=\\"M26.359 48.58c.002-.6-1.027-3.305-2.009-6.44-3.073-9.816-8.042-21.898-8.007-30.285\\" stroke=\\"url(#i)\\" transform=\\"scale(-1 1) rotate(31 -67.825 -16.27)\\" strokeLinecap=\\"round\\"/></g><g opacity=\\".3\\"><path d=\\"M4.949 34.684c0-4.492 3.83-18.393 9-26\\" stroke=\\"url(#j)\\" transform=\\"rotate(-1 4596.307 -4811.614)\\" strokeLinecap=\\"round\\"/><path d=\\"M9.763 11.316a6.94 6.94 0 001.315-4.148c-.007-2.293-.607-4.153-1.34-4.155-.733-.003-1.322 1.854-1.315 4.147a7.01 7.01 0 001.34 4.156z\\" fill=\\"url(#k)\\" transform=\\"rotate(-31 195.145 -106.065)\\"/><path d=\\"M17.332 15.566a7.065 7.065 0 001.322-4.174c0-2.305-.59-4.173-1.32-4.173-.729 0-1.32 1.87-1.321 4.174a7.06 7.06 0 001.32 4.173z\\" fill=\\"url(#l)\\" transform=\\"rotate(87 18.05 95.7)\\"/><path d=\\"M14.857 21.577a7.06 7.06 0 001.32-4.173c0-2.305-.591-4.173-1.32-4.173-.73 0-1.321 1.868-1.32 4.173 0 1.537.44 2.928 1.32 4.173z\\" fill=\\"url(#m)\\" transform=\\"rotate(90 17.734 99.503)\\"/><path d=\\"M12.84 27.407a7.06 7.06 0 001.32-4.173c0-2.305-.592-4.174-1.322-4.174-.729 0-1.32 1.869-1.32 4.173 0 1.537.44 2.928 1.321 4.174z\\" fill=\\"url(#m)\\" transform=\\"rotate(90 15.75 105.4)\\"/><path d=\\"M16.932 8.418a7.018 7.018 0 001.34-4.157c.007-2.294-.58-4.151-1.314-4.149-.733.002-1.333 1.864-1.34 4.157a6.943 6.943 0 001.314 4.149z\\" fill=\\"url(#n)\\" transform=\\"rotate(32 -78.762 191.631)\\"/><path d=\\"M6.465 17.68a6.956 6.956 0 001.312-4.152c-.008-2.296-.608-4.159-1.34-4.161-.733-.003-1.32 1.856-1.312 4.152a7.037 7.037 0 001.34 4.161z\\" fill=\\"url(#o)\\" transform=\\"rotate(-42 152.288 -57.39)\\"/><path d=\\"M3.99 24.06a6.967 6.967 0 001.31-4.156c-.008-2.297-.608-4.162-1.34-4.164-.732-.003-1.318 1.857-1.31 4.155a7.05 7.05 0 001.34 4.164z\\" fill=\\"url(#p)\\" transform=\\"rotate(-48 135.666 -35.875)\\"/></g><path d=\\"M57 12L73 0\\" stroke=\\"url(#q)\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/><path d=\\"M57 18L70 8\\" stroke=\\"url(#r)\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/><path d=\\"M124 37l16-12\\" stroke=\\"url(#q)\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/><path d=\\"M124 43l13-10\\" stroke=\\"url(#r)\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/></g><g mask=\\"url(#c)\\"><path d=\\"M28.786.688C25.026 11.152 12.787 17.192.43 19.484c4.99 7.8 14.953 20.335 23.608 29.386.412.43 2.08 1.105 2.518 1.46 2.652 2.138 5.49.93 6.963.908 7.289-2.28 13.758-3.26 19.824-8.763 3.11-2.822 5.42-5.412 6.154-6.667-1.812-5.531-10.785-10.376-30.71-35.12z\\" fill=\\"url(#s)\\" transform=\\"translate(30 30)\\"/><path d=\\"M31.839 45.443c.137 3.189-5.23 6.11-8.297 2.977 3.289 3.294 6.214 3.78 8.64 3.772 2.426-.009 13.758.02 27.271-16.69-11.956 13.608-21.02 17.106-27.614 9.94z\\" fill=\\"url(#t)\\" transform=\\"translate(30 30)\\"/></g><rect fill=\\"url(#u)\\" mask=\\"url(#c)\\" transform=\\"rotate(45 69 63)\\" x=\\"64\\" y=\\"62\\" width=\\"10\\" height=\\"2\\" rx=\\"1\\"/><circle fill=\\"url(#v)\\" mask=\\"url(#c)\\" cx=\\"64\\" cy=\\"58\\" r=\\"7\\"/><circle fill=\\"url(#w)\\" mask=\\"url(#c)\\" cx=\\"64\\" cy=\\"58\\" r=\\"5\\"/></g><path d=\\"M79.82 22.954c-.204-5.837-15.378-4.522-21.231-3.958-5.853.563-6.385-7.434-1.335-8.623 5.05-1.189 14.209-.575 18.954-1.672 4.745-1.098-1.257-6.983 5.208-7.692C87.882.3 101.25.957 105.236.812c6.26-.226 9.472 7.328-1.496 7.671-3.024.095-3.63 6.806 6.578 4.962 6.407-1.156 18.977-1.183 21.592 1.77 1.5 1.695.98 6.248-1.6 8.762-1.915 1.867-8.009 2.232-10.396 2.663-5.6 1.013-4.493 6.448-2.583 7.567 4.519 2.649 16.92-2.35 17.253 4.923.146 3.213-11.137 3.732-15.764 3.693-11.348-.097-18.804.917-19.327-2.963-.525-3.895 7.052-1.266 6.678-6.055-.195-2.502.328-7.82-4.533-7.54 6.655-.383-21.544 4.573-21.819-3.31z\\" fill=\\"#F4F8FF\\"/></g></svg>",
+  "info": Object {
+    "height": undefined,
+    "width": undefined,
+  },
+}
+`;
+
+exports[`\`ohu icon\` optimize svg 1`] = `"<svg xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\" viewBox=\\"0 0 135 120\\"><defs><linearGradient id=\\"prefix\${id}a\\" x1=\\"50%\\" x2=\\"50%\\" y1=\\"116.813%\\" y2=\\"0%\\"><stop offset=\\"0%\\" stop-color=\\"#FFF\\"/><stop offset=\\"100%\\" stop-color=\\"#E7F0FF\\"/></linearGradient><circle id=\\"prefix\${id}b\\" cx=\\"60\\" cy=\\"60\\" r=\\"60\\"/></defs><use fill=\\"url(#prefix\${id}a)\\" xlink:href=\\"#prefix\${id}b\\"/></svg>"`;
+
+exports[`\`ohu icon\` remixicon test 1`] = `
+"// Automatically generated, do not modify manually
+
+import { SVGIconDef } from './types';
+
+const Activity: SVGIconDef = {
+  name: 'activity',
+  attrs: {
+    viewBox: '0 0 24 24',
+  },
+  children: '<path fill=\\"none\\" d=\\"M0 0h24v24H0z\\"/><path d=\\"M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416zM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z\\"/>',
+};
+
+export default Activity;
+
+"
+`;
+
+exports[`\`ohu icon\` should transform svg file to ts icon file 1`] = `
+"// Automatically generated, do not modify manually
+
+import { SVGIconDef } from './types';
+
+const Normal: SVGIconDef = {
+  name: 'normal',
+  attrs: {
+    viewBox: '0 0 256 256',
+  },
+  children: '<path fill=\\"none\\" d=\\"M0 0H256V256H0z\\"/><path fill=\\"none\\" stroke=\\"#000\\" stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\" stroke-width=\\"16\\" d=\\"m128 216-40 16v-32l16-16v-32l-80 16v-32l80-40 .113-48a24 24 0 0 1 48 0l.112 48 80 40v32l-80-16v32L168 200v32z\\"/>',
+};
+
+export default Normal;
+
+"
+`;
+
+exports[`\`ohu icon\` should turn to react svg file when using \`tsx\` 1`] = `
+"// Automatically generated, do not modify manually
+
+import * as React from 'react';
+
+const Normal = (props: React.SVGProps<SVGSVGElement>) => {
+
+  return (
+    <svg viewBox=\\"0 0 256 256\\" {...props}>    
+      <path fill=\\"none\\" d=\\"M0 0H256V256H0z\\"/>
+      <path fill=\\"none\\" stroke=\\"#000\\" d=\\"m128 216-40 16v-32l16-16v-32l-80 16v-32l80-40 .113-48a24 24 0 0 1 48 0l.112 48 80 40v32l-80-16v32L168 200v32z\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\" strokeWidth=\\"16\\"/>
+    </svg>
+  );
+};
+
+export default Normal;
+
+"
+`;
+
+exports[`\`ohu icon\` should turn to react svg file when using \`tsx\` and \`dynamicId\` 1`] = `
+"// Automatically generated, do not modify manually
+
+import * as React from 'react';
+
+const Complex = (props: React.SVGProps<SVGSVGElement>) => {
+  const id = Date.now();
+  return (
+    <svg viewBox=\\"0 0 135 120\\" {...props}>    
+      <defs>
+        <linearGradient id={\`\${id}m\`} x1=\\"67.787%\\" x2=\\"50%\\" y1=\\"-30.265%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}b\`} x1=\\"50%\\" x2=\\"50%\\" y1=\\"116.813%\\" y2=\\"0%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#FFF\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#E7F0FF\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}d\`} x1=\\"12.03%\\" x2=\\"20.148%\\" y1=\\"46.922%\\" y2=\\"52.633%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#FFF\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#D6E3FA\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}e\`} x1=\\"50.745%\\" x2=\\"50%\\" y1=\\"50.813%\\" y2=\\"46.301%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#FFF\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#D6E3FA\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}f\`} x1=\\"46.152%\\" x2=\\"60.497%\\" y1=\\"-9.213%\\" y2=\\"50%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}g\`} x1=\\"50%\\" x2=\\"50%\\" y1=\\"0%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}h\`} x1=\\"50%\\" x2=\\"50%\\" y1=\\"0%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}i\`} x1=\\"50%\\" x2=\\"50%\\" y1=\\"0%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}j\`} x1=\\"50%\\" x2=\\"50%\\" y1=\\"0%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}k\`} x1=\\"68.165%\\" x2=\\"50%\\" y1=\\"-30.265%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}l\`} x1=\\"67.787%\\" x2=\\"50%\\" y1=\\"-30.265%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}v\`} x1=\\"10.719%\\" x2=\\"71.259%\\" y1=\\"73.265%\\" y2=\\"21.608%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#EDF3FD\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#D6E3FA\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}n\`} x1=\\"68.141%\\" x2=\\"50%\\" y1=\\"-30.265%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}o\`} x1=\\"68.074%\\" x2=\\"50%\\" y1=\\"-30.265%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}p\`} x1=\\"68.021%\\" x2=\\"50%\\" y1=\\"-30.265%\\" y2=\\"100%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}q\`} x1=\\"203.728%\\" x2=\\"-41.694%\\" y1=\\"-20.016%\\" y2=\\"115.005%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#D2E0F9\\" stopOpacity=\\"0\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#B1C6E7\\" stopOpacity=\\".465\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}r\`} x1=\\"203.728%\\" x2=\\"-41.694%\\" y1=\\"-23.652%\\" y2=\\"118.381%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#D2E0F9\\" stopOpacity=\\"0\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#B1C6E7\\" stopOpacity=\\".465\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}s\`} x1=\\"50%\\" x2=\\"50%\\" y1=\\"69.878%\\" y2=\\"0%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}t\`} x1=\\"28.046%\\" x2=\\"28.046%\\" y1=\\"86.068%\\" y2=\\"-18.137%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#ACC5E9\\"/>
+          <stop offset=\\"43.65%\\" stopColor=\\"#D3E3FB\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#EAF2FF\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}u\`} x1=\\"13.837%\\" x2=\\"100%\\" y1=\\"50%\\" y2=\\"50%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <linearGradient id={\`\${id}w\`} x1=\\"0%\\" x2=\\"28.554%\\" y1=\\"106.763%\\" y2=\\"0%\\">
+          <stop offset=\\"0%\\" stopColor=\\"#CFDDF3\\"/>
+          <stop offset=\\"100%\\" stopColor=\\"#A1B8E3\\"/>
+        </linearGradient>
+        <circle id={\`\${id}a\`} cx=\\"60\\" cy=\\"60\\" r=\\"60\\"/>
+      </defs>
+      <g fill=\\"none\\" fillRule=\\"evenodd\\">
+        <path d=\\"M-5-6h136v130H-5z\\"/>
+        <mask id={\`\${id}c\`} fill=\\"#fff\\">
+          <use xlinkHref={\`#\${id}a\`}/>
+        </mask>
+        <use fill={\`url(#\${id}b)\`} xlinkHref={\`#\${id}a\`}/>
+        <g mask={\`url(#\${id}c)\`}>
+          <path fill={\`url(#\${id}d)\`} d=\\"M31 61.164C39.633 57.86 61.623 50 80.96 50c19.338 0 43.309 12.722 58.778 14.166 10.313.962 28.734 1.777 55.262 2.443V86H31V61.164z\\" transform=\\"matrix(-1 0 0 1 200 16)\\"/>
+          <path fill={\`url(#\${id}e)\`} d=\\"M0 75.573C10.422 72.444 36.971 65 60.318 65c23.346 0 52.287 12.05 70.963 13.417 12.451.911 60.358 1.675 143.719 2.29L276 115H0V75.573z\\" transform=\\"translate(-26 16)\\"/>
+          <g opacity=\\".3\\">
+            <path fill={\`url(#\${id}f)\`} d=\\"M24.071 41.964c-1.05.926-5.027-.9-6.594-3.753-1.567-2.854 1.367-3.884-2.599-8.442-3.965-4.558-6.515-6.3-4.065-13.85 2.45-7.55-.873-11.727 3.55-13.712C18.786.22 21.301 6.739 20.77 12.484c-.53 5.745.5 6.93 4.82 6.318 4.32-.614.644 7.833.637 9.673-.008 1.84 2.596 5.248 2.042 7.822-.555 2.574-3.146 4.741-4.198 5.667z\\" transform=\\"scale(-1 1) rotate(31 -67.825 -16.341)\\"/>
+            <path stroke={\`url(#\${id}g)\`} d=\\"M18.745 34.745c.006-1.413.384-5.815 2.348-8.504\\" transform=\\"scale(-1 1) rotate(31 -67.825 -10.83)\\" strokeLinecap=\\"round\\"/>
+            <path stroke={\`url(#\${id}h)\`} d=\\"M19.716 23.787c.006-1.413 3.999-2.421 5.962-5.11\\" transform=\\"rotate(31 -51.15 30.02)\\" strokeLinecap=\\"round\\"/>
+            <path stroke={\`url(#\${id}i)\`} d=\\"M26.359 48.58c.002-.6-1.027-3.305-2.009-6.44-3.073-9.816-8.042-21.898-8.007-30.285\\" transform=\\"scale(-1 1) rotate(31 -67.825 -16.27)\\" strokeLinecap=\\"round\\"/>
+          </g>
+          <g opacity=\\".3\\">
+            <path stroke={\`url(#\${id}j)\`} d=\\"M4.949 34.684c0-4.492 3.83-18.393 9-26\\" transform=\\"rotate(-1 4596.307 -4811.614)\\" strokeLinecap=\\"round\\"/>
+            <path fill={\`url(#\${id}k)\`} d=\\"M9.763 11.316a6.94 6.94 0 0 0 1.315-4.148c-.007-2.293-.607-4.153-1.34-4.155-.733-.003-1.322 1.854-1.315 4.147a7.01 7.01 0 0 0 1.34 4.156z\\" transform=\\"rotate(-31 195.145 -106.065)\\"/>
+            <path fill={\`url(#\${id}l)\`} d=\\"M17.332 15.566a7.065 7.065 0 0 0 1.322-4.174c0-2.305-.59-4.173-1.32-4.173-.729 0-1.32 1.87-1.321 4.174a7.06 7.06 0 0 0 1.32 4.173z\\" transform=\\"rotate(87 18.05 95.7)\\"/>
+            <path fill={\`url(#\${id}m)\`} d=\\"M14.857 21.577a7.06 7.06 0 0 0 1.32-4.173c0-2.305-.591-4.173-1.32-4.173-.73 0-1.321 1.868-1.32 4.173 0 1.537.44 2.928 1.32 4.173z\\" transform=\\"rotate(90 17.734 99.503)\\"/>
+            <path fill={\`url(#\${id}m)\`} d=\\"M12.84 27.407a7.06 7.06 0 0 0 1.32-4.173c0-2.305-.592-4.174-1.322-4.174-.729 0-1.32 1.869-1.32 4.173a7.06 7.06 0 0 0 1.321 4.174z\\" transform=\\"rotate(90 15.75 105.4)\\"/>
+            <path fill={\`url(#\${id}n)\`} d=\\"M16.932 8.418a7.018 7.018 0 0 0 1.34-4.157c.007-2.294-.58-4.151-1.314-4.149-.733.002-1.333 1.864-1.34 4.157a6.943 6.943 0 0 0 1.314 4.149z\\" transform=\\"rotate(32 -78.762 191.631)\\"/>
+            <path fill={\`url(#\${id}o)\`} d=\\"M6.465 17.68a6.956 6.956 0 0 0 1.312-4.152c-.008-2.296-.608-4.159-1.34-4.161-.733-.003-1.32 1.856-1.312 4.152a7.037 7.037 0 0 0 1.34 4.161z\\" transform=\\"rotate(-42 152.288 -57.39)\\"/>
+            <path fill={\`url(#\${id}p)\`} d=\\"M3.99 24.06a6.967 6.967 0 0 0 1.31-4.156c-.008-2.297-.608-4.162-1.34-4.164-.732-.003-1.318 1.857-1.31 4.155a7.05 7.05 0 0 0 1.34 4.164z\\" transform=\\"rotate(-48 135.666 -35.875)\\"/>
+          </g>
+          <path stroke={\`url(#\${id}q)\`} d=\\"M57 12 73 0\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/>
+          <path stroke={\`url(#\${id}r)\`} d=\\"M57 18 70 8\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/>
+          <path stroke={\`url(#\${id}q)\`} d=\\"m124 37 16-12\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/>
+          <path stroke={\`url(#\${id}r)\`} d=\\"m124 43 13-10\\" opacity=\\".473\\" transform=\\"translate(-26 16)\\" strokeLinecap=\\"round\\" strokeLinejoin=\\"round\\"/>
+        </g>
+        <g mask={\`url(#\${id}c)\`}>
+          <path fill={\`url(#\${id}s)\`} d=\\"M28.786.688C25.026 11.152 12.787 17.192.43 19.484c4.99 7.8 14.953 20.335 23.608 29.386.412.43 2.08 1.105 2.518 1.46 2.652 2.138 5.49.93 6.963.908 7.289-2.28 13.758-3.26 19.824-8.763 3.11-2.822 5.42-5.412 6.154-6.667-1.812-5.531-10.785-10.376-30.71-35.12z\\" transform=\\"translate(30 30)\\"/>
+          <path fill={\`url(#\${id}t)\`} d=\\"M31.839 45.443c.137 3.189-5.23 6.11-8.297 2.977 3.289 3.294 6.214 3.78 8.64 3.772 2.426-.009 13.758.02 27.271-16.69-11.956 13.608-21.02 17.106-27.614 9.94z\\" transform=\\"translate(30 30)\\"/>
+        </g>
+        <rect width=\\"10\\" height=\\"2\\" x=\\"64\\" y=\\"62\\" fill={\`url(#\${id}u)\`} mask={\`url(#\${id}c)\`} rx=\\"1\\" transform=\\"rotate(45 69 63)\\"/>
+        <circle cx=\\"64\\" cy=\\"58\\" r=\\"7\\" fill={\`url(#\${id}v)\`} mask={\`url(#\${id}c)\`}/>
+        <circle cx=\\"64\\" cy=\\"58\\" r=\\"5\\" fill={\`url(#\${id}w)\`} mask={\`url(#\${id}c)\`}/>
+        <path fill=\\"#F4F8FF\\" d=\\"M79.82 22.954c-.204-5.837-15.378-4.522-21.231-3.958-5.853.563-6.385-7.434-1.335-8.623 5.05-1.189 14.209-.575 18.954-1.672 4.745-1.098-1.257-6.983 5.208-7.692C87.882.3 101.25.957 105.236.812c6.26-.226 9.472 7.328-1.496 7.671-3.024.095-3.63 6.806 6.578 4.962 6.407-1.156 18.977-1.183 21.592 1.77 1.5 1.695.98 6.248-1.6 8.762-1.915 1.867-8.009 2.232-10.396 2.663-5.6 1.013-4.493 6.448-2.583 7.567 4.519 2.649 16.92-2.35 17.253 4.923.146 3.213-11.137 3.732-15.764 3.693-11.348-.097-18.804.917-19.327-2.963-.525-3.895 7.052-1.266 6.678-6.055-.195-2.502.328-7.82-4.533-7.54 6.655-.383-21.544 4.573-21.819-3.31z\\"/>
+      </g>
+    </svg>
+  );
+};
+
+export default Complex;
+
+"
+`;

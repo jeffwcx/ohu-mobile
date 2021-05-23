@@ -1,0 +1,15 @@
+<template>
+  <svg viewBox="{{viewBox}}">
+    {{@children}}
+  </svg>
+</template>
+{{if dynamicId}}<script>
+export default {
+  name: '{{fileName}}',
+  data() {
+    return {
+      id: Date.now(),
+    };
+  }
+};
+</script>{{/if}}

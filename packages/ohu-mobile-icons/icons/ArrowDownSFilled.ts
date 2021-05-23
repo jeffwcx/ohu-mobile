@@ -9,7 +9,7 @@ const ArrowDownSFilled: SVGIconDef = {
   attrs: {
     viewBox: '0 0 24 24',
   },
-  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M12 16l-6-6h12z" />',
+  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="m12 16-6-6h12z"/>',
 };
 
 export default ArrowDownSFilled;

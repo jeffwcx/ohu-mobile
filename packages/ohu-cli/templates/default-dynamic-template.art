@@ -1,0 +1,17 @@
+// Automatically generated, do not modify manually
+import { SVGIconDef } from './types';
+
+const {{fileName}}: () => SVGIconDef = () => {
+  const id = Date.now();
+  return {
+    name: '{{name}}',
+    {{if theme}}theme: '{{theme}}',
+    {{/if}}attrs: {
+      viewBox: '{{viewBox}}',
+    },
+    children: `{{@children}}`,
+  };
+}
+
+export default {{fileName}};
+

@@ -1,4 +1,4 @@
-<h1 align="center"><img width="30%" src="https://raw.githubusercontent.com/jeffwcx/ohu-mobile/446b6eecc25072cf9fb27329f8ffed213ddb92b8/docs/storybook/src/assets/logo-text.svg" alt="ohu-mobile" /></h1>
+<h1 align="center"><img width="320px" src="https://raw.githubusercontent.com/jeffwcx/ohu-mobile/446b6eecc25072cf9fb27329f8ffed213ddb92b8/docs/storybook/src/assets/logo-text.svg" alt="ohu-mobile" /></h1>
 <p align="center">Vue Mobile UI Toolkit</p>
 <p align="center">
     <img src="https://img.shields.io/github/workflow/status/jeffwcx/ohu-mobile/Build?style=for-the-badge" alt="CI" />

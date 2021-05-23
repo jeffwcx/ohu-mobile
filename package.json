@@ -4,6 +4,7 @@
   "description": "Fantastic UI Toolkit",
   "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "start": "lerna run start --scope=storybook",
     "build:components": "lerna run build:components --scope=@ohu-mobile/core",
     "build:icons": "lerna run build --scope=@ohu-mobile/icons",
