@@ -252,6 +252,7 @@ describe('`ohu icon`', () => {
       },
     });
     const content = await fs.readFile('/icons/Activity.ts');
+    mock.restore();
     expect(content.toString()).toMatchSnapshot();
   });
 
