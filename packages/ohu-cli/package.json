@@ -1,6 +1,6 @@
 {
   "name": "@ohu/cli",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "cli for ohu",
   "keywords": [
     "cli",

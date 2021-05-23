@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.3](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.16.2...@ohu-mobile/core@0.16.3) (2021-05-23)
+
+
+### Bug Fixes
+
+* **notice-bar:** should reset moveDistance when `deactivated` event emit ([5ed131e](https://github.com/jeffwcx/ohu-mobile/commit/5ed131e97739973297d5eb3e1ff2ac5a20a4ca6e))
+
+
+
+
+
 ## [0.16.2](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.16.1...@ohu-mobile/core@0.16.2) (2021-05-23)
 
 **Note:** Version bump only for package @ohu-mobile/core
