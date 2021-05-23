@@ -70,7 +70,7 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
       let translate = translateX !== undefined ? translateX : -this.marqueeWidth;
       const style: Partial<CSSStyleDeclaration> = {
         transitionTimingFunction: 'linear',
-        transform: `translateX(${translate}px)`,
+        transform: `translate3d(${translate}px, 0, 0)`,
         transitionDuration: duration === undefined
           ? `${this.marqueeMoveDistance / this.speed}s`
           : `${duration}s`,
@@ -86,16 +86,25 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
         marqueeWidth: marqueeInner.clientWidth,
       };
     },
+    computeInitMoveDistance() {
+      return this.marqueeContainerWidth * (this.offsetLeft / 100) + this.marqueeWidth;
+    },
     initMarquee() {
       if (this.timeoutId) clearTimeout(this.timeoutId);
       Object.assign(this, this.setMarqueeWidth());
       if (!this.isScroll) return;
-      this.marqueeMoveDistance = this.marqueeContainerWidth * (this.offsetLeft / 100) + this.marqueeWidth;
+      this.marqueeMoveDistance = this.computeInitMoveDistance();
       this.timeoutId = setTimeout(() => {
         this.setMarqueStyle();
         this.timeoutId = null;
       }, this.delay);
       this.$on('hook:beforeDestroy', () => {
+        this.timeoutId && clearTimeout(this.timeoutId);
+      });
+      this.$on('hook:activated', () => {
+        this.resetMarquee();
+      });
+      this.$on('hook:deactivated', () => {
         this.timeoutId && clearTimeout(this.timeoutId);
       });
     },
@@ -108,7 +117,7 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
       this.setMarqueStyle(this.marqueeContainerWidth, 0);
       setTimeout(() => {
         this.setMarqueStyle();
-      }, 200);
+      }, 300);
     },
   },
   mounted() {

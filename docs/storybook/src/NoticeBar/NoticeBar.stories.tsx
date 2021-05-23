@@ -6,6 +6,9 @@ import Card from '@/Card';
 import '@/Card/style';
 import Icon from '@/Icon';
 import '@/Icon/style';
+import Button from '@/Button';
+import '@/Button/style';
+import VueRouter from 'vue-router';
 import { VolumeDownOutlined, LockFilled } from '~/icons/index';
 
 export default {
@@ -19,7 +22,39 @@ export default {
   },
 };
 
+Vue.use(VueRouter);
+
+const A = Vue.extend({
+  render() {
+    return (
+      <div>
+        <NoticeBar scrollable offset="50%" icon={VolumeDownOutlined} action="link">初次使用，您有15分钟体验时间。For the first time, you have 15 minutes to experience.</NoticeBar>
+        <Button type="primary" to="/b">打开B</Button>
+      </div>
+    );
+  },
+});
+
+const B = Vue.extend({
+  render() {
+    return (
+      <div class="demo">
+        <Button type="primary" to="/a">打开A</Button>
+      </div>
+    );
+  }
+});
+
+const router = new VueRouter({
+  mode: 'hash',
+  routes: [
+    { path: '/a', component: A, alias: '/' },
+    { path: '/b', component: B },
+  ],
+});
+
 export const basic = () => Vue.extend({
+  router,
   render() {
     return (
       <div>
@@ -45,7 +80,9 @@ export const basic = () => Vue.extend({
         </Card>
         <Card divider shadow>
           <Card.Header>offset 50% scrollable</Card.Header>
-          <NoticeBar scrollable offset="50%" icon={VolumeDownOutlined} action="link">初次使用，您有15分钟体验时间。For the first time, you have 15 minutes to experience.</NoticeBar>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </Card>
         <Card divider shadow>
           <Card.Header>multiline</Card.Header>

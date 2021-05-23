@@ -64,12 +64,6 @@ describe('NoticeBar', () => {
   });
   config.showDeprecationWarnings = false;
   it('scrollable', async () => {
-    const setW = jest.fn().mockImplementation(() => {
-      wrapper.setData({
-        marqueeWidth: 543,
-        marqueeContainerWidth: 524,
-      });
-    });
     const wrapper = mount(NoticeBar, {
       propsData: {
         text: 'longtextlongtextlongtextlongtextlongtextlongtextlongtextlongtextlongtextlongtext',
@@ -87,11 +81,28 @@ describe('NoticeBar', () => {
     await wait(1000);
     const inner = wrapper.find('.ohu-notice-bar__text div');
     const transformText = inner.element.style['transform'];
-    expect(transformText).toBe('translateX(-543px)');
+    expect(transformText).toBe('translate3d(-543px, 0, 0)');
     await inner.trigger('transitionend');
-    expect(inner.element.style['transform']).toBe('translateX(524px)');
+    expect(inner.element.style['transform']).toBe('translate3d(524px, 0, 0)');
     await wait(300);
-    expect(inner.element.style['transform']).toBe('translateX(-543px)');
+    expect(inner.element.style['transform']).toBe('translate3d(-543px, 0, 0)');
+  });
+
+  it('deactivated and activated', async () => {
+    const wrapper = mount(NoticeBar, {
+      propsData: {
+        text: 'longtext longtext longtext longtext',
+        scrollable: true,
+        offset: '30%',
+      },
+    });
+    const width = wrapper.vm.$data.marqueeContainerWidth + wrapper.vm.$data.marqueeWidth;
+    await wait(1200);
+    wrapper.vm.$emit('hook:deactivated');
+    await wait(200);
+    wrapper.vm.$emit('hook:activated');
+    await wait(200);
+    expect(wrapper.vm.$data.marqueeMoveDistance).toEqual(width);
   });
 
 });

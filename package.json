@@ -11,7 +11,9 @@
     "create-icons": "lerna run g --scope=@ohu-mobile/icons",
     "storybook": "lerna run build --scope=storybook",
     "test": "lerna run test --scope=@ohu-mobile/core",
-    "coverage": "lerna run test:cov --scope=@ohu-mobile/core"
+    "coverage": "lerna run test:cov --scope=@ohu-mobile/core",
+    "version": "lerna version --no-private",
+    "publish": "lerna publish from-package"
   },
   "repository": {
     "type": "git",
