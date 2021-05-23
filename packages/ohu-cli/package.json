@@ -14,12 +14,13 @@
   },
   "main": "lib/index.js",
   "files": [
+    "bin",
     "lib",
     "tests",
     "templates"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.com/"
+    "access": "public"
   },
   "repository": {
     "type": "git",

@@ -18,8 +18,7 @@
   "files": [
     "es",
     "lib",
-    "bin",
-    "scripts/**/*.art"
+    "templates/**/*.art"
   ],
   "typings": "lib/index.d.ts",
   "repository": {
