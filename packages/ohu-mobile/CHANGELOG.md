@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.1](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.16.0...@ohu-mobile/core@0.16.1) (2021-05-23)
+
+
+### Bug Fixes
+
+* **test:** fix test ([63712f1](https://github.com/jeffwcx/ohu-mobile/commit/63712f1d97f883bf9d3be3c5c8f8d8fa22b7b93a))
+
+
+
+
+
 # [0.16.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.15.7...@ohu-mobile/core@0.16.0) (2021-05-23)
 
 

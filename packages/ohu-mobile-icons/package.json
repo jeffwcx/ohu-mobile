@@ -1,6 +1,6 @@
 {
   "name": "@ohu-mobile/icons",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "Ohu Mobile SVG Icons.",
   "keywords": [
     "icons",
@@ -51,7 +51,7 @@
     "yargs": "^15.1.0"
   },
   "devDependencies": {
-    "@ohu/cli": "^0.2.0",
+    "@ohu/cli": "^0.2.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   }

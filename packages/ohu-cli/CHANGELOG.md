@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/jeffwcx/ohu-mobile/compare/@ohu/cli@0.2.0...@ohu/cli@0.2.1) (2021-05-23)
+
+
+### Bug Fixes
+
+* **test:** fix test ([63712f1](https://github.com/jeffwcx/ohu-mobile/commit/63712f1d97f883bf9d3be3c5c8f8d8fa22b7b93a))
+
+
+
+
+
 # 0.2.0 (2021-05-23)
 
 
