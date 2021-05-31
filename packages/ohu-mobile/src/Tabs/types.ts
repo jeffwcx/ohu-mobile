@@ -6,9 +6,13 @@ export interface TabsProps extends TabbarProps {
 }
 
 export interface TabsEvents {
-  onInput: number;
+  onChange: number | string;
 }
 
-export interface TabProps extends Omit<TabbarItemProps, 'name'> {
+export interface TabProps extends TabbarItemProps {
+  name?: string;
+  /**
+   * title for tab
+   */
   title?: string;
 }

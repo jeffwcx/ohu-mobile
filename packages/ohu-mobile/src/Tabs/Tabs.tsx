@@ -4,13 +4,20 @@ import Tabbar, { TabbarChangeEvent } from '../Tabbar';
 import { getVNodesByName } from '../_utils/vnode';
 import { $prefix, $colorTextBase } from '../_config/variables';
 import Carousel from '../Carousel';
-import { VNodeData } from 'vue/types/umd';
+import { VNode, VNodeData } from 'vue/types/umd';
 import Sticky from '../Sticky';
 
+type K = { index: number, name?: string };
+
+type NameMap = Record<string, number | K>;
 
 export default defineComponent<TabsProps, TabsEvents>('tabs').create({
+  model: {
+    prop: 'value',
+    event: 'change',
+  },
   props: {
-    value: props(Number).default(0),
+    value: props(Number, String).default(0),
     border: props(Boolean).default(true),
     activeColor: props(String).default('primary'),
     inActiveColor: props(String).default($colorTextBase),
@@ -34,35 +41,61 @@ export default defineComponent<TabsProps, TabsEvents>('tabs').create({
     };
   },
   methods: {
-    handleChange(index: number) {
-      this.stateValue = index;
-      this.$emit('input', this.stateValue);
+    handleChange(key: number | string) {
+      this.stateValue = key;
+      this.$emit('change', this.stateValue);
     },
-  },
-  render() {
-    const root = this.root();
-    const { $slots } = this;
-    const {
-      value,
-      sticky,
-      ...tabbarProps
-    } = this.$props;
-    let tabbar;
-    let children;
-    if ($slots.default) {
-      children = getVNodesByName($slots.default, `${$prefix}tab`);
+    handleTabbarChange(e: TabbarChangeEvent) {
+      this.handleChange(e.name || e.index);
+    },
+    computeNameMap(children: VNode[]) {
+      return children.reduce((acc, vnode, index) => {
+        const props = vnode.componentOptions?.propsData as TabProps;
+        if (props.name !== undefined) {
+          acc['name' + props.name] = index;
+        }
+        acc[index] = {
+          index,
+          name: props.name
+        };
+        return acc;
+      }, {} as NameMap);
+    },
+    getCarouselValue(map: NameMap, stateValue: string | number) {
+      if (typeof stateValue === 'string') {
+        const index = map['name' + stateValue] as number;
+        return index;
+      }
+      const { index } = map[stateValue] as K;
+      return index;
+    },
+    getNameByIndex(index: number, map: NameMap) {
+      const k = map[index] as K;
+      if (k.name !== undefined) return k.name;
+      return index;
+    },
+    renderTabbar(children: VNode[], sticky?: boolean) {
+      if (sticky) {
+        return (
+          <Sticky>{this.renderTabbar(children)}</Sticky>
+        );
+      }
+      const { $slots } = this;
+      const {
+        value,
+        ...tabbarProps
+      } = this.$props as TabsProps;
+      if (!$slots.default) return;
       const tabbarNodeData: VNodeData = {
         props: {
           value: this.stateValue,
           ...tabbarProps,
         },
         on: {
-          change: (e: TabbarChangeEvent) => {
-            this.handleChange(e.index);
-          },
+          change: this.handleTabbarChange,
         },
       };
-      tabbar = (
+      return (
         <Tabbar {...tabbarNodeData}>
           {
             children.map((vnode) => {
@@ -74,20 +107,28 @@ export default defineComponent<TabsProps, TabsEvents>('tabs').create({
           }
         </Tabbar>
       );
-    }
-    if (sticky) {
-      tabbar = (
-        <Sticky>{tabbar}</Sticky>
-      );
-    }
+    },
+  },
+  render() {
+    const root = this.root();
+    const { $slots, sticky, stateValue } = this;
+    let children = $slots.default
+      ? getVNodesByName($slots.default, `${$prefix}tab`)
+      : [];
+    const map = this.computeNameMap(children);
+    const carouselValue = this.getCarouselValue(map, stateValue);
     return (
       <div class={root}>
-        {tabbar}
+        {this.renderTabbar(children, sticky)}
         <div class={root.element('panels')}>
           <Carousel
-            value={this.stateValue}
-            onInput={this.handleChange}
-            indicator={false} supportGesture={this.canSwipe}>
+            value={carouselValue}
+            indicator={false}
+            supportGesture={this.canSwipe}
+            onChange={(e) => {
+              const key = this.getNameByIndex(e.toIndex, map);
+              this.handleChange(key);
+            }}>
             {children}
           </Carousel>
         </div>

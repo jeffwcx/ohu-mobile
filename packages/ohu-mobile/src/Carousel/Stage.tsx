@@ -395,57 +395,73 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
         }
         return false;
       },
+      handleMouse(e: MouseEvent) {
+        this.handleEvent(e.type, { pageX: e.pageX, pageY: e.pageY }, e);
+      },
+      handleEvent(type: string, { pageX, pageY }: { pageX: number, pageY: number }, e: Event) {
+        let parent = this.$parent as any;
+        switch (type) {
+          case 'mousedown':
+          case 'touchstart':
+            parent.stopPlay();
+            this.touching = true;
+            this.swipeData = {
+              startTime: Date.now(),
+              startX: pageX,
+              startY: pageY,
+              currentX: -1,
+              currentY: -1,
+            };
+            break;
+          case 'mousemove':
+          case 'touchmove':
+            if (!this.touching) return;
+            this.touching = true;
+            this.swipeData = {
+              ...this.swipeData,
+              currentX: pageX,
+              currentY: pageY,
+            };
+            if (this.isScrolling()) {
+              return;
+            }
+            e.preventDefault();
+            if (this.gestureFollow) {
+              this.setStage();
+            }
+            break;
+          case 'mouseleave':
+          case 'mouseup':
+          case 'touchcancel':
+          case 'touchend':
+            const o = this.getSwipeOffset();
+            this.touching = false;
+            if (Date.now() - this.swipeData.startTime < 300 && this.swipeData.currentX < 0) {
+              parent.startPlay();
+              return;
+            }
+            let success = false;
+            if (Math.abs(o.offset) > this.minSwipeDistance) {
+              success = o.offset < 0 ? this.next() : this.prev();
+            }
+            this.swipeData = {
+              startTime: -1,
+              startX: -1,
+              startY: -1,
+              currentY: -1,
+              currentX: -1,
+            };
+            if (!success) {
+              this.setStage();
+            }
+            parent.startPlay();
+            break;
+        }
+      },
       handleTouch(e: TouchEvent) {
         const { type, changedTouches } = e;
-        let parent = this.$parent as any;
         let { pageX, pageY } = changedTouches[0];
-        if (type === 'touchstart') {
-          parent.stopPlay();
-          this.touching = true;
-          this.swipeData = {
-            startTime: Date.now(),
-            startX: pageX,
-            startY: pageY,
-            currentX: -1,
-            currentY: -1,
-          };
-        } else if (type === 'touchmove') {
-          this.touching = true;
-          this.swipeData = {
-            ...this.swipeData,
-            currentX: pageX,
-            currentY: pageY,
-          };
-          if (this.isScrolling()) {
-            return;
-          }
-          e.preventDefault();
-          if (this.gestureFollow) {
-            this.setStage();
-          }
-        } else {
-          const o = this.getSwipeOffset();
-          this.touching = false;
-          if (Date.now() - this.swipeData.startTime < 300 && this.swipeData.currentX < 0) {
-            parent.startPlay();
-            return;
-          }
-          let success = false;
-          if (Math.abs(o.offset) > this.minSwipeDistance) {
-            success = o.offset < 0 ? this.next() : this.prev();
-          }
-          this.swipeData = {
-            startTime: -1,
-            startX: -1,
-            startY: -1,
-            currentY: -1,
-            currentX: -1,
-          };
-          if (!success) {
-            this.setStage();
-          }
-          parent.startPlay();
-        }
+        this.handleEvent(type, { pageX, pageY }, e);
       },
     },
     mounted() {
@@ -453,7 +469,8 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
     },
     render() {
       const root = this.root();
-      const { $scopedSlots,
+      const {
+        $scopedSlots,
         pages,
         slides,
         steps,
@@ -467,12 +484,24 @@ export default defineComponent<CarouselStageProps, CarouselEvents, CarouselStage
         ref: 'wrapper',
       };
       if (this.supportGesture) {
-        wrapperNodeData.on = {
-          touchstart: this.handleTouch,
-          touchmove: this.handleTouch,
-          touchend: this.handleTouch,
-          touchcancel: this.handleTouch,
-        };
+        let events: Record<string, Function> = {};
+        if ('ontouchstart' in window) {
+          events = {
+            touchstart: this.handleTouch,
+            touchmove: this.handleTouch,
+            touchend: this.handleTouch,
+            touchcancel: this.handleTouch,
+          };
+        }
+        if ('onmousedown' in window) {
+          events = Object.assign(events, {
+            mousedown: this.handleMouse,
+            mousemove: this.handleMouse,
+            mouseup: this.handleMouse,
+            mouseleave: this.handleMouse,
+          });
+        }
+        wrapperNodeData.on = events;
       }
       return (
         <div {...wrapperNodeData}>

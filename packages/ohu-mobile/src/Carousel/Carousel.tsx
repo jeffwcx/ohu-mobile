@@ -129,7 +129,7 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
               return (
                 <div class={indicatorClass.is(direction)}>
                   {
-                    new Array(steps)
+                    Array(steps)
                       .fill(0)
                       .map((_, index) => {
                         const dot = indicatorClass.element('dot');

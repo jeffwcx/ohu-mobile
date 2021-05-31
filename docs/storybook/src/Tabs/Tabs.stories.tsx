@@ -40,6 +40,33 @@ export const basic = () => Vue.extend({
   },
 });
 
+export const useName = () => Vue.extend({
+  data() {
+    return {
+      value: 'gz'
+    };
+  },
+  render() {
+    return (
+      <div>
+        <Tabs v-model={this.value} border={false} style="height: 100vh;">
+          <Tab name="gz" title="关注" icon={StarFilled}>
+            <p style="width: 100%; height: 200vh; background: red; margin: 0; padding: 0;">
+
+            </p>
+          </Tab>
+          <Tab name="tj" title="推荐" icon={RocketFilled}>
+            f2
+          </Tab>
+          <Tab name="rb" title="热榜" icon={FireFilled}>
+            f3
+          </Tab>
+        </Tabs>
+      </div>
+    );
+  },
+});
+
 export const sticky = () => Vue.extend({
   render() {
     return (
