@@ -6,9 +6,9 @@ import * as babel from '@babel/core';
 import chalk from 'chalk';
 import ora from 'ora';
 import * as sass from 'node-sass';
-import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import * as yargs from 'yargs';
+import postcss, { Result } from 'postcss';
 
 const MATCH_SASS_FILENAME_RE = /\.sass$/;
 const MATCH_NODE_MODULE_RE = /^~([a-z0-9]|@).+/i;
@@ -73,7 +73,7 @@ async function compileScripts(
 
 // using postcss and sass to compile
 
-function usePostcss(css: string, cssPath: string, useRem = false): Promise<postcss.Result> {
+function usePostcss(css: string, cssPath: string, useRem = false): Promise<Result> {
   return new Promise(async (resolve) => {
     const plugins: any[] = [
       autoprefixer,
