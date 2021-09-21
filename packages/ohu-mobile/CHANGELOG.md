@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.16.3...@ohu-mobile/core@0.17.0) (2021-09-21)
+
+
+### Bug Fixes
+
+* postcss Result import ([b9ac1a2](https://github.com/jeffwcx/ohu-mobile/commit/b9ac1a26698754fef8d2cf42849ec56d6fe129fb))
+
+
+### Features
+
+* add mouse event support for carousel; add name support for Tabs.Tab ([bd134a7](https://github.com/jeffwcx/ohu-mobile/commit/bd134a79756b29e7bb0b1f8003e0f8cf36a0d456)), closes [#41](https://github.com/jeffwcx/ohu-mobile/issues/41)
+
+
+
+
+
 ## [0.16.3](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.16.2...@ohu-mobile/core@0.16.3) (2021-05-23)
 
 

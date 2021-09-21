@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.3](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/styles@0.10.2...@ohu-mobile/styles@0.10.3) (2021-09-21)
+
+
+### Bug Fixes
+
+* **styles:** breakpoints should be coverd ([7d83f2f](https://github.com/jeffwcx/ohu-mobile/commit/7d83f2f2caa821c00b0243a580a5475384bbbe35))
+
+
+
+
+
 ## [0.10.2](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/styles@0.10.1...@ohu-mobile/styles@0.10.2) (2021-05-23)
 
 **Note:** Version bump only for package @ohu-mobile/styles
