@@ -1,8 +1,8 @@
 
-$xs: 1;
-$sm: 2;
-$md: 3;
-$lg: 4;
-$xl: 5;
+$xs: 1 !default;
+$sm: 2 !default;
+$md: 3 !default;
+$lg: 4 !default;
+$xl: 5 !default;
 
 $breakpoint-slice: 0, 576px, 768px, 992px, 1200px !default;
