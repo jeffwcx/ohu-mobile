@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.17.0...@ohu-mobile/core@0.18.0) (2022-03-16)
+
+
+### Bug Fixes
+
+* add styles dependencies for CheckboxGroup and RadioGroup ([11eaf17](https://github.com/jeffwcx/ohu-mobile/commit/11eaf170263e6629c4a273c327a6ad426bde0e10))
+
+
+### Features
+
+* **select:** add `max` property for `select` ([ef3b1f6](https://github.com/jeffwcx/ohu-mobile/commit/ef3b1f6d2da1018475ad43317e0206438aee7246))
+
+
+
+
+
 # [0.17.0](https://github.com/jeffwcx/ohu-mobile/compare/@ohu-mobile/core@0.16.3...@ohu-mobile/core@0.17.0) (2021-09-21)
 
 
