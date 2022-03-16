@@ -127,6 +127,7 @@ export const basic = () => Vue.extend({
             style="min-width: 165px;"
             title="选择科目"
             multiple
+            max={3}
             placeholder="选择科目" options={[
               { label: '艺术', value: '艺术' },
               { label: '体育', value: '体育' },

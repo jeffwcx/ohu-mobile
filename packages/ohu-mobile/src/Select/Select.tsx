@@ -71,6 +71,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
     disabled: props(Boolean).default(false),
     allowClear: props(Boolean).default(false),
     beforeOpen: props<SelectBeforeFunc>(Function).optional,
+    max: props(Number).default(Infinity),
   },
   watch: {
     value(cur) {
@@ -193,6 +194,7 @@ export default defineComponent<SelectProps, SelectEvents, SelectScopedSlots, Sel
           ?
           <CheckList
             value={this.checkedValue}
+            max={this.max}
             options={this.options as CheckboxOption[]}
             onChange={this.handleChange}>
           </CheckList>

@@ -30,6 +30,7 @@ export interface SelectProps {
   allowClear?: boolean;
   beforeOpen?: SelectBeforeFunc;
   beforeClose?: SelectBeforeFunc;
+  max?: number;
 }
 
 export interface SelectEvents extends PopupEvents {
