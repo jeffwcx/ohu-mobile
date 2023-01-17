@@ -5,7 +5,7 @@ import * as glob from 'glob';
 import * as babel from '@babel/core';
 import chalk from 'chalk';
 import ora from 'ora';
-import * as sass from 'node-sass';
+import * as sass from 'sass';
 import autoprefixer from 'autoprefixer';
 import * as yargs from 'yargs';
 import postcss, { Result } from 'postcss';
