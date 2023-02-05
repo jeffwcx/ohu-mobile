@@ -3,8 +3,7 @@
 </h1>
 <p align="center">Only Vue2 available now! Vue3 version is on the road.</p>
 <p align="center">
-    <img src="
-    https://img.shields.io/github/actions/workflow/status/jeffwcx/ohu-mobile/.github/workflows/build.yml?branch=master&style=for-the-badge" alt="CI" />
+    <a href="https://github.com/jeffwcx/ohu-mobile/actions?query=branch%3Amaster" target="_blank"><img src="https://img.shields.io/github/actions/workflow/status/jeffwcx/ohu-mobile/.github/workflows/build.yml?branch=master&style=for-the-badge" alt="CI" /></a>
     <a href="https://codecov.io/gh/jeffwcx/ohu-mobile" target="_blank"><img src="https://img.shields.io/codecov/c/github/jeffwcx/ohu-mobile?style=for-the-badge" alt="Coverage" /></a>
     <img src="https://img.shields.io/github/languages/top/jeffwcx/ohu-mobile?style=for-the-badge" alt="Language" />
     <img src="https://img.shields.io/github/license/jeffwcx/ohu-mobile?style=for-the-badge" alt="License" />
