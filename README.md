@@ -1,5 +1,5 @@
-<h1 align="center"><img width="400px" src="./docs/storybook/src/assets/logo-color.svg" alt="ohu-mobile" /></h1>
-<p align="center">Only Vue2 available now! Vue3 version is on the way.</p>
+<h1 align="center"><img width="400px" src="https://raw.githubusercontent.com/jeffwcx/ohu-mobile/master/docs/storybook/src/assets/logo-color.svg" alt="ohu-mobile" /></h1>
+<p align="center">Only Vue2 available now! Vue3 version is on the road.</p>
 <p align="center">
     <img src="https://img.shields.io/github/workflow/status/jeffwcx/ohu-mobile/Build?style=for-the-badge" alt="CI" />
     <a href="https://codecov.io/gh/jeffwcx/ohu-mobile" target="_blank"><img src="https://img.shields.io/codecov/c/github/jeffwcx/ohu-mobile?style=for-the-badge" alt="Coverage" /></a>
