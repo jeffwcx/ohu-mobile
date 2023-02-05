@@ -72,7 +72,7 @@ export const primary = () => Vue.extend({
   render() {
     return (
       <NavBar type="primary">
-        <img slot="left" style="margin-left: 14px;" src={require('../assets/logo--white.svg')} />
+        <img slot="left" style="margin-left: 14px;" src={require('../assets/logo-white.svg')} />
         <div style="width: 250px; height: 100%;"></div>
         <template slot="right">
           <Button type="link" inline icon="menu"></Button>
