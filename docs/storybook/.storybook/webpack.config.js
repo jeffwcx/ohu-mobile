@@ -79,7 +79,7 @@ module.exports = ({ config }) => {
             require('postcss-pxtorem')({
               rootValue: 75,
               propList: ['*', '!border'],
-              selectorBlackList: [/^(html)/, 'markdown']
+              selectorBlackList: [/^(html)/, 'markdown-body', 'theme-blue']
             }),
           ],
         },

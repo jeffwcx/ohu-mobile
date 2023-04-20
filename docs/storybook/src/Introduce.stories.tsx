@@ -57,7 +57,7 @@ const Markdown = component({
   },
   render() {
     return (
-      <div class="markdown" style={{ padding: '30px' }} domPropsInnerHTML={this.html}></div>
+      <div class="markdown-body theme-blue" style={{ padding: '30px' }} domPropsInnerHTML={this.html}></div>
     );
   },
 });
