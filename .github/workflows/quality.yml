@@ -63,12 +63,23 @@ jobs:
 
       - name: Run coverage
         run: pnpm run coverage
-      - name: Upload coverage to Codecov
+
+      - name: Upload @ohu-mobile/core coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           name: codecov-umbrella
           flags: unittests
-          directory: coverage
+          directory: packages/ohu-mobile/coverage
+          verbose: true
+        env:
+          CI: true
+
+      - name: Upload @ohu/cli coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          name: codecov-umbrella
+          flags: unittests
+          directory: packages/ohu-cli/coverage
           verbose: true
         env:
           CI: true
