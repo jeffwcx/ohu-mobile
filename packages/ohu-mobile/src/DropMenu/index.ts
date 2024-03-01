@@ -5,9 +5,6 @@ export default Object.assign(DropMenu, {
   Item: DropMenuItem,
 });
 
-export {
-  DropMenuItem
-};
+export { DropMenuItem };
 
 export * from './types';
-

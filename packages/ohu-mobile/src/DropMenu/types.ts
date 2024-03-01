@@ -1,6 +1,7 @@
 import DropMenuItem from './DropMenuItem';
 import { PopupOutSideEvents } from '../Popup';
 import { IconProperty } from '../types';
+import { CSSProperties } from 'vue';
 
 export interface DropMenuProps {
   defaultValue?: Record<string, any> | any[];
@@ -11,7 +12,7 @@ export interface DropMenuProps {
   mask?: boolean;
   checkIcon?: IconProperty;
   dropDownIcon?: IconProperty;
-  popupStyle?: Partial<CSSStyleDeclaration>;
+  popupStyle?: CSSProperties;
   popupClass?: string | Record<string, boolean> | Array<string>;
 }
 
@@ -21,7 +22,6 @@ export interface DropMenuEvents {
   onChange: DropMenuDataModel;
   onItemChange: DropMenuChangeEvent;
 }
-
 
 export interface DropMenuItemOptions {
   label?: string;
@@ -44,24 +44,21 @@ export interface DropMenuItemProps {
   options?: DropMenuItemOptions[];
   checkIcon?: IconProperty;
   dropDownIcon?: IconProperty;
-  popupStyle?: Partial<CSSStyleDeclaration>;
+  popupStyle?: CSSProperties;
   popupClass?: string | Record<string, boolean> | Array<string>;
 }
 
-export interface DropMenuItemEvents extends PopupOutSideEvents {
-
-}
+export interface DropMenuItemEvents extends PopupOutSideEvents {}
 
 export interface DropMenuItemScopedSlots {
   default?: {
-    checked?: DropMenuItemOptions,
-    options: DropMenuItemOptions[],
-    instance: InstanceType<typeof DropMenuItem>,
+    checked?: DropMenuItemOptions;
+    options: DropMenuItemOptions[];
+    instance: InstanceType<typeof DropMenuItem>;
     opened: boolean;
   };
   title?: {
     defaultTitle?: string;
-    checked?: DropMenuItemOptions,
+    checked?: DropMenuItemOptions;
   };
 }
-

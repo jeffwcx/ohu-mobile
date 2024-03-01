@@ -1,5 +1,5 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use '../../_styles/variables' as *;
+@use '../../_styles/mixins' as *;
 $listPrefixClass: #{$prefix}list;
 
 .#{$listPrefixClass} {
@@ -15,7 +15,7 @@ $listPrefixClass: #{$prefix}list;
       vertical-align: middle;
       font-size: $listBottomFontSize;
     }
-    > .#{$prefix}skeleton, > .#{$prefix}skeleton--compound {
+    > .#{$prefix}skeleton, > .#{$prefix}skeletons {
       padding: $listItemPadding;
     }
   }

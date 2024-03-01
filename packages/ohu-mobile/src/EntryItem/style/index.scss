@@ -1,5 +1,8 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use "pkg:@ohu-mobile/styles" as *;
+@use '../../_styles/mixins' as *;
+
 $entryItemPrefixClass: #{$prefix}entry-item;
 
 .#{$entryItemPrefixClass} {
@@ -62,8 +65,8 @@ $entryItemPrefixClass: #{$prefix}entry-item;
   }
   &.is-icon-area-lg {
     .#{$prefix}icon {
-      width: (80/32) * 1em;
-      height: (80/32) * 1em;
+      width: math.div(80, 32) * 1em;
+      height: math.div(80, 32) * 1em;
     }
     .#{$entryItemPrefixClass}__icon {
       width: 80px;

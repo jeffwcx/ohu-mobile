@@ -1,18 +1,27 @@
 import { defineComponent, props } from '../_utils/defineComponent';
-import { InputProps, InputEvents, InputBlurEvent, InputFocusEvent, InputChangeEvent } from './types';
+import {
+  InputProps,
+  InputEvents,
+  InputBlurEvent,
+  InputFocusEvent,
+  InputChangeEvent,
+} from './types';
 import directive from './directive';
 import { IconDef } from '../types';
 import { IconProps } from '../Icon';
 import { getIcon } from '../_utils/icon-utils';
 import Button from '../Button';
-import { CloseCircleFilled, EyeCloseOutlined, EyeOutlined } from '@ohu-mobile/icons';
+import {
+  CloseCircleFilled,
+  EyeCloseOutlined,
+  EyeOutlined,
+} from '@ohu-mobile/icons';
 import { VNodeData, VNode } from 'vue/types/umd';
 import { BlockContext } from '../_utils/classHelper';
 import { fieldMixin } from '../Form/fieldMixin';
 import { FormFieldInnerMethods } from '../Form/types';
 
-
-interface InputMethods extends FormFieldInnerMethods {
+export interface InputMethods extends FormFieldInnerMethods {
   stateValue: any;
   showPassword: boolean;
   isInputFocus: boolean;
@@ -27,7 +36,9 @@ interface InputMethods extends FormFieldInnerMethods {
   clear: (e: Event) => void;
 }
 
-export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input')
+const Input = defineComponent<InputProps, InputEvents, {}, InputMethods>(
+  'input',
+)
   .mixin(fieldMixin('stateValue', 'value'))
   .create({
     model: {
@@ -45,8 +56,10 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
       disabled: props(Boolean).default(false),
       readonly: props(Boolean).default(false),
       placeholder: props(String).default(''),
-      startAdornment: props<IconDef, IconProps, string>(Object, Object, String).optional,
-      endAdornment: props<IconDef, IconProps, string>(Object, Object, String).optional,
+      startAdornment: props<IconDef, IconProps, string>(Object, Object, String)
+        .optional,
+      endAdornment: props<IconDef, IconProps, string>(Object, Object, String)
+        .optional,
       max: props(String, Number).optional,
       min: props(String, Number).optional,
       maxlength: props(String, Number).optional,
@@ -68,7 +81,7 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
       inputBase: directive,
     },
     watch: {
-      value(cur) {
+      value(cur: any) {
         this.stateValue = cur;
       },
     },
@@ -130,9 +143,7 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
       getAdornment(adornment?: IconDef | IconProps | string) {
         if (!adornment) return;
         if (typeof adornment === 'string') {
-          return (
-            <span>{adornment}</span>
-          );
+          return <span>{adornment}</span>;
         } else {
           return getIcon(this.$createElement, adornment);
         }
@@ -147,21 +158,19 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
         } = this;
         let start = this.getAdornment(startAdornment);
         if (start) {
-          start = (
-            <div class={root.element('adornment')}>{start}</div>
-          );
+          start = <div class={root.element('adornment')}>{start}</div>;
         }
         let end;
         if (this.$slots.endAdornment) {
           end = (
-            <div class={root.element('adornment').is('auto')}>{this.$slots.endAdornment}</div>
+            <div class={root.element('adornment').is('auto')}>
+              {this.$slots.endAdornment}
+            </div>
           );
         } else {
           end = this.getAdornment(endAdornment);
           if (end) {
-            end = (
-              <div class={root.element('adornment')}>{end}</div>
-            );
+            end = <div class={root.element('adornment')}>{end}</div>;
           }
         }
         const inputType = this.showPassword ? 'text' : type;
@@ -181,43 +190,40 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
           },
           directives: [{ name: 'inputBase' }],
           ref: 'input',
-        }
+        };
         if (this.type === 'textarea') {
-          return <textarea {...inputProps}></textarea>
+          return <textarea {...inputProps}></textarea>;
         }
         return [
           start,
           <input {...inputProps} />,
-          allowClear
-          && !this.readonly
-          && !this.disabled
-          &&
-          <div class={root.element('adornment').is('button')} tabindex={-1}>
-            {
-              this.stateValue
-              &&
+          allowClear && !this.readonly && !this.disabled && (
+            <div class={root.element('adornment').is('button')} tabindex={-1}>
+              {this.stateValue && (
+                <Button
+                  tabindex={-1}
+                  link
+                  size="md"
+                  round
+                  icon={CloseCircleFilled}
+                  onClick={this.clear}
+                />
+              )}
+            </div>
+          ),
+          end,
+          type === 'password' && allowTogglePassword && (
+            <div class={root.element('adornment').is('button')} tabindex={-1}>
               <Button
                 tabindex={-1}
-                link size="md"
+                link
+                size="md"
                 round
-                icon={CloseCircleFilled}
-                onClick={this.clear} />
-            }
-          </div>,
-          end,
-          type === 'password'
-          &&
-          allowTogglePassword
-          &&
-          <div class={root.element('adornment').is('button')} tabindex={-1}>
-            <Button
-              tabindex={-1}
-              link
-              size="md"
-              round
-              icon={this.showPassword ? EyeOutlined : EyeCloseOutlined}
-              onClick={this.togglePassword} />
-          </div>,
+                icon={this.showPassword ? EyeOutlined : EyeCloseOutlined}
+                onClick={this.togglePassword}
+              />
+            </div>
+          ),
         ];
       },
     },
@@ -227,7 +233,7 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
       }
     },
     render() {
-      const root = this.root();
+      const root = this.$rootCls();
       let {
         type,
         value,
@@ -245,16 +251,22 @@ export default defineComponent<InputProps, InputEvents, {}, InputMethods>('input
         attrs.name = this.fieldName || name;
       }
       return (
-        <div class={root
-          .has([this.startAdornment && 'start-adornment', !this.noBorder && 'border'])
-          .is([
-            this.isInputFocus && 'focus',
-            this.outline ? 'outline' : 'normal',
-            this.disabled && 'disabled',
-          ])}>
+        <div
+          class={root
+            .has([
+              this.startAdornment && 'start-adornment',
+              !this.noBorder && 'border',
+            ])
+            .is([
+              this.isInputFocus && 'focus',
+              this.outline ? 'outline' : 'normal',
+              this.disabled && 'disabled',
+            ])}
+        >
           {this.renderInput(root, attrs)}
         </div>
       );
     },
   });
 
+export default Input;

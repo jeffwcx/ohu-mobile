@@ -3,8 +3,9 @@ import Button from '../Button';
 import { ActionBarProps, ActionBarEvents, ActionOption } from './types';
 import Bottom from '../Bottom';
 
-
-export default defineComponent<ActionBarProps, ActionBarEvents>('action-bar').create({
+export default defineComponent<ActionBarProps, ActionBarEvents>(
+  'action-bar',
+).create({
   props: {
     visible: props(Boolean).default(true),
     actions: props<ActionOption[]>(Array).default(() => []),
@@ -14,7 +15,7 @@ export default defineComponent<ActionBarProps, ActionBarEvents>('action-bar').cr
   watch: {
     visible(val) {
       this.state = val;
-    }
+    },
   },
   data() {
     return {
@@ -24,39 +25,37 @@ export default defineComponent<ActionBarProps, ActionBarEvents>('action-bar').cr
   methods: {
     getActions() {
       return this.actions.map((actionOption) => {
-        const {
-          text,
-          onClick,
-          ...props
-        } = actionOption;
+        const { text, onClick, ...props } = actionOption;
         if (this.toolbar) {
           props.size = 'md';
         }
         return (
-          <Button {...{
-            props,
-            on: {
-              click: (e: Event) => {
-                this.$emit('click', actionOption);
-                if (onClick) onClick(e);
+          <Button
+            {...{
+              props,
+              on: {
+                click: (e: Event) => {
+                  this.$emit('click', actionOption);
+                  if (onClick) onClick(e);
+                },
               },
-            },
-          }}>{text}</Button>
+            }}
+          >
+            {text}
+          </Button>
         );
       });
     },
   },
   render() {
     const { $slots, divider, toolbar, visible } = this;
-    const root = this.root();
+    const root = this.$rootCls();
     return (
       <Bottom visible={visible} class={root.block('wrapper')} divider={divider}>
         <div class={root.is([toolbar ? 'toolbar' : 'normal'])}>
-          {
-            $slots.default
-            &&
+          {$slots.default && (
             <div class={root.element('text')}>{$slots.default}</div>
-          }
+          )}
           {this.getActions()}
         </div>
       </Bottom>

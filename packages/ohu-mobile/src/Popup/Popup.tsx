@@ -1,39 +1,49 @@
 import { getScrollEventTarget } from '../_utils/dom';
 import manager from './manager';
 import debounce from '../_utils/debounce';
-import { PopupTransformOrigin, PopupPosition,
-  PopupAnimateType, PopupEvents,
-  PopupAnchorPosition, PopupEnterEvent, PopupProps,
+import type {
+  PopupTransformOrigin,
+  PopupPosition,
+  PopupAnimateType,
+  PopupEvents,
+  PopupAnchorPosition,
+  PopupEnterEvent,
+  PopupProps,
 } from './types';
-import { isAnyPosition, computeRect, getAnchorPosition, getTransformOrigin } from './utils';
+import {
+  isAnyPosition,
+  computeRect,
+  getAnchorPosition,
+  getTransformOrigin,
+} from './utils';
 import { $prefix } from '../_config/variables';
 import { defineComponent, props } from '../_utils/defineComponent';
 import { ClassOptions } from '../_utils/classHelper';
 import { CSSProps } from '../types';
 import bindEvent from '../_utils/bindEvent';
-
+import type { CSSProperties } from 'vue';
 
 interface PopupData {
   wrapperVisible: boolean;
   documentVisible: boolean;
   docEl: HTMLElement | null;
-  docRect: { width: number, height: number } | null;
+  docRect: { width: number; height: number } | null;
   anchorEl: HTMLElement | null;
   docPos: {
-    top: number,
-    bottom: number,
-    left: number,
-    right: number,
-    transformOrigin: string,
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+    transformOrigin: string;
   } | null;
   anchorRect: DOMRect | ClientRect | null;
   maskZIndex: number;
   documentZIndex: number;
   touchData: {
-    scrollY: number,
-    pageY: number,
-    scrollEl: HTMLElement | null,
-    maxHeight: number,
+    scrollY: number;
+    pageY: number;
+    scrollEl: HTMLElement | null;
+    maxHeight: number;
   };
   rootStyle: CSSProps;
 }
@@ -61,7 +71,7 @@ export const popupProps = {
   zIndex: Number,
   round: props(Boolean).default(false),
   hideOnDeactivated: props(Boolean).default(true),
-}
+};
 
 const positionTransitionMap = {
   top: `${$prefix}slide-up`,
@@ -70,7 +80,47 @@ const positionTransitionMap = {
   right: `${$prefix}slide-right`,
 };
 
-const createPopup = defineComponent<PopupProps, PopupEvents>('popup-main');
+type PopupInnerProps = {
+  isAnchorMode: boolean;
+  documentTransition: string;
+  documentClass: string[];
+  open: () => void;
+  close: () => void;
+  startScroll: () => void;
+  stopScroll: () => void;
+  computeDocAndAnchorRect: () => void;
+  computeDocumentPosition: () => {
+    top: number;
+    left: number;
+    bottom: number;
+    right: number;
+    transformOrigin: string;
+  };
+
+  onMaskClick: (e: Event) => void;
+  onWrapperTouchstart: (e: TouchEvent) => void;
+  onWrapperTouchmove: (e: TouchEvent) => void;
+  onWrapperTouchend: (e: TouchEvent) => void;
+  onDocumentTouch: (e: TouchEvent) => void;
+  onBeforeDocumentEnter: () => void;
+  onAfterDocumentLeave: () => void;
+  onDocumentAfterEnter: () => void;
+  onDocumentEnter: (doc: Element) => void;
+
+  onDocumentClick: (e: Event) => void;
+
+  getDocumentStyle: () => CSSProperties;
+
+  renderMask: () => JSX.Element;
+  renderDocument: () => JSX.Element;
+};
+
+const createPopup = defineComponent<
+  PopupProps,
+  PopupEvents,
+  {},
+  PopupInnerProps
+>('popup-main');
 
 export const POPUP_EVENT = 'visibleChange';
 const Popup = createPopup.create({
@@ -109,17 +159,17 @@ const Popup = createPopup.create({
       return !!this.anchor;
     },
     documentClass() {
-      return this.bem.block('popup')
-        .is([
-          this.fullscreen && 'fullscreen',
-          this.round && 'round',
-        ])
+      return this.$bem
+        .block('popup')
+        .is([this.fullscreen && 'fullscreen', this.round && 'round'])
         .addClasses(this.targetClass);
     },
     documentTransition() {
-      if (this.animate === 'none'
-        && typeof this.position === 'string'
-        && this.position !== 'center') {
+      if (
+        this.animate === 'none' &&
+        typeof this.position === 'string' &&
+        this.position !== 'center'
+      ) {
         return positionTransitionMap[this.position];
       }
       return `${$prefix}${this.animate}`;
@@ -223,7 +273,8 @@ const Popup = createPopup.create({
         this.touchData.scrollEl = scrollEl;
         this.touchData.pageY = event.pageY;
         this.touchData.scrollY = scrollEl.scrollTop;
-        this.touchData.maxHeight = scrollEl.scrollHeight - scrollEl.clientHeight;
+        this.touchData.maxHeight =
+          scrollEl.scrollHeight - scrollEl.clientHeight;
       }
     },
     onWrapperTouchmove(e: TouchEvent) {
@@ -300,9 +351,8 @@ const Popup = createPopup.create({
       this.docPos = this.computeDocumentPosition();
     },
     renderMask() {
-      const maskCls = this.bem.block('mask')
-        .is(this.maskFrosted && 'frosted');
-      const maskStyle: Partial<CSSStyleDeclaration> = {
+      const maskCls = this.$bem.block('mask').is(this.maskFrosted && 'frosted');
+      const maskStyle: CSSProperties = {
         zIndex: this.maskZIndex.toString(),
         top: '0px',
         left: '0px',
@@ -318,12 +368,16 @@ const Popup = createPopup.create({
           maskStyle.top = '0';
         }
       }
-      let maskNode = <div v-show={this.documentVisible} class={maskCls} style={maskStyle}></div>;
+      let maskNode = (
+        <div
+          v-show={this.documentVisible}
+          class={maskCls}
+          style={maskStyle}
+        ></div>
+      );
       if (this.maskAnimate !== 'none') {
         maskNode = (
-          <transition name={$prefix + this.maskAnimate}>
-            {maskNode}
-          </transition>
+          <transition name={$prefix + this.maskAnimate}>{maskNode}</transition>
         );
       }
       if (this.mask) {
@@ -352,10 +406,16 @@ const Popup = createPopup.create({
           } else if (anchorPos.vertical === 'bottom') {
             anchorTop = anchorTop + anchorRect.height;
           }
-          const transformOrigin = getTransformOrigin(anchorPos, this.transformOrigin);
-          transformOriginStr = (transformOrigin.vertical || 'top') + ' ' + (transformOrigin.horizontal || 'left');
+          const transformOrigin = getTransformOrigin(
+            anchorPos,
+            this.transformOrigin,
+          );
+          transformOriginStr =
+            (transformOrigin.vertical || 'top') +
+            ' ' +
+            (transformOrigin.horizontal || 'left');
           let docOffsetX = 0;
-          let docOffsetY = 0
+          let docOffsetY = 0;
           if (docRect) {
             if (transformOrigin.horizontal === 'right') {
               docOffsetX = docRect.width;
@@ -371,7 +431,7 @@ const Popup = createPopup.create({
           top = anchorTop - docOffsetY;
           left = anchorLeft - docOffsetX;
         }
-      } else if(isAnyPosition(position)) {
+      } else if (isAnyPosition(position)) {
         position.left !== undefined && (left = position.left);
         position.top !== undefined && (top = position.top);
       }
@@ -410,7 +470,7 @@ const Popup = createPopup.create({
       };
     },
     getDocumentStyle() {
-      let docStyle: Partial<CSSStyleDeclaration> = {};
+      let docStyle: CSSProperties = {};
       if (this.isAnchorMode) {
         docStyle = {
           position: 'absolute',
@@ -431,7 +491,7 @@ const Popup = createPopup.create({
     },
 
     renderDocument() {
-      const wrapperCls = this.bem.block('popup-wrapper');
+      const wrapperCls = this.$bem.block('popup-wrapper');
       wrapperCls.is([
         this.tapThrough && 'tap-through',
         this.scrollBody && 'scrollable',
@@ -452,7 +512,8 @@ const Popup = createPopup.create({
         zIndex: this.documentZIndex,
       };
       return (
-        <div v-show={this.wrapperVisible}
+        <div
+          v-show={this.wrapperVisible}
           class={wrapperCls}
           style={wrapperStyle}
           role="dialog"
@@ -460,14 +521,17 @@ const Popup = createPopup.create({
           onTouchstart={this.onWrapperTouchstart}
           onTouchmove={this.onWrapperTouchmove}
           onTouchend={this.onWrapperTouchend}
-          tabindex={-1}>
+          tabindex={-1}
+        >
           <transition
             name={this.documentTransition}
             onBeforeEnter={this.onBeforeDocumentEnter}
             onEnter={this.onDocumentEnter}
             onAfterEnter={this.onDocumentAfterEnter}
-            onAfterLeave={this.onAfterDocumentLeave}>
-            <div v-show={this.documentVisible}
+            onAfterLeave={this.onAfterDocumentLeave}
+          >
+            <div
+              v-show={this.documentVisible}
               role="document"
               ref="document"
               class={this.documentClass}
@@ -475,8 +539,9 @@ const Popup = createPopup.create({
               onTouchstart={this.onDocumentTouch}
               onTouchmove={this.onDocumentTouch}
               onTouchend={this.onDocumentTouch}
-              onClick={this.onDocumentClick}>
-              { this.$slots.default }
+              onClick={this.onDocumentClick}
+            >
+              {this.$slots.default}
             </div>
           </transition>
         </div>
@@ -486,11 +551,11 @@ const Popup = createPopup.create({
   render() {
     return (
       <div role="presentation" style={this.rootStyle}>
-        { this.renderMask() }
-        { this.renderDocument() }
+        {this.renderMask()}
+        {this.renderDocument()}
       </div>
     );
-  }
+  },
 });
 
 export default Popup;

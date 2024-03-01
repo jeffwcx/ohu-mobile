@@ -1,4 +1,3 @@
-
 /**
  * Simple Class Helper: making class management more convenient, more clean, more easy
  * Api Draft
@@ -62,21 +61,25 @@ function transformJoin(option: string | ClassTransformFunc) {
   return option;
 }
 
-
 export class BlockContext extends Array<string> {
   public baseName!: string;
   private isJoinTransform!: ClassTransformFunc;
   private noJoinTransform!: ClassTransformFunc;
   private hasJoinTransform!: ClassTransformFunc;
-  private blockJoinTransform!:ClassTransformFunc;
-  private modiferJoinTransform!: ClassTransformFunc
+  private blockJoinTransform!: ClassTransformFunc;
+  private modiferJoinTransform!: ClassTransformFunc;
   private elementJoinTransform!: ClassTransformFunc;
-  constructor(private rootName: string, private options?: BemHelperOptions) {
+  constructor(
+    private rootName: string,
+    private options?: BemHelperOptions,
+  ) {
     super();
-    this.baseName = (options && options.prefix) ? `${options.prefix}${rootName}` : rootName;
+    this.baseName =
+      options && options.prefix ? `${options.prefix}${rootName}` : rootName;
     this.push(this.baseName);
     if (options) {
-      const { isJoin, hasJoin, blockJoin, elementJoin, modifierJoin, noJoin } = options;
+      const { isJoin, hasJoin, blockJoin, elementJoin, modifierJoin, noJoin } =
+        options;
       if (isJoin) this.isJoinTransform = transformJoin(isJoin);
       if (hasJoin) this.hasJoinTransform = transformJoin(hasJoin);
       if (blockJoin) this.blockJoinTransform = transformJoin(blockJoin);
@@ -205,18 +208,13 @@ const defaultOptions: BemHelperOptions = {
   },
   noJoin: (_: string, classItem: string) => {
     return `no-${classItem}`;
-  }
+  },
 };
-
 
 export function createBemHelper(options?: BemHelperOptions): CreateBemHelper {
   return {
     block(name: string) {
-      return new BlockContext(
-        name,
-        Object.assign({}, defaultOptions, options),
-      );
-    }
+      return new BlockContext(name, Object.assign({}, defaultOptions, options));
+    },
   };
 }
-

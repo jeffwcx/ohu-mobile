@@ -1,5 +1,9 @@
-import { RadioListProps, RadioListEvents, RadioListScopedSlots, RadioListRenderOptions } from './types';
-import { VNodeData } from 'vue';
+import {
+  RadioListProps,
+  RadioListEvents,
+  RadioListScopedSlots,
+  RadioListRenderOptions,
+} from './types';
 import List from '../List';
 import { listProps } from '../List/List';
 import { ScopedSlotReturnValue } from 'vue/types/vnode';
@@ -10,33 +14,40 @@ import Collapse from '../Collapse';
 import { defineComponent, props } from '../_utils/defineComponent';
 import { RadioProps } from '../Radio/types';
 
-type SlotRenderMapKey = keyof (Omit<RadioListScopedSlots, 'renderItem' | 'default'>);
+type SlotRenderMapKey = keyof Omit<
+  RadioListScopedSlots,
+  'renderItem' | 'default'
+>;
 type SlotRenderMapValue = string | [string, (position: string) => boolean];
 
 const slotRenderMap: Record<SlotRenderMapKey, SlotRenderMapValue> = {
   renderIcon: [
     'icon',
-    function(position: string) {
+    function (position: string) {
       return position === 'right';
-    }
+    },
   ],
   renderThumb: [
     'thumb',
-    function(position: string) {
+    function (position: string) {
       return position === 'right';
-    }
+    },
   ],
   renderAction: [
-    'action', function(position: string) {
+    'action',
+    function (position: string) {
       return position === 'left';
-    }
+    },
   ],
   renderText: 'text',
   renderMinorText: 'minorText',
 };
 
-
-export default defineComponent<RadioProps, RadioListEvents, RadioListScopedSlots>('radio-list').create({
+export default defineComponent<
+  RadioProps,
+  RadioListEvents,
+  RadioListScopedSlots
+>('radio-list').create({
   model: {
     prop: 'value',
     event: 'change',
@@ -51,7 +62,7 @@ export default defineComponent<RadioProps, RadioListEvents, RadioListScopedSlots
   methods: {
     getRadio(props: any) {
       let slot = this.position === 'left' ? 'icon' : 'action';
-      return <Radio {...{ props, slot }}></Radio>
+      return <Radio {...{ props, slot }}></Radio>;
     },
     getSlotNodes(renderOptions: RadioListRenderOptions) {
       const { $scopedSlots, position } = this;
@@ -72,9 +83,7 @@ export default defineComponent<RadioProps, RadioListEvents, RadioListScopedSlots
         const scopedSlotsFunc = $scopedSlots[render];
         if (scopedSlotsFunc) {
           result.push(
-            <template slot={slot}>
-              {scopedSlotsFunc(renderOptions)}
-            </template>
+            <template slot={slot}>{scopedSlotsFunc(renderOptions)}</template>,
           );
         }
         return result;
@@ -99,99 +108,106 @@ export default defineComponent<RadioProps, RadioListEvents, RadioListScopedSlots
         paddingDivider,
         $scopedSlots,
       } = this;
-      const listNodeData: VNodeData = {
+      const listNodeData = {
         props: {
           loading,
           loadingProps,
           finished,
-          finishedText
+          finishedText,
         },
       };
       return (
         <List {...listNodeData}>
-          {
-            options.map((option, index) => {
-              let props: any;
-              let defaultNode;
-              let optionValue: any;
-              let itemDisabled = false;
-              let checkOption: RadioOption;
-              if (typeof option === 'string') {
-                checkOption = {
-                  value: option,
-                };
-                props = checkOption;
-                optionValue = option;
-              } else {
-                if (option.children) {
-                  const checkedOption = this.getCheckedOption(option.children, this.value);
-                  let collapseValue = [];
-                  if (checkedOption) {
-                    collapseValue.push(option.value);
+          {options.map((option, index) => {
+            let props: any;
+            let defaultNode;
+            let optionValue: any;
+            let itemDisabled = false;
+            let checkOption: RadioOption;
+            if (typeof option === 'string') {
+              checkOption = {
+                value: option,
+              };
+              props = checkOption;
+              optionValue = option;
+            } else {
+              if (option.children) {
+                const checkedOption = this.getCheckedOption(
+                  option.children,
+                  this.value,
+                );
+                let collapseValue = [];
+                if (checkedOption) {
+                  collapseValue.push(option.value);
+                }
+                return (
+                  <Collapse value={collapseValue}>
+                    <Collapse.Item
+                      hasList
+                      title={option.label}
+                      key={option.value}
+                    >
+                      {this.renderList(option.children)}
+                    </Collapse.Item>
+                  </Collapse>
+                );
+              }
+              checkOption = option;
+              const { label, attach, ...checkProps } = option;
+              props = checkProps;
+              optionValue = option.value;
+              if (option.disabled) {
+                itemDisabled = option.disabled;
+              }
+            }
+            const renderOptions = {
+              option: checkOption,
+              index,
+              checked: this.getCheckedStatus(optionValue),
+            };
+            if ($scopedSlots.renderItem) {
+              defaultNode = $scopedSlots.renderItem(renderOptions);
+            } else if (
+              !$scopedSlots.renderText &&
+              !$scopedSlots.renderMinorText
+            ) {
+              defaultNode = typeof option === 'string' ? option : option.label;
+            }
+            const itemProps = {
+              class: { 'is-checked': renderOptions.checked },
+              props: {
+                button,
+                disabled: itemDisabled,
+                paddingDivider,
+              },
+              on: {
+                click: () => {
+                  if (this.disabled) return;
+                  const group = this.$refs.group as InstanceType<
+                    typeof RadioGroup
+                  >;
+                  if (group) {
+                    group.childrenChange(
+                      optionValue,
+                      !this.getCheckedStatus(optionValue),
+                      checkOption,
+                    );
                   }
-                  return (
-                    <Collapse value={collapseValue}>
-                      <Collapse.Item
-                        hasList
-                        title={option.label}
-                        key={option.value}>
-                        {this.renderList(option.children)}
-                      </Collapse.Item>
-                    </Collapse>
-                  );
-                }
-                checkOption = option;
-                const {
-                  label,
-                  attach,
-                  ...checkProps
-                } = option;
-                props = checkProps;
-                optionValue = option.value;
-                if (option.disabled) {
-                  itemDisabled = option.disabled;
-                }
-              }
-              const renderOptions = {
-                option: checkOption,
-                index,
-                checked: this.getCheckedStatus(optionValue),
-              };
-              if ($scopedSlots.renderItem) {
-                defaultNode = $scopedSlots.renderItem(renderOptions);
-              } else if (!$scopedSlots.renderText && !$scopedSlots.renderMinorText) {
-                defaultNode = typeof option === 'string' ? option : option.label;
-              }
-              const itemProps: VNodeData = {
-                class: { 'is-checked': renderOptions.checked },
-                props: {
-                  button,
-                  disabled: itemDisabled,
-                  paddingDivider,
                 },
-                on: {
-                  click: () => {
-                    if (this.disabled) return;
-                    const group = this.$refs.group as InstanceType<typeof RadioGroup>;
-                    if (group) {
-                      group.childrenChange(optionValue, !this.getCheckedStatus(optionValue), checkOption);
-                    }
-                  },
-                },
-              };
-              const radio = this.getRadio(props);
-              return (
-                <List.Item {...itemProps}>
-                  {radio}
-                  {defaultNode}
-                  {this.getSlotNodes(renderOptions)}
-                </List.Item>
-              );
-            })
-          }
+              },
+            };
+            const radio = this.getRadio(props);
+            return (
+              <List.Item {...itemProps}>
+                {radio}
+                {defaultNode}
+                {this.getSlotNodes(renderOptions)}
+              </List.Item>
+            );
+          })}
         </List>
       );
-    }
+    },
   },
   render() {
     const {
@@ -205,17 +221,12 @@ export default defineComponent<RadioProps, RadioListEvents, RadioListScopedSlots
       ...groupProps
     } = this.$props as RadioListProps;
     const { $listeners } = this;
-    const groupNodeData: VNodeData = {
+    const groupNodeData = {
       props: groupProps,
       on: $listeners,
-      ref: 'group'
+      ref: 'group',
     };
     const innerNode = this.renderList(options);
-    return (
-      <RadioGroup {...groupNodeData}>
-        {innerNode}
-      </RadioGroup>
-    );
+    return <RadioGroup {...groupNodeData}>{innerNode}</RadioGroup>;
   },
 });
-

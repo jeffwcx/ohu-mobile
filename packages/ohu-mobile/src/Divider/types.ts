@@ -1,4 +1,3 @@
-
 export interface DividerProps {
   color?: string;
   dashed?: boolean;

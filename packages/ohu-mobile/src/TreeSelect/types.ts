@@ -24,7 +24,9 @@ export interface InternalTreeNode {
   attach?: any;
 }
 
-export type TreeSelectLoadDataFunc = (node: InternalTreeNode) => (Promise<TreeNode[]> | TreeNode[]);
+export type TreeSelectLoadDataFunc = (
+  node: InternalTreeNode,
+) => Promise<TreeNode[]> | TreeNode[];
 
 export interface TreeSelectProps {
   value?: any | any[];

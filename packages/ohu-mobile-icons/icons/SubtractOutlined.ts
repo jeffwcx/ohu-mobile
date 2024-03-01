@@ -13,4 +13,3 @@ const SubtractOutlined: SVGIconDef = {
 };
 
 export default SubtractOutlined;
-

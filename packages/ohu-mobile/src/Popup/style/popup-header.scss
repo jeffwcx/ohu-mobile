@@ -1,3 +1,8 @@
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use "pkg:@ohu-mobile/styles" as *;
+@use '../../_styles/mixins' as *;
+
 $popupHeaderPrefixClass: #{$popupPrefixClass}-header;
 
 .#{$popupHeaderPrefixClass} {
@@ -54,7 +59,7 @@ $popupHeaderPrefixClass: #{$popupPrefixClass}-header;
     color: $popupHeaderColor;
     &__title {
       font-size: $popupHeaderTextFontSize;
-      line-height: (50 / 32) * 1em;
+      line-height: math.div(50, 32) * 1em;
       &.has-minor {
         font-weight: bold;
       }
@@ -63,7 +68,7 @@ $popupHeaderPrefixClass: #{$popupPrefixClass}-header;
       color: $popupHeaderMinorTextColor;
       font-size: $popupHeaderMinorTextFontSize;
       font-weight: normal;
-      line-height: (40 / 28) * 1em;
+      line-height: math.div(40, 28) * 1em;
     }
   }
 }

@@ -6,11 +6,12 @@ import mock from 'mock-fs';
 import path from 'path';
 import svgo from 'svgo';
 import { buildIcon } from '..';
-import pkgDir from 'pkg-dir';
+import { packageDirectorySync } from 'pkg-dir';
 import { optimizeSVG } from '../generate';
 import defaultConfig from '../defaultConfig';
 import resolvePlugins from '../svgo/resolvePlugins';
 import jsxPlugin from '../svgo/jsxPlugin';
+import { describe, beforeEach, afterEach, it, expect } from 'vitest';
 
 const config = {
   ...defaultConfig,
@@ -19,7 +20,9 @@ const config = {
 };
 
 describe('`ohu icon`', () => {
-  const rootDir = pkgDir.sync(__dirname);
+  const rootDir = packageDirectorySync({ cwd: __dirname });
+  console.log(rootDir);
+
   beforeEach(() => {
     const normalSvg = mock.load(path.resolve(__dirname, './assets/basic/normal.svg'));
     const svgDir = mock.load(path.resolve(__dirname, './assets/basic'));
@@ -116,7 +119,7 @@ describe('`ohu icon`', () => {
       </g>
     </svg>
     `;
-    const { data } = optimizeSVG(svg, { dynamicId: true });
+    const { data } = optimizeSVG(svg, { uniqueId: true });
     mock.restore();
     expect(data).toMatchSnapshot();
   });
@@ -129,12 +132,13 @@ describe('`ohu icon`', () => {
       { name: 'removeAttrs', params: { attrs: '(fill|stroke)' } },
       'prefixIds',
     ], [
-      { name: 'removeAttrs', active: false },
       'reusePaths',
       {
         name: 'prefixIds',
         params: { delim: '{{id}}' },
       }
+    ], [
+      'removeAttrs'
     ]);
     expect(plugins).toEqual([
       'cleanupAttrs',
@@ -162,7 +166,7 @@ describe('`ohu icon`', () => {
     expect(fileContent.toString()).toMatchSnapshot();
   });
 
-  it('should turn to react svg file when using `tsx` and `dynamicId`', async () => {
+  it('should turn to react svg file when using `tsx` and `uniqueId`', async () => {
     await buildIcon({
       ...config,
       outputDir: '/icons',
@@ -170,7 +174,7 @@ describe('`ohu icon`', () => {
       template: '/react-template.art',
       type: '/svg-types.art',
       tsx: true,
-      dynamicId: true,
+      uniqueId: true,
     });
     const fileContent = await fs.readFile('/icons/Complex.tsx');
     mock.restore();

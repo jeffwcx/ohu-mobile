@@ -12,10 +12,10 @@ const Card = defineComponent<CardProps>('card').create({
     padding: props(Boolean).default(true),
   },
   render() {
-    const root= this.root();
+    const root = this.$rootCls();
     const { $slots, divider } = this;
     root.has([
-      (!this.borderless && this.shadow) && 'shadow',
+      !this.borderless && this.shadow && 'shadow',
       !this.borderless && 'radius',
       this.padding && 'padding',
     ]);
@@ -29,23 +29,17 @@ const Card = defineComponent<CardProps>('card').create({
         return (
           <div class={root}>
             {headerNodes}
-            { divider && <Divider></Divider> }
-            {
-              contentNodes.length > 0
-              &&
-              <div class={root.element('content')}>
-                { contentNodes }
-              </div>
-            }
+            {divider && <Divider></Divider>}
+            {contentNodes.length > 0 && (
+              <div class={root.element('content')}>{contentNodes}</div>
+            )}
           </div>
         );
       }
     }
     return (
       <div class={root}>
-        <div class={root.element('content')}>
-          {$slots.default}
-        </div>
+        <div class={root.element('content')}>{$slots.default}</div>
       </div>
     );
   },

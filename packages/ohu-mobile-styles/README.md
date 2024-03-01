@@ -7,8 +7,8 @@
 ```bash
 # with npm
 npm install @ohu-mobile/styles
-# with yarn
-yarn add @ohu-mobile/styles
+# with pnpm
+pnpm add @ohu-mobile/styles
 ```
 
 ## Usage

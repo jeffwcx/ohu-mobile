@@ -1,4 +1,3 @@
-
 export default {
   zIndex: 9999,
   isLock: 0,

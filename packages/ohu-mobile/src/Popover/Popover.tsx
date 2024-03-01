@@ -1,28 +1,41 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import Popup, { PopupOutSideProps, PopupEnterEvent } from '../Popup';
+import Popup, {
+  PopupOutSideProps,
+  PopupEnterEvent,
+  PopupProps,
+  PopupAnchorPosition,
+} from '../Popup';
 import { cloneElement, getVNodesByName } from '../_utils/vnode';
-import { VNodeData, VNode } from 'vue';
+import type { VNodeData, VNode, CSSProperties } from 'vue';
 import omit from '../_utils/omit';
 import { getAnchorPosition, getTransformOrigin } from '../Popup/utils';
 import { popupOutSideProps } from '../Popup/PopupWrapper';
 import { basePopoverItemName } from './PopoverItem';
 import { PopoverEvents, PopoverSelectEvent } from './types';
-import { $prefix } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-const basePopoverName = `${$prefix}popover`;
-const popoverContentCls = `${basePopoverName}__content`;
-const popoverContentArrowCls = `${basePopoverName}__arrow`;
-
-const popoverProps = omit(popupOutSideProps, ['scrollBody', 'anchor', 'fullscreen']);
+const popoverProps = omit(popupOutSideProps, [
+  'scrollBody',
+  'anchor',
+  'fullscreen',
+]);
 popoverProps.animate.default = 'zoom';
-popoverProps.position.default = () => ({ vertical: 'bottom', horizontal: 'center' });
+popoverProps.position.default = () => ({
+  vertical: 'bottom',
+  horizontal: 'center',
+});
 popoverProps.marginThreshold.default = 6;
 popoverProps.mask.default = false;
 popoverProps.closeOnMaskTouched.default = true;
 
-export default componentFactoryOf<PopoverEvents>().create({
-  name: basePopoverName,
+export interface PopupInnerProps {
+  anchorPos: PopupAnchorPosition;
+
+  close: () => void;
+}
+
+export default defineComponent<PopupProps, PopoverEvents, {}, PopupInnerProps>(
+  'popover',
+).create({
   model: {
     prop: 'visible',
     event: 'visibleChange',
@@ -31,7 +44,7 @@ export default componentFactoryOf<PopoverEvents>().create({
     ...popoverProps,
     noArrow: props(Boolean).default(false),
     minArrowMargin: props.ofType<number>().default(8),
-    contentStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
+    contentStyle: props.ofType<CSSProperties>().optional,
     contentClass: String,
   },
   data() {
@@ -39,8 +52,8 @@ export default componentFactoryOf<PopoverEvents>().create({
       popupVisible: this.visible,
       arrowStyle: {},
     } as {
-      popupVisible: boolean,
-      arrowStyle: Partial<CSSStyleDeclaration>,
+      popupVisible: boolean;
+      arrowStyle: CSSProperties;
     };
   },
   computed: {
@@ -56,20 +69,30 @@ export default componentFactoryOf<PopoverEvents>().create({
   },
   render() {
     const {
-      $slots, $props, $listeners,
-      arrowStyle, anchorPos, contentStyle, contentClass,
+      $slots,
+      $props,
+      $listeners,
+      arrowStyle,
+      anchorPos,
+      contentStyle,
+      contentClass,
     } = this;
+    const cls = this.$rootCls();
     const transformOrigin = getTransformOrigin(anchorPos, this.transformOrigin);
-    const isTop = anchorPos.vertical === 'top' && transformOrigin.vertical === 'bottom';
-    const isBottom = anchorPos.vertical === 'bottom' && transformOrigin.vertical === 'top';
-    const isLeft = anchorPos.horizontal === 'left' && transformOrigin.horizontal === 'right';
-    const isRight = anchorPos.horizontal === 'right' && transformOrigin.horizontal === 'left';
-    const popCls = {
+    const isTop =
+      anchorPos.vertical === 'top' && transformOrigin.vertical === 'bottom';
+    const isBottom =
+      anchorPos.vertical === 'bottom' && transformOrigin.vertical === 'top';
+    const isLeft =
+      anchorPos.horizontal === 'left' && transformOrigin.horizontal === 'right';
+    const isRight =
+      anchorPos.horizontal === 'right' && transformOrigin.horizontal === 'left';
+    const popCls = cls.addClasses({
       'is-top': isTop,
       'is-bottom': isBottom,
       'is-center-left': isLeft,
       'is-center-right': isRight,
-    };
+    });
     const anchorProps: VNodeData = {
       ref: 'anchor',
       on: {
@@ -79,7 +102,7 @@ export default componentFactoryOf<PopoverEvents>().create({
       },
     };
     const anchor = $slots.anchor && cloneElement($slots.anchor[0], anchorProps);
-    const popupData: VNodeData = {
+    const popupData = {
       props: {
         ...$props,
         visible: this.popupVisible,
@@ -95,10 +118,10 @@ export default componentFactoryOf<PopoverEvents>().create({
         enter: ({ anchor, doc }: PopupEnterEvent) => {
           let anchorCentralXAxis = 0;
           let anchorCentralYAxis = 0;
-          const style: Partial<CSSStyleDeclaration> = {};
+          const style: CSSProperties = {};
           if (anchor) {
-            anchorCentralXAxis = (anchor.width / 2) + anchor.left;
-            anchorCentralYAxis = (anchor.height / 2) + anchor.top;
+            anchorCentralXAxis = anchor.width / 2 + anchor.left;
+            anchorCentralYAxis = anchor.height / 2 + anchor.top;
           }
           if (doc) {
             if (isLeft || isRight) {
@@ -107,24 +130,22 @@ export default componentFactoryOf<PopoverEvents>().create({
                 arrowY += this.minArrowMargin;
               }
               style.top = arrowY + 'px';
-              style[this.anchorPos.horizontal === 'left' ? 'right' : 'left'] = '1px';
+              style[this.anchorPos.horizontal === 'left' ? 'right' : 'left'] =
+                '1px';
             } else {
               let arrowX = anchorCentralXAxis - doc.left;
               if (arrowX < this.minArrowMargin) {
                 arrowX += this.minArrowMargin;
               }
               style.left = arrowX + 'px';
-              style[this.anchorPos.vertical === 'top' ? 'bottom' : 'top'] = '1px';
+              style[this.anchorPos.vertical === 'top' ? 'bottom' : 'top'] =
+                '1px';
             }
             this.arrowStyle = style;
           }
-          this.$emit('enter', { anchor, doc })
+          this.$emit('enter', { anchor, doc });
         },
       },
-    };
-    const cls = {
-      [basePopoverName]: true,
-      ...popCls,
     };
     let content: VNode[] | undefined;
     if ($slots.default) {
@@ -133,8 +154,11 @@ export default componentFactoryOf<PopoverEvents>().create({
         content = items.map((item, index) => {
           return cloneElement(item, {
             on: {
-              click:() => {
-                const event: PopoverSelectEvent = { key: item.key, index };
+              click: () => {
+                const event: PopoverSelectEvent = {
+                  key: item.key as string | number,
+                  index,
+                };
                 this.$emit('select', event);
                 this.close();
               },
@@ -145,30 +169,23 @@ export default componentFactoryOf<PopoverEvents>().create({
         content = $slots.default;
       }
     }
-    const contentCls = [popoverContentCls];
+    const contentCls = cls.element('content');
     if (contentClass) {
       contentCls.push(contentClass);
     }
     return (
       <div>
-        { anchor }
+        {anchor}
         <Popup {...popupData}>
-          <div class={cls}>
-            {
-              !this.noArrow
-              &&
-              <div class={popoverContentArrowCls}
-                style={arrowStyle}>
-              </div>
-            }
-            {
-              content
-              &&
-              <div class={contentCls}
-                style={contentStyle}>
+          <div class={popCls}>
+            {!this.noArrow && (
+              <div class={cls.element('arrow')} style={arrowStyle}></div>
+            )}
+            {content && (
+              <div class={contentCls} style={contentStyle}>
                 {content}
               </div>
-            }
+            )}
           </div>
         </Popup>
       </div>

@@ -30,7 +30,6 @@ export interface ListItemEvents {
   onClick: Event;
 }
 
-
 export interface ListSubheaderProps {
   sticky?: boolean;
 }

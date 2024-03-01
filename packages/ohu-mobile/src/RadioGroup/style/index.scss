@@ -1,0 +1,9 @@
+@use '../../_styles/variables' as *;
+
+$radioGroupPrefixClass: #{$prefix}radio-group;
+
+.#{$radioGroupPrefixClass} {
+  > .#{$prefix}radio-wrapper {
+    margin-right: .5em;
+  }
+}

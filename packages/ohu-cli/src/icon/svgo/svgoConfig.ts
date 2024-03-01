@@ -1,4 +1,4 @@
-import { OptimizeOptions } from 'svgo';
+import type { Config } from 'svgo';
 export default {
   plugins: [
     { name: 'cleanupAttrs' },
@@ -22,7 +22,7 @@ export default {
     { name: 'removeNonInheritableGroupAttrs' },
     { name: 'removeUselessStrokeAndFill' },
     { name: 'removeUnusedNS' },
-    { name: 'cleanupIDs' },
+    { name: 'cleanupIds' },
     { name: 'cleanupNumericValues' },
     { name: 'moveElemsAttrsToGroup' },
     { name: 'moveGroupAttrsToElems' },
@@ -31,6 +31,5 @@ export default {
     { name: 'convertShapeToPath' },
     { name: 'sortAttrs' },
     { name: 'removeDimensions' },
-    { name: 'removeAttrs' },
   ],
-} as OptimizeOptions;
+} as Config;

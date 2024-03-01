@@ -1,15 +1,13 @@
-import Vue from 'vue';
-import { Mixin } from '../types';
-import { FormFieldInnerMethods } from './types';
+import type { Mixin } from '../types';
+import type { FormFieldInnerMethods, FormFieldInstance } from './types';
 
-export interface FieldMixinOptions  {
+export interface FieldMixinOptions {
   field?: FormFieldInnerMethods;
   initFieldValue(initValue?: any): any;
   setFieldValue(value: any): void;
-  [key: string]: any;
-};
+}
 
-type FieldMixinInstance = Mixin<FieldMixinOptions>;
+type FieldMixinInstance = FormFieldInstance & { [key: string]: any };
 
 export const fieldMixin = (
   internalValueName: string,
@@ -21,7 +19,7 @@ export const fieldMixin = (
       field: {
         from: 'form-field',
         default: null,
-      }
+      },
     },
     data() {
       let instance = this as unknown as FieldMixinInstance;
@@ -36,20 +34,20 @@ export const fieldMixin = (
     },
     methods: {
       setFieldValue(value: any) {
-        let instance = this as FieldMixinInstance;
+        let instance = this as unknown as FieldMixinInstance;
         instance[internalValueName] = value;
       },
       initFieldValue(initValue?: any) {
-        let instance = this as unknown as Mixin<{ field: FormFieldInnerMethods }>;
+        let instance = this as unknown as FieldMixinInstance;
         let field = instance.field;
         if (!field) return initValue;
         const success = field.addChildren(instance);
         if (!success) return initValue;
         instance.$once('hook:beforeDestroy', () => {
-          field.removeChildren(instance);
+          field?.removeChildren(instance);
         });
         return field.fieldValue;
-      }
+      },
     },
   };
 };

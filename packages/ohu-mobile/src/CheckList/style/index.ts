@@ -4,4 +4,3 @@ import '../../_styles';
 import '../../List/style';
 import '../../Checkbox/style';
 import '../../Collapse/style';
-

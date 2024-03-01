@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "include": [
+    "./packages/**/*",
+    ".eslintrc.js",
+    "**/.eslintrc.js",
+    ".storybook/**/*",
+    "**/*.stories.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib",
+    "lib*",
+    "coverage",
+    "storybook-static"
+  ]
+}

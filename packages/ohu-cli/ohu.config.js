@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   icon: {
     outputDir: './icons',
     globs: '../ohu-mobile-icons/remixicon',
@@ -16,5 +16,7 @@ module.exports = {
       }
       return { theme, name };
     },
-  }
+  },
 };
+
+export default config;

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NoticeBar action 1`] = `
-<div class="ohu-notice-bar has-action is-default">
+exports[`NoticeBar > action 1`] = `
+"<div class="ohu-notice-bar has-action is-default">
   <div class="ohu-notice-bar__icon">S</div>
   <div class="ohu-notice-bar__text is-inline">
     <div>Text</div>
@@ -10,11 +10,11 @@ exports[`NoticeBar action 1`] = `
       <path fill="none" d="M0 0h24v24H0z"></path>
       <path d="m13.172 12-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"></path>
     </svg></div>
-</div>
+</div>"
 `;
 
-exports[`NoticeBar close event 1`] = `
-<div class="ohu-notice-bar has-action is-default">
+exports[`NoticeBar > close event 1`] = `
+"<div class="ohu-notice-bar has-action is-default">
   <div class="ohu-notice-bar__text is-inline">
     <div>Text</div>
   </div>
@@ -22,25 +22,25 @@ exports[`NoticeBar close event 1`] = `
       <path fill="none" d="M0 0h24v24H0z"></path>
       <path d="m12 10.586 4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"></path>
     </svg></div>
-</div>
+</div>"
 `;
 
-exports[`NoticeBar multiline 1`] = `
-<div class="ohu-notice-bar is-default">
+exports[`NoticeBar > multiline 1`] = `
+"<div class="ohu-notice-bar is-default">
   <div class="ohu-notice-bar__text is-wrap">
     <div>longtextlongtextlongtextlongtextlongtextlongtextlongtextlongtextlongtextlongtext</div>
   </div>
-</div>
+</div>"
 `;
 
-exports[`NoticeBar set icon 1`] = `
-<div class="ohu-notice-bar has-icon is-default">
+exports[`NoticeBar > set icon 1`] = `
+"<div class="ohu-notice-bar has-icon is-default">
   <div class="ohu-notice-bar__icon"><svg viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="volume-down" role="presentation" focusable="false" class="ohu-icon">
       <path fill="none" d="M0 0h24v24H0z"></path>
-      <path d="M13 7.22 9.603 10H6v4h3.603L13 16.78V7.22zM8.889 16H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.889l5.294-4.332a.5.5 0 0 1 .817.387v15.89a.5.5 0 0 1-.817.387L8.89 16zm9.974.591-1.422-1.422A3.993 3.993 0 0 0 19 12c0-1.43-.75-2.685-1.88-3.392l1.439-1.439A5.991 5.991 0 0 1 21 12c0 1.842-.83 3.49-2.137 4.591z"></path>
+      <path d="M13 7.22 9.603 10H6v4h3.603L13 16.78zM8.889 16H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.889l5.294-4.332a.5.5 0 0 1 .817.387v15.89a.5.5 0 0 1-.817.387L8.89 16zm9.974.591-1.422-1.422A4 4 0 0 0 19 12c0-1.43-.75-2.685-1.88-3.392l1.439-1.439A5.99 5.99 0 0 1 21 12c0 1.842-.83 3.49-2.137 4.591"></path>
     </svg></div>
   <div class="ohu-notice-bar__text is-inline">
     <div>Text</div>
   </div>
-</div>
+</div>"
 `;

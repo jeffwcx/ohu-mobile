@@ -9,7 +9,7 @@
     @return $n2;
   }
   $result: 1;
-  @for $i from 2 through ceil($target / 2) {
+  @for $i from 2 through ceil(math.div($target, 2)) {
     @if $n1 % $i == 0 and $n2 % $i == 0 {
       $result: $i;
     }

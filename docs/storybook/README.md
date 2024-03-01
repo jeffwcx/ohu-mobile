@@ -1,2 +1,0 @@
-# Storybook for ohu-mobile
-

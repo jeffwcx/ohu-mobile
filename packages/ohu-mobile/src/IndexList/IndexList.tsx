@@ -1,14 +1,21 @@
 import { defineAnc, props } from '../_utils/defineComponent';
-import { IndexListProps, IndexListEvents, IndexListScopedSlots } from './types';
+import type {
+  IndexListProps,
+  IndexListEvents,
+  IndexListScopedSlots,
+  IndexListGroupType,
+  IndexListGroupProps,
+} from './types';
 import List, { ListProps } from '../List';
 import { isElementSticky } from '../_utils/bom';
-import { VueInstance } from '../types';
 import { $prefix } from '../_config/variables';
 import { ClassOptions } from '../_utils/classHelper';
 
-
-const createIndexList = defineAnc<IndexListProps, IndexListEvents, IndexListScopedSlots>('index-list');
-
+const createIndexList = defineAnc<
+  IndexListProps,
+  IndexListEvents,
+  IndexListScopedSlots
+>('index-list');
 
 export default createIndexList.create({
   props: {
@@ -26,11 +33,11 @@ export default createIndexList.create({
       } else {
         this.cleanScroll();
       }
-    }
+    },
   },
   computed: {
     currentGroup() {
-      const map = this.indexMap as Record<string | number, VueInstance>;
+      const map = this.indexMap as Record<string | number, IndexListGroupType>;
       const index = this.enterIndex as string | number | null;
       if (index !== null) {
         return map[index];
@@ -48,8 +55,8 @@ export default createIndexList.create({
   },
   data() {
     return {
-      children: [] as VueInstance[],
-      indexMap: {} as Record<string | number, VueInstance>,
+      children: [] as IndexListGroupType[],
+      indexMap: {} as Record<string | number, IndexListGroupType>,
       enterIndex: null as string | number | null,
       observer: null as IntersectionObserver | null,
       pressed: false,
@@ -58,14 +65,14 @@ export default createIndexList.create({
     };
   },
   methods: {
-    removeGroup(group: VueInstance) {
+    removeGroup(group: IndexListGroupType) {
       const index = this.children.indexOf(group);
       if (index >= 0) {
         this.children.splice(index, 1);
         delete this.indexMap[group.$props.index];
       }
     },
-    addGroup(group: VueInstance) {
+    addGroup(group: IndexListGroupType) {
       this.children.push(group);
       this.indexMap[group.$props.index] = group;
     },
@@ -127,14 +134,14 @@ export default createIndexList.create({
       const indexBarRect = indexBar.getBoundingClientRect();
       const meetEl = items.find((node, index) => {
         const { top, bottom, height } = node.getBoundingClientRect();
-        currentOffsetY = (top - indexBarRect.top) + height / 2;
+        currentOffsetY = top - indexBarRect.top + height / 2;
         if (index === 0 && touchTop < top) {
           return true;
         }
         if (index === items.length - 1 && touchTop > bottom) {
           return true;
         }
-        return (touchTop >= top && touchTop < bottom);
+        return touchTop >= top && touchTop < bottom;
       });
       if (meetEl && meetEl.dataset.index) {
         const dataIndex = meetEl.dataset.index;
@@ -147,7 +154,7 @@ export default createIndexList.create({
     },
     meetGroup() {
       const group = this.children.find((item) => {
-        return isElementSticky(this.scroller, item.$el)
+        return isElementSticky(this.scroller, item.$el);
       });
       if (group) {
         return group.$props.index;
@@ -181,20 +188,22 @@ export default createIndexList.create({
       let isEnter = index === this.enterIndex;
       const group = this.getGroup(index) || {};
       return (
-        <li key={index} data-index={index} class={{
-          'is-active': isEnter,
-          'is-pressed': this.pressed && isEnter,
-        }}>
+        <li
+          key={index}
+          data-index={index}
+          class={{
+            'is-active': isEnter,
+            'is-pressed': this.pressed && isEnter,
+          }}
+        >
           <span>
-            {
-              this.$scopedSlots.anchor
-                ? this.$scopedSlots.anchor({
+            {this.$scopedSlots.anchor
+              ? this.$scopedSlots.anchor({
                   pressed: this.pressed,
                   active: isEnter,
-                  ...group.$props,
+                  ...(group.$props as IndexListGroupProps),
                 })
-                : index
-            }
+              : index}
           </span>
         </li>
       );
@@ -206,15 +215,9 @@ export default createIndexList.create({
     }
   },
   render() {
-    const root= this.root();
-    const {
-      $slots,
-      currentSwipeY,
-    } = this;
-    const {
-      label,
-      listProps,
-    } = this.$props as IndexListProps;
+    const root = this.$rootCls();
+    const { $slots, currentSwipeY } = this;
+    const { label, listProps } = this.$props as IndexListProps;
     const indexBar = root.element('bar');
     if (!this.innerScroll) {
       indexBar.is('fixed');
@@ -227,52 +230,57 @@ export default createIndexList.create({
     };
     return (
       <div class={root}>
-        <List { ...{
-          props: listProps,
-          class: { 'is-scroll': this.innerScroll },
-          ref: 'list',
-        } }>
+        <List
+          {...{
+            props: listProps,
+            class: { 'is-scroll': this.innerScroll },
+            ref: 'list',
+          }}
+        >
           {$slots.default}
         </List>
         <transition name={`${$prefix}slide-right`}>
-          {
-            this.enableIndex
-            &&
-            <div class={indexBar}
+          {this.enableIndex && (
+            <div
+              class={indexBar}
               ref="indexBar"
               onTouchstart={this.handleIndexBarTouchStart}
               onTouchmove={this.handleIndexBarTouchMove}
               onTouchend={this.handleIndexBarEventEnd}
               onMousedown={this.handleIndexBarMouseDown}
               onMousemove={this.handleIndexBarMouseMove}
-              onMouseup={this.handleIndexBarEventEnd}>
+              onMouseup={this.handleIndexBarEventEnd}
+            >
               <ul>
-                {
-                  this.indexes instanceof Array
-                    ? this.indexes.map((index) => {
+                {this.indexes instanceof Array
+                  ? this.indexes.map((index) => {
                       return this.renderAnchor(index);
                     })
-                    : this.children.map((item) => {
+                  : this.children.map((item) => {
                       let { index } = item.$props;
                       return this.renderAnchor(index);
-                    })
-                }
+                    })}
               </ul>
-              {
-                label && this.pressed && this.currentSwipeY >= 0 && this.currentGroup
-                &&
-                <div style={labelStyle} class={indexBar.element('label')}>
-                  {
-                    this.$scopedSlots.label
-                      ? this.$scopedSlots.label(this.currentGroup.$props)
-                      : <span>{this.currentGroup.$props.title || this.enterIndex}</span>
-                  }
-                </div>
-              }
+              {label &&
+                this.pressed &&
+                this.currentSwipeY >= 0 &&
+                this.currentGroup && (
+                  <div style={labelStyle} class={indexBar.element('label')}>
+                    {this.$scopedSlots.label ? (
+                      this.$scopedSlots.label(
+                        this.currentGroup.$props as IndexListGroupProps,
+                      )
+                    ) : (
+                      <span>
+                        {this.currentGroup.$props.title || this.enterIndex}
+                      </span>
+                    )}
+                  </div>
+                )}
             </div>
-          }
+          )}
         </transition>
       </div>
     );
-  }
+  },
 });

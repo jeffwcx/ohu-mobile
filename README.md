@@ -8,7 +8,6 @@
     <img src="https://img.shields.io/github/languages/top/jeffwcx/ohu-mobile?style=for-the-badge" alt="Language" />
     <img src="https://img.shields.io/github/license/jeffwcx/ohu-mobile?style=for-the-badge" alt="License" />
     <img src="https://img.shields.io/npm/v/@ohu-mobile/core?style=for-the-badge" alt="Version" />
-    <img src="https://img.shields.io/github/lerna-json/v/jeffwcx/ohu-mobile?style=for-the-badge" alt="Lerna" />
 </p>
 
 
@@ -21,7 +20,7 @@ npm install @ohu-mobile/core
 
 # or
 
-yarn add @ohu-mobile/core
+pnpm add @ohu-mobile/core
 ```
 
 For more documentation and demos of this package, visit [https://getohu.dev](https://getohu.dev).
@@ -34,7 +33,7 @@ npm install @ohu-mobile/icons
 
 # or
 
-yarn add @ohu-mobile/icons
+pnpm add @ohu-mobile/icons
 ```
 
 If you use [sass](https://sass-lang.com/), I recommand you use `@ohu-mobile/styles`. It's a mixin library, it will save you a lot of time writing styles.
@@ -45,7 +44,7 @@ npm install @ohu-mobile/styles
 
 # or
 
-yarn add @ohu-mobile/styles
+pnpm add @ohu-mobile/styles
 ```
 
 ## How to import Components in Vue.js

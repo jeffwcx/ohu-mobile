@@ -10,19 +10,19 @@ $rate: 8px !default;
   }
   @for $i from 1 through $n {
     &.is-#{$i}-#{$n} {
-      max-width: percentage($number: $i / $n);
-      flex-basis: percentage($number: $i / $n);
+      max-width: percentage(math.div($i, $n));
+      flex-basis: percentage(math.div($i, $n));
     }
     &.is-offset-#{$i} {
-      margin-left: percentage($number: $i / $n);
+      margin-left: percentage(math.div($i, $n));
     }
     $commonDivisor: getCommonDivisor($i, $n);
     @if $commonDivisor != 1 {
-      $ix: $i / $commonDivisor;
-      $nx: $n / $commonDivisor;
+      $ix: math.div($i, $commonDivisor);
+      $nx: math.div($n, $commonDivisor);
       &.is-#{$ix}-#{$nx} {
-        max-width: percentage($number: $ix / $nx);
-        flex-basis: percentage($number: $ix / $nx);
+        max-width: percentage(math.div($ix, $nx));
+        flex-basis: percentage(math.div($ix, $nx));
       }
     }
   }

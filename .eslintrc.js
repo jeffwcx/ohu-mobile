@@ -1,4 +1,3 @@
-
 /**
  * @typedef { import("eslint").Linter.Config } Config
  */
@@ -9,27 +8,20 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
-  extends: ["plugin:vue/essential"],
-  plugins: ["@typescript-eslint"],
+  extends: ['plugin:vue/essential', 'plugin:storybook/recommended', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    "quotes": ["error", "single"],
-    "jsx-quotes": ["error", "prefer-double"],
-    "@typescript-eslint/indent": ["error",  2],
-    "@typescript-eslint/class-name-casing": ["error", { allowUnderscorePrefix: false }]
+    'prettier/prettier': 'warn',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'jsx-quotes': ['error', 'prefer-double'],
   },
   parserOptions: {
-    parser: "@typescript-eslint/parser"
+    parser: '@typescript-eslint/parser',
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.eslint.json'],
+    ecmaVersion: 'latest',
   },
-  overrides: [
-    {
-      files: ["**/__tests__/*.{j,t}s?(x)"],
-      env: {
-        jest: true
-      }
-    }
-  ]
 };

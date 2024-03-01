@@ -4,8 +4,9 @@ import Checkbox, { CheckboxProps } from '../Checkbox';
 import Tag, { TagSize } from '../Tag';
 import { VNodeData } from 'vue/types/umd';
 
-
-export default defineComponent<CheckTagProps, CheckTagEvents>('check-tag').create({
+export default defineComponent<CheckTagProps, CheckTagEvents>(
+  'check-tag',
+).create({
   props: {
     name: String,
     value: props.ofType<any>().optional,
@@ -17,7 +18,7 @@ export default defineComponent<CheckTagProps, CheckTagEvents>('check-tag').creat
   },
   render() {
     const { $slots } = this;
-    const root = this.root();
+    const root = this.$rootCls();
     const checkboxProps: CheckboxProps = {
       ...this.$props,
       unCheckedIcon: null,
@@ -30,19 +31,25 @@ export default defineComponent<CheckTagProps, CheckTagEvents>('check-tag').creat
       props: checkboxProps,
       on: this.$listeners,
       attrs: this.$attrs,
-      scopedSlots: {
-        label: ({ checked, disabled }) => {
-          return (
-            <Tag disabled={disabled}
-              size={this.tagSize}
-              color={checked ? 'primary' : 'grey'}
-              outline={!checked}>
-              {$slots.default}
-            </Tag>
-          );
-        },
-      }
     };
-    return <Checkbox {...vnodeData}></Checkbox>
+    return (
+      <Checkbox
+        {...vnodeData}
+        scopedSlots={{
+          label: ({ checked, disabled }) => {
+            return (
+              <Tag
+                disabled={disabled}
+                size={this.tagSize}
+                color={checked ? 'primary' : 'grey'}
+                outline={!checked}
+              >
+                {$slots.default}
+              </Tag>
+            );
+          },
+        }}
+      ></Checkbox>
+    );
   },
 });

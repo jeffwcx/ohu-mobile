@@ -13,4 +13,3 @@ const SubtractFilled: SVGIconDef = {
 };
 
 export default SubtractFilled;
-

@@ -9,7 +9,7 @@ npm install @ohu-mobile/core
 
 # or
 
-yarn add @ohu-mobile/core
+pnpm add @ohu-mobile/core
 ```
 
 

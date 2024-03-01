@@ -1,3 +1,8 @@
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use "pkg:@ohu-mobile/styles" as *;
+@use '../../_styles/mixins' as *;
+
 $listItemPrefixClass: #{$listPrefixClass}-item;
 
 .#{$listItemPrefixClass} {
@@ -9,7 +14,7 @@ $listItemPrefixClass: #{$listPrefixClass}-item;
   border-color: $listItemBorderColor;
   padding: $listItemPadding;
   font-size: $listItemFontSize;
-  line-height: (44/32) * 1em;
+  line-height: math.div(44, 32) * 1em;
   color: $listItemColor;
   &.has-divider {
     @include hair-border(inherit, bottom);

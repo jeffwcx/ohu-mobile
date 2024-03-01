@@ -1,4 +1,5 @@
 import { createBemHelper } from '../classHelper';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('`class helper` test', () => {
   it('helper should have block function', () => {
@@ -23,9 +24,9 @@ describe('`class helper` test', () => {
   it('block api', () => {
     const helper = createBemHelper({ prefix: 'ohu-' });
     const button = helper.block('button');
-    expect(button).toEqual(expect.arrayContaining(['ohu-button']))
+    expect(button).toEqual(expect.arrayContaining(['ohu-button']));
     const buttonInner = button.block('inner');
-    expect(buttonInner).toEqual(expect.arrayContaining(['ohu-button-inner']))
+    expect(buttonInner).toEqual(expect.arrayContaining(['ohu-button-inner']));
   });
 
   it('is and isNot api', () => {
@@ -43,7 +44,7 @@ describe('`class helper` test', () => {
     const btn = helper.block('btn');
     btn.has('icon');
     expect(btn).toEqual(expect.arrayContaining(['ohu-btn', 'has-icon']));
-    btn.has({ 'text': true });
+    btn.has({ text: true });
     btn.without(['icon']);
     expect(btn).toEqual(expect.arrayContaining(['ohu-btn', 'has-text']));
   });
@@ -54,8 +55,14 @@ describe('`class helper` test', () => {
     btn.modifer('mixed');
     expect(btn).toEqual(expect.arrayContaining(['ohu-btn', 'ohu-btn--mixed']));
     btn.modifer('compound', 'colorful');
-    btn.noModifer({ 'mixed': true });
-    expect(btn).toEqual(expect.arrayContaining(['ohu-btn', 'ohu-btn--compound', 'ohu-btn--colorful']));
+    btn.noModifer({ mixed: true });
+    expect(btn).toEqual(
+      expect.arrayContaining([
+        'ohu-btn',
+        'ohu-btn--compound',
+        'ohu-btn--colorful',
+      ]),
+    );
   });
 
   it('element api', () => {
@@ -65,11 +72,13 @@ describe('`class helper` test', () => {
     expect(inner).toEqual(expect.arrayContaining(['ohu-btn__inner']));
   });
 
-  it ('addClasses and removeClasses api', () => {
+  it('addClasses and removeClasses api', () => {
     const helper = createBemHelper({ prefix: 'ohu-' });
     const btn = helper.block('btn');
     btn.addClasses(['loading', 'mixed']);
-    expect(btn).toEqual(expect.arrayContaining(['ohu-btn', 'loading', 'mixed']));
+    expect(btn).toEqual(
+      expect.arrayContaining(['ohu-btn', 'loading', 'mixed']),
+    );
     btn.removeClasses(['loading']);
     expect(btn).toEqual(expect.arrayContaining(['ohu-btn', 'mixed']));
   });

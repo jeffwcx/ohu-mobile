@@ -6,9 +6,13 @@ export function isIconProps(icon: IconProperty): icon is IconProps {
   return !!(icon as IconProps).type;
 }
 
-export function getIcon(h: CreateElement, icon?: IconProperty, props?: Record<string, any>) {
+export function getIcon(
+  h: CreateElement,
+  icon?: IconProperty,
+  props?: Record<string, any>,
+) {
   if (icon) {
-    if (isIconProps(icon))  {
+    if (isIconProps(icon)) {
       if (props) {
         Object.assign(icon, props);
       }

@@ -1,9 +1,16 @@
 import { ButtonProps, ButtonEvents } from '../Button';
 import { IconDef } from '../types';
 
-export type FabPositions = 'left-top' | 'left-center' | 'left-bottom' |
-'right-top' | 'right-center' | 'right-bottom' |
-'center-top' | 'center-center' | 'center-bottom';
+export type FabPositions =
+  | 'left-top'
+  | 'left-center'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right-center'
+  | 'right-bottom'
+  | 'center-top'
+  | 'center-center'
+  | 'center-bottom';
 
 export type FabAdsorb = 'x' | 'y' | 'none';
 
@@ -62,7 +69,6 @@ export interface FabEvents {
   onChange?: boolean;
   onClick?: MouseEvent;
 }
-
 
 export interface FabActionProps extends ButtonProps {
   /**

@@ -1,6 +1,10 @@
 import Dialog from './Dialog';
 import createPopupMethodApi from '../_utils/createPopupMethodApi';
-import { DialogAlertOptions, DialogConfirmOptions, DialogOptions } from './types';
+import {
+  DialogAlertOptions,
+  DialogConfirmOptions,
+  DialogOptions,
+} from './types';
 
 const { createOpenApi, close } = createPopupMethodApi(Dialog);
 

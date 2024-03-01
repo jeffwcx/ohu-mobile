@@ -1,6 +1,9 @@
 import Sticky from '../Sticky';
 import { defineComponent, props } from '../_utils/defineComponent';
-import { ListSubheaderProps as Props, ListSubheaderEvents as Events } from './types';
+import {
+  ListSubheaderProps as Props,
+  ListSubheaderEvents as Events,
+} from './types';
 
 const createListSubHeader = defineComponent<Props, Events>('list-subheader');
 
@@ -21,7 +24,7 @@ export default createListSubHeader.create({
   },
   render() {
     const { $slots, sticky } = this;
-    const root = this.root();
+    const root = this.$rootCls();
     if (sticky) {
       root.is(this.state);
       return (
@@ -29,15 +32,12 @@ export default createListSubHeader.create({
           class={root}
           onFixed={this.setState}
           onStuck={this.setState}
-          onNormal={this.setState}>
+          onNormal={this.setState}
+        >
           {$slots.default}
         </Sticky>
       );
     }
-    return (
-      <div class={root}>
-        {$slots.default}
-      </div>
-    );
+    return <div class={root}>{$slots.default}</div>;
   },
 });

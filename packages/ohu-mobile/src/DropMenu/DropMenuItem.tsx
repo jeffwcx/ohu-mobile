@@ -1,32 +1,37 @@
-import DropMenu, { baseDropMenuItemName } from './DropMenu';
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { DropMenuItemOptions, DropMenuChangeEvent, DropMenuDataModel, DropMenuChangeOption, DropMenuItemScopedSlots, DropMenuItemEvents } from './types';
+import {
+  DropMenuItemOptions,
+  DropMenuChangeEvent,
+  DropMenuDataModel,
+  DropMenuChangeOption,
+  DropMenuItemScopedSlots,
+  DropMenuItemEvents,
+  DropMenuItemProps,
+} from './types';
 import Popup, { PopupOpenEvent } from '../Popup';
 import Divider from '../Divider';
-import { VNode, PropOptions, VNodeData } from 'vue';
+import { VNode, PropOptions, CSSProperties } from 'vue';
 import { getIcon } from '../_utils/icon-utils';
 import isPlainObject from '../_utils/isPlainObject';
-import { addTargetClass } from '../_utils/targetClass';
 import { IconProperty } from '../types';
 import { ScopedSlotReturnValue } from 'vue/types/vnode';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-const dropMenuItemOptionsCls = `${baseDropMenuItemName}-options`;
-const dropMenuItemOptionCls = `${baseDropMenuItemName}-option`;
-const dropMenuItemTextCls = `${baseDropMenuItemName}__text`;
-const dropMenuItemIconCls = `${baseDropMenuItemName}__icon`;
-
-type DropMenuType = InstanceType<typeof DropMenu>;
-const defaultCheckedFunc = function (checkedOption?: DropMenuItemOptions, option?: DropMenuItemOptions) {
+const defaultCheckedFunc = function (
+  checkedOption?: DropMenuItemOptions,
+  option?: DropMenuItemOptions,
+) {
   if (checkedOption && !option) return true;
   if (checkedOption && option) {
     return checkedOption.value === option.value;
   }
   return false;
-}
+};
 
-const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSlots>().create({
-  name: baseDropMenuItemName,
+const DropMenuItem = defineComponent<
+  DropMenuItemProps,
+  DropMenuItemEvents,
+  DropMenuItemScopedSlots
+>('dropmenu-item').create({
   props: {
     title: String,
     disabled: props(Boolean).default(false),
@@ -37,8 +42,12 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       type: Function,
       default: defaultCheckedFunc,
     } as PropOptions<typeof defaultCheckedFunc>,
-    popupClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
-    popupStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
+    popupClass: props<string, Record<string, boolean>, Array<string>>(
+      String,
+      Object,
+      Array,
+    ).optional,
+    popupStyle: props.ofType<CSSProperties>().optional,
   },
   data() {
     return {
@@ -59,10 +68,13 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       if (this.options.length > 0 && checkedValue !== undefined) {
         this.options.some((option) => {
           if (option.value === checkedValue) {
-            checkedOption = Object.assign({
-              key,
-              index,
-            }, option);
+            checkedOption = Object.assign(
+              {
+                key,
+                index,
+              },
+              option,
+            );
             return true;
           }
           return false;
@@ -71,7 +83,7 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       return checkedOption;
     },
     getParent() {
-      return this.$parent as DropMenuType;
+      return this.$parent as any;
     },
     getDropMenuElement() {
       // todo: turn to use optional chain
@@ -81,11 +93,11 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       return this.getParent().getMenuItemIndex(this);
     },
     getKey() {
-      return this.$vnode.key;
+      return this.$vnode.key as string | number;
     },
     getCheckedValue() {
       const { currentValue } = this.getParent();
-      const key = this.$vnode.key;
+      const key = this.getKey();
       if (currentValue instanceof Array) {
         return currentValue[this.getIndex()];
       } else if (isPlainObject<DropMenuDataModel>(currentValue) && key) {
@@ -128,16 +140,20 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
     },
     handleAfterOpen() {
       this.opened = true;
-    }
+    },
   },
   render() {
     const { $scopedSlots, title, options, disabled } = this;
     const {
-      direction, itemActive,
-      mask, popupClass,
-      popupStyle, checkIcon,
+      direction,
+      itemActive,
+      mask,
+      popupClass,
+      popupStyle,
+      checkIcon,
       dropDownIcon,
     } = this.getParent();
+    const cls = this.$rootCls();
     let popupContent;
     let checkedText: string | ScopedSlotReturnValue = title;
     let hasCheckedOption = false;
@@ -149,7 +165,7 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
         opened: this.opened,
         checked: checkedOption,
         options: this.options,
-        instance: this,
+        instance: this as InstanceType<typeof DropMenuItem>,
       });
       if (checkedOption) {
         hasCheckedOption = this.checkedFunc(checkedOption);
@@ -167,41 +183,44 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
         if (isCheck && option.label) {
           checkedText = option.label;
         }
-        const optionCls = {
-          [dropMenuItemOptionCls]: true,
-          'is-active': isCheck,
-          'is-disabled': !!option.disabled,
-        };
+        const optionCls = cls
+          .block('option')
+          .is(isCheck && 'active')
+          .is(!!option.disabled && 'disabled');
         result.push(
-          <div class={optionCls} onClick={() => this.triggerChange({
-            index: componentIndex,
-            key,
-            ...option,
-          })}>
+          <div
+            class={optionCls}
+            onClick={() =>
+              this.triggerChange({
+                index: componentIndex,
+                key,
+                ...option,
+              })
+            }
+          >
             {option.label}
-            { isCheck && icon }
-          </div>
+            {isCheck && icon}
+          </div>,
         );
         if (index < options.length - 1) {
-          result.push(<Divider></Divider>)
+          result.push(<Divider></Divider>);
         }
         return result;
       }, [] as VNode[]);
     }
-    const dropMenuCls = {
-      [baseDropMenuItemName]: true,
-      'is-active': this.popupVisible || (itemActive && hasCheckedOption),
-      'is-disabled': disabled,
-    };
-    const iconCls = {
-      [dropMenuItemIconCls]: true,
-      'is-up': direction === 'up' ? !this.popupVisible : this.popupVisible,
-    };
-    const popupCls = {
-      [dropMenuItemOptionsCls]: true,
-    };
-    addTargetClass(popupCls, this.popupClass || popupClass);
-    const popupProps: VNodeData = {
+
+    const dropMenuCls = cls
+      .is((this.popupVisible || (itemActive && hasCheckedOption)) && 'active')
+      .is(disabled && 'disabled');
+    const iconCls = cls
+      .element('icon')
+      .is(
+        (direction === 'up' ? !this.popupVisible : this.popupVisible) && 'up',
+      );
+    const popupCls = cls
+      .block('options')
+      .addClasses(this.popupClass || popupClass);
+    const popupProps = {
       props: {
         visible: this.popupVisible,
         targetClass: popupCls,
@@ -229,15 +248,10 @@ const DropMenuItem = componentFactoryOf<DropMenuItemEvents, DropMenuItemScopedSl
       });
     }
     return (
-      <div class={dropMenuCls}
-        onClick={this.handleClick}>
-        <span class={dropMenuItemTextCls}>{checkedText}</span>
-        <i class={iconCls}>
-          { icon2 }
-        </i>
-        <Popup {...popupProps}>
-          {popupContent}
-        </Popup>
+      <div class={dropMenuCls} onClick={this.handleClick}>
+        <span class={cls.element('text')}>{checkedText}</span>
+        <i class={iconCls}>{icon2}</i>
+        <Popup {...popupProps}>{popupContent}</Popup>
       </div>
     );
   },

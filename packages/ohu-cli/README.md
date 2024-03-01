@@ -6,17 +6,17 @@
 ## Usage
 
 ```bash
-yarn install @ohu/cli -g
+pnpm install @ohu/cli -g
 # or
-npm install @ohu/cli -g
+pnpm install @ohu/cli -g
 ```
 
 or used in project:
 
 ```bash
-yarn add @ohu/cli --dev
+pnpm add @ohu/cli --dev
 # or
-npm install @ohu/cli --dev
+pnpm install @ohu/cli --dev
 ```
 
 

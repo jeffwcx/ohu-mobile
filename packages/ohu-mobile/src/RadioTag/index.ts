@@ -1,4 +1,3 @@
-
 import RadioTag from './RadioTag';
 
 export default RadioTag;

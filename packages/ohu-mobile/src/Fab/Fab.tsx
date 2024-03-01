@@ -7,20 +7,36 @@ import { AddOutlined, CloseOutlined } from '@ohu-mobile/icons';
 import Icon from '../Icon';
 import { $prefix } from '../_config/variables';
 import { VNodeData, VueConstructor } from 'vue/types/umd';
-
+import { CSSProperties } from 'vue';
 
 function computeMaxRadius(x: number, y: number, w: number, h: number) {
-  return Math.sqrt(Math.max(
-    Math.pow(x, 2) + Math.pow(y, 2),
-    Math.pow(w - x, 2) + Math.pow(y, 2),
-    Math.pow(w - x, 2) + Math.pow(h - y, 2),
-    Math.pow(x, 2) + Math.pow(h - y, 2),
-  ));
+  return Math.sqrt(
+    Math.max(
+      Math.pow(x, 2) + Math.pow(y, 2),
+      Math.pow(w - x, 2) + Math.pow(y, 2),
+      Math.pow(w - x, 2) + Math.pow(h - y, 2),
+      Math.pow(x, 2) + Math.pow(h - y, 2),
+    ),
+  );
 }
 
-const createFab = defineComponent<FabProps, FabEvents>('fab');
+type FabInnerProps = {
+  currentPos: [string, string];
+  actionsDirection: string;
+  fabPosition: DOMRect;
+  internalExpand: boolean;
+  maskPosition: CSSProperties;
+  hasAction: boolean;
+  labelDirection: string;
+  ripple: () => void;
+  maskAnimate: () => void;
+  triggerChange: (expand?: boolean, e?: MouseEvent) => void;
+  handleClick: (e: Event) => void;
+};
 
-
+const createFab = defineComponent<FabProps, FabEvents, {}, FabInnerProps>(
+  'fab',
+);
 
 export default createFab.create({
   model: {
@@ -31,7 +47,9 @@ export default createFab.create({
     ...buttonProps,
     type: props.ofType<ButtonTypes>().default('primary'),
     icon: props<string, IconDef>(String, Object).default(() => AddOutlined),
-    closeIcon: props<string, IconDef>(String, Object).default(() => CloseOutlined),
+    closeIcon: props<string, IconDef>(String, Object).default(
+      () => CloseOutlined,
+    ),
     round: props(Boolean).default(true),
     inline: props(Boolean).default(true),
     expand: props(Boolean).default(false),
@@ -39,7 +57,9 @@ export default createFab.create({
     direction: props(String).optional,
     mask: props(Boolean).default(false),
     maskClosable: props(Boolean).default(false),
-    maskTransition: props(String).default('all 500ms cubic-bezier(0.19, 1, 0.22, 1)'),
+    maskTransition: props(String).default(
+      'all 500ms cubic-bezier(0.19, 1, 0.22, 1)',
+    ),
     label: props(String).optional,
     text: props(String).optional,
     zIndex: props(Number).default(2),
@@ -51,19 +71,22 @@ export default createFab.create({
     },
     internalExpand() {
       this.ripple();
-    }
+    },
   },
   computed: {
     currentPos() {
       const [x, y] = this.position.split('-');
-      return [ x || 'right', y || 'bottom' ];
+      return [x || 'right', y || 'bottom'];
     },
     actionsDirection() {
       if (this.direction) {
         return this.direction;
       }
       let defaultDir = 'up';
-      let possibleDir = {
+      let possibleDir: Record<
+        'up' | 'down' | 'left' | 'right',
+        boolean | undefined
+      > = {
         up: true,
         down: true,
         left: true,
@@ -96,7 +119,7 @@ export default createFab.create({
       const [x, y] = this.currentPos;
       if (this.actionsDirection === 'up' || this.actionsDirection === 'down') {
         if (x === 'left' || x === 'center') {
-          return 'right'
+          return 'right';
         } else if (x === 'right') {
           return 'left';
         }
@@ -116,7 +139,7 @@ export default createFab.create({
   data() {
     return {
       internalExpand: this.expand,
-      maskPosition: {} as Partial<CSSStyleDeclaration>,
+      maskPosition: {} as CSSProperties,
     };
   },
   methods: {
@@ -127,7 +150,7 @@ export default createFab.create({
         minRadius = Math.min(rect.width, rect.height);
       }
       if (minRadius !== 0) {
-        const style: Partial<CSSStyleDeclaration> = {
+        const style: CSSProperties = {
           transform: 'scale3d(1, 1, 1)',
           borderRadius: minRadius + 'px',
           width: minRadius + 'px',
@@ -154,8 +177,8 @@ export default createFab.create({
         let innerHeight = window.innerHeight;
         const rect = this.fabPosition;
         if (rect) {
-          x = rect.x + (rect.width / 2);
-          y = rect.y + (rect.height / 2);
+          x = rect.x + rect.width / 2;
+          y = rect.y + rect.height / 2;
           minRadius = Math.min(rect.width, rect.height);
         }
         const radius = computeMaxRadius(x, y, innerWidth, innerHeight);
@@ -199,7 +222,7 @@ export default createFab.create({
     this.ripple();
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const {
       expand,
       position,
@@ -237,58 +260,46 @@ export default createFab.create({
         },
       };
     }
-    const rootStyle: Partial<CSSStyleDeclaration> = {};
+    const rootStyle: CSSProperties = {};
     if (zIndex) {
       rootStyle.zIndex = (this.internalExpand ? zIndex + 1 : zIndex).toString();
     }
     const actions = this.$slots.default;
     return (
       <div class={root} style={rootStyle}>
+        {mask && <div {...maskNodeData} />}
+        {this.label && <span class={root.element('label')}>{this.label}</span>}
         {
-          mask
-          &&
-          <div {...maskNodeData} />
-        }
-        {
-          this.label
-          &&
-          <span class={root.element('label')}>{this.label}</span>
-        }
-        {
-          <Button {...{
-            class: !this.text ? 'is-icon-only' : undefined,
-            props,
-            ref: 'button',
-            on: { click: this.handleClick },
-          }}>
-            {
-              icon
-              &&
-              (
-                this.hasAction
-                  ?
-                  <i class={iconClass}>
-                    <transition name={`${$prefix}spin`}>
-                      <Icon type={icon} v-show={!this.internalExpand} />
-                    </transition>
-                    <transition name={`${$prefix}spin-reverse`}>
-                      <Icon type={closeIcon || CloseOutlined} v-show={this.internalExpand} />
-                    </transition>
-                  </i>
-                  : <i class={iconClass}><Icon type={icon} /></i>
-              )
-
-            }
-            { text && <span>{text}</span> }
+          <Button
+            {...{
+              class: !this.text ? 'is-icon-only' : undefined,
+              props,
+              ref: 'button',
+              on: { click: this.handleClick },
+            }}
+          >
+            {icon &&
+              (this.hasAction ? (
+                <i class={iconClass}>
+                  <transition name={`${$prefix}spin`}>
+                    <Icon type={icon} v-show={!this.internalExpand} />
+                  </transition>
+                  <transition name={`${$prefix}spin-reverse`}>
+                    <Icon
+                      type={closeIcon || CloseOutlined}
+                      v-show={this.internalExpand}
+                    />
+                  </transition>
+                </i>
+              ) : (
+                <i class={iconClass}>
+                  <Icon type={icon} />
+                </i>
+              ))}
+            {text && <span>{text}</span>}
           </Button>
         }
-        {
-          actions
-          &&
-          <div class={actionClass}>
-            {actions}
-          </div>
-        }
+        {actions && <div class={actionClass}>{actions}</div>}
       </div>
     );
   },

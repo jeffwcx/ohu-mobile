@@ -4,9 +4,11 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
+    "jsxFactory": "VueTsxSupport",
     "allowJs": true,
     "outDir": "./lib",
     "checkJs": true,
+    "skipLibCheck": true,
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
@@ -14,10 +16,9 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "declaration": true,
     "types": [
-      "jest",
       "node"
     ],
     "paths": {
@@ -36,7 +37,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "md.d.ts"
   ],
   "exclude": [
     "node_modules",

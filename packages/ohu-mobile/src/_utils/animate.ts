@@ -15,8 +15,11 @@ export interface AnimateOptions {
   };
 }
 
-
-const getPropChangeFunc = (initProp: number, endPropValue: number, execFunc: (value: number) => void) =>  {
+const getPropChangeFunc = (
+  initProp: number,
+  endPropValue: number,
+  execFunc: (value: number) => void,
+) => {
   return (progress: number) => {
     const d = endPropValue - initProp;
     let p = Math.abs(d) * progress;
@@ -25,10 +28,12 @@ const getPropChangeFunc = (initProp: number, endPropValue: number, execFunc: (va
     }
     return execFunc(p);
   };
-}
+};
 
-
-export default function animate (el: HTMLElement, { timingFunction, duration, done, props }: AnimateOptions) {
+export default function animate(
+  el: HTMLElement,
+  { timingFunction, duration, done, props }: AnimateOptions,
+) {
   let distanceArr: ((progress: number) => void)[] = [];
   if (props.width !== undefined) {
     let initValue;
@@ -42,13 +47,11 @@ export default function animate (el: HTMLElement, { timingFunction, duration, do
       initValue = i;
       endValue = e;
     }
-    distanceArr.push(getPropChangeFunc(
-      initValue,
-      endValue,
-      (value) => {
+    distanceArr.push(
+      getPropChangeFunc(initValue, endValue, (value) => {
         el.style.width = `${value}px`;
-      },
-    ));
+      }),
+    );
   }
   if (props.height !== undefined) {
     let initValue;
@@ -62,13 +65,11 @@ export default function animate (el: HTMLElement, { timingFunction, duration, do
       initValue = i;
       endValue = e;
     }
-    distanceArr.push(getPropChangeFunc(
-      initValue,
-      endValue,
-      (value) => {
+    distanceArr.push(
+      getPropChangeFunc(initValue, endValue, (value) => {
         el.style.height = `${value}px`;
-      },
-    ));
+      }),
+    );
   }
   let currentTime = Date.now();
   let tick = () => {

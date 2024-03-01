@@ -1,11 +1,12 @@
-import { VNodeData } from 'vue';
+import type { CSSProperties, VNodeData } from 'vue';
 import { TabbarEvents, TabbarProps } from './types';
 import { $colorTextBase } from '../_config/variables';
 import { defineComponent, props } from '../_utils/defineComponent';
-import scrollIntoCenter, { ScrollToTargetPosition } from '../_utils/scrollIntoCenter';
+import scrollIntoCenter, {
+  ScrollToTargetPosition,
+} from '../_utils/scrollIntoCenter';
 import debounce from '../_utils/debounce';
 import bindEvent from '../_utils/bindEvent';
-
 
 export interface SimpleRect {
   key: string | number;
@@ -68,25 +69,28 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
     },
     computeIndicator() {
       let currentPosition = 0;
-      this.indicatorPositions = this.childrenRects.reduce((prev, rect) => {
-        let size = this.vertical ? rect.height : rect.width;
-        let indicatorWidth: number = 0;
-        if (typeof this.indicatorWidth === 'number') {
-          indicatorWidth = (size * this.indicatorWidth) / 100;
-        } else {
-          indicatorWidth = parseInt(this.indicatorWidth);
-        }
-        const indicatorLeft = (size - indicatorWidth) / 2;
-        const offset = indicatorLeft + currentPosition;
-        currentPosition += size;
-        if (rect.key === undefined) return prev;
-        if (prev[rect.key.toString()]) return prev;
-        prev[rect.key.toString()] = {
-          size: indicatorWidth,
-          offset,
-        };
-        return prev;
-      }, {} as Record<string | number, ScrollToTargetPosition>);
+      this.indicatorPositions = this.childrenRects.reduce(
+        (prev, rect) => {
+          let size = this.vertical ? rect.height : rect.width;
+          let indicatorWidth: number = 0;
+          if (typeof this.indicatorWidth === 'number') {
+            indicatorWidth = (size * this.indicatorWidth) / 100;
+          } else {
+            indicatorWidth = parseInt(this.indicatorWidth);
+          }
+          const indicatorLeft = (size - indicatorWidth) / 2;
+          const offset = indicatorLeft + currentPosition;
+          currentPosition += size;
+          if (rect.key === undefined) return prev;
+          if (prev[rect.key.toString()]) return prev;
+          prev[rect.key.toString()] = {
+            size: indicatorWidth,
+            offset,
+          };
+          return prev;
+        },
+        {} as Record<string | number, ScrollToTargetPosition>,
+      );
     },
     relayout() {
       this.computeChildrenRect();
@@ -107,15 +111,23 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
     }
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const {
-      $slots, $attrs,
-      inActiveColor, border, hasIndicator, indicatorHeight,
-      activeColor, vertical, indicatorInverse, scroll,
+      $slots,
+      $attrs,
+      inActiveColor,
+      border,
+      hasIndicator,
+      indicatorHeight,
+      activeColor,
+      vertical,
+      indicatorInverse,
+      scroll,
     } = this;
     const tabbarProps: VNodeData = {
       attrs: $attrs,
-      class: root.has([border && 'border', hasIndicator && 'indicator'])
+      class: root
+        .has([border && 'border', hasIndicator && 'indicator'])
         .addClasses([!hasIndicator && 'no-indicator'])
         .is([
           vertical ? 'vertical' : 'horizontal',
@@ -126,7 +138,7 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
         color: inActiveColor,
       },
     };
-    const indicatorStyle: Partial<CSSStyleDeclaration> = {};
+    const indicatorStyle: CSSProperties = {};
     if (activeColor) {
       indicatorStyle.background = activeColor;
     }
@@ -146,14 +158,10 @@ const Tabbar = defineComponent<TabbarProps, TabbarEvents>('tabbar').create({
     }
     return (
       <div {...tabbarProps}>
-        { $slots.default }
-        {
-          hasIndicator
-          &&
-          <span
-            class={root.element('indicator')}
-            style={indicatorStyle} />
-        }
+        {$slots.default}
+        {hasIndicator && (
+          <span class={root.element('indicator')} style={indicatorStyle} />
+        )}
       </div>
     );
   },

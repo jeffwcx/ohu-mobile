@@ -14,7 +14,9 @@ function makeMap(str: string, expectsLowerCase?: boolean) {
   for (let i = 0; i < list.length; i += 1) {
     map[list[i]] = true;
   }
-  return expectsLowerCase ? (val: string) => map[val.toLowerCase()] : (val: string) => map[val];
+  return expectsLowerCase
+    ? (val: string) => map[val.toLowerCase()]
+    : (val: string) => map[val];
 }
 const isTextInputType = makeMap('text,number,password,search,email,tel,url');
 
@@ -24,7 +26,9 @@ function onCompositionStart(e: any) {
 
 function onCompositionEnd(e: any) {
   // prevent triggering an input event for no reason
-  if (!e.target.composing) { return; }
+  if (!e.target.composing) {
+    return;
+  }
   e.target.composing = false;
   trigger(e.target, 'input');
 }
@@ -45,7 +49,6 @@ if (isIE9) {
     }
   });
 }
-
 
 export default {
   inserted(el: InputBaseElement, binding: any, vnode: VNode) {

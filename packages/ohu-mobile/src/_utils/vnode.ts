@@ -52,7 +52,11 @@ export function cloneVNodes(vnodes: any, deep: boolean) {
   return res;
 }
 
-export function cloneElement(n: any, nodeProps: any = {}, deep: boolean = false) {
+export function cloneElement(
+  n: any,
+  nodeProps: any = {},
+  deep: boolean = false,
+) {
   let ele = n;
   if (Array.isArray(n)) {
     ele = filterEmpty(n)[0];
@@ -111,8 +115,14 @@ export function cloneElement(n: any, nodeProps: any = {}, deep: boolean = false)
   if (node.componentOptions) {
     node.componentOptions.propsData = node.componentOptions.propsData || {};
     node.componentOptions.listeners = node.componentOptions.listeners || {};
-    node.componentOptions.propsData = { ...node.componentOptions.propsData, ...props };
-    node.componentOptions.listeners = { ...node.componentOptions.listeners, ...on };
+    node.componentOptions.propsData = {
+      ...node.componentOptions.propsData,
+      ...props,
+    };
+    node.componentOptions.listeners = {
+      ...node.componentOptions.listeners,
+      ...on,
+    };
     if (children) {
       node.componentOptions.children = children;
     }
@@ -130,7 +140,10 @@ export function cloneElement(n: any, nodeProps: any = {}, deep: boolean = false)
   return node;
 }
 
-export function getVNodesByName(children: VNode[], name: string | ((name: string) => boolean)) {
+export function getVNodesByName(
+  children: VNode[],
+  name: string | ((name: string) => boolean),
+) {
   return children.filter((child) => {
     let cname = null;
     if (child && child.componentOptions) {
@@ -151,7 +164,7 @@ export function getVNodesByName(children: VNode[], name: string | ((name: string
 
 export function isTargetComponent(vnode: VNode, name: string) {
   const options = vnode.componentOptions;
-  if (options&& options.Ctor) {
+  if (options && options.Ctor) {
     const ctor = options.Ctor as any;
     if (ctor.options && ctor.options.name) {
       return name === ctor.options.name;
@@ -160,7 +173,10 @@ export function isTargetComponent(vnode: VNode, name: string) {
   return false;
 }
 
-export function transformSlotsContext(slots: { [key: string]: VNode[] | undefined }, context?: Vue) {
+export function transformSlotsContext(
+  slots: { [key: string]: VNode[] | undefined },
+  context?: Vue,
+) {
   const result: VNode[][] = [];
   Object.keys(slots).reduce((arr, slot) => {
     const currentSlot = slots[slot];
@@ -176,7 +192,6 @@ export function transformSlotsContext(slots: { [key: string]: VNode[] | undefine
   }, result);
   return result;
 }
-
 
 export function getVModelOption(vnode: VNode) {
   const Ctor = vnode.componentOptions?.Ctor as any;

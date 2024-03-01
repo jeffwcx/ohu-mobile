@@ -1,8 +1,7 @@
-import props from 'vue-strict-prop';
-import { componentFactoryOf } from 'vue-tsx-support';
 import stickyPolyfill, { StickyBits } from 'stickybits';
-import { StickyEvents } from './types';
-import { $prefix } from '../_config/variables';
+import type { StickyProps, StickyEvents } from './types';
+import { defineComponent, props } from '../_utils/defineComponent';
+import type { CSSProperties } from 'vue';
 
 const eventMap = {
   default: 'normal',
@@ -10,9 +9,7 @@ const eventMap = {
   stuck: 'stuck',
 };
 
-const baseStickyName = `${$prefix}sticky`;
-export default componentFactoryOf<StickyEvents>().create({
-  name: baseStickyName,
+const Sticky = defineComponent<StickyProps, StickyEvents>('sticky').create({
   props: {
     top: props(Number).default(0),
     bottom: props(Number).optional,
@@ -56,16 +53,16 @@ export default componentFactoryOf<StickyEvents>().create({
   },
   render(h) {
     const node = this.$slots.default && this.$slots.default[0];
-    const style: Partial<CSSStyleDeclaration> = {};
+    const style: CSSProperties = {};
     if (this.bottom !== undefined) {
       style.bottom = this.bottom + 'px';
     } else {
       style.top = this.top + 'px';
     }
-    return h(
-      this.tag,
-      { class: baseStickyName, style, ref: 'stickyEl' },
-      [ node ]
-    );
+    return h(this.tag, { class: this.$rootCls(), style, ref: 'stickyEl' }, [
+      node,
+    ]);
   },
 });
+
+export default Sticky;

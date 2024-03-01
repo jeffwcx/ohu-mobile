@@ -1,6 +1,10 @@
 import { VueConstructor } from 'vue/types/umd';
 
-export default function (instance: InstanceType<VueConstructor>, event: keyof WindowEventMap, handler: Function) {
+export default function (
+  instance: InstanceType<VueConstructor>,
+  event: keyof WindowEventMap,
+  handler: Function,
+) {
   let registered = false;
   const listener = () => {
     handler();

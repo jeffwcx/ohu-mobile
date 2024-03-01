@@ -2,11 +2,12 @@
   "extends": "../../tsconfig.lib.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "./lib",
-    "declarationDir": "./lib",
+    "outDir": "lib",
+    "declarationDir": "lib",
     "sourceMap": true
   },
   "include": [
     "src/**/*.ts",
-  ]
+  ],
+  "exclude": ["lib", "node_modules"]
 }

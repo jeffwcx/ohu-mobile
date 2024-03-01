@@ -1,4 +1,12 @@
-import { FormEvents, FormScopedSlots, FormProps, FormAlign, FormTrigger, FormFieldInstance, FormValidateSchemaProp } from './types';
+import {
+  FormEvents,
+  FormScopedSlots,
+  FormProps,
+  FormAlign,
+  FormTrigger,
+  FormFieldInstance,
+  FormValidateSchemaProp,
+} from './types';
 import { SyntheticEvent, FormHTMLAttributes } from 'vue-tsx-support/types/dom';
 import deepmerge from 'deepmerge';
 import * as Yup from 'yup';
@@ -6,10 +14,14 @@ import { FormError } from './FormError';
 import { defineAncestorComponent, props } from '../_utils/defineComponent';
 import { VNodeData } from 'vue/types/umd';
 
-export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('form').create({
+export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>(
+  'form',
+).create({
   props: {
     initialValues: props(Object).default(() => ({})),
-    validateFunc: props<(values: any, props: FormProps) => Record<string, any>>(Function).optional,
+    validateFunc:
+      props<(values: any, props: FormProps) => Record<string, any>>(Function)
+        .optional,
     validateSchema: props.ofType<FormValidateSchemaProp>().optional,
     validateFirst: props(Boolean).default(false),
     inline: props(Boolean).default(true),
@@ -36,7 +48,9 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     removeError(name: string) {
       if (this.errors[name]) {
         this.$delete(this.errors, name);
-        this.errorNames = this.errorNames.filter(errorName => errorName !== name);
+        this.errorNames = this.errorNames.filter(
+          (errorName) => errorName !== name,
+        );
       }
     },
     addFormField(field: FormFieldInstance) {
@@ -76,8 +90,9 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
         this.errorNames = errorNames;
         return Promise.reject(new FormError(errors));
       }
-      const validatingChildren = this.children
-        .filter((child) => child.$props.name !== undefined);
+      const validatingChildren = this.children.filter(
+        (child) => child.$props.name !== undefined,
+      );
       const tasks = validatingChildren.map((component) => {
         const name = component.$props.name;
         return [name, () => component.formValidate()];
@@ -89,26 +104,29 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
         let hasEmit = false;
         let isEmpty = true;
         tasks.forEach(([name, func]) => {
-          p = p.then((r) => {
-            return Promise.all([r, name, func()]);
-          }).then(([r, n, value]) => {
-            // filter undefined ''
-            if (value !== undefined) {
-              if (this.excludeFields.indexOf(n) < 0) {
-                r[n] = value;
+          p = p
+            .then((r) => {
+              return Promise.all([r, name, func()]);
+            })
+            .then(([r, n, value]) => {
+              // filter undefined ''
+              if (value !== undefined) {
+                if (this.excludeFields.indexOf(n) < 0) {
+                  r[n] = value;
+                }
               }
-            }
-            return r;
-          }).catch((error) => {
-            if (this.validateFirst && hasEmit) throw error;
-            this.addError(name, error);
-            isEmpty = false;
-            if (this.validateFirst) {
-              hasEmit = true;
-              throw new FormError(this.errors);
-            }
-            return result;
-          });
+              return r;
+            })
+            .catch((error) => {
+              if (this.validateFirst && hasEmit) throw error;
+              this.addError(name, error);
+              isEmpty = false;
+              if (this.validateFirst) {
+                hasEmit = true;
+                throw new FormError(this.errors);
+              }
+              return result;
+            });
         });
         if (!this.validateFirst) {
           p = p.then((r) => {
@@ -150,18 +168,20 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
         field.$el.scrollIntoView();
       }
     },
-    submit() {
-      return this.validate().then((values: any) => {
-        this.$emit('submit', values);
-      }).catch(({ errors }) => {
-        if (this.scrollToError) {
-          const errorName = this.errorNames[0];
-          this.$nextTick(() => {
-            this.scrollToField(errorName);
-          })
-        }
-        this.$emit('failed', errors);
-      });
+    async submit() {
+      return this.validate()
+        .then((values: any) => {
+          this.$emit('submit', values);
+        })
+        .catch(({ errors }) => {
+          if (this.scrollToError) {
+            const errorName = this.errorNames[0];
+            this.$nextTick(() => {
+              this.scrollToField(errorName);
+            });
+          }
+          this.$emit('failed', errors);
+        });
     },
     // 👆 open api
     handleSubmit(e: SyntheticEvent<FormHTMLAttributes, Event>) {
@@ -170,7 +190,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     },
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const {
       $scopedSlots,
       $attrs,
@@ -194,8 +214,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
     };
     return (
       <form {...formProps}>
-        {
-          $scopedSlots.default &&
+        {$scopedSlots.default &&
           $scopedSlots.default({
             errors,
             model,
@@ -206,8 +225,7 @@ export default defineAncestorComponent<FormProps, FormEvents, FormScopedSlots>('
             validateField,
             submit,
             scrollToField,
-          })
-        }
+          })}
       </form>
     );
   },

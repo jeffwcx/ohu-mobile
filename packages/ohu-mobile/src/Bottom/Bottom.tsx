@@ -3,7 +3,6 @@ import { BottomProps } from './types';
 import { $prefix } from '../_config/variables';
 import Divider from '../Divider';
 
-
 const Bottom = defineComponent<BottomProps>('bottom').create({
   props: {
     visible: props(Boolean).default(true),
@@ -15,19 +14,17 @@ const Bottom = defineComponent<BottomProps>('bottom').create({
     const { $slots, tag, visible, animation, divider } = this;
     return (
       <transition name={`${$prefix}${animation}`}>
-        {
-          h(
-            tag,
-            {
-              class: this.root(),
-              directives: [{ name: 'show', value: visible, }],
-            },
-            [ divider && <Divider />, $slots.default ],
-          )
-        }
+        {h(
+          tag,
+          {
+            class: this.$rootCls(),
+            directives: [{ name: 'show', value: visible }],
+          },
+          [divider && <Divider />, $slots.default],
+        )}
       </transition>
     );
-  }
+  },
 });
 
 export default Bottom;

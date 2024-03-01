@@ -98,7 +98,7 @@ const components = [
 
 // global use ui library
 const install = (Vue: VueConstructor) => {
-  components.map(component => {
+  components.map((component) => {
     Vue.component(component.name, component);
   });
 };
@@ -202,5 +202,4 @@ export * from './vueTypes';
 
 export default {
   install,
-}
-
+};

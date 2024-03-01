@@ -34,31 +34,24 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
     },
     onTouchstart(e: TouchEvent) {
       this.$emit('touchstart', e);
-    }
+    },
   },
   render() {
-    let {
-      disabled,
-      icon,
-      loading,
-      tabindex,
-      $attrs,
-      $slots,
-    } = this;
+    let { disabled, icon, loading, tabindex, $attrs, $slots } = this;
     if (loading) {
       icon = LoaderTailOutlined;
     }
-    const root = this.root();
+    const root = this.$rootCls();
     root.is([
       this.round && 'round',
       this.type,
       this.link && 'link',
       this.size,
       this.inline && 'inline',
-      (!this.inline && this.size === 'lg') && 'block',
+      !this.inline && this.size === 'lg' && 'block',
       this.plain && 'plain',
       this.loading && 'loading',
-      (!this.$slots.default && !!this.icon) && 'icon-only',
+      !this.$slots.default && !!this.icon && 'icon-only',
     ]);
     const buttonProps: VNodeData = {
       attrs: {
@@ -77,10 +70,20 @@ const Button = defineComponent<ButtonProps, ButtonEvents>('btn').create({
     };
     return (
       <button {...buttonProps}>
-        { icon && <i><Icon type={icon} spin={loading}></Icon></i> }
-        {
-          icon ? ($slots.default ? <span>{$slots.default}</span> : '') : $slots.default
-        }
+        {icon && (
+          <i>
+            <Icon type={icon} spin={loading}></Icon>
+          </i>
+        )}
+        {icon ? (
+          $slots.default ? (
+            <span>{$slots.default}</span>
+          ) : (
+            ''
+          )
+        ) : (
+          $slots.default
+        )}
       </button>
     );
   },

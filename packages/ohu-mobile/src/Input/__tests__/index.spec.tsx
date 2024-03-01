@@ -3,13 +3,20 @@ import Vue from 'vue';
 import Input from '..';
 import EditBoxFilled from '@ohu-mobile/icons/lib/EditBoxFilled';
 import Button from '../../Button';
+import { describe, it, expect, vi } from 'vitest';
+
+function createDiv() {
+  const div = document.createElement('div');
+  document.body.appendChild(div);
+  return div;
+}
 
 describe('Input', () => {
   it('basic', () => {
     const wrapper = mount(Input, {});
     expect(wrapper.element).toMatchSnapshot();
   });
-  it('v-model', () => {
+  it('v-model', async () => {
     const Test = Vue.extend({
       data() {
         return {
@@ -17,24 +24,21 @@ describe('Input', () => {
         };
       },
       render() {
-        return (
-          <Input v-model={this.value} />
-        );
+        return <Input v-model={this.value} />;
       },
     });
     const wrapper = mount(Test);
-    wrapper.vm.value = '2';
-    setTimeout(() => {
-      let input = wrapper.find('input').element as HTMLInputElement;
-      expect(input.value).toEqual('2');
-      wrapper.find('input').trigger('input', { target: { value: '1' }, composing: false  });
-      setTimeout(() => {
-        expect(wrapper.vm.value).toEqual('1');
-      }, 0);
-    }, 0);
+    await wrapper.setData({
+      value: '2',
+    });
+    const input = wrapper.find('input').element as HTMLInputElement;
+    expect(input.value).toEqual('2');
+    input.value = '1';
+    await wrapper.find('input').trigger('input');
+    expect(wrapper.vm.value).toEqual('1');
   });
   it('allowClear', () => {
-    const func = jest.fn();
+    const func = vi.fn();
     const Test = Vue.extend({
       data() {
         return {
@@ -42,9 +46,7 @@ describe('Input', () => {
         };
       },
       render() {
-        return (
-          <Input v-model={this.value} allowClear onClear={func} />
-        );
+        return <Input v-model={this.value} allowClear onClear={func} />;
       },
     });
     const wrapper = mount(Test);
@@ -60,9 +62,7 @@ describe('Input', () => {
   it('allowTogglePassword', () => {
     const Test = Vue.extend({
       render() {
-        return (
-          <Input type="password" />
-        );
+        return <Input type="password" />;
       },
     });
     const wrapper = mount(Test);
@@ -122,7 +122,7 @@ describe('Input', () => {
       propsData: {
         type: 'textarea',
         rows: 2,
-        cols: 4
+        cols: 4,
       },
     });
     expect(wrapper.element).toMatchSnapshot();
@@ -138,60 +138,51 @@ describe('Input', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  it('focus and blur event', () => {
-    const blurFunc = jest.fn();
-    const focusFunc = jest.fn();
-    const Test = Vue.extend({
-      render() {
-        return (
-          <Input type="text" onBlur={blurFunc} onFocus={focusFunc} />
-        );
+  it('focus and blur event', async () => {
+    const blurFunc = vi.fn();
+    const focusFunc = vi.fn();
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'text',
       },
+      listeners: {
+        blur: blurFunc,
+        focus: focusFunc,
+      },
+      attachTo: createDiv(),
     });
-    const wrapper = mount(Test);
-    wrapper.find('input').trigger('focus');
+    await wrapper.find('input').trigger('focus');
     expect(focusFunc).toBeCalled();
-    wrapper.find('input').trigger('blur');
+    await wrapper.find('input').trigger('blur');
     expect(blurFunc).toBeCalled();
   });
 
-  it('enter event', () => {
-    const func = jest.fn();
+  it('enter event', async () => {
+    const func = vi.fn();
     const Test = Vue.extend({
       render() {
-        return (
-          <Input onEnter={func} />
-        );
+        return <Input onEnter={func} />;
       },
     });
     const wrapper = mount(Test);
-    wrapper.find('input').trigger('keydown.enter');
+    await wrapper.find('input').trigger('keydown.enter');
     expect(func).toBeCalled();
   });
 
-  it('event valueChange and change', () => {
-    const valueChangeFunc = jest.fn();
-    const changeFunc = jest.fn();
-    const Test = Vue.extend({
-      data() {
-        return {
-          value: '',
-        };
+  it('event valueChange and change', async () => {
+    const valueChangeFunc = vi.fn();
+    const changeFunc = vi.fn();
+    const wrapper = mount(Input, {
+      listeners: {
+        valueChange: valueChangeFunc,
+        change: changeFunc,
       },
-      render() {
-        return (
-          <Input value={this.value} onValueChange={valueChangeFunc} onChange={changeFunc} />
-        );
-      },
+      attachTo: createDiv(),
     });
-    const wrapper = mount(Test);
     const input = wrapper.find('input').element as HTMLInputElement;
     input.value = 'value';
-    wrapper.find('input').trigger('change');
-    setTimeout(() => {
-      expect(valueChangeFunc).toBeCalled();
-      expect(changeFunc).toBeCalled();
-    }, 0);
+    await wrapper.find('input').trigger('input');
+    expect(valueChangeFunc).toBeCalled();
+    expect(changeFunc).toBeCalled();
   });
-
 });

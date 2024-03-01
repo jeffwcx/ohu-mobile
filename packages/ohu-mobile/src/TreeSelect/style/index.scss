@@ -1,5 +1,6 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use '../../_styles/mixins' as *;
 
 $treeSelectPrefixClass: #{$prefix}tree-select;
 
@@ -18,7 +19,7 @@ $treeSelectPrefixClass: #{$prefix}tree-select;
     -webkit-overflow-scrolling: touch;
     &__item {
       font-size: $treeSelectItemFontSize;
-      line-height: (44 / 32) * 1em;
+      line-height: math.div(44, 32) * 1em;
       padding: $treeSelectItemPadding;
       color: $treeSelectLeftColor;
       transition: all .2s ease-out;

@@ -2,12 +2,13 @@ import { VolumeDownOutlined } from '@ohu-mobile/icons';
 import { config, mount } from '@vue/test-utils';
 import NoticeBar from '..';
 import { wait } from '../../_utils/test';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('NoticeBar', () => {
   // events
   it('close event', async () => {
-    const onClose = jest.fn();
-    const onClick = jest.fn();
+    const onClose = vi.fn();
+    const onClick = vi.fn();
     const wrapper = mount(NoticeBar, {
       propsData: {
         action: 'closable',
@@ -34,9 +35,13 @@ describe('NoticeBar', () => {
         text: 'longtextlongtextlongtextlongtextlongtextlongtextlongtextlongtextlongtextlongtext',
       },
     });
-    expect(wrapper.find('.ohu-notice-bar__text').classes('is-inline')).toBeTruthy();
+    expect(
+      wrapper.find('.ohu-notice-bar__text').classes('is-inline'),
+    ).toBeTruthy();
     await wrapper.setProps({ multiline: true });
-    expect(wrapper.find('.ohu-notice-bar__text').classes('is-wrap')).toBeTruthy();
+    expect(
+      wrapper.find('.ohu-notice-bar__text').classes('is-wrap'),
+    ).toBeTruthy();
     expect(wrapper.html()).toMatchSnapshot();
   });
 
@@ -44,7 +49,7 @@ describe('NoticeBar', () => {
     const wrapper = mount(NoticeBar, {
       propsData: {
         icon: VolumeDownOutlined,
-        text: 'Text'
+        text: 'Text',
       },
     });
     expect(wrapper.html()).toMatchSnapshot();
@@ -53,11 +58,11 @@ describe('NoticeBar', () => {
   it('action', () => {
     const wrapper = mount(NoticeBar, {
       propsData: {
-        action: 'link'
+        action: 'link',
       },
       slots: {
         icon: 'S',
-        default: 'Text'
+        default: 'Text',
       },
     });
     expect(wrapper.html()).toMatchSnapshot();
@@ -80,12 +85,13 @@ describe('NoticeBar', () => {
     });
     await wait(1000);
     const inner = wrapper.find('.ohu-notice-bar__text div');
-    const transformText = inner.element.style['transform'];
+    const innerEl = inner.element as HTMLDivElement;
+    const transformText = innerEl.style['transform'];
     expect(transformText).toBe('translate3d(-543px, 0, 0)');
     await inner.trigger('transitionend');
-    expect(inner.element.style['transform']).toBe('translate3d(524px, 0, 0)');
+    expect(innerEl.style['transform']).toBe('translate3d(524px, 0, 0)');
     await wait(300);
-    expect(inner.element.style['transform']).toBe('translate3d(-543px, 0, 0)');
+    expect(innerEl.style['transform']).toBe('translate3d(-543px, 0, 0)');
   });
 
   it('deactivated and activated', async () => {
@@ -96,7 +102,8 @@ describe('NoticeBar', () => {
         offset: '30%',
       },
     });
-    const width = wrapper.vm.$data.marqueeContainerWidth + wrapper.vm.$data.marqueeWidth;
+    const width =
+      wrapper.vm.$data.marqueeContainerWidth + wrapper.vm.$data.marqueeWidth;
     await wait(1200);
     wrapper.vm.$emit('hook:deactivated');
     await wait(200);
@@ -104,5 +111,4 @@ describe('NoticeBar', () => {
     await wait(200);
     expect(wrapper.vm.$data.marqueeMoveDistance).toEqual(width);
   });
-
 });

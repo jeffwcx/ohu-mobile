@@ -35,7 +35,7 @@ export type PopupHorizontalPosition = 'left' | 'right' | 'center';
 export interface PopupAnyPosition {
   top?: number;
   left?: number;
-};
+}
 
 export interface PopupAnchorPosition {
   vertical?: PopupVerticalPosition;
@@ -47,10 +47,23 @@ export interface PopupTransformOrigin {
   horizontal?: PopupHorizontalPosition;
 }
 
-export type PopupAnimateType = 'none' | 'fade' | 'zoom' | 'zoom-scale' |
-'slide-up' | 'slide-down' | 'slide-left' | 'slide-right' | 'scale-up' | 'scale-down';
+export type PopupAnimateType =
+  | 'none'
+  | 'fade'
+  | 'zoom'
+  | 'zoom-scale'
+  | 'slide-up'
+  | 'slide-down'
+  | 'slide-left'
+  | 'slide-right'
+  | 'scale-up'
+  | 'scale-down';
 
-export type PopupPosition = PopupAnyPosition | PopupAnchorPosition | PopupVerticalPosition | PopupHorizontalPosition;
+export type PopupPosition =
+  | PopupAnyPosition
+  | PopupAnchorPosition
+  | PopupVerticalPosition
+  | PopupHorizontalPosition;
 
 export interface PopupProps {
   /**
@@ -135,11 +148,10 @@ export interface PopupProps {
    * 在deactivated状态下隐藏弹出层
    */
   hideOnDeactivated?: boolean;
-};
-
+}
 
 export type PopupOutSideEvents = Omit<PopupEvents, 'onAfterLeave'> & {
-  onAfterClose: any,
+  onAfterClose: any;
 };
 
 export type PopupGetContainerFunc = (() => HTMLElement) | HTMLElement;
@@ -147,20 +159,17 @@ export type PopupGetContainerFunc = (() => HTMLElement) | HTMLElement;
 export interface PopupOutSideProps extends PopupProps {
   getContainer?: PopupGetContainerFunc;
   dynamic?: boolean;
-};
+}
 
-export type PopupOpenOptions = PopupProps
-&
-VueEventWrapper<PopupOutSideEvents>
-& {
-  parent?: Vue;
-  render?: (h?: CreateElement) => (VNode | VNode[]);
-};
-
+export type PopupOpenOptions = PopupProps &
+  VueEventWrapper<PopupOutSideEvents> & {
+    parent?: Vue;
+    render?: (h?: CreateElement) => VNode | VNode[];
+  };
 
 export interface PopupHeaderProps {
   title?: string;
-  minorText?: string,
+  minorText?: string;
   center?: boolean;
   confirm?: boolean;
   closeIcon?: IconDef;

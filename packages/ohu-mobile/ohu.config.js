@@ -1,4 +1,3 @@
-
 module.exports = {
   icon: {
     globs: './src/Result/illustration',

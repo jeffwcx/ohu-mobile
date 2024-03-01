@@ -1,13 +1,20 @@
-import { CheckboxCircleFilled, CheckboxBlankCircleOutlined } from '@ohu-mobile/icons';
+import {
+  CheckboxCircleFilled,
+  CheckboxBlankCircleOutlined,
+} from '@ohu-mobile/icons';
 import { props, defineDsc } from '../_utils/defineComponent';
-import SwitchBase, { SwitchBaseOutsideProps } from '../_internal/SwitchBase';
+import SwitchBase from '../_internal/SwitchBase';
 import { $radioActiveColor, $radioColor } from '../_config/variables';
 import { IconProperty } from '../types';
-import { RadioProps as Props, RadioEvents as Events, RadioScopedSlots as SS } from './types';
+import {
+  RadioProps as Props,
+  RadioEvents as Events,
+  RadioScopedSlots as SS,
+} from './types';
 import RadioGroup from '../RadioGroup';
 import { fieldMixin } from '../Form/fieldMixin';
 
-interface RadioMethods {
+export interface RadioMethods {
   check: () => void;
   uncheck: () => void;
 }
@@ -18,9 +25,8 @@ type Group = InstanceType<typeof RadioGroup>;
 
 const createRadio = defineDsc<Group, Props, Events, SS, Methods>(
   'radio-group',
-  'radio'
+  'radio',
 ).mixin(fieldMixin('checkedValue', 'checked', true));
-
 
 export default createRadio.create({
   model: {
@@ -36,8 +42,12 @@ export default createRadio.create({
     labelClickable: props(Boolean).default(true),
     color: props(String).default($radioActiveColor),
     unCheckedColor: props(String).default($radioColor),
-    checkedIcon: props.ofType<IconProperty | null>().default(() => CheckboxCircleFilled),
-    unCheckedIcon: props.ofType<IconProperty | null>().default(() => CheckboxBlankCircleOutlined),
+    checkedIcon: props
+      .ofType<IconProperty | null>()
+      .default(() => CheckboxCircleFilled),
+    unCheckedIcon: props
+      .ofType<IconProperty | null>()
+      .default(() => CheckboxBlankCircleOutlined),
     attach: props.ofAny().optional,
   },
   watch: {
@@ -71,12 +81,18 @@ export default createRadio.create({
       this.handleChange(false);
     },
     getChecked() {
-      return this.ancestor ? this.ancestor.isChildChecked(this.value) : this.checkedValue;
+      return this.ancestor
+        ? this.ancestor.isChildChecked(this.value)
+        : this.checkedValue;
     },
     handleChange(checked: boolean) {
       if (this.internalDisabled) return;
       if (this.ancestor) {
-        const success = this.ancestor.childrenChange(this.value, checked, this.attach);
+        const success = this.ancestor.childrenChange(
+          this.value,
+          checked,
+          this.attach,
+        );
         if (success) {
           this.checkedValue = checked;
         }
@@ -87,11 +103,7 @@ export default createRadio.create({
     },
   },
   render() {
-    const {
-      internalDisabled,
-      ancestor,
-      $scopedSlots,
-    } = this;
+    const { internalDisabled, ancestor, $scopedSlots } = this;
     const {
       checked,
       disabled,
@@ -102,33 +114,36 @@ export default createRadio.create({
       unCheckedIcon,
       ...radioProps
     } = this.$props;
-    const props: SwitchBaseOutsideProps = {
-      baseName: 'radio',
-      role: 'radio',
-      checked: this.getChecked(),
-      disabled: internalDisabled,
-      name: ancestor?.name || name,
-      color: ancestor?.color || color,
-      unCheckedColor: ancestor?.unCheckedColor || unCheckedColor,
-      checkedIcon: ancestor?.checkedIcon !== undefined ? ancestor?.checkedIcon : checkedIcon,
-      unCheckedIcon: ancestor?.unCheckedIcon !== undefined ? ancestor?.unCheckedIcon : unCheckedIcon,
-      ...radioProps,
-    };
-    return (
-      <SwitchBase {...{
-        class: ancestor && 'is-group-item',
-        props,
-        on: {
-          ...this.$listeners,
-          change: this.handleChange,
-          blur: (e: Event) => {
-            this.$emit('blur', e);
-          },
+
+    const switchBaseProps = {
+      props: {
+        baseName: 'radio',
+        role: 'radio',
+        checked: this.getChecked(),
+        disabled: internalDisabled,
+        name: ancestor?.name || name,
+        color: ancestor?.color || color,
+        unCheckedColor: ancestor?.unCheckedColor || unCheckedColor,
+        checkedIcon:
+          ancestor?.checkedIcon !== undefined
+            ? ancestor?.checkedIcon
+            : checkedIcon,
+        unCheckedIcon:
+          ancestor?.unCheckedIcon !== undefined
+            ? ancestor?.unCheckedIcon
+            : unCheckedIcon,
+        ...radioProps,
+      },
+      on: {
+        ...this.$listeners,
+        change: this.handleChange,
+        blur: (e: Event) => {
+          this.$emit('blur', e);
         },
-        scopedSlots: $scopedSlots,
-      }}>
-        {this.$slots.default}
-      </SwitchBase>
-    );
+      },
+      scopedSlots: $scopedSlots,
+    };
+
+    return <SwitchBase {...switchBaseProps}>{this.$slots.default}</SwitchBase>;
   },
 });

@@ -1,21 +1,16 @@
-import { componentFactory } from 'vue-tsx-support';
 import props from 'vue-strict-prop';
-import { VNodeData } from 'vue';
-import { $prefix } from '../_config/variables';
+import type { CSSProperties } from 'vue';
+import { defineComponent } from '../_utils/defineComponent';
 
-
-const skeletonBaseName = `${$prefix}skeleton`;
-const skeletonCompoundCls = `${$prefix}skeleton--compound`;
-const skeletonContentCls = `${skeletonBaseName}__content`;
-
-const Skeleton = componentFactory.create({
-  name: skeletonBaseName,
+const Skeleton = defineComponent('skeleton').create({
   props: {
     loading: props(Boolean).default(false),
     shape: props.ofStringLiterals('rect', 'circle').default('rect'),
     title: props(Boolean).default(false),
     titleWidth: props(String).default('40%'),
-    rows: props(Number).validator(v => v >= 0).default(0),
+    rows: props(Number)
+      .validator((v) => v >= 0)
+      .default(0),
     row: props(Boolean).default(false),
     rowWidth: props(Array, String).default(() => ['100%', '100%', '60%']),
     avatar: props(Boolean).default(false),
@@ -26,12 +21,19 @@ const Skeleton = componentFactory.create({
   },
   render() {
     const {
-      animate, animateDisable, loading, shape,
-      row, rows, rowWidth,
-      avatar, avatarSize,
-      title, titleWidth,
+      animate,
+      animateDisable,
+      loading,
+      shape,
+      row,
+      rows,
+      rowWidth,
+      avatar,
+      avatarSize,
+      title,
+      titleWidth,
       duration,
-      $slots
+      $slots,
     } = this;
     const animationDuration = `${duration}ms`;
     const style = {
@@ -39,20 +41,18 @@ const Skeleton = componentFactory.create({
       animationDuration,
     };
     const currentShape = avatar ? 'circle' : shape;
-    const cls = {
-      [skeletonBaseName]: true,
-      [`is-${animate}`]: !animateDisable,
-      [`is-${currentShape}`]: true,
-      'is-avatar': avatar,
-      'is-title': title,
-      'is-row': row,
-    };
+    const cls = this.$rootCls()
+      .is(!animateDisable && animate)
+      .is(currentShape)
+      .is(avatar && 'avatar')
+      .is(title && 'title')
+      .is(row && 'row');
     let content;
     // compound: title, rows, avatar
     let hasRows = rows > 0;
     const isCompound = hasRows || (title && avatar);
     if (!isCompound) {
-      const singleElStyle: Partial<CSSStyleDeclaration> = style;
+      const singleElStyle: CSSProperties = style;
       if (title) {
         singleElStyle.width = titleWidth;
       }
@@ -69,44 +69,46 @@ const Skeleton = componentFactory.create({
       }
       content = <div class={cls} style={singleElStyle}></div>;
     } else {
-      const avatarProps: VNodeData = {
+      const avatarProps = {
         props: { animate, animateDisable, avatar: true, avatarSize, duration },
       };
-      const titleProps: VNodeData = {
+      const titleProps = {
         props: { animate, animateDisable, title: true, titleWidth, duration },
       };
       const leftContent = $slots.left
         ? $slots.left
-        : (avatar && <Skeleton {...avatarProps}></Skeleton>);
-      const rightContent = $slots.content
-        ? <div class={skeletonContentCls}>{$slots.content}</div>
-        : (
-          <div class={skeletonContentCls}>
-            { title && <Skeleton {...titleProps}></Skeleton> }
-            {
-              hasRows
-              &&
-              new Array(rows)
-                .fill(0)
-                .map((_, index) => {
-                  let currentRowWidth;
-                  if (typeof rowWidth === 'string') {
-                    currentRowWidth = rowWidth;
-                  } else {
-                    currentRowWidth = rowWidth[index % rowWidth.length];
-                  }
-                  const rowProps: VNodeData = {
-                    props: { animate, animateDisable, row: true, rowWidth: currentRowWidth, duration },
-                  };
-                  return <Skeleton {...rowProps}></Skeleton>;
-                })
-            }
-          </div>
-        );
+        : avatar && <Skeleton {...avatarProps}></Skeleton>;
+      const skeletonContentCls = cls.element('content');
+      const rightContent = $slots.content ? (
+        <div class={skeletonContentCls}>{$slots.content}</div>
+      ) : (
+        <div class={skeletonContentCls}>
+          {title && <Skeleton {...titleProps}></Skeleton>}
+          {hasRows &&
+            new Array(rows).fill(0).map((_, index) => {
+              let currentRowWidth;
+              if (typeof rowWidth === 'string') {
+                currentRowWidth = rowWidth;
+              } else {
+                currentRowWidth = rowWidth[index % rowWidth.length];
+              }
+              const rowProps = {
+                props: {
+                  animate,
+                  animateDisable,
+                  row: true,
+                  rowWidth: currentRowWidth,
+                  duration,
+                },
+              };
+              return <Skeleton {...rowProps}></Skeleton>;
+            })}
+        </div>
+      );
       content = (
-        <div class={skeletonCompoundCls}>
-          { leftContent }
-          { rightContent }
+        <div class={this.$bem.block('skeletons')}>
+          {leftContent}
+          {rightContent}
         </div>
       );
     }

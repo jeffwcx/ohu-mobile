@@ -37,7 +37,9 @@ export interface InputProps extends InputBaseAttrs {
   noBorder?: boolean;
 }
 
-export type InputChangeEvent = SyntheticEvent<HTMLInputElement & { composing: boolean }>;
+export type InputChangeEvent = SyntheticEvent<
+  HTMLInputElement & { composing: boolean }
+>;
 export type InputFocusEvent = SyntheticEvent<InputHTMLAttributes, FocusEvent>;
 export type InputBlurEvent = InputFocusEvent;
 

@@ -13,4 +13,3 @@ const ArrowRightSFilled: SVGIconDef = {
 };
 
 export default ArrowRightSFilled;
-

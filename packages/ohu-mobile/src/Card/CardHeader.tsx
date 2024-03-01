@@ -1,32 +1,28 @@
-import { componentFactory } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
 import { $prefix } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
 
 export const cardHeaderBaseName = `${$prefix}card-header`;
-const cardHeaderExtraCls = `${$prefix}card-header__extra`;
-const CardHeader = componentFactory.create({
-  name: cardHeaderBaseName,
+
+const CardHeader = defineComponent('card-header').create({
   props: {
-    status: props.ofStringLiterals('error', 'success', 'normal').default('normal'),
+    status: props
+      .ofStringLiterals('error', 'success', 'normal')
+      .default('normal'),
     bold: props(Boolean).default(false),
     extra: String,
   },
-  computed: {
-    cls() {
-      return {
-        [cardHeaderBaseName]: true,
-        [`is-${this.status}`]: true,
-        'is-bold': this.bold,
-      };
-    },
-  },
   render() {
-    const { $slots, extra } = this;
+    const { $slots, extra, status, bold } = this;
     const extraContent = $slots.extra || extra;
+    const root = this.$rootCls()
+      .is(status)
+      .is(bold && 'bold');
     return (
-      <div class={this.cls}>
-        { $slots.default }
-        { extraContent && <div class={cardHeaderExtraCls}>{extraContent}</div> }
+      <div class={root}>
+        {$slots.default}
+        {extraContent && (
+          <div class={root.element('extra')}>{extraContent}</div>
+        )}
       </div>
     );
   },

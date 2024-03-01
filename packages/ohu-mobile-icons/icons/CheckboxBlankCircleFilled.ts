@@ -13,4 +13,3 @@ const CheckboxBlankCircleFilled: SVGIconDef = {
 };
 
 export default CheckboxBlankCircleFilled;
-

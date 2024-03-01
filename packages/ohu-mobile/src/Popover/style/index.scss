@@ -1,5 +1,7 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use "pkg:@ohu-mobile/styles" as *;
+@use '../../_styles/mixins' as *;
 $popoverPrefixClass: #{$prefix}popover;
 
 .#{$popoverPrefixClass} {
@@ -55,7 +57,7 @@ $popoverItemHeight: 102px;
   box-sizing: border-box;
   position: relative;
   font-size: 32px;
-  line-height: (44/32) * 1em;
+  line-height: math.div(44, 32) * 1em;
   font-weight: 400;
   &:active {
     opacity: .5;

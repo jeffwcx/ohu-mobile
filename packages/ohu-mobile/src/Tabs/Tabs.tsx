@@ -4,10 +4,10 @@ import Tabbar, { TabbarChangeEvent } from '../Tabbar';
 import { getVNodesByName } from '../_utils/vnode';
 import { $prefix, $colorTextBase } from '../_config/variables';
 import Carousel from '../Carousel';
-import { VNode, VNodeData } from 'vue/types/umd';
+import type { VNode } from 'vue';
 import Sticky from '../Sticky';
 
-type K = { index: number, name?: string };
+type K = { index: number; name?: string };
 
 type NameMap = Record<string, number | K>;
 
@@ -56,7 +56,7 @@ export default defineComponent<TabsProps, TabsEvents>('tabs').create({
         }
         acc[index] = {
           index,
-          name: props.name
+          name: props.name,
         };
         return acc;
       }, {} as NameMap);
@@ -76,17 +76,12 @@ export default defineComponent<TabsProps, TabsEvents>('tabs').create({
     },
     renderTabbar(children: VNode[], sticky?: boolean) {
       if (sticky) {
-        return (
-          <Sticky>{this.renderTabbar(children)}</Sticky>
-        );
+        return <Sticky>{this.renderTabbar(children)}</Sticky>;
       }
       const { $slots } = this;
-      const {
-        value,
-        ...tabbarProps
-      } = this.$props as TabsProps;
+      const { value, ...tabbarProps } = this.$props as TabsProps;
       if (!$slots.default) return;
-      const tabbarNodeData: VNodeData = {
+      const tabbarNodeData = {
         props: {
           value: this.stateValue,
           ...tabbarProps,
@@ -97,20 +92,19 @@ export default defineComponent<TabsProps, TabsEvents>('tabs').create({
       };
       return (
         <Tabbar {...tabbarNodeData}>
-          {
-            children.map((vnode) => {
-              const { title, ...tabbarItemProps } = vnode.componentOptions?.propsData as TabProps;
-              return (
-                <Tabbar.Item {...{ props: tabbarItemProps }}>{title}</Tabbar.Item>
-              );
-            })
-          }
+          {children.map((vnode) => {
+            const { title, ...tabbarItemProps } = vnode.componentOptions
+              ?.propsData as TabProps;
+            return (
+              <Tabbar.Item {...{ props: tabbarItemProps }}>{title}</Tabbar.Item>
+            );
+          })}
         </Tabbar>
       );
     },
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const { $slots, sticky, stateValue } = this;
     let children = $slots.default
       ? getVNodesByName($slots.default, `${$prefix}tab`)
@@ -128,7 +122,8 @@ export default defineComponent<TabsProps, TabsEvents>('tabs').create({
             onChange={(e) => {
               const key = this.getNameByIndex(e.toIndex, map);
               this.handleChange(key);
-            }}>
+            }}
+          >
             {children}
           </Carousel>
         </div>

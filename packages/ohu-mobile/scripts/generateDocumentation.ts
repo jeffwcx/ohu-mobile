@@ -15,7 +15,7 @@ interface DocEntry {
 /** Generate documentation for all classes in a set of .ts files */
 function generateDocumentation(
   fileNames: string[],
-  options: ts.CompilerOptions
+  options: ts.CompilerOptions,
 ): void {
   // Build a program using the set of root file names in fileNames
   let program = ts.createProgram(fileNames, options);
@@ -54,41 +54,44 @@ function generateDocumentation(
     return details;
   }
 
-
-
   /** Serialize a symbol into a json object */
   function serializeSymbol(symbol: ts.Symbol): DocEntry {
     const props: DocEntry[] = [];
     if (symbol.members) {
       symbol.members.forEach((s) => {
         props.push(serializeSymbol(s));
-      })
+      });
     }
 
     return {
       name: symbol.getName(),
-      documentation: ts.displayPartsToString(symbol.getDocumentationComment(checker)),
+      documentation: ts.displayPartsToString(
+        symbol.getDocumentationComment(checker),
+      ),
       props,
       type: checker.typeToString(
-        checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)
+        checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!),
       ),
     };
   }
-
 
   /** Serialize a signature (call or construct) */
   function serializeSignature(signature: ts.Signature) {
     return {
       parameters: signature.parameters.map(serializeSymbol),
       returnType: checker.typeToString(signature.getReturnType()),
-      documentation: ts.displayPartsToString(signature.getDocumentationComment(checker))
+      documentation: ts.displayPartsToString(
+        signature.getDocumentationComment(checker),
+      ),
     };
   }
 
   /** True if this is visible outside this file, false otherwise */
   function isNodeExported(node: ts.Node): boolean {
     return (
-      (ts.getCombinedModifierFlags(node as ts.Declaration) & ts.ModifierFlags.Export) !== 0 ||
+      (ts.getCombinedModifierFlags(node as ts.Declaration) &
+        ts.ModifierFlags.Export) !==
+        0 ||
       (!!node.parent && node.parent.kind === ts.SyntaxKind.SourceFile)
     );
   }
@@ -96,5 +99,5 @@ function generateDocumentation(
 
 generateDocumentation(process.argv.slice(2), {
   target: ts.ScriptTarget.ES5,
-  module: ts.ModuleKind.CommonJS
+  module: ts.ModuleKind.CommonJS,
 });

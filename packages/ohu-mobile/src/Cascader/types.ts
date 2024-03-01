@@ -6,9 +6,13 @@ export interface CascaderOption {
   children?: CascaderOption[];
 }
 
-export type CascaderLoadDataFunction = (selectOption: CascaderOption) => Promise<CascaderOption[]>;
+export type CascaderLoadDataFunction = (
+  selectOption: CascaderOption,
+) => Promise<CascaderOption[]>;
 
-export type CascaderShouldLoadDataFunction = (selectOption: CascaderOption) => boolean;
+export type CascaderShouldLoadDataFunction = (
+  selectOption: CascaderOption,
+) => boolean;
 
 export interface CascaderProps<T = any> {
   value?: T[];

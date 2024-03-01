@@ -1,27 +1,20 @@
 import path from 'path';
-import glob from 'glob';
-import util from 'util';
+import { glob } from 'glob';
 import fs from 'fs-extra';
-import rimraf from 'rimraf';
-import chalk from 'chalk';
-import yargs from 'yargs';
-import { Ora } from 'ora';
+import { rimraf } from 'rimraf';
 import inquirer from 'inquirer';
 import { generateIcon, generateTypeFile, generateIndexFile } from './generate';
-import { IconCommandOptions, OhuOptions } from '../types';
-import l from '../locale';
-import chunk from 'lodash/chunk';
+import { BuildIconOptions, IconCommandOptions, IconGeneratedEvent } from '../types';
+import { t } from '../locale';
+import { chunk } from 'lodash-es';
 
-const globAsync = util.promisify<(glob: string) => string[]>(glob as any);
-
-type Options = yargs.Arguments<IconCommandOptions>;
 
 async function generateIcons(
   svgPaths: string[],
   outputDir: string,
   template: string,
   options: IconCommandOptions,
-  success?: (result: { count: number, total: number, fileName: string }) => void,
+  success?: (result: IconGeneratedEvent) => void,
 ) {
   let count = 0;
   let total = svgPaths.length;
@@ -46,12 +39,6 @@ async function generateIcons(
   };
 }
 
-
-interface BuildIconExtraOptions {
-  spinner?: Ora;
-  global?: OhuOptions;
-}
-
 function resolveTemplatePath(p: string) {
   return path.resolve(__dirname, '../../templates/', p);
 }
@@ -62,19 +49,18 @@ function resolveTemplatePath(p: string) {
  * @param spinner ora instance
  * @returns The path of the converted icon files
  */
-export async function buildIcon(options: Options, { spinner }: BuildIconExtraOptions = {}) {
+export async function buildIcon(options: BuildIconOptions) {
   let {
     outputDir,
     template,
     type,
     globs,
     noIndex,
-    dynamicId,
     tsx,
     vue,
   } = options;
   if (!globs) {
-    throw new Error(l('icon.globsExistError'));
+    throw new Error(t('icon.globsExistError'));
   }
   if (!template) {
     if (tsx) {
@@ -85,10 +71,8 @@ export async function buildIcon(options: Options, { spinner }: BuildIconExtraOpt
       }
     } else if (vue) {
       template = resolveTemplatePath('vue-template.art');
-    } else if (!dynamicId) {
-      template = resolveTemplatePath('default-template.art');
     } else {
-      template = resolveTemplatePath('default-dynamic-template.art');
+      template = resolveTemplatePath('default-template.art');
     }
   }
   if (type && !path.isAbsolute(type)) {
@@ -102,12 +86,12 @@ export async function buildIcon(options: Options, { spinner }: BuildIconExtraOpt
     await fs.mkdirp(outputDir);
   } else {
     const p = path.resolve(outputDir, '**/*.(tsx|ts|vue)');
-    const files = await globAsync(p);
+    const files = await glob(p);
     if (files.length <= 0) {
       const answer = await inquirer.prompt({
         name: 'removeFiles',
         type: 'confirm',
-        message: l('icon.removeFilesQuestion'),
+        message: t('icon.removeFilesQuestion'),
         default: true,
       });
       if (answer.removeFiles) {
@@ -129,33 +113,34 @@ export async function buildIcon(options: Options, { spinner }: BuildIconExtraOpt
   }
   const svgTplExists = await fs.pathExists(template);
   if (!svgTplExists) {
-    throw new Error(l('icon.templateExistError'));
+    throw new Error(t('icon.templateExistError'));
   }
   const [svgPaths, templateStr] = await Promise.all([
-    globAsync(globs),
+    glob(globs),
     fs.readFile(template, 'utf8'),
   ]);
 
   if (svgPaths.length === 0) return;
-  spinner && spinner.start();
+
+  options.onStart?.();
   const { fileNames, themes } = await generateIcons(
     svgPaths,
     outputDir,
     templateStr,
     options,
-    ({ count, total, fileName }) => {
-      spinner && (spinner.text = chalk.cyan(`${count}/${total} ${fileName} ${l('icon.genSuccess')}`));
+    (event) => {
+      options.onProgress?.(event);
     },
   );
-  spinner && spinner.succeed(chalk.green(l('icon.iconsGenSuccess'))).start();
+  options.onIconsGenerated?.();
   if (!noIndex) {
     await generateIndexFile(outputDir, fileNames).then(() => {
-      spinner && spinner.succeed(chalk.green(l('icon.indexFileGenSuccess'))).start();
+      options.onIndexFileGenerated?.();
     });
   }
   if (type) {
     await generateTypeFile(outputDir, type, themes).then(() => {
-      spinner && spinner.succeed(chalk.green(l('icon.typeFileGenSuccess')));
+      options.onTypeFileGenerated?.();
     });
   }
   return fileNames;

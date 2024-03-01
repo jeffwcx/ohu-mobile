@@ -7,15 +7,15 @@
 ## 安装
 
 ```bash
-yarn i -g @ohu/cli
+pnpm i -g @ohu/cli
 # 或者
-npm i -g @ohu/cli
+pnpm i -g @ohu/cli
 ```
 
 或者在项目中使用：
 
 ```bash
-yarn add @ohu/cli --dev
+pnpm add @ohu/cli --dev
 # 或者
 npm install @ohu/cli --dev
 ```

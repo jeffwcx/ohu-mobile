@@ -1,4 +1,3 @@
-
 export interface BottomProps {
   tag?: string;
   visible?: boolean;
