@@ -4,29 +4,16 @@ description: "Sets up Node.js and runs install"
 runs:
   using: composite
   steps:
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
-
     - uses: pnpm/action-setup@v3
       name: Install pnpm
       with:
         version: 8
         run_install: false
 
-    - name: Get pnpm store directory
-      shell: bash
-      run: |
-        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-    - uses: actions/cache@v3
-      name: Setup pnpm cache
+    - name: Install Node.js
+      uses: actions/setup-node@v3
       with:
-        path: ${{ env.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-
+        node-version: 20
 
     - name: Install dependencies
       shell: bash
