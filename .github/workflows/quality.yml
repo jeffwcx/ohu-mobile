@@ -69,7 +69,7 @@ jobs:
         with:
           name: codecov-umbrella
           flags: unittests
-          directory: packages/ohu-mobile/coverage
+          files: ./packages/ohu-mobile/coverage/coverage-final.json
           verbose: true
         env:
           CI: true
@@ -79,7 +79,7 @@ jobs:
         with:
           name: codecov-umbrella
           flags: unittests
-          directory: packages/ohu-cli/coverage
+          files: ./packages/ohu-cli/coverage/coverage-final.json
           verbose: true
         env:
           CI: true
