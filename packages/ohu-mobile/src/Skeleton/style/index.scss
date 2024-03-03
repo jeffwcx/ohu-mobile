@@ -1,5 +1,5 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use '../../_styles/variables' as *;
+@use '../../_styles/mixins' as *;
 $skeletonScanStartColor: lighten($skeletonBackground, 3%);
 $skeletonScanEndColor: $skeletonBackground;
 
@@ -29,7 +29,7 @@ $skeletonPrefixClass: #{$prefix}skeleton;
 .#{$skeletonPrefixClass} {
   display: block;
   background: $skeletonBackground;
-  &--compound {
+  &s {
     display: flex;
     flex-flow: row nowrap;
   }

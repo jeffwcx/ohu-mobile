@@ -1,22 +1,40 @@
 import { defineComponent, props } from '../_utils/defineComponent';
-import { NoticeBarProps, NoticeBarEvents, NoticeBarType, NoticeBarAction } from './types';
+import {
+  NoticeBarProps,
+  NoticeBarEvents,
+  NoticeBarType,
+  NoticeBarAction,
+} from './types';
 import { IconDef } from '../types';
 import Icon from '../Icon';
 import { CloseOutlined, ArrowRightSOutlined } from '@ohu-mobile/icons';
-import { VNodeData } from 'vue/types/umd';
+import type { CSSProperties, VNodeData } from 'vue';
 
-interface NoticeBarData {
+export interface NoticeBarInnerProps {
   isShow: boolean;
   marqueeMoveDistance: number;
   marqueeWidth: number;
   marqueeContainerWidth: number;
   translateX: number | string;
-  marqueeStyle: Partial<CSSStyleDeclaration>;
-  getInitMarqueeStyle: () => Partial<CSSStyleDeclaration>;
+  marqueeStyle: CSSProperties;
+
+  isScroll: boolean;
+  offsetLeft: number;
+  getInitMarqueeStyle: () => CSSProperties;
+  setMarqueeWidth: () => void;
+  setMarqueStyle: (translateX?: number, duration?: number) => void;
+  computeInitMoveDistance: () => number;
+  initMarquee: () => void;
+  resetMarquee: () => void;
+  handleAction: (e: Event) => void;
 }
 
-
-export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarData>('notice-bar').create({
+export default defineComponent<
+  NoticeBarProps,
+  NoticeBarEvents,
+  {},
+  NoticeBarInnerProps
+>('notice-bar').create({
   props: {
     text: String,
     icon: props<IconDef>(Object).optional,
@@ -67,13 +85,15 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
       }
     },
     setMarqueStyle(translateX?: number, duration?: number) {
-      let translate = translateX !== undefined ? translateX : -this.marqueeWidth;
-      const style: Partial<CSSStyleDeclaration> = {
+      let translate =
+        translateX !== undefined ? translateX : -this.marqueeWidth;
+      const style: CSSProperties = {
         transitionTimingFunction: 'linear',
         transform: `translate3d(${translate}px, 0, 0)`,
-        transitionDuration: duration === undefined
-          ? `${this.marqueeMoveDistance / this.speed}s`
-          : `${duration}s`,
+        transitionDuration:
+          duration === undefined
+            ? `${this.marqueeMoveDistance / this.speed}s`
+            : `${duration}s`,
       };
       this.marqueeStyle = style;
     },
@@ -87,7 +107,9 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
       };
     },
     computeInitMoveDistance() {
-      return this.marqueeContainerWidth * (this.offsetLeft / 100) + this.marqueeWidth;
+      return (
+        this.marqueeContainerWidth * (this.offsetLeft / 100) + this.marqueeWidth
+      );
     },
     initMarquee() {
       if (this.timeoutId) clearTimeout(this.timeoutId);
@@ -111,7 +133,7 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
     resetMarquee() {
       Object.assign(this, this.setMarqueeWidth());
       if (!this.isScroll) {
-        return this.marqueeStyle = this.getInitMarqueeStyle();
+        return (this.marqueeStyle = this.getInitMarqueeStyle());
       }
       this.marqueeMoveDistance = this.marqueeContainerWidth + this.marqueeWidth;
       this.setMarqueStyle(this.marqueeContainerWidth, 0);
@@ -124,24 +146,16 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
     this.initMarquee();
   },
   render() {
-    const {
-      $slots, isShow,
-      icon, action, multiline, type,
-      isScroll, text,
-    } = this;
-    const root = this.root()
-      .has([
-        icon && 'icon',
-        action && 'action',
-      ])
+    const { $slots, isShow, icon, action, multiline, type, isScroll, text } =
+      this;
+    const root = this.$rootCls()
+      .has([icon && 'icon', action && 'action'])
       .is(type);
     const textNode: VNodeData = {
       ref: 'marquee',
-      class: root.element('text')
-        .is([
-          multiline ? 'wrap' : 'inline',
-          isScroll && 'scrollable',
-        ]),
+      class: root
+        .element('text')
+        .is([multiline ? 'wrap' : 'inline', isScroll && 'scrollable']),
     };
     if (isScroll) {
       textNode.on = {
@@ -149,34 +163,32 @@ export default defineComponent<NoticeBarProps, NoticeBarEvents, {}, NoticeBarDat
       };
     }
     return (
-      <div v-show={isShow}
-        class={root}
-        onClick={(e) => this.$emit('click', e)}>
-        {
-          $slots.icon
-            ? (
-              <div class={root.element('icon')}>
-                {$slots.icon}
-              </div>
-            )
-            : (
-              icon
-              &&
-              <div class={root.element('icon')}>
-                <Icon type={icon} />
-              </div>
-            )
-        }
+      <div v-show={isShow} class={root} onClick={(e) => this.$emit('click', e)}>
+        {$slots.icon ? (
+          <div class={root.element('icon')}>{$slots.icon}</div>
+        ) : (
+          icon && (
+            <div class={root.element('icon')}>
+              <Icon type={icon} />
+            </div>
+          )
+        )}
         <div {...textNode}>
-          <div ref="marqueeInner" style={this.marqueeStyle}>{text || $slots.default}</div>
-        </div>
-        {
-          action
-          &&
-          <div role="button" class={root.element('action')} onClick={this.handleAction}>
-            <Icon type={action === 'closable' ? CloseOutlined : ArrowRightSOutlined} />
+          <div ref="marqueeInner" style={this.marqueeStyle}>
+            {text || $slots.default}
           </div>
-        }
+        </div>
+        {action && (
+          <div
+            role="button"
+            class={root.element('action')}
+            onClick={this.handleAction}
+          >
+            <Icon
+              type={action === 'closable' ? CloseOutlined : ArrowRightSOutlined}
+            />
+          </div>
+        )}
       </div>
     );
   },

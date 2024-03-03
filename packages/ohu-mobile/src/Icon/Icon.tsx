@@ -1,9 +1,7 @@
-import { componentFactory } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { VNodeData } from 'vue';
+import { CSSProperties, VNodeData } from 'vue';
 import { transformToCamelCase } from './utils';
 import { IconDef } from '../types';
-import { $prefix } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
 
 const allIcons: {
   [key: string]: IconDef,
@@ -17,9 +15,7 @@ const shorthandMap = {
 
 const themes = ['outlined', 'filled', 'multi-color', 'o', 'f', 'm'];
 
-const baseIconName = `${$prefix}icon`;
-const Icon = componentFactory.create({
-  name: baseIconName,
+const Icon = defineComponent('icon').create({
   props: {
     type: props<string, IconDef>(String, Object).required,
     color: String,
@@ -27,16 +23,8 @@ const Icon = componentFactory.create({
     spin: props(Boolean).default(false),
     rotate: props(Number).default(0),
   },
-  computed: {
-    cls() {
-      return {
-        [baseIconName]: true,
-        'is-spin': this.spin,
-      };
-    },
-  },
   render() {
-    let { cls, type, rotate, color, theme, $attrs } = this;
+    let { spin, type, rotate, color, theme, $attrs } = this;
     let currentIcon;
     let title;
     if (typeof type === 'string') {
@@ -65,14 +53,14 @@ const Icon = componentFactory.create({
     }
     if (!currentIcon) return <i></i>;
     const { attrs, children } = currentIcon;
-    const style: Partial<CSSStyleDeclaration> = {};
+    const style: CSSProperties = {};
     if (color) {
       style.color = color;
     }
     if (rotate > 0) {
       const rotateValue = `rotateZ(${rotate}deg)`;
       style.transform = rotateValue;
-      style.webkitTransform = rotateValue;
+      style.WebkitTransform = rotateValue;
     }
     const iconProps: VNodeData = {
       attrs: {
@@ -83,7 +71,7 @@ const Icon = componentFactory.create({
         title,
         role: 'presentation',
       },
-      class: cls,
+      class: this.$rootCls().is(spin && 'spin'),
       style,
       domProps: {
         innerHTML: children,

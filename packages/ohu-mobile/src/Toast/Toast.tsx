@@ -2,26 +2,27 @@ import Popup, { PopupProps } from '../Popup';
 import deepmerge from 'deepmerge';
 import { popupOutSideProps } from '../Popup/PopupWrapper';
 import { IconProps } from '../Icon';
-import { VNodeData } from 'vue';
 import { getIcon } from '../_utils/icon-utils';
 import { IconDef } from '../types';
 import { defineComponent, props } from '../_utils/defineComponent';
 import { ToastProps, ToastEvents } from './types';
 
-const toastProps = deepmerge({
-  icon: props<string, IconDef, IconProps>(String, Object).optional,
-  duration: props(Number).default(3000),
-  content: String,
-  loading: props(Boolean).default(false),
-  vertical: props(Boolean).default(false),
-}, popupOutSideProps);
+const toastProps = deepmerge(
+  {
+    icon: props<string, IconDef, IconProps>(String, Object).optional,
+    duration: props(Number).default(3000),
+    content: String,
+    loading: props(Boolean).default(false),
+    vertical: props(Boolean).default(false),
+  },
+  popupOutSideProps,
+);
 
 toastProps.mask.default = false;
 toastProps.maskClosable.default = false;
 toastProps.animate.default = 'fade';
 toastProps.tapThrough.default = true;
 toastProps.lockScroll.default = false;
-
 
 export default defineComponent<ToastProps, ToastEvents>('toast').create({
   props: toastProps,
@@ -49,14 +50,8 @@ export default defineComponent<ToastProps, ToastEvents>('toast').create({
     },
   },
   render() {
-    const root = this.root();
-    const {
-      icon,
-      duration,
-      content,
-      vertical,
-      ...popupProps
-    } = this.$props;
+    const root = this.$rootCls();
+    const { icon, duration, content, vertical, ...popupProps } = this.$props;
 
     if (popupProps.targetClass) {
       root.addClasses(popupProps.targetClass);
@@ -64,7 +59,7 @@ export default defineComponent<ToastProps, ToastEvents>('toast').create({
     if (vertical) {
       root.is('vertical');
     }
-    const popupNodeData: VNodeData = {
+    const popupNodeData = {
       props: {
         ...popupProps,
         targetClass: root,
@@ -78,14 +73,8 @@ export default defineComponent<ToastProps, ToastEvents>('toast').create({
     }
     return (
       <Popup {...popupNodeData}>
-        {
-          iconNode &&
-          <div class={root.element('icon')}>{iconNode}</div>
-        }
-        {
-          content &&
-          <div class={root.element('text')}>{content}</div>
-        }
+        {iconNode && <div class={root.element('icon')}>{iconNode}</div>}
+        {content && <div class={root.element('text')}>{content}</div>}
       </Popup>
     );
   },

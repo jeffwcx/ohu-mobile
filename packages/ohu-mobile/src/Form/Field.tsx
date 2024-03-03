@@ -1,13 +1,22 @@
 import Form from './Form';
 import { Schema } from 'yup';
 import { defineDescendantComponent, props } from '../_utils/defineComponent';
-import { FormFieldProps, FormAlign, FormTrigger, FormFieldInput, FormFieldInnerMethods } from './types';
+import {
+  FormFieldProps,
+  FormAlign,
+  FormTrigger,
+  FormFieldInput,
+  FormFieldInnerMethods,
+} from './types';
 import { getVModelOption } from '../_utils/vnode';
 
-export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldProps, {}, {}, FormFieldInnerMethods>(
-  'form',
-  'form-field',
-).create({
+export default defineDescendantComponent<
+  InstanceType<typeof Form>,
+  FormFieldProps,
+  {},
+  {},
+  FormFieldInnerMethods
+>('form', 'form-field').create({
   provide() {
     return {
       'form-field': this,
@@ -49,7 +58,6 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
       if (this.name) {
         return this.ancestor?.getFieldValidation(this.name) as Schema<any>;
       }
-      return;
     },
     error() {
       if (this.name) {
@@ -61,7 +69,7 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     },
   },
   methods: {
-    fieldValidate() {
+    async fieldValidate() {
       return this.formValidate()
         .then((value) => {
           if (this.name && this.ancestor) {
@@ -137,12 +145,17 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     }
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const {
-      $slots, error,
-      label, name, labelAlign,
-      labelWidth, contentAlign,
-      required, padding,
+      $slots,
+      error,
+      label,
+      name,
+      labelAlign,
+      labelWidth,
+      contentAlign,
+      required,
+      padding,
     } = this;
     if (this.ancestor) {
       root.is([this.ancestor.inline ? 'inline' : 'block']);
@@ -168,23 +181,22 @@ export default defineDescendantComponent<InstanceType<typeof Form>, FormFieldPro
     }
     return (
       <div class={root.has([error && 'error'])}>
-        { label && <label class={labelClass} style={labelStyle} for={name}>{label}</label> }
-        {
-          $slots.default
-          &&
+        {label && (
+          <label class={labelClass} style={labelStyle} for={name}>
+            {label}
+          </label>
+        )}
+        {$slots.default && (
           <div class={controlClass}>
             {$slots.default}
-            {
-              error
-              &&
+            {error && (
               <div class={controlClass.element('error')}>
                 <span>{error.message ? error.message : error}</span>
               </div>
-            }
+            )}
           </div>
-        }
+        )}
       </div>
     );
   },
 });
-

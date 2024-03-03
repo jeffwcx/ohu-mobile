@@ -1,6 +1,5 @@
 import 'scroll-behavior-polyfill';
 
-
 export interface ScrollToTargetPosition {
   size: number;
   offset: number;
@@ -12,7 +11,8 @@ export default function scrollIntoCenter(
   vertical = false,
 ) {
   let containerSize = vertical ? container.clientHeight : container.clientWidth;
-  const scrollOffset = targetPositon.offset - (containerSize - targetPositon.size) / 2;
+  const scrollOffset =
+    targetPositon.offset - (containerSize - targetPositon.size) / 2;
   const options: ScrollToOptions = {
     behavior: 'smooth',
   };

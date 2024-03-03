@@ -2,26 +2,37 @@ import Vue from 'vue';
 import * as Yup from 'yup';
 import { CombinedVueInstance } from 'vue/types/vue';
 import { FieldMixinOptions } from './fieldMixin';
+import { FormError } from './FormError';
 
 export type FormAlign = 'left' | 'right' | 'center';
 
 export type FormTrigger = 'blur' | 'change';
 
 export type FormFieldInput = InstanceType<typeof Vue> & FieldMixinOptions;
+export type FormFieldInstance = CombinedVueInstance<
+  Vue,
+  {},
+  FormFieldInnerMethods,
+  {},
+  {}
+>;
 
 export interface FormFieldInnerMethods {
   name: string;
   children?: FormFieldInput | null;
   fieldValue: any;
-  addChildren(input: InstanceType<typeof Vue>): boolean;
-  removeChildren(input?: InstanceType<typeof Vue>): void;
+  triggerEvent: FormTrigger;
+  error: FormError;
+  schema?: Yup.Schema<any>;
+  addChildren(input: FormFieldInstance): boolean;
+  removeChildren(input?: FormFieldInstance): void;
   fieldValidate(): Promise<any>;
   formValidate(): Promise<any>;
   resetField(value: any): void;
   blur: () => void;
+  onBlur: () => void;
 }
 
-export type FormFieldInstance = CombinedVueInstance<Vue, {}, FormFieldInnerMethods, {}, {}>;
 export interface FormValuesChangeEvent {
   prop: string;
   value: string;
@@ -34,8 +45,9 @@ export interface FormEvents {
   onFail: Record<string, Yup.ValidationError>;
 }
 
-
-export type FormValidateSchemaProp = ((yup: typeof Yup) => Yup.ObjectSchemaDefinition<Record<string, any>>) | Yup.ObjectSchemaDefinition<Record<string, any>>;
+export type FormValidateSchemaProp =
+  | ((yup: typeof Yup) => Record<string, Yup.AnySchema>)
+  | Record<string, Yup.AnySchema>;
 
 export interface FormProps {
   initialValues?: Record<string, any>;

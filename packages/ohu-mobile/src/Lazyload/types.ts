@@ -1,5 +1,6 @@
-import { EsModuleComponent } from 'vue/types/options';
+import type { ImportedComponent } from 'vue/types/options';
 import { ImgHTMLAttributes } from 'vue-tsx-support/types/dom';
+import type { CSSProperties } from 'vue';
 
 export interface LazyloadScopedSlots {
   default?: boolean;
@@ -8,7 +9,6 @@ export interface LazyloadScopedSlots {
     error?: Error;
   };
 }
-
 
 export interface LazyloadEvents {
   onError: Error;
@@ -24,8 +24,8 @@ export interface LazyloadProps {
   threshold?: number;
   rootMargin?: string;
   tag?: string;
-  asyncComponent?: (() => Promise<EsModuleComponent>) | null;
+  asyncComponent?: (() => Promise<ImportedComponent>) | null;
   animation?: LazyloadTransitions;
   imgAttrs?: ImgHTMLAttributes;
-  imgStyle?: Partial<CSSStyleDeclaration>;
+  imgStyle?: CSSProperties;
 }

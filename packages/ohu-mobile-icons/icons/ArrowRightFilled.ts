@@ -9,8 +9,8 @@ const ArrowRightFilled: SVGIconDef = {
   attrs: {
     viewBox: '0 0 24 24',
   },
-  children: '<path fill="none" d="M0 0h24v24H0z"/><path d="M12 13H4v-2h8V4l8 8-8 8z"/>',
+  children:
+    '<path fill="none" d="M0 0h24v24H0z"/><path d="M12 13H4v-2h8V4l8 8-8 8z"/>',
 };
 
 export default ArrowRightFilled;
-

@@ -1,9 +1,9 @@
 import { CommandModule } from 'yargs';
-import l from '../locale';
+import { t } from '../locale';
 
 export default {
   command: 'doc <source>',
-  describe: l('doc.desc'),
+  describe: t('doc.desc'),
   aliases: ['md'],
   builder: (yargs) => {
     return yargs
@@ -12,9 +12,7 @@ export default {
         description: '入口文件',
         require: true,
       })
-      .example([
-        ['$0 doc src/index.ts'],
-      ]);
+      .example([['$0 doc src/index.ts']]);
   },
   handler: (options) => {
     // todo

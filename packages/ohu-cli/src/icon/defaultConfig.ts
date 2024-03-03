@@ -20,7 +20,7 @@ export default {
   noIndex: false,
   sortDir: false,
   noThemeSuffix: false,
-  dynamicId: false,
+  uniqueId: true,
   taskChunk: 100,
   tsx: false,
   vue: false,

@@ -1,4 +1,3 @@
-
 export interface CardProps {
   shadow?: boolean;
   borderless?: boolean;

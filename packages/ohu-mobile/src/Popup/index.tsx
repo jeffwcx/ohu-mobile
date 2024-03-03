@@ -1,5 +1,5 @@
 import PopupWrapper from './PopupWrapper';
-import Vue, { VNodeData } from 'vue';
+import Vue from 'vue';
 import { VueConstructor } from 'vue/types/vue';
 import { PopupOpenOptions } from './types';
 import PopupHeader from './PopupHeader';
@@ -29,7 +29,7 @@ const Popup = Object.assign(PopupWrapper, {
         };
       },
       render(h) {
-        const popupData: VNodeData = {
+        const popupData = {
           props: {
             ...popupProps,
             visible: this.visible,
@@ -47,7 +47,7 @@ const Popup = Object.assign(PopupWrapper, {
             },
           },
         };
-        return <Popup {...popupData}>{render && render(h)}</Popup>
+        return <Popup {...popupData}>{render && render(h)}</Popup>;
       },
     });
   },
@@ -55,9 +55,8 @@ const Popup = Object.assign(PopupWrapper, {
     if (instance) {
       instance.visible = false;
     }
-  }
+  },
 });
-
 
 export default Popup;
 

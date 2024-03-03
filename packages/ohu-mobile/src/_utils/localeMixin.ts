@@ -1,7 +1,7 @@
 import Vue, { VueConstructor } from 'vue';
 import locale from '../locale';
 
-export default function(componentName: string) {
+export default function (componentName: string) {
   return Vue.extend({
     beforeCreate() {
       locale.install(this.$root.constructor as VueConstructor);

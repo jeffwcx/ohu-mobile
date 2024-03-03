@@ -1,5 +1,8 @@
+import { CombinedVueInstance } from 'vue/types/vue';
 import { ListSubheaderProps, ListProps } from '../List';
 import { ClassOptions } from '../_utils/classHelper';
+
+export type IndexListGroupType = CombinedVueInstance<Vue, {}, {}, {}, {}>;
 
 export interface IndexListProps {
   /**
@@ -31,7 +34,6 @@ export interface IndexListScopedSlots {
   label?: IndexListGroupProps;
   anchor?: IndexListAnchorScopedSlot;
 }
-
 
 export interface IndexListGroupProps extends ListSubheaderProps {
   /**

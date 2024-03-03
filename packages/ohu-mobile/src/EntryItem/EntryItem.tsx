@@ -1,6 +1,5 @@
-
 import Icon from '../Icon';
-import { VNode } from 'vue';
+import { CSSProperties, VNode } from 'vue';
 import { IconDef } from '../types';
 import { EntryItemEvents, EntryItemProps } from './types';
 import { defineComponent, props } from '../_utils/defineComponent';
@@ -19,9 +18,11 @@ export const entryItemProps = {
   url: String,
   replace: props(Boolean).default(false),
   badge: props<string, number, BadgeProps>(String, Number, Object).optional,
-}
+};
 
-export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').create({
+export default defineComponent<EntryItemProps, EntryItemEvents>(
+  'entry-item',
+).create({
   props: entryItemProps,
   methods: {
     onClick(e: Event) {
@@ -37,22 +38,30 @@ export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').cr
       } else {
         badgeProps = badge;
       }
-      return <Badge {...{ props: badgeProps }}>{vnode}</Badge>
+      return <Badge {...{ props: badgeProps }}>{vnode}</Badge>;
     },
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const {
       $slots,
-      icon, image, text, minorText, iconSize, iconAreaSize, textSize, badge,
+      icon,
+      image,
+      text,
+      minorText,
+      iconSize,
+      iconAreaSize,
+      textSize,
+      badge,
     } = this;
     root.is([`icon-area-${iconAreaSize}`, `text-${textSize}`]);
-    const iconStyle: Partial<CSSStyleDeclaration> = {};
+    const iconStyle: CSSProperties = {};
     if (iconSize) {
       iconStyle.width = iconSize;
       iconStyle.height = iconSize;
     }
-    let textContent: string | VNode[] | VNode | undefined = $slots.default || text;
+    let textContent: string | VNode[] | VNode | undefined =
+      $slots.default || text;
     let iconArea: VNode[] | VNode | undefined = $slots.icon;
     if (!iconArea) {
       if (icon) {
@@ -70,13 +79,11 @@ export default defineComponent<EntryItemProps, EntryItemEvents>('entry-item').cr
     }
     return (
       <div class={root} onClick={this.onClick} role="button">
-        {
-          iconArea
-          &&
-          <div class={root.element('icon')}>{ iconArea }</div>
-        }
-        { textContent && <span class={root.element('text')}>{ textContent }</span> }
-        { minorText && <span class={root.element('minor-text')}>{ minorText }</span> }
+        {iconArea && <div class={root.element('icon')}>{iconArea}</div>}
+        {textContent && <span class={root.element('text')}>{textContent}</span>}
+        {minorText && (
+          <span class={root.element('minor-text')}>{minorText}</span>
+        )}
       </div>
     );
   },

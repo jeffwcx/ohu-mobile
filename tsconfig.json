@@ -1,27 +1,26 @@
 {
+  "extends": "@tsconfig/node-lts/tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
     "jsx": "preserve",
     "allowJs": true,
     "checkJs": true,
     "importHelpers": true,
-    "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
   },
+  "include": [
+    ".storybook/**/*",
+  ],
   "exclude": [
+    ".storybook/preview.js",
     "node_modules",
     "dist",
-    "coverage"
+    "lib",
+    "lib-rem",
+    "coverage",
+    "packages/**",
+    "storybook-static"
   ]
 }

@@ -1,4 +1,6 @@
-@import '~@ohu-mobile/styles';
+@use "sass:math";
+@use "pkg:@ohu-mobile/styles" as *;
+@use "./variables" as *;
 
 @mixin tap-component {
   user-select: none;
@@ -32,9 +34,6 @@
       align-items: center;
       cursor: pointer;
       @include tap-component;
-      &.is-group-item {
-        margin-right: .5em
-      }
       &.is-disabled {
         cursor: not-allowed;
         >.#{$prefix}#{$name} {

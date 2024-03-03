@@ -1,45 +1,28 @@
-import { componentFactory } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { $prefix } from '../_config/variables';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-
-const detailItemBaseName = `${$prefix}detail-item`;
-const detailItemTitleCls = `${detailItemBaseName}__title`;
-const detailItemContentCls = `${detailItemBaseName}__content`;
-const detailItemContentInnerCls = `${detailItemContentCls}__inner`;
-const detailItemExtraCls = `${detailItemBaseName}__extra`;
-
-const DetailItem = componentFactory.create({
-  name: detailItemBaseName,
+const DetailItem = defineComponent('detail-item').create({
   props: {
     title: String,
     content: String,
     extra: String,
     unactive: props(Boolean).default(false),
   },
-  computed: {
-    cls() {
-      return {
-        [detailItemBaseName]: true,
-        'is-unactive': this.unactive,
-      };
-    }
-  },
   render() {
-    const { cls, title, content, extra, $slots } = this;
+    const { title, content, extra, $slots, unactive } = this;
     const contentNode = $slots.default || content;
     const extraNode = $slots.extra || extra;
+    const root = this.$rootCls().is(unactive && 'unactive');
+    const contentCls = root.element('content');
     return (
-      <div class={cls}>
-        <div class={detailItemTitleCls}>{ title }</div>
-        <div class={detailItemContentCls}>
-          <div class={detailItemContentInnerCls}>{ contentNode }</div>
-          { extraNode && <div class={detailItemExtraCls}>{ extraNode }</div> }
+      <div class={root}>
+        <div class={root.element('title')}>{title}</div>
+        <div class={contentCls}>
+          <div class={contentCls.element('inner')}>{contentNode}</div>
+          {extraNode && <div class={root.element('extra')}>{extraNode}</div>}
         </div>
       </div>
     );
   },
 });
-
 
 export default DetailItem;

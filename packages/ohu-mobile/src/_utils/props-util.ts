@@ -26,6 +26,4 @@ export function filterEmpty(children: any[] = []) {
   return children.filter((c) => !isEmptyElement(c));
 }
 
-export {
-  parseStyleText,
-};
+export { parseStyleText };

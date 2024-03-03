@@ -1,22 +1,30 @@
-import { extendFrom } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import Vue, { VNode, VueConstructor } from 'vue';
+import Vue, { VNode } from 'vue';
+import { defineComponent, props } from './defineComponent';
+import { env } from '../_config/env';
 
 export type PortalRenderChildren = () => VNode;
 
-const portalRenderProps = {
+export const portalRenderProps = {
   container: props.ofType<HTMLElement>().required,
   children: props.ofType<PortalRenderChildren>().required,
   visible: props(Boolean).default(false),
-}
+};
 
-const PortalVue = Vue as VueConstructor<Vue & {
-  _component: Vue | null,
-  _wrapper: HTMLElement | null,
-}>
+export type PortalRenderProps = {
+  container: HTMLElement;
+  children: PortalRenderChildren;
+  visible?: boolean;
+};
 
-export default extendFrom(PortalVue).create({
-  name: 'portal-render',
+export default defineComponent<
+  PortalRenderProps,
+  {},
+  {},
+  {
+    _component: Vue | null;
+    _wrapper: HTMLElement | null;
+  }
+>('portal-render').create({
   props: portalRenderProps,
   watch: {
     visible() {
@@ -51,14 +59,14 @@ export default extendFrom(PortalVue).create({
       const container = this.container;
       if (!this._wrapper) {
         const wrapper = document.createElement('div');
-        process.env.NODE_ENV === 'test' && (wrapper.title = 'TEST');
+        env.NODE_ENV === 'test' && (wrapper.title = 'TEST');
         this._wrapper = wrapper;
         container.appendChild(wrapper);
       }
       if (!this._component && self._wrapper) {
         this._component = new Vue({
           el: self._wrapper,
-          parent: self.$parent,
+          parent: self.$parent ?? self,
           mounted() {
             self._wrapper = this.$el;
           },

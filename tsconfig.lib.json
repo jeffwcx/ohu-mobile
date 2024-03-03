@@ -18,12 +18,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "types": [
-      "jest",
       "node"
     ],
     "lib": [
       "ESNext"
     ]
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "lib"]
 }

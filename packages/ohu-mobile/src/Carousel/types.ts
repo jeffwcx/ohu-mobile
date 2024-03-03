@@ -1,11 +1,9 @@
-
 export interface CSSValue {
   value: number;
   unit: string;
 }
 
 export type CarouselSlideDirection = 'horizontal' | 'vertical';
-
 
 export interface CarouselChangeEvent {
   from: number;
@@ -21,7 +19,6 @@ export interface CarouselEvents {
 }
 
 export type CarouselMode = 'slide' | 'fade';
-
 
 export interface CarouselStageProps {
   value?: number;
@@ -50,4 +47,3 @@ export interface CarouselProps extends CarouselStageProps {
   height?: string;
   resize?: boolean;
 }
-

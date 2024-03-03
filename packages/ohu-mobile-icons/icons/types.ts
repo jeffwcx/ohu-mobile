@@ -3,6 +3,6 @@ export interface SVGIconDef {
   theme: 'outlined' | 'filled' | 'multi-color' | 'illustration';
   attrs: {
     viewBox?: string;
-  },
+  };
   children?: string;
 }

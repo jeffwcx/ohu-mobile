@@ -1,34 +1,64 @@
-import { componentFactoryOf } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { DropMenuEvents, DropMenuChangeEvent, DropMenuDataModel } from './types';
+import {
+  DropMenuEvents,
+  DropMenuChangeEvent,
+  DropMenuDataModel,
+  DropMenuProps,
+  DropMenuItemScopedSlots,
+} from './types';
 import Divider from '../Divider';
 import { getVNodesByName, isTargetComponent } from '../_utils/vnode';
-import { VNode } from 'vue';
+import { CSSProperties, VNode } from 'vue';
 import { manager } from '../Popup';
 import { DropMenuItemType } from './DropMenuItem';
 import isPlainObject from '../_utils/isPlainObject';
 import { CheckOutlined, ArrowDownSOutlined } from '@ohu-mobile/icons';
 import { IconProperty } from '../types';
 import { $prefix } from '../_config/variables';
-
+import { defineComponent, props } from '../_utils/defineComponent';
 
 export const baseDropMenuName = `${$prefix}dropmenu`;
 export const baseDropMenuItemName = `${baseDropMenuName}-item`;
 const dropMenuInnerCls = `${baseDropMenuName}__inner`;
 
-const DropMenu = componentFactoryOf<DropMenuEvents>().create({
-  name: baseDropMenuName,
+type DropMenuData = {
+  zIndex: number;
+  currentValue: DropMenuDataModel | Array<any>;
+  selectedOptions: DropMenuDataModel;
+  menuItems: DropMenuItemType[];
+};
+
+export interface DropMenuInnerProps extends DropMenuData {
+  isObjectValue: boolean;
+  initSelectedOptions: () => void;
+  getMenuItems: () => DropMenuItemType[];
+  closeAllPopup: () => void;
+}
+
+const DropMenu = defineComponent<
+  DropMenuProps,
+  DropMenuEvents,
+  DropMenuItemScopedSlots,
+  DropMenuInnerProps
+>('dropmenu').create({
   props: {
-    defaultValue: props<DropMenuDataModel, Array<any>>(Object, Array).default(() => ({})),
+    defaultValue: props<DropMenuDataModel, Array<any>>(Object, Array).default(
+      () => ({}),
+    ),
     direction: props.ofStringLiterals('up', 'down').default('down'),
     divider: props(Boolean).default(true),
     border: props(Boolean).default(true),
     itemActive: props(Boolean).default(true),
     mask: props(Boolean).default(true),
-    popupClass: props<string, Record<string, boolean>, Array<string>>(String, Object, Array).optional,
-    popupStyle: props.ofType<Partial<CSSStyleDeclaration>>().optional,
+    popupClass: props<string, Record<string, boolean>, Array<string>>(
+      String,
+      Object,
+      Array,
+    ).optional,
+    popupStyle: props.ofType<CSSProperties>().optional,
     checkIcon: props.ofType<IconProperty>().default(() => CheckOutlined),
-    dropDownIcon: props.ofType<IconProperty>().default(() => ArrowDownSOutlined),
+    dropDownIcon: props
+      .ofType<IconProperty>()
+      .default(() => ArrowDownSOutlined),
   },
   computed: {
     isObjectValue() {
@@ -41,12 +71,7 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       currentValue: this.defaultValue,
       selectedOptions: {},
       menuItems: [],
-    } as {
-      zIndex: number,
-      currentValue: DropMenuDataModel | Array<any>,
-      selectedOptions: DropMenuDataModel,
-      menuItems: DropMenuItemType[],
-    };
+    } as DropMenuData;
   },
   watch: {
     $children() {
@@ -69,7 +94,7 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
         const option = item.checkedOption;
         if (option) {
           if (this.isObjectValue && item.$vnode.key) {
-            this.selectedOptions[item.$vnode.key] = option;
+            this.selectedOptions[item.$vnode.key as string | number] = option;
           } else if (!this.isObjectValue) {
             this.selectedOptions[item.getIndex()] = option;
           }
@@ -77,8 +102,9 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       });
     },
     getMenuItems() {
-      return this.$children.filter(item =>
-        isTargetComponent(item.$vnode, baseDropMenuItemName)) as DropMenuItemType[];
+      return this.$children.filter((item) =>
+        isTargetComponent(item.$vnode, baseDropMenuItemName),
+      ) as DropMenuItemType[];
     },
     getMenuItemIndex(menuItem: DropMenuItemType) {
       return this.getMenuItems().indexOf(menuItem);
@@ -93,14 +119,14 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       if (this.currentValue instanceof Array) {
         this.$set(this.currentValue, index, value);
         this.selectedOptions[index] = event;
-      } else if(isPlainObject<DropMenuDataModel>(this.currentValue) && key) {
+      } else if (isPlainObject<DropMenuDataModel>(this.currentValue) && key) {
         this.currentValue[key] = value;
         this.selectedOptions[key] = event;
       }
       this.closeAllPopup();
       this.$emit('itemChange', event);
       this.$emit('change', this.currentValue);
-    }
+    },
   },
   render() {
     const { $slots, divider } = this;
@@ -109,7 +135,7 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
       const nodes = getVNodesByName($slots.default, baseDropMenuItemName);
       nodes.map((item, index) => {
         if (item.componentOptions && item.componentOptions.propsData) {
-          item.componentOptions.propsData
+          item.componentOptions.propsData;
         }
         inner.push(item);
         if (index < nodes.length - 1 && divider) {
@@ -117,14 +143,16 @@ const DropMenu = componentFactoryOf<DropMenuEvents>().create({
         }
       });
     }
-    const style: Partial<CSSStyleDeclaration> = {
+    const style: CSSProperties = {
       position: 'relative',
       zIndex: this.zIndex.toString(),
     };
     return (
       <div class={baseDropMenuName} ref="dropMenu">
-        <div class={dropMenuInnerCls} style={style}>{inner}</div>
-        {this.border &&  <Divider />}
+        <div class={dropMenuInnerCls} style={style}>
+          {inner}
+        </div>
+        {this.border && <Divider />}
       </div>
     );
   },

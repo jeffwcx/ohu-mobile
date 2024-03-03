@@ -7,6 +7,7 @@ import { IconCommandOptions } from '../types';
 import svgoConfig from './svgo/svgoConfig';
 import resolvePlugins from './svgo/resolvePlugins';
 import jsxPlugin from './svgo/jsxPlugin';
+import { uniqueId } from 'lodash-es';
 
 art.defaults.imports.indent = (svg: string, indent: number) => {
   return svg.split('\n')
@@ -17,15 +18,17 @@ art.defaults.imports.indent = (svg: string, indent: number) => {
 export function optimizeSVG(svgData: string, options: Partial<IconCommandOptions>) {
   let plugins = svgoConfig.plugins;
   let config = Object.assign({}, svgoConfig);
-  if (options.dynamicId) {
-    plugins = resolvePlugins(plugins, [
-      // should remove `removeAttrs` plugin
-      { name: 'removeAttrs', active: false },
-      {
-        name: 'prefixIds',
-        params: { delim: '${id}' },
-      }
-    ]);
+  if (options.uniqueId) {
+    plugins = resolvePlugins(
+      plugins,
+      [
+        {
+          name: 'prefixIds',
+          params: { delim: '', prefix: () => uniqueId(), },
+        }
+      ],
+      ['removeAttrs']
+    );
   }
   if (options.svgoConfig) {
     const p = options.svgoConfig.plugins;
@@ -104,11 +107,6 @@ export async function generateIcon(
     }
     return '';
   }).replace(/<\/svg>/, '');
-  if (config.dynamicId && config.tsx) {
-    children = children
-      .replace(/(["'])(#?)prefix(\$\{id\})(\w+)\1/g, '{`$2$3$4`}')
-      .replace(/(["'])(url\()(#?)prefix(\$\{id\})(\w+)(\))\1/g, '{`$2$3$4$5$6`}');
-  }
   const outputFilePath = path.format({
     dir: outputPath,
     name: fileName,
@@ -116,11 +114,9 @@ export async function generateIcon(
   });
   const outputFileData = art.render(template, {
     ...attrs,
-    ...result.info,
     name: iconName,
     fileName,
     theme: iconTheme,
-    dynamicId: config.dynamicId,
     children: children.endsWith('\n')
       ? children.substring(0, children.length - 1)
       : children,

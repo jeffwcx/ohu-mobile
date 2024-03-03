@@ -15,8 +15,9 @@ export const radioGroupProps = {
   unCheckedIcon: props.ofType<IconProperty | null>().optional,
 };
 
-
-export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio-group')
+export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>(
+  'radio-group',
+)
   .mixin(fieldMixin('valueState', 'value'))
   .create({
     model: {
@@ -42,16 +43,12 @@ export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio
         return this.valueState === value;
       },
       renderOptions(options: (RadioOption | string)[]) {
-        return options.map(option => {
+        return options.map((option) => {
           if (typeof option === 'string') {
-            return <Radio value={option}>{option}</Radio>
+            return <Radio value={option}>{option}</Radio>;
           }
-          const {
-            attach,
-            label,
-            ...props
-          } = option;
-          return <Radio {...{ props }}>{label}</Radio>
+          const { attach, label, ...props } = option;
+          return <Radio {...{ props }}>{label}</Radio>;
         });
       },
     },
@@ -59,7 +56,7 @@ export default defineAncestorComponent<RadioGroupProps, RadioGroupEvents>('radio
       const { $slots, options } = this;
       const content = options ? this.renderOptions(options) : $slots.default;
       return (
-        <div class={this.root()} role="radiogroup">
+        <div class={this.$rootCls()} role="radiogroup">
           {content}
         </div>
       );

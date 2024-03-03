@@ -2,8 +2,7 @@
 
 import * as React from 'react';
 
-const {{fileName}} = (props: React.SVGProps<SVGSVGElement>) => {
-{{if dynamicId}}  const id = Date.now();{{/if}}
+const {{fileName}} = (props: React.SVGProps<SVGElement>) => {
   return (
     <svg viewBox="{{viewBox}}" {...props}>{{@ children | indent 4 }}</svg>
   );

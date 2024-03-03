@@ -1,0 +1,9 @@
+@use '../../_styles/variables' as *;
+
+$checkboxGroupPrefixClass: #{$prefix}checkbox-group;
+
+.#{$checkboxGroupPrefixClass} {
+  > .#{$prefix}checkbox-wrapper {
+    margin-right: .5em;
+  }
+}

@@ -8,13 +8,21 @@
     "mixins",
     "helpers"
   ],
-  "author": "jeffwcx <cunxuanwang@163.com>",
+  "author": "jeffwcx <jeffwcx@icloud.com>",
   "homepage": "https://github.com/jeffwcx/ohu-mobile/tree/master/packages/ohu-mobile-styles#readme",
   "license": "MIT",
   "scripts": {
     "doc": "sassdoc lib"
   },
   "main": "mixins/_all.scss",
+  "exports": {
+    ".": {
+      "sass": "./mixins/_all.scss"
+    },
+    "./flex": {
+      "sass": "./flex/index.scss"
+    }
+  },
   "files": [
     "mixins",
     "flex"
@@ -27,8 +35,8 @@
     "url": "https://github.com/jeffwcx/ohu-mobile/issues"
   },
   "devDependencies": {
-    "sass": "^1.24.2",
-    "sassdoc": "^2.7.1"
+    "sass": "^1.71.1",
+    "sassdoc": "^2.7.4"
   },
   "publishConfig": {
     "access": "public"

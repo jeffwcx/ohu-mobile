@@ -1,6 +1,9 @@
-import getByKey from 'lodash/get';
-import { locale } from 'yargs';
-const lang = locale();
+import { get as getByKey } from 'lodash-es';
+import yargs from 'yargs';
+
+export const yargsInstance = yargs(process.argv.slice(2));
+
+const lang = yargsInstance.locale();
 
 const config = {
   en: {
@@ -17,14 +20,15 @@ const config = {
       noIndexDesc: 'Whether to generate an export file',
       tsxDesc: 'Will generate react tsx files',
       vueDesc: 'Will generate vue files',
-      dynamicIdDesc: 'Use dynamic ID',
+      uniqueIdDesc: '<defs> uses unique IDs',
       includedThemesDesc: 'Themes recognized by default',
       example1: 'Generate icons in ohu-mobile format',
       example2: 'Generate directory name as icon theme',
       example3: 'Generate icons in tsx format',
       example4: 'Generate icons in vue format',
       example5: 'Customize icon template',
-      removeFilesQuestion: 'There are tsx, ts or vue files in the directory, delete them?',
+      removeFilesQuestion:
+        'There are tsx, ts or vue files in the directory, delete them?',
       globsExistError: 'SVG file source does not exist',
       templateExistError: 'SVG template does not exist',
       genSuccess: ' generated successfully',
@@ -54,7 +58,7 @@ const config = {
       noIndexDesc: '是否生成导出文件',
       tsxDesc: '将会生成React tsx文件',
       vueDesc: '将会生成Vue文件',
-      dynamicIdDesc: '使用动态ID',
+      uniqueIdDesc: '<defs> 使用唯一ID',
       includedThemesDesc: '默认被识别的主题',
       example1: '生成ohu-mobile格式的图标',
       example2: '将文件夹名称作为图标类型去生成',
@@ -83,7 +87,7 @@ const enLocale = config['en'];
 
 const localeFile = config[lang] || enLocale;
 
-export default function l(key: string) {
+export function t(key: string) {
   const value = getByKey(localeFile, key);
   if (!value) return getByKey(enLocale, key);
   return value;

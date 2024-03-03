@@ -1,12 +1,7 @@
-import { componentFactory } from 'vue-tsx-support';
-import props from 'vue-strict-prop';
-import { VNodeData } from 'vue';
-import { $prefix } from '../_config/variables';
+import { VNodeData, CSSProperties } from 'vue';
+import { defineComponent, props } from '../_utils/defineComponent';
 
-const dividerBaseName = `${$prefix}divider`;
-const dividerTextCls = `${dividerBaseName}__text`;
-const Divider = componentFactory.create({
-  name: dividerBaseName,
+const Divider = defineComponent('divider').create({
   props: {
     color: String,
     dashed: props(Boolean).default(false),
@@ -14,26 +9,20 @@ const Divider = componentFactory.create({
     vertical: props(Boolean).default(false),
   },
   render() {
-    const {
-      text,
-      $slots,
-      $attrs,
-    } = this;
+    const { text, $slots, $attrs } = this;
     const textContent = text || $slots.default;
-    const cls = {
-      [dividerBaseName]: true,
-      'is-vertical': this.vertical,
-      'is-horizontal': !this.vertical,
-      'has-text': !!textContent,
-    };
+
+    const cls = this.$rootCls()
+      .is(this.vertical ? 'vertical' : 'horizontal')
+      .has(!!textContent && 'text');
     const dividerProps: VNodeData = {
       attrs: {
         ...$attrs,
-        role: 'separator'
+        role: 'separator',
       },
       class: cls,
     };
-    const style: Partial<CSSStyleDeclaration> = {};
+    const style: CSSProperties = {};
     if (this.color) {
       style.borderColor = this.color;
     }
@@ -43,7 +32,7 @@ const Divider = componentFactory.create({
     dividerProps.style = style;
     return (
       <div {...dividerProps}>
-        { textContent && <span class={dividerTextCls}>{textContent}</span> }
+        {textContent && <span class={cls.element('text')}>{textContent}</span>}
       </div>
     );
   },

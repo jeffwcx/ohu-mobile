@@ -1,4 +1,8 @@
-import { LazyloadEvents, LazyloadScopedSlots, LazyloadProps } from '../Lazyload';
+import {
+  LazyloadEvents,
+  LazyloadScopedSlots,
+  LazyloadProps,
+} from '../Lazyload';
 
 export interface ImageEvents extends LazyloadEvents {
   onReload: void;

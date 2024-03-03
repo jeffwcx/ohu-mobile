@@ -1,6 +1,6 @@
-import { OptimizeOptions } from 'svgo';
+import type { Config } from 'svgo';
 
-export type IconCommandRenameArgs = { name: string, theme: string };
+export type IconCommandRenameArgs = { name: string; theme: string };
 
 export interface IconCommandOptions {
   /**
@@ -38,9 +38,9 @@ export interface IconCommandOptions {
    */
   includedThemes?: string[];
   /**
-   * use dynamic ID
+   * use uniqueId
    */
-  dynamicId?: boolean;
+  uniqueId?: boolean;
   /**
    * chunk of icon generation promise task
    */
@@ -60,7 +60,46 @@ export interface IconCommandOptions {
   /**
    * svgo config https://github.com/svg/svgo
    */
-  svgoConfig?: OptimizeOptions;
+  svgoConfig?: Config;
+}
+
+export type IconGeneratedEvent = {
+  /**
+   * Number of icons currently generated
+   */
+  count: number;
+  /**
+   * Total number of icons
+   */
+  total: number;
+  /**
+   * Current icon file name
+   */
+  fileName: string;
+};
+
+export interface BuildIconOptions extends IconCommandOptions {
+  /**
+   * @event Start generating icons
+   */
+  onStart?: () => void;
+  /**
+   * @event Icon generation progress
+   */
+  onProgress?: (event: IconGeneratedEvent) => void;
+  /**
+   * @event All icons generated successfully
+   */
+  onIconsGenerated?: () => void;
+  /**
+   * @event Index file have been generated successfully
+   */
+  onIndexFileGenerated?: () => void;
+  /**
+   *
+   * @returns Type file have been generated successfully
+   */
+  onTypeFileGenerated?: () => void;
 }
 
 export interface OhuOptions {

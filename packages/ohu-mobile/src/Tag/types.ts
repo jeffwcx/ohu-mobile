@@ -1,4 +1,3 @@
-
 export type TagSize = 'sm' | 'md' | 'lg';
 export type TagShape = 'square' | 'fillet';
 export interface TagProps {

@@ -1,12 +1,19 @@
 import { defineComponent, props } from '../_utils/defineComponent';
-import { CascaderProps, CascaderEvents, CascaderOption, CascaderLoadDataFunction, CascaderShouldLoadDataFunction } from './types';
+import {
+  CascaderProps,
+  CascaderEvents,
+  CascaderOption,
+  CascaderLoadDataFunction,
+  CascaderShouldLoadDataFunction,
+} from './types';
 import RadioList from '../RadioList';
+import { CSSProperties } from 'vue';
 
 type FlattenOption = CascaderOption & { name?: string };
 
 function transformToFlattenData(option: CascaderOption): FlattenOption {
   const { children, ...flattenOption } = option;
-  const others: { name?: string, children?: CascaderOption[] } = {
+  const others: { name?: string; children?: CascaderOption[] } = {
     name: option.label,
   };
   if (option.useCollapse) {
@@ -26,9 +33,11 @@ function getFlattenData(selectedValues: any[], options: CascaderOption[]) {
     if (currentValue === undefined) {
       currentOptions = null;
     } else {
-      const result: CascaderOption | undefined = currentOptions.find((option) => {
-        return option.value === currentValue;
-      });
+      const result: CascaderOption | undefined = currentOptions.find(
+        (option) => {
+          return option.value === currentValue;
+        },
+      );
       if (!result?.useCollapse) {
         currentOptions = result?.children;
       } else {
@@ -40,7 +49,9 @@ function getFlattenData(selectedValues: any[], options: CascaderOption[]) {
   return flattenData;
 }
 
-export default defineComponent<CascaderProps, CascaderEvents>('cascader').create({
+export default defineComponent<CascaderProps, CascaderEvents>(
+  'cascader',
+).create({
   props: {
     value: props.ofArray<any>().default(() => []),
     options: props<CascaderOption[]>(Array).default(() => []),
@@ -55,7 +66,7 @@ export default defineComponent<CascaderProps, CascaderEvents>('cascader').create
     },
     selectedValues(current) {
       this.currentFlattenData = getFlattenData(current, this.options);
-    }
+    },
   },
   data() {
     return {
@@ -74,31 +85,29 @@ export default defineComponent<CascaderProps, CascaderEvents>('cascader').create
     },
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const panel = root.element('panel');
-    const panelStyle: Partial<CSSStyleDeclaration> = {
+    const panelStyle: CSSProperties = {
       width: `${100 / this.columns}%`,
     };
     return (
       <div class={root}>
-        {
-          this.currentFlattenData.map((options, index) => {
-            return (
-              <div class={panel} style={panelStyle}>
-                <RadioList
-                  name={`${index}`}
-                  unCheckedIcon={null}
-                  value={this.selectedValues[index]}
-                  options={options}
-                  paddingDivider={false}
-                  onChange={(value: any) => {
-                    this.handleChange(value, index);
-                  }}>
-                </RadioList>
-              </div>
-            );
-          })
-        }
+        {this.currentFlattenData.map((options, index) => {
+          return (
+            <div class={panel} style={panelStyle}>
+              <RadioList
+                name={`${index}`}
+                unCheckedIcon={null}
+                value={this.selectedValues[index]}
+                options={options}
+                paddingDivider={false}
+                onChange={(value: any) => {
+                  this.handleChange(value, index);
+                }}
+              ></RadioList>
+            </div>
+          );
+        })}
       </div>
     );
   },

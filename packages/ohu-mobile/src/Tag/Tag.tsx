@@ -17,7 +17,7 @@ export default defineComponent<TagProps, TagEvents>('tag').create({
     disabled: props(Boolean).default(false),
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const {
       color,
       fontColor,
@@ -29,7 +29,12 @@ export default defineComponent<TagProps, TagEvents>('tag').create({
       disabled,
       $slots,
     } = this;
-    root.is([size, shape, outline ? 'outline' : 'solid', disabled && 'disabled']);
+    root.is([
+      size,
+      shape,
+      outline ? 'outline' : 'solid',
+      disabled && 'disabled',
+    ]);
     const style = getComponentStyle(root, color, fontColor);
     const tagProps: VNodeData = {
       class: root,
@@ -48,14 +53,8 @@ export default defineComponent<TagProps, TagEvents>('tag').create({
     }
     return (
       <div {...tagProps}>
-        <span class={root.element('text')}>
-          {$slots.default || text}
-        </span>
-        {
-          deleteable
-          &&
-          <Icon type={CloseOutlined} />
-        }
+        <span class={root.element('text')}>{$slots.default || text}</span>
+        {deleteable && <Icon type={CloseOutlined} />}
       </div>
     );
   },

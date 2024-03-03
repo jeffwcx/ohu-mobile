@@ -6,7 +6,8 @@
     "outDir": "./bin",
     "target": "es6",
     "allowJs": true,
-    "checkJs": false
+    "checkJs": false,
+    "esModuleInterop": true
   },
   "include": ["scripts/**/*.ts"]
 }

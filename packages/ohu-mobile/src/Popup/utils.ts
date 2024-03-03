@@ -1,19 +1,34 @@
-import { PopupAnyPosition, PopupAnchorPosition, PopupPosition, PopupTransformOrigin, PopupVerticalPosition, PopupHorizontalPosition } from './types';
+import {
+  PopupAnyPosition,
+  PopupAnchorPosition,
+  PopupPosition,
+  PopupTransformOrigin,
+  PopupVerticalPosition,
+  PopupHorizontalPosition,
+} from './types';
 
-export function isAnyPosition(position: PopupPosition): position is PopupAnyPosition {
-  return (position as PopupAnyPosition).left !== undefined
-    || (position as PopupAnyPosition).top !== undefined;
+export function isAnyPosition(
+  position: PopupPosition,
+): position is PopupAnyPosition {
+  return (
+    (position as PopupAnyPosition).left !== undefined ||
+    (position as PopupAnyPosition).top !== undefined
+  );
 }
 
-export function isAnchorPosition(position: PopupPosition): position is PopupAnchorPosition {
-  return (position as PopupAnchorPosition).horizontal !== undefined
-    || (position as PopupAnchorPosition).vertical !== undefined;
+export function isAnchorPosition(
+  position: PopupPosition,
+): position is PopupAnchorPosition {
+  return (
+    (position as PopupAnchorPosition).horizontal !== undefined ||
+    (position as PopupAnchorPosition).vertical !== undefined
+  );
 }
 
 export function computeRect(el: HTMLElement) {
   return {
     width: el.offsetWidth,
-    height:el.offsetHeight,
+    height: el.offsetHeight,
   };
 }
 
@@ -44,17 +59,24 @@ const hPositionReserveMap = {
   center: 'center',
 };
 
-export function getTransformOrigin(anchorPos: PopupAnchorPosition, origin?: PopupTransformOrigin) {
+export function getTransformOrigin(
+  anchorPos: PopupAnchorPosition,
+  origin?: PopupTransformOrigin,
+) {
   let transformOrigin: PopupTransformOrigin = origin || {};
   // preset transform origin
   if (anchorPos.vertical !== undefined && !transformOrigin.vertical) {
-    transformOrigin.vertical = vPositionReverseMap[anchorPos.vertical] as PopupVerticalPosition;
+    transformOrigin.vertical = vPositionReverseMap[
+      anchorPos.vertical
+    ] as PopupVerticalPosition;
   }
   if (anchorPos.horizontal !== undefined && !transformOrigin.horizontal) {
     if (transformOrigin.vertical !== 'center') {
       transformOrigin.horizontal = anchorPos.horizontal;
     } else {
-      transformOrigin.horizontal = hPositionReserveMap[anchorPos.horizontal] as PopupHorizontalPosition;
+      transformOrigin.horizontal = hPositionReserveMap[
+        anchorPos.horizontal
+      ] as PopupHorizontalPosition;
     }
   }
   return transformOrigin;

@@ -1,6 +1,10 @@
+import type { CSSProperties } from 'vue';
 import { CSSValue, CarouselSlideDirection } from './types';
 
-export function computeCSSValue(cssValue: string | number, defaultUnit = 'px'): CSSValue {
+export function computeCSSValue(
+  cssValue: string | number,
+  defaultUnit = 'px',
+): CSSValue {
   let unit = defaultUnit;
   let value = 0;
   if (typeof cssValue === 'string') {
@@ -13,7 +17,10 @@ export function computeCSSValue(cssValue: string | number, defaultUnit = 'px'): 
   return { unit, value };
 }
 
-export function getClientRectByDirection(el: Element, direction: CarouselSlideDirection) {
+export function getClientRectByDirection(
+  el: Element,
+  direction: CarouselSlideDirection,
+) {
   const { width, height } = el.getBoundingClientRect();
   if (direction === 'horizontal') {
     return width;
@@ -21,11 +28,10 @@ export function getClientRectByDirection(el: Element, direction: CarouselSlideDi
   return height;
 }
 
-
 export function setTransformByDirection(
-  style: Partial<CSSStyleDeclaration>,
+  style: CSSProperties,
   direction: CarouselSlideDirection,
-  offset: number
+  offset: number,
 ) {
   if (direction === 'horizontal') {
     style.transform = `translate3d(${offset}px, 0, 0)`;

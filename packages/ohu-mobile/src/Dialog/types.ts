@@ -23,16 +23,18 @@ export interface DialogProps extends PopupOutSideProps {
   image?: string | ImageProps;
   icon?: IconProperty;
   title?: string;
-  content?: string,
+  content?: string;
   cancelBtn?: string | DialogActionOptions | null;
   okBtn?: string | DialogActionOptions | null;
   actions?: DialogActionOptions[] | null;
   layout?: 'row' | 'column';
 }
 
-export type DialogOptions = MethodBaseOptions & DialogProps & VueEventWrapper<DialogEvents> & {
-  renderTitle?: (h?: CreateElement) => (VNode | VNode[]);
-};
+export type DialogOptions = MethodBaseOptions &
+  DialogProps &
+  VueEventWrapper<DialogEvents> & {
+    renderTitle?: (h?: CreateElement) => VNode | VNode[];
+  };
 
 export type DialogAlertOptions = Omit<DialogOptions, 'cancelBtn' | 'actions'>;
 

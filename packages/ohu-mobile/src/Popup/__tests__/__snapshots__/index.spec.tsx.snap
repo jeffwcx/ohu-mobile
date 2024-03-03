@@ -1,27 +1,27 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Popup should add class and style to wrapper when using \`targetClass\` and \`targetStyle\` 1`] = `
-<div role="presentation">
+exports[`Popup > should add class and style to wrapper when using \`targetClass\` and \`targetStyle\` 1`] = `
+"<div role="presentation">
   <div class="ohu-mask ohu-mask-fade-enter ohu-mask-fade-enter-active" style="z-index: 1001; top: 0px; left: 0px;"></div>
   <div role="dialog" tabindex="-1" class="ohu-popup-wrapper has-position is-x-center is-y-center" style="z-index: 1002; z-index: 1002;">
     <div role="document" class="ohu-popup cls ohu-none-enter ohu-none-enter-active" style="width: 50%; height: 200px;">text</div>
   </div>
-</div>
+</div>"
 `;
 
-exports[`Popup should emit \`close\` event when mask is clicked 1`] = `
-<div role="presentation">
+exports[`Popup > should emit \`close\` event when mask is clicked 1`] = `
+"<div role="presentation">
   <div class="ohu-mask is-frosted ohu-mask-fade-enter ohu-mask-fade-enter-active" style="z-index: 1002; top: 0px; left: 0px;"></div>
   <div role="dialog" tabindex="-1" class="ohu-popup-wrapper is-tap-through has-position is-x-center is-y-bottom" style="z-index: 1003; z-index: 1003;">
     <div role="document" class="ohu-popup is-fullscreen ohu-slide-down-enter ohu-slide-down-enter-active" style="">
       <div style="width: 100px; height: 200px;">mask</div>
     </div>
   </div>
-</div>
+</div>"
 `;
 
-exports[`Popup v-model and popup-header 1`] = `
-<div role="presentation">
+exports[`Popup > v-model and popup-header 1`] = `
+"<div role="presentation">
   <div class="ohu-mask ohu-mask-fade-enter ohu-mask-fade-enter-active" style="z-index: 1000; top: 0px; left: 0px;"></div>
   <div role="dialog" tabindex="-1" class="ohu-popup-wrapper has-position is-x-center is-y-center" style="z-index: 1001; z-index: 1001;">
     <div role="document" class="ohu-popup ohu-none-enter ohu-none-enter-active" style="width: 100px; height: 100px;">
@@ -33,5 +33,5 @@ exports[`Popup v-model and popup-header 1`] = `
       </div>
     </div>
   </div>
-</div>
+</div>"
 `;

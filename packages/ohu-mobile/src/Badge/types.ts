@@ -1,5 +1,3 @@
-
-
 export type BadgePosition = 'up-left' | 'up-right' | 'down-left' | 'down-right';
 
 export type BadgeType = 'corner' | 'tag' | 'dot';

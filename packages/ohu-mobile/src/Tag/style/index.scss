@@ -1,5 +1,8 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use "pkg:@ohu-mobile/styles" as *;
+@use '../../_styles/mixins' as *;
+
 
 $tagPrefixClass: #{$prefix}tag;
 
@@ -12,6 +15,7 @@ $tagPrefixClass: #{$prefix}tag;
   position: relative;
   &__text {
     display: inline-block;
+    white-space: nowrap;
   }
   .#{$prefix}icon {
     @include center(y);
@@ -28,7 +32,7 @@ $tagPrefixClass: #{$prefix}tag;
     font-size: $tagFontSizeSm;
     .#{$tagPrefixClass}__text {
       font-size: $tagFontSizeSm;
-      line-height: (32 / 20) * 1em;
+      line-height: math.div(32, 20) * 1em;
       transform: scale(0.833333, 0.833333);
       transform-origin: center center;
     }
@@ -43,7 +47,7 @@ $tagPrefixClass: #{$prefix}tag;
   &.is-md {
     padding: $tagPaddingMd;
     font-size: $tagFontSizeMd;
-    line-height: (34 / 24) * 1em;
+    line-height: math.div(34, 24) * 1em;
     .#{$prefix}icon {
       font-size: 1.1666666667em;
       right: .642857em;
@@ -55,7 +59,7 @@ $tagPrefixClass: #{$prefix}tag;
   &.is-lg {
     padding: $tagPaddingLg;
     font-size: $tagFontSizeLg;
-    line-height: (40 / 28) * 1em;
+    line-height: math.div(40, 28) * 1em;
     .#{$prefix}icon {
       font-size: 1.1429em;
       right: .75em;

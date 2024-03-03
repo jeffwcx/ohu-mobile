@@ -1,17 +1,26 @@
 import PortalRender from '../_utils/PortalRender';
 import Popup, { popupProps, POPUP_EVENT } from './Popup';
 import { VNodeData } from 'vue';
-import { PopupOutSideEvents, PopupOutSideProps, PopupGetContainerFunc } from './types';
+import {
+  PopupOutSideEvents,
+  PopupOutSideProps,
+  PopupGetContainerFunc,
+} from './types';
 import { defineComponent, props } from '../_utils/defineComponent';
 
 export const popupOutSideProps = {
-  getContainer: props.ofType<PopupGetContainerFunc>().default(() => document.body),
+  getContainer: props
+    .ofType<PopupGetContainerFunc>()
+    .default(() => document.body),
   dynamic: props(Boolean).default(false),
   usePortal: props(Boolean).default(true),
   ...popupProps,
 };
 
-const createPopupWrapper = defineComponent<PopupOutSideProps, PopupOutSideEvents>('popup');
+const createPopupWrapper = defineComponent<
+  PopupOutSideProps,
+  PopupOutSideEvents
+>('popup');
 
 const PopupWrapper = createPopupWrapper.create({
   model: {
@@ -19,12 +28,24 @@ const PopupWrapper = createPopupWrapper.create({
     event: POPUP_EVENT,
   },
   props: popupOutSideProps,
+  data() {
+    return {
+      internalVisible: this.visible,
+    };
+  },
+  watch: {
+    visible(visible: boolean) {
+      this.internalVisible = visible;
+    },
+  },
   methods: {
     close() {
-      (this.$refs.popup as any).close();
+      this.internalVisible = false;
+      // (this.$refs.popup as any)?.close();
     },
     open() {
-      (this.$refs.popup as any).open();
+      this.internalVisible = true;
+      // (this.$refs.popup as any)?.open();
     },
   },
   render() {
@@ -33,14 +54,21 @@ const PopupWrapper = createPopupWrapper.create({
       $listeners,
       $attrs,
       $slots,
-      visible,
+      internalVisible,
       getContainer,
       dynamic,
     } = this;
-    const popupNodeData: VNodeData = {
-      props: $props,
+    const popupNodeData = {
+      props: {
+        ...$props,
+        visible: internalVisible,
+      },
       on: {
         ...$listeners,
+        visibleChange: (visible: boolean) => {
+          this.internalVisible = visible;
+          this.$emit(POPUP_EVENT, visible);
+        },
         afterLeave: () => {
           if (dynamic && this.$refs.portal) {
             (this.$refs.portal as any).remove();
@@ -49,24 +77,19 @@ const PopupWrapper = createPopupWrapper.create({
         },
       },
       attrs: $attrs,
-      ref: 'popup',
     };
-    if (!this.usePortal) return (
-      <Popup {...popupNodeData}>{$slots.default}</Popup>
-    );
-    const container = getContainer instanceof Function
-      ? getContainer()
-      : getContainer;
+    if (!this.usePortal)
+      return <Popup {...popupNodeData}>{$slots.default}</Popup>;
+    const container =
+      getContainer instanceof Function ? getContainer() : getContainer;
     return (
       <PortalRender
         ref="portal"
-        visible={visible}
+        visible={internalVisible}
         container={container}
-        children={() => (
-          <Popup {...popupNodeData}>{$slots.default}</Popup>
-        )}>
-      </PortalRender>
-    )
+        children={() => <Popup {...popupNodeData}>{$slots.default}</Popup>}
+      ></PortalRender>
+    );
   },
 });
 

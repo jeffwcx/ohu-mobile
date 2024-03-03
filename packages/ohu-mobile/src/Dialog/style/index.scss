@@ -1,5 +1,7 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use "pkg:@ohu-mobile/styles" as *;
+@use '../../_styles/mixins' as *;
 $dialogClassPrefix: #{$prefix}dialog;
 $dialogBorderRadius: 8px;
 
@@ -60,7 +62,7 @@ $dialogBorderRadius: 8px;
       text-align: center;
       font-weight: 400;
       font-size: 36px;
-      line-height: (50 / 36) * 1em;
+      line-height: math.div(50, 36) * 1em;
       flex: 0 0 auto;
       ~ .#{$dialogClassPrefix}__body__content {
         margin-top: 16px;
@@ -72,7 +74,7 @@ $dialogBorderRadius: 8px;
       margin: 0;
       text-align: center;
       font-weight: 400;
-      line-height: (44/28) * 1em;
+      line-height: math.div(44, 28) * 1em;
       font-size: 28px;
       word-wrap: break-word;
       white-space: pre-wrap;

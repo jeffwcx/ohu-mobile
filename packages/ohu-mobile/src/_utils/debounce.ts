@@ -1,4 +1,3 @@
-
 export default function debounce(func: Function, wait = 166) {
   let timeout: any;
   function debounced(this: any, ...args: any[]) {
@@ -6,9 +5,9 @@ export default function debounce(func: Function, wait = 166) {
       clearTimeout(timeout);
     }
     timeout = setTimeout(() => {
-      func.apply(this, args)
+      func.apply(this, args);
     }, wait);
-  };
+  }
   debounced.clear = () => {
     if (timeout) {
       clearTimeout(timeout);

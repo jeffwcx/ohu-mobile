@@ -1,6 +1,5 @@
 import { TabbarProps, TabbarItemProps } from '../Tabbar';
 
-
 export interface TabsProps extends TabbarProps {
   sticky?: boolean;
 }

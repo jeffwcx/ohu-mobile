@@ -1,4 +1,3 @@
-
 export interface SkeletonProps {
   loading?: boolean;
   shape?: 'rect' | 'circle';

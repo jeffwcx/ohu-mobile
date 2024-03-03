@@ -1,39 +1,45 @@
 import EntryItem from '../EntryItem';
 import { entryItemProps } from '../EntryItem/EntryItem';
-import { VNodeData } from 'vue';
+import type { CSSProperties, VNodeData } from 'vue';
 import { transformSlotsContext } from '../_utils/vnode';
 import { TabbarItemEvents, TabbarItemProps } from './types';
 import { $colorPrimary } from '../_config/variables';
 import { defineComponent, props } from '../_utils/defineComponent';
 import Tabbar from './Tabbar';
-interface ComputedProps {
+export interface TabbarItemInnerProps {
   index: number;
   selfKey: string | number;
   active: boolean;
+  handleClick: () => void;
 }
 
-const TabbarItemWrapper = function(Item: typeof EntryItem) {
-  return defineComponent<TabbarItemProps, TabbarItemEvents, {}, ComputedProps>('tabbar-item').create({
+const TabbarItemWrapper = function (Item: typeof EntryItem) {
+  return defineComponent<
+    TabbarItemProps,
+    TabbarItemEvents,
+    {},
+    TabbarItemInnerProps
+  >('tabbar-item').create({
     props: {
       ...entryItemProps,
       name: props<string, number>(String, Number).optional,
     },
     computed: {
       index() {
-        return this.$parent.$children.indexOf(this);
+        return this.$parent?.$children.indexOf(this);
       },
       selfKey() {
         return this.name || this.index;
       },
       active() {
         let { stateValue } = this.$parent as any;
-        return this.selfKey === stateValue
+        return this.selfKey === stateValue;
       },
     },
     methods: {
       handleClick() {
         const parent = this.$parent as any;
-        if (this.$parent.constructor === Tabbar) {
+        if (this.$parent?.constructor === Tabbar) {
           parent.onChange(this.selfKey, this.index, this.name);
           this.$nextTick(() => {
             parent.scrollIntoCenter();
@@ -42,11 +48,9 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
       },
     },
     render(h) {
-      const {
-        $props, $slots, $scopedSlots, $attrs, $listeners,
-        icon, text,
-      } = this;
-      const style: Partial<CSSStyleDeclaration> = {};
+      const { $props, $slots, $scopedSlots, $attrs, $listeners, icon, text } =
+        this;
+      const style: CSSProperties = {};
       let { activeColor, inActiveColor } = this.$parent as any;
       if (activeColor && inActiveColor) {
         if (activeColor === 'primary') {
@@ -54,9 +58,9 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
         }
         style.color = this.active ? activeColor : inActiveColor;
       }
-      const root = this.root();
+      const root = this.$rootCls();
       this.active && root.is('active');
-      (!!(icon && (text || $slots.default))) && root.has('padding')
+      !!(icon && (text || $slots.default)) && root.has('padding');
       const nodeData: VNodeData = {
         class: root,
         on: {
@@ -78,7 +82,6 @@ const TabbarItemWrapper = function(Item: typeof EntryItem) {
       );
     },
   });
-}
-
+};
 
 export default TabbarItemWrapper(EntryItem);

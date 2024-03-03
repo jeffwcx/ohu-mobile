@@ -1,12 +1,13 @@
-@import '../../_styles/variables.scss';
-@import '../../_styles/mixins.scss';
+@use 'sass:math';
+@use '../../_styles/variables' as *;
+@use '../../_styles/mixins' as *;
 $loadingPrefixClass: #{$prefix}loading;
 
 .#{$loadingPrefixClass} {
   display: inline-flex;
   font-size: 28px;
   color: $loadingTextColor;
-  line-height: (40/28) * 1em;
+  line-height: math.div(40, 28) * 1em;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;

@@ -1,5 +1,3 @@
-
-
 export function getScrollTop(element: Element | Window) {
   if (element === window) {
     return Math.max(window.scrollY || 0, document.documentElement.scrollTop);
@@ -18,7 +16,10 @@ export function getScrollHeight(element: HTMLElement) {
   return element.scrollHeight;
 }
 
-export function getTopOffsetOfWrapperAndInner(wrapper: Element | Window, inner: Element) {
+export function getTopOffsetOfWrapperAndInner(
+  wrapper: Element | Window,
+  inner: Element,
+) {
   let top = 0;
   if (wrapper !== window) {
     const wrapperRect = (wrapper as Element).getBoundingClientRect();
@@ -37,9 +38,12 @@ export function isElementSticky(scroller: Element | Window, el: Element) {
   return bottom - st > 0;
 }
 
-
 export function reachBottom(element: Element | Window, distance: number = 0) {
-  const scrollElement = element === window ? document.body : element as HTMLElement;
+  const scrollElement =
+    element === window ? document.body : (element as HTMLElement);
   const scrollHeight = getScrollHeight(scrollElement);
-  return scrollHeight - (getClientHeight(element) + getScrollTop(element)) <= distance;
+  return (
+    scrollHeight - (getClientHeight(element) + getScrollTop(element)) <=
+    distance
+  );
 }

@@ -7,8 +7,8 @@
 ```bash
 # with npm
 npm install @ohu-mobile/icons
-# with yarn
-yarn add @ohu-mobile/icons
+# with pnpm
+pnpm add @ohu-mobile/icons
 ```
 
 ## Usage

@@ -13,4 +13,3 @@ const ArrowDownSFilled: SVGIconDef = {
 };
 
 export default ArrowDownSFilled;
-

@@ -17,6 +17,7 @@ const locale = {
     const { prototype, util } = Vue;
     proto = prototype;
     if (util) {
+      // @ts-ignore
       util.defineReactive(prototype, langVar, defaultLang);
     }
     prototype[messagesVar] = {
@@ -27,7 +28,7 @@ const locale = {
   use(lang: string, messages?: LocaleDef) {
     if (proto) {
       const msgs = proto[messagesVar];
-      const hasLang = (lang in msgs);
+      const hasLang = lang in msgs;
       if (!messages && !hasLang) return;
       if (!hasLang && messages) {
         msgs[lang] = messages;

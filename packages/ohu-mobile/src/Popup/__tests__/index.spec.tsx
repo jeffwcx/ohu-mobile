@@ -5,9 +5,9 @@ import Popup from '..';
 import Button from '../../Button';
 import { wait } from '../../_utils/test';
 import VueRouter from 'vue-router';
+import { describe, it, expect, vi } from 'vitest';
 
 config.stubs!.transition = false;
-
 
 function resizeWindow(width: number, height: number) {
   Object.defineProperties(window, {
@@ -26,37 +26,41 @@ function createDiv() {
 describe('Popup', () => {
   it('v-model and popup-header', async () => {
     const div = createDiv();
-    const onClose = jest.fn();
-    const onConfirm = jest.fn();
-    const wrapper = mount(Vue.extend({
-      data() {
-        return {
-          visible: false,
-        };
+    const onClose = vi.fn();
+    const onConfirm = vi.fn();
+    const wrapper = mount(
+      Vue.extend({
+        data() {
+          return {
+            visible: false,
+          };
+        },
+        render() {
+          return (
+            <Popup
+              v-model={this.visible}
+              usePortal={false}
+              maskClosable
+              zIndex={1000}
+              onClose={onClose}
+              targetStyle={{ width: '100px', height: '100px' }}
+            >
+              <Popup.Header
+                title="标题"
+                minorText="minorText"
+                center
+                closeIcon={CloseOutlined}
+                confirm
+                onConfirm={onConfirm}
+              ></Popup.Header>
+            </Popup>
+          );
+        },
+      }),
+      {
+        attachTo: div,
       },
-      render() {
-        return (
-          <Popup
-            v-model={this.visible}
-            usePortal={false}
-            maskClosable
-            zIndex={1000}
-            onClose={onClose}
-            targetStyle={{ width: '100px', height: '100px' }}>
-            <Popup.Header
-              title="标题"
-              minorText="minorText"
-              center
-              closeIcon={CloseOutlined}
-              confirm
-              onConfirm={onConfirm}>
-            </Popup.Header>
-          </Popup>
-        );
-      },
-    }), {
-      attachTo: div,
-    });
+    );
     wrapper.setData({ visible: true });
     await Vue.nextTick();
     expect(wrapper.html()).toMatchSnapshot();
@@ -70,13 +74,13 @@ describe('Popup', () => {
 
   it('should add class and style to wrapper when using `targetClass` and `targetStyle`', async () => {
     const div = createDiv();
-    const onOpen = jest.fn();
+    const onOpen = vi.fn();
     const wrapper = mount(Popup, {
       propsData: {
         visible: true,
         targetClass: 'cls',
         targetStyle: { width: '50%', height: '200px' },
-        usePortal:false,
+        usePortal: false,
         zIndex: 1001,
       },
       listeners: {
@@ -95,7 +99,7 @@ describe('Popup', () => {
   it('should detect edge in anchor mode', async () => {
     const div = createDiv();
     const mockAnchor = {
-      getBoundingClientRect: jest.fn().mockReturnValue({
+      getBoundingClientRect: vi.fn().mockReturnValue({
         bottom: 391,
         height: 48,
         left: 22,
@@ -106,36 +110,40 @@ describe('Popup', () => {
         y: 343,
       }),
     };
-    const wrapper = mount(Vue.extend({
-      data() {
-        return {
-          visible: false,
-        };
+    const wrapper = mount(
+      Vue.extend({
+        data() {
+          return {
+            visible: false,
+          };
+        },
+        render() {
+          return (
+            <div>
+              <Popup
+                v-model={this.visible}
+                mask
+                maskClosable
+                position="right"
+                transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                anchor={() => mockAnchor as any}
+                usePortal={false}
+                edgeDetect
+              >
+                <p>anchor and edge detect</p>
+              </Popup>
+              <Button onClick={() => (this.visible = true)}>anchor</Button>
+            </div>
+          );
+        },
+      }),
+      {
+        attachTo: div,
       },
-      render() {
-        return (
-          <div>
-            <Popup
-              v-model={this.visible}
-              mask
-              maskClosable
-              position="right"
-              transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              anchor={() => mockAnchor as any}
-              usePortal={false}
-              edgeDetect>
-              <p>anchor and edge detect</p>
-            </Popup>
-            <Button onClick={() => this.visible = true}>anchor</Button>
-          </div>
-        );
-      },
-    }), {
-      attachTo: div,
-    });
+    );
     await wrapper.find('.ohu-btn').trigger('click');
     await Vue.nextTick();
-    const popup = wrapper.find('.ohu-popup').element
+    const popup = wrapper.find('.ohu-popup').element as HTMLElement;
     expect(popup.style['top']).toBe('367px');
     expect(popup.style['left']).toBe('102px');
     expect(popup.style['transformOrigin']).toBe('bottom center');
@@ -146,7 +154,7 @@ describe('Popup', () => {
 
   it('should emit `close` event when mask is clicked', async () => {
     const div = createDiv();
-    const onClose = jest.fn();
+    const onClose = vi.fn();
     const wrapper = mount(Popup, {
       propsData: {
         visible: true,
@@ -163,9 +171,7 @@ describe('Popup', () => {
       slots: {
         default: Vue.extend({
           render() {
-            return (
-              <div style="width: 100px;height: 200px;">mask</div>
-            );
+            return <div style="width: 100px;height: 200px;">mask</div>;
           },
         }),
       },
@@ -178,42 +184,43 @@ describe('Popup', () => {
     expect(onClose).toBeCalledTimes(1);
   });
 
-
   it('should add component to body when use call `open()`', async () => {
     const div = createDiv();
-    const afterClose = jest.fn();
-    jest.spyOn(document.body, 'appendChild');
-    const wrapper = mount(Vue.extend({
-      methods: {
-        open() {
-          Popup.open({
-            parent: this,
-            animate: 'none',
-            onAfterClose: afterClose,
-            render() {
-              return <p>Function Call</p>;
-            },
-          });
+    const afterClose = vi.fn();
+    vi.spyOn(document.body, 'appendChild');
+    const wrapper = mount(
+      Vue.extend({
+        methods: {
+          open() {
+            Popup.open({
+              parent: this,
+              animate: 'none',
+              onAfterClose: afterClose,
+              render() {
+                return <p>Function Call</p>;
+              },
+            });
+          },
+          close() {
+            Popup.close();
+          },
         },
-        close() {
-          Popup.close();
-        }
+        render() {
+          return <div></div>;
+        },
+      }),
+      {
+        attachTo: div,
       },
-      render() {
-        return (
-          <div>
-          </div>
-        );
-      },
-    }), {
-      attachTo: div,
-    });
+    );
     await Vue.nextTick();
     wrapper.vm.open();
     await wait(300);
-    expect(document.body.appendChild).toBeCalledWith(expect.objectContaining({
-      title: 'TEST',
-    }));
+    expect(document.body.appendChild).toBeCalledWith(
+      expect.objectContaining({
+        title: 'TEST',
+      }),
+    );
     wrapper.vm.close();
     await wait(300);
     expect(afterClose).toBeCalled();
@@ -221,7 +228,7 @@ describe('Popup', () => {
 
   it('should be closed when mask has been touched', async () => {
     const div = createDiv();
-    const onClose = jest.fn();
+    const onClose = vi.fn();
     const wrapper = mount(Popup, {
       propsData: {
         visible: true,
@@ -245,7 +252,6 @@ describe('Popup', () => {
     expect(onClose).toBeCalled();
   });
 
-
   // https://github.com/jeffwcx/ohu-mobile/issues/23
   it('should hide when it changes from deactivated to activated', async () => {
     const div = createDiv();
@@ -257,7 +263,8 @@ describe('Popup', () => {
               visible
               scrollBody
               usePortal={false}
-              targetStyle={{ height: '120vh', width: '100px' }}>
+              targetStyle={{ height: '120vh', width: '100px' }}
+            >
               A
             </Popup>
           </div>
@@ -266,7 +273,7 @@ describe('Popup', () => {
     });
     const B = Vue.extend({
       render() {
-        return <div>B</div>
+        return <div>B</div>;
       },
     });
     const router = new VueRouter({
@@ -277,28 +284,30 @@ describe('Popup', () => {
       ],
     });
     Vue.use(VueRouter);
-    const wrapper = mount(Vue.extend({
-      router,
-      methods: {
-        pushToB() {
-          router.push('/b');
+    const wrapper = mount(
+      Vue.extend({
+        router,
+        methods: {
+          pushToB() {
+            router.push('/b');
+          },
         },
+        render() {
+          return (
+            <keep-alive>
+              <router-view></router-view>
+            </keep-alive>
+          );
+        },
+      }),
+      {
+        attachTo: div,
       },
-      render() {
-        return (
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
-        );
-      },
-    }), {
-      attachTo: div,
-    });
+    );
     await wait(300);
     expect(document.body.style.overflow).toBe('hidden');
     wrapper.vm.pushToB();
     await wait(300);
     expect(document.body.style.overflow).toBe('');
   });
-
 });

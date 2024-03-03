@@ -5,7 +5,9 @@ import { PopupHeaderProps, PopupHeaderEvents } from './types';
 import localeMixin from '../_utils/localeMixin';
 import { IconDef } from '../types';
 
-export default defineComponent<PopupHeaderProps, PopupHeaderEvents>('popup-header')
+export default defineComponent<PopupHeaderProps, PopupHeaderEvents>(
+  'popup-header',
+)
   .mixin(localeMixin('OhuPopupHeader'))
   .create({
     props: {
@@ -14,7 +16,9 @@ export default defineComponent<PopupHeaderProps, PopupHeaderEvents>('popup-heade
       center: props(Boolean).default(false),
       confirm: props(Boolean).default(false),
       closeIcon: props.ofType<IconDef>().default(() => CloseOutlined),
-      closeIconPosition: props.ofStringLiterals('left', 'right').default('right'),
+      closeIconPosition: props
+        .ofStringLiterals('left', 'right')
+        .default('right'),
     },
     methods: {
       close() {
@@ -29,22 +33,25 @@ export default defineComponent<PopupHeaderProps, PopupHeaderEvents>('popup-heade
       },
     },
     render() {
-      const root = this.root();
+      const root = this.$rootCls();
       const textNode = root.element('text');
       const {
         $slots,
-        title, minorText, center, confirm, closeIcon, closeIconPosition
+        title,
+        minorText,
+        center,
+        confirm,
+        closeIcon,
+        closeIconPosition,
       } = this;
       const content = (
         <div class={textNode}>
           <div class={textNode.element('title').has([!!minorText && 'minor'])}>
             {$slots.default || title}
           </div>
-          {
-            minorText
-            &&
+          {minorText && (
             <div class={textNode.element('minor-title')}>{minorText}</div>
-          }
+          )}
         </div>
       );
       if (confirm) {
@@ -55,7 +62,8 @@ export default defineComponent<PopupHeaderProps, PopupHeaderEvents>('popup-heade
               link
               inline
               size="sm"
-              onClick={this.close}>
+              onClick={this.close}
+            >
               {this.$l.cancelText}
             </Button>
             {content}
@@ -65,22 +73,29 @@ export default defineComponent<PopupHeaderProps, PopupHeaderEvents>('popup-heade
               link
               inline
               size="sm"
-              onClick={this.handleConfirm}>
+              onClick={this.handleConfirm}
+            >
               {this.$l.confirmText}
             </Button>
           </div>
         );
       }
       return (
-        <div class={root.is([center && 'text-center', `close-icon-${closeIconPosition}`])}>
+        <div
+          class={root.is([
+            center && 'text-center',
+            `close-icon-${closeIconPosition}`,
+          ])}
+        >
           {content}
-          <Button type="link"
+          <Button
+            type="link"
             class={root.element('close')}
             size="md"
             inline
             icon={closeIcon}
-            onClick={this.close}>
-          </Button>
+            onClick={this.close}
+          ></Button>
         </div>
       );
     },

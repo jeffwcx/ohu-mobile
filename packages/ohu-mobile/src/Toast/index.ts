@@ -1,12 +1,29 @@
 import Toast from './Toast';
 import createPopupMethodApi from '../_utils/createPopupMethodApi';
-import { ToastOptions, ToastInfoOptions, ToastLoadingOptions, ToastSuccessOptions, ToastFailOptions } from './types';
+import {
+  ToastOptions,
+  ToastInfoOptions,
+  ToastLoadingOptions,
+  ToastSuccessOptions,
+  ToastFailOptions,
+} from './types';
 import isPlainObject from '../_utils/isPlainObject';
-import { CheckboxCircleOutlined, CloseCircleOutlined, LoaderTailOutlined } from '@ohu-mobile/icons';
+import {
+  CheckboxCircleOutlined,
+  CloseCircleOutlined,
+  LoaderTailOutlined,
+} from '@ohu-mobile/icons';
 
-const { createOpenApi, close, createCustomApi } = createPopupMethodApi(Toast, true);
+const { createOpenApi, close, createCustomApi } = createPopupMethodApi(
+  Toast,
+  true,
+);
 
-const transformFunc = (content: string, arg1?: number | ToastOptions, arg2?: ToastOptions) => {
+const transformFunc = (
+  content: string,
+  arg1?: number | ToastOptions,
+  arg2?: ToastOptions,
+) => {
   const toastOptions: ToastOptions = { content };
   if (arg1 !== undefined) {
     if (typeof arg1 === 'number') {

@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
 import Vue from 'vue';
 import IndexList from '..';
+import { describe, it, expect } from 'vitest';
 
 describe('IndexList', () => {
-
   it('Custom `indexes` should work', () => {
     const Component = Vue.extend({
       render() {
@@ -26,5 +26,4 @@ describe('IndexList', () => {
     const nodes = wrapper.findAll('.ohu-index-list__bar ul li span');
     expect(nodes.length).toBe(2);
   });
-
 });

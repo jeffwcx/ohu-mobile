@@ -1,4 +1,4 @@
-@import './variables.scss';
-@import './mixins.scss';
-@import './reset.scss';
-@import './animation.scss';
+@use './variables';
+@use './mixins';
+@use './reset';
+@use './animation';

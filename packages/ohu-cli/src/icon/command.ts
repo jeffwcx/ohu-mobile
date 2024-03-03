@@ -1,39 +1,120 @@
 import chalk from 'chalk';
-import ora from 'ora';
-import { CommandModule } from 'yargs';
-import l from '../locale';
+import ora, { Ora } from 'ora';
+import { CommandModule, type InferredOptionTypes, type ArgumentsCamelCase } from 'yargs';
+import { t } from '../locale';
 import { IconCommandOptions, OhuOptions } from '../types';
 import { buildIcon } from './index';
 import defaultConfig from './defaultConfig';
 
-type IconModule = CommandModule<{}, IconCommandOptions>;
+const options = {
+  type: {
+    type: 'string',
+    alias: 'i',
+    description: t('icon.typeDesc'),
+    require: false,
+  },
+  outputDir: {
+    alias: 'o',
+    type: 'string',
+    description: t('icon.outputDirDesc'),
+    default: defaultConfig.outputDir,
+  },
+  template: {
+    alias: 't',
+    type: 'string',
+    description: t('icon.templateDesc'),
+    require: false,
+  },
+  noIndex: {
+    type: 'boolean',
+    description: t('icon.noIndexDesc'),
+    require: false,
+    default: defaultConfig.noIndex,
+  },
+  sortDir: {
+    type: 'boolean',
+    description: t('icon.sortDirDesc'),
+    default: defaultConfig.sortDir,
+  },
+  noThemeSuffix: {
+    type: 'boolean',
+    description: t('icon.noThemeSuffixDesc'),
+    default: defaultConfig.noThemeSuffix,
+    demandOption: 'sortDir',
+  },
+  includedThemes: {
+    type: 'array',
+    description: t('icon.includedThemesDesc'),
+    default: defaultConfig.includedThemes,
+  },
+  uniqueId: {
+    type: 'boolean',
+    description: t('icon.uniqueIdDesc'),
+    default: defaultConfig.uniqueId,
+  },
+  taskChunk: {
+    alias: 'c',
+    type: 'number',
+    description: t('icon.taskChunkDesc'),
+    default: defaultConfig.taskChunk,
+  },
+  tsx: {
+    type: 'boolean',
+    description: t('icon.tsx'),
+    default: defaultConfig.tsx,
+  },
+  vue: {
+    type: 'boolean',
+    description: t('icon.vue'),
+    default: defaultConfig.vue,
+  },
+} as const;
 
-const iconCommandModule: Omit<IconModule, 'handler'>= {
-  command: 'icon [globs]',
-  describe: l('icon.desc'),
-  aliases: ['svg', 'icons'],
-};
+type IconCommandArgs = InferredOptionTypes<typeof options>;
+type IconModule = CommandModule<object, IconCommandArgs>;
 
+function buildIconForCommand(options: ArgumentsCamelCase<IconCommandArgs>, spinner: Ora) {
+  return buildIcon({
+    ...options as unknown as IconCommandOptions,
+    onStart: () => {
+      spinner.start();
+    },
+    onProgress: ({ count, total, fileName }) => {
+      spinner.text = chalk.cyan(`${count}/${total} ${fileName} ${t('icon.genSuccess')}`)
+    },
+    onIconsGenerated: () => {
+      spinner.succeed(chalk.green(t('icon.iconsGenSuccess'))).start();
+    },
+    onIndexFileGenerated: () => {
+      spinner.succeed(chalk.green(t('icon.indexFileGenSuccess'))).start();
+    },
+    onTypeFileGenerated: () => {
+      spinner.succeed(chalk.green(t('icon.typeFileGenSuccess'))).start();
+    },
+  });
+}
 
 export default function createIconCommand(globalOptions: OhuOptions): IconModule {
   return {
-    ...iconCommandModule,
+    command: 'icon [globs]',
+    describe: t('icon.desc'),
+    aliases: ['svg', 'icons'],
     handler: (options) => {
       const spinner = ora({
         discardStdin: false,
-        text: chalk.cyan(l('icon.start')),
+        text: chalk.cyan(t('icon.start')),
         spinner: 'material',
         color: 'cyan',
       });
-      buildIcon(options, { spinner }).then(() => {
+      buildIconForCommand(options, spinner).then(() => {
         spinner.start()
           .stopAndPersist({
-            text: chalk.green(l('icon.allGenSuccess')),
+            text: chalk.green(t('icon.allGenSuccess')),
             symbol: '🎉',
           });
       }).catch((error) => {
         spinner.start()
-          .fail(chalk.black.bgRed(l('icon.allGenFail')));
+          .fail(chalk.black.bgRed(t('icon.allGenFail')));
         console.error(error);
       });
     },
@@ -41,77 +122,15 @@ export default function createIconCommand(globalOptions: OhuOptions): IconModule
       let y = yargs
         .positional('globs', {
           type: 'string',
-          description: l('icon.sourceDesc'),
+          description: t('icon.sourceDesc'),
         })
-        .options({
-          type: {
-            type: 'string',
-            alias: 'i',
-            description: l('icon.typeDesc'),
-            require: false,
-          },
-          outputDir: {
-            alias: 'o',
-            type: 'string',
-            description: l('icon.outputDirDesc'),
-            default: defaultConfig.outputDir,
-          },
-          template: {
-            alias: 't',
-            type: 'string',
-            description: l('icon.templateDesc'),
-            require: false,
-          },
-          noIndex: {
-            type: 'boolean',
-            description: l('icon.noIndexDesc'),
-            require: false,
-            default: defaultConfig.noIndex,
-          },
-          sortDir: {
-            type: 'boolean',
-            description: l('icon.sortDirDesc'),
-            default: defaultConfig.sortDir,
-          },
-          noThemeSuffix: {
-            type: 'boolean',
-            description: l('icon.noThemeSuffixDesc'),
-            default: defaultConfig.noThemeSuffix,
-            demandOption: 'sortDir',
-          },
-          includedThemes: {
-            type: 'array',
-            description: l('icon.includedThemesDesc'),
-            default: defaultConfig.includedThemes,
-          },
-          dynamicId: {
-            type: 'boolean',
-            description: l('icon.dynamicIdDesc'),
-            default: defaultConfig.dynamicId,
-          },
-          taskChunk: {
-            alias: 'c',
-            type: 'number',
-            description: l('icon.taskChunkDesc'),
-            default: defaultConfig.taskChunk,
-          },
-          tsx: {
-            type: 'boolean',
-            description: l('icon.tsx'),
-            default: defaultConfig.tsx,
-          },
-          vue: {
-            type: 'boolean',
-            description: l('icon.vue'),
-            default: defaultConfig.vue,
-          },
-        })
+        .options(options)
         .example([
-          ['$0 icon ./remixicon -o ./icons', l('icon.example1')],
-          ['$0 icon ./remixicon -o ./icons --sort-dir', l('icon.example2')],
-          ['$0 icon ./remixicon -o ./icons --tsx', l('icon.example3')],
-          ['$0 icon ./remixicon -o ./icons --vue', l('icon.example4')],
-          ['$0 icon ./remixicon -o ./icons -t ./custom.art', l('icon.example5')],
+          ['$0 icon ./remixicon -o ./icons', t('icon.example1')],
+          ['$0 icon ./remixicon -o ./icons --sort-dir', t('icon.example2')],
+          ['$0 icon ./remixicon -o ./icons --tsx', t('icon.example3')],
+          ['$0 icon ./remixicon -o ./icons --vue', t('icon.example4')],
+          ['$0 icon ./remixicon -o ./icons -t ./custom.art', t('icon.example5')],
         ]);
       if (globalOptions.icon) {
         y = y.config(globalOptions.icon);

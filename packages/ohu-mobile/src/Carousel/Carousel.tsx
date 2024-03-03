@@ -4,7 +4,25 @@ import Stage, { stageProps } from './Stage';
 import debounce from '../_utils/debounce';
 import bindEvent from '../_utils/bindEvent';
 
-const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').create({
+export type CarouselInnerProps = {
+  timer: NodeJS.Timeout | null;
+  frozen: boolean;
+  stage: InstanceType<typeof Stage>;
+  relayout: () => void;
+  handleVisibleChange: () => void;
+  startPlay: () => void;
+  handleResize: () => void;
+  stopPlay: () => void;
+  next: () => void;
+  goTo: (index: number) => void;
+};
+
+const Carousel = defineComponent<
+  CarouselProps,
+  CarouselEvents,
+  {},
+  CarouselInnerProps
+>('carousel').create({
   props: {
     autoplay: props(Boolean).default(false),
     interval: props(Number).default(3000),
@@ -26,7 +44,7 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
     },
     resize(cur) {
       cur === true && this.handleResize();
-    }
+    },
   },
   data() {
     return {
@@ -64,7 +82,6 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
         this.stopPlay();
         this.frozen = true;
       });
-
     },
     stopPlay() {
       if (!this.autoplay) return;
@@ -103,7 +120,7 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
     this.handleVisibleChange();
   },
   render() {
-    const root = this.root();
+    const root = this.$rootCls();
     const indicatorClass = root.element('indicator');
     const { $slots, direction } = this;
     const {
@@ -117,19 +134,18 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
       ...stageProps
     } = this.$props;
     return (
-      <div class={root}
-        style={{ height, width }}>
-        <Stage {...{
-          props: stageProps,
-          scopedSlots: {
-            indicator: ({ steps, stepIndex }) => {
-              if (!this.indicator) {
-                return;
-              }
-              return (
-                <div class={indicatorClass.is(direction)}>
-                  {
-                    Array(steps)
+      <div class={root} style={{ height, width }}>
+        <Stage
+          {...{
+            props: stageProps,
+            scopedSlots: {
+              indicator: ({ steps, stepIndex }) => {
+                if (!this.indicator) {
+                  return;
+                }
+                return (
+                  <div class={indicatorClass.is(direction)}>
+                    {Array(steps)
                       .fill(0)
                       .map((_, index) => {
                         const dot = indicatorClass.element('dot');
@@ -138,28 +154,28 @@ const Carousel = defineComponent<CarouselProps, CarouselEvents>('carousel').crea
                           indicatorDarkMode && 'dark',
                         ]);
                         return (
-                          <span class={dot}
+                          <span
+                            class={dot}
                             tabindex={0}
                             role="button"
                             onClick={() => {
                               this.goTo(index);
-                            }}>
-                          </span>
+                            }}
+                          ></span>
                         );
-                      })
-                  }
-                </div>
-              );
+                      })}
+                  </div>
+                );
+              },
             },
-          },
-          on: {
-            change: (e: CarouselChangeEvent) => {
-              this.$emit('input', e.to);
-              this.$emit('change', e);
+            on: {
+              change: (e: CarouselChangeEvent) => {
+                this.$emit('input', e.to);
+                this.$emit('change', e);
+              },
             },
-          },
-          ref: 'stage'
-        }}
+            ref: 'stage',
+          }}
         >
           {$slots.default}
         </Stage>
