@@ -1,4 +1,3 @@
-import docs from './README.md?raw';
 import { component } from 'vue-tsx-support';
 import Fab, { FabPositions } from './index';
 import './style';
@@ -19,7 +18,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

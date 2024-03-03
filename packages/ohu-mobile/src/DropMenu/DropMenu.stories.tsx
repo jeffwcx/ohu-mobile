@@ -1,5 +1,5 @@
 import Vue, { CSSProperties } from 'vue';
-import docs from './README.md?raw';
+
 import props from 'vue-strict-prop';
 import { component } from 'vue-tsx-support';
 import DropMenu from './index';
@@ -18,7 +18,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

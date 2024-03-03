@@ -14,7 +14,7 @@ const config: StorybookConfig = {
   ],
   addons: [
     '@storybook/addon-storysource',
-    "@storybook/addon-essentials",
+    "@storybook/addon-viewport",
   ],
   core: {
     builder: "@storybook/builder-vite",

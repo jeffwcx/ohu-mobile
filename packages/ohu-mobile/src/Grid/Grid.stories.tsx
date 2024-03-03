@@ -1,5 +1,5 @@
 import props from 'vue-strict-prop';
-import docs from './README.md?raw';
+
 import Vue from 'vue';
 import { component } from 'vue-tsx-support';
 import Grid from './index';
@@ -12,7 +12,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

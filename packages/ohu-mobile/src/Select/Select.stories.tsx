@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import docs from './README.md?raw';
+
 import Select from './index';
 import './style';
 import Tag from '../Tag';
@@ -26,9 +26,6 @@ export default {
     component: Select,
     options: {
       showPanel: true,
-    },
-    notes: {
-      markdown: docs,
     },
   },
 };

@@ -1,4 +1,3 @@
-import docs from './README.md?raw';
 import Vue from 'vue';
 import Toast from './index';
 import './style';
@@ -15,9 +14,6 @@ export default {
     component: Toast,
     options: {
       showPanel: true,
-    },
-    notes: {
-      markdown: docs,
     },
   },
 };

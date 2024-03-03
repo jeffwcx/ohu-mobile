@@ -5,7 +5,6 @@ import '../List/style';
 import Button from '../Button';
 import '../Button/style';
 import Vue from 'vue';
-import docs from './README.md?raw';
 
 export default {
   title: 'Components/DataDisplay/Collapse',
@@ -14,7 +13,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

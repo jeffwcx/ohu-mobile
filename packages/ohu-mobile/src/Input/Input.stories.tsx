@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import docs from './README.md?raw';
+
 import Card from '../Card';
 import '../Card/style';
 import Input from './index';
@@ -14,9 +14,6 @@ export default {
     component: Input,
     options: {
       showPanel: true,
-    },
-    notes: {
-      markdown: docs,
     },
   },
 };

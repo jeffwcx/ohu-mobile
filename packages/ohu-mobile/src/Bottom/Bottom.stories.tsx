@@ -7,8 +7,6 @@ import Tabbar from '../Tabbar';
 import '../Tabbar/style';
 import { GovernmentFilled, HomeFilled } from '@ohu-mobile/icons';
 
-import docs from './README.md?raw';
-
 export default {
   title: 'Components/Utils/Bottom',
   parameters: {
@@ -16,7 +14,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

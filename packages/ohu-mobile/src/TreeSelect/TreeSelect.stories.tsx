@@ -1,4 +1,3 @@
-import docs from './README.md?raw';
 import Vue from 'vue';
 import Card from '../Card';
 import '../Card/style';
@@ -15,9 +14,6 @@ export default {
     component: TreeSelect,
     options: {
       showPanel: true,
-    },
-    notes: {
-      markdown: docs,
     },
   },
 };

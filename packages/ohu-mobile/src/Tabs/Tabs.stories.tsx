@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import docs from './README.md?raw';
+
 import Tabs from './index';
 import './style';
 import Tab from '../Tab';
@@ -12,7 +12,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

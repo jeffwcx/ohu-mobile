@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import docs from './README.md?raw';
+
 import Radio from './index';
 import './style';
 import Checkbox from '../Checkbox';
@@ -27,7 +27,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

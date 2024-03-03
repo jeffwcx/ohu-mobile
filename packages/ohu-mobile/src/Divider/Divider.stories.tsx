@@ -1,4 +1,3 @@
-import docs from './README.md?raw';
 import Divider from './index';
 import './style';
 
@@ -9,7 +8,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

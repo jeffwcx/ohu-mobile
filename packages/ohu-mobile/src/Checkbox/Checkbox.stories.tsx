@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import docs from './README.md?raw';
+
 import Checkbox from './index';
 import './style';
 import CheckTag from '../CheckTag';
@@ -27,7 +27,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

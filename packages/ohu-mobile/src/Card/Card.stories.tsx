@@ -4,7 +4,6 @@ import Button from '../Button';
 import '../Button/style';
 import DetailItem from '../DetailItem';
 import '../DetailItem/style';
-import docs from './README.md?raw';
 
 export default {
   title: 'Components/DataDisplay/Card',
@@ -13,7 +12,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

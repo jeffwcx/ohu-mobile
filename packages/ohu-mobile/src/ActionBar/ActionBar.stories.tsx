@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import ActionBar from './index';
 import './style';
-import docs from './README.md?raw';
+
 import Dialog from '../Dialog';
 import '../Dialog/style';
 import Button from '../Button';
@@ -14,7 +14,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

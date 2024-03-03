@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import docs from './README.md?raw';
+
 import Form, { FormAlign, FormTrigger } from './index';
 import './style';
 import CheckboxGroup from '../CheckboxGroup';
@@ -30,7 +30,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

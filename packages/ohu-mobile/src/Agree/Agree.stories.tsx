@@ -1,7 +1,6 @@
 import Agree from './index';
 import './style';
 import Vue from 'vue';
-import docs from './README.md?raw';
 
 export default {
   title: 'Components/Form/Agree',
@@ -10,7 +9,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

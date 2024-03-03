@@ -1,4 +1,3 @@
-import docs from './README.md?raw';
 import { component } from 'vue-tsx-support';
 import IndexList from './index';
 import './style';
@@ -17,7 +16,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 

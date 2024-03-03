@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Button from './index';
 import './style';
-import docs from './README.md?raw';
+
 import {
   SaveOutlined,
   ArrowLeftSOutlined,
@@ -16,7 +16,6 @@ export default {
     options: {
       showPanel: true,
     },
-    notes: { markdown: docs },
   },
 };
 
