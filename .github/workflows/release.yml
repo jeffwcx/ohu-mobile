@@ -18,6 +18,8 @@ jobs:
 
       - name: Setup
         uses: ./.github/composite-actions/setup
+      
+      - run: pnpm build
 
       - name: Create release Pull Request or publish to NPM
         id: changesets
