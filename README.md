@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="https://www.getohu.dev/" alt="ohu-mobile"><img width="400px" src="https://raw.githubusercontent.com/jeffwcx/ohu-mobile/master/docs/storybook/src/assets/logo-color.svg" alt="ohu-mobile" /></a>
+<a href="https://ohu.darkernel.com/" alt="ohu-mobile"><img width="400px" src="https://raw.githubusercontent.com/jeffwcx/ohu-mobile/main/.storybook/assets/logo-color.svg" alt="ohu-mobile" /></a>
 </h1>
 <p align="center">Only Vue2 available now! Vue3 version is on the road.</p>
 <p align="center">
