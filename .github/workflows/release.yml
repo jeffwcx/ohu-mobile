@@ -24,8 +24,8 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: pnpm release
-          commit: "ci: relase"
-          title: "ci: relase"
+          commit: "ci: release"
+          title: "ci: release"
           setupGitUser: false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

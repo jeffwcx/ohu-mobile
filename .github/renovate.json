@@ -1,0 +1,42 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", "schedule:schedule:weekly"],
+  "labels": ["dependencies"],
+  "rebaseWhen": "conflicted",
+  "timezone": "UTC",
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "description": "Automatically merge minor and patch-level updates",
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "groupName": "test",
+      "matchPackageNames": ["vitest", "jsdom"],
+      "matchPackagePrefixes": ["@vitest"]
+    },
+    {
+      "groupName": "lint",
+      "matchPackagePatterns": ["eslint*", "@typescript-eslint*"]
+    },
+    {
+      "groupName": "storybook",
+      "matchPackagePatterns": ["storybook", "@storybook*"]
+    },
+    {
+      "groupName": "changesets",
+      "matchPackagePatterns": ["@changesets*"]
+    },
+    {
+      "groupName": "babel",
+      "matchPackagePatterns": ["@babel*"]
+    },
+    {
+      "groupName": "commit",
+      "matchPackagePatterns": ["@commitlint*", "commitizen"]
+    }
+  ],
+  "ignoreDeps": ["vue", "vue-router", "vue-tsx-support", "yup"]
+}

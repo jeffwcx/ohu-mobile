@@ -39,5 +39,4 @@ jobs:
 
     - name: Install dependencies
       run: pnpm install
-    - run: pnpm run build:icons
-    - run: pnpm run build:components
+    - run: pnpm build
