@@ -23,7 +23,7 @@ npm install @ohu-mobile/core
 pnpm add @ohu-mobile/core
 ```
 
-For more documentation and demos of this package, visit [https://getohu.dev](https://getohu.dev).
+For more documentation and demos of this package, visit [https://ohu.darkernel.com/](https://ohu.darkernel.com/).
 
 
 If you want to use offical svg icons. You can install `@ohu-mobile/icons`. It's a subset of [Remix Icon](https://remixicon.com/).
@@ -76,14 +76,6 @@ pnpm add @ohu-mobile/styles
     ```
 
 + Use CDN
-
-## Three ways to customize.
-
-+ Use theme variables.
-
-+ Change default behavior of component.
-
-+ Import the component library into your source code.
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjeffwcx%2Fohu-mobile.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjeffwcx%2Fohu-mobile?ref=badge_large)
