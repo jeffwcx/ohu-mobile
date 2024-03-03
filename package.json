@@ -18,7 +18,7 @@
     "build-storybook": "storybook build",
     "changelog": "changeset",
     "version": "changeset version",
-    "publish": "changeset publish",
+    "release": "changeset publish",
     "commit": "commit"
   },
   "repository": {
