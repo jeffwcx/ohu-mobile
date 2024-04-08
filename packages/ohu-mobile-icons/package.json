@@ -41,7 +41,7 @@
     "@ohu/cli": "workspace:*",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
-    "@types/fs-extra": "^8.1.5",
+    "@types/fs-extra": "^11.0.4",
     "@types/yargs": "^17.0.32",
     "art-template": "^4.13.2",
     "chalk": "^5.3.0",
