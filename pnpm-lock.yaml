@@ -440,8 +440,8 @@ importers:
         specifier: ^8.1.5
         version: 8.1.5
       '@types/yargs':
-        specifier: ^15.0.19
-        version: 15.0.19
+        specifier: ^17.0.32
+        version: 17.0.32
       art-template:
         specifier: ^4.13.2
         version: 4.13.2
@@ -5181,12 +5181,6 @@ packages:
 
   /@types/yargs-parser@21.0.3:
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
-
-  /@types/yargs@15.0.19:
-    resolution: {integrity: sha512-2XUaGVmyQjgyAZldf0D0c14vvo/yv0MhQBSTJcejMMaitsn3nxCB6TmH4G0ZQf+uxROOa9mpanoSm8h6SG/1ZA==}
-    dependencies:
-      '@types/yargs-parser': 21.0.3
-    dev: true
 
   /@types/yargs@16.0.9:
     resolution: {integrity: sha512-tHhzvkFXZQeTECenFoRljLBYPZJ7jAVxqqtEI0qTLOmuultnFp4I9yKE17vTuhf7BkhCu7I4XuemPgikDVuYqA==}
