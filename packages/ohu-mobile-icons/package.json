@@ -40,7 +40,7 @@
   "devDependencies": {
     "@ohu/cli": "workspace:*",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.4",
     "@types/fs-extra": "^11.0.4",
     "@types/yargs": "^17.0.32",
     "art-template": "^4.13.2",
