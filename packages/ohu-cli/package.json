@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/inquirer": "^8.2.10",
+    "@types/inquirer": "^9.0.7",
     "@types/lodash-es": "^4.17.12",
     "@types/yargs": "^17.0.32",
     "art-template": "^4.13.2",
@@ -70,7 +70,7 @@
     "ejs": "^3.1.9",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.12",
-    "inquirer": "^9.2.15",
+    "inquirer": "^9.2.17",
     "joi": "^17.12.3",
     "lodash-es": "^4.17.21",
     "ora": "^8.0.1",
