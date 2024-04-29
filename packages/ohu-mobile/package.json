@@ -95,7 +95,7 @@
     "sass": "^1.74.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.3",
-    "typescript": "^5.4.4",
+    "typescript": "^5.4.5",
     "vue": "^2.7.16",
     "vue-router": "^3.6.5",
     "vue-template-compiler": "^2.7.16",
