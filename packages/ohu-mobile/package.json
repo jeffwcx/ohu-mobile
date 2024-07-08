@@ -79,7 +79,7 @@
     "chalk": "^5.3.0",
     "cross-env": "^7.0.3",
     "fs-extra": "^11.2.0",
-    "glob": "^10.4.2",
+    "glob": "^10.4.3",
     "highlight.js": "^11.9.0",
     "jsdom": "^24.0.0",
     "markdown-it": "^14.1.0",
