@@ -183,8 +183,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       glob:
-        specifier: ^10.4.3
-        version: 10.4.3
+        specifier: ^10.4.5
+        version: 10.4.5
       inquirer:
         specifier: ^9.2.23
         version: 9.2.23
@@ -368,8 +368,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       glob:
-        specifier: ^10.4.3
-        version: 10.4.3
+        specifier: ^10.4.5
+        version: 10.4.5
       highlight.js:
         specifier: ^11.9.0
         version: 11.9.0
@@ -449,8 +449,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
       glob:
-        specifier: ^10.4.3
-        version: 10.4.3
+        specifier: ^10.4.5
+        version: 10.4.5
       rimraf:
         specifier: ^5.0.7
         version: 5.0.7
@@ -4463,7 +4463,7 @@ packages:
       find-cache-dir: 3.3.2
       find-up: 5.0.0
       fs-extra: 11.2.0
-      glob: 10.4.3
+      glob: 10.4.5
       handlebars: 4.7.7
       lazy-universal-dotenv: 4.0.0
       node-fetch: 2.7.0
@@ -4495,7 +4495,7 @@ packages:
       find-cache-dir: 3.3.2
       find-up: 5.0.0
       fs-extra: 11.2.0
-      glob: 10.4.3
+      glob: 10.4.5
       handlebars: 4.7.7
       lazy-universal-dotenv: 4.0.0
       node-fetch: 2.7.0
@@ -6819,7 +6819,7 @@ packages:
     dependencies:
       '@npmcli/fs': 3.1.0
       fs-minipass: 3.0.3
-      glob: 10.4.3
+      glob: 10.4.5
       lru-cache: 7.18.3
       minipass: 7.1.2
       minipass-collect: 1.0.2
@@ -9201,9 +9201,8 @@ packages:
       find-index: 0.1.1
     dev: true
 
-  /glob@10.4.3:
-    resolution: {integrity: sha512-Q38SGlYRpVtDBPSWEylRyctn7uDeTp4NQERTLiCT1FqA9JXPYWqAVmQU6qh4r/zMM5ehxTcbaO8EjhWnvEhmyg==}
-    engines: {node: '>=18'}
+  /glob@10.4.5:
+    resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
     hasBin: true
     dependencies:
       foreground-child: 3.1.1
@@ -10311,7 +10310,7 @@ packages:
     dependencies:
       config-chain: 1.1.13
       editorconfig: 1.0.4
-      glob: 10.4.3
+      glob: 10.4.5
       nopt: 7.2.0
     dev: true
 
@@ -12646,7 +12645,7 @@ packages:
     resolution: {integrity: sha512-AEtWXYfopBj2z5N5PbkAOeNHRPUg5q+Nen7QLxV8M2zJq1ym6/lCz3fYNTCXe19puu2d06jfHhrP7v/S2PtMMw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     dependencies:
-      glob: 10.4.3
+      glob: 10.4.5
       json-parse-even-better-errors: 3.0.1
       normalize-package-data: 5.0.0
       npm-normalize-package-bin: 3.0.1
@@ -13004,7 +13003,7 @@ packages:
     engines: {node: '>=14.18'}
     hasBin: true
     dependencies:
-      glob: 10.4.3
+      glob: 10.4.5
 
   /rollup-plugin-filesize@10.0.0:
     resolution: {integrity: sha512-JAYYhzCcmGjmCzo3LEHSDE3RAPHKIeBdpqRhiyZSv5o/3wFhktUOzYAWg/uUKyEu5dEaVaql6UOmaqHx1qKrZA==}
@@ -13756,7 +13755,7 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.4
       commander: 4.1.1
-      glob: 10.4.3
+      glob: 10.4.5
       lines-and-columns: 1.1.6
       mz: 2.7.0
       pirates: 4.0.6
