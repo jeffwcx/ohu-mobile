@@ -64,7 +64,7 @@
     "@vitejs/plugin-vue2-jsx": "^1.1.1",
     "@vitest/coverage-istanbul": "^1.4.0",
     "@vue/babel-preset-jsx": "^1.4.0",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "commitizen": "^4.3.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
