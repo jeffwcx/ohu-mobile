@@ -204,8 +204,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       tslib:
-        specifier: ^2.6.2
-        version: 2.6.2
+        specifier: ^2.7.0
+        version: 2.7.0
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
@@ -271,8 +271,8 @@ importers:
         specifier: ^3.7.11
         version: 3.7.11
       tslib:
-        specifier: ^2.6.2
-        version: 2.6.2
+        specifier: ^2.7.0
+        version: 2.7.0
       vue-strict-prop:
         specifier: ^0.3.6
         version: 0.3.6(typescript@5.4.5)(vue@2.7.16)
@@ -312,7 +312,7 @@ importers:
         version: 0.4.4(rollup@4.14.1)
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
-        version: 11.1.6(rollup@4.14.1)(tslib@2.6.2)(typescript@5.4.5)
+        version: 11.1.6(rollup@4.14.1)(tslib@2.7.0)(typescript@5.4.5)
       '@tsconfig/node-lts':
         specifier: ^20.1.3
         version: 20.1.3
@@ -3588,7 +3588,7 @@ packages:
       terser: 5.28.1
     dev: true
 
-  /@rollup/plugin-typescript@11.1.6(rollup@4.14.1)(tslib@2.6.2)(typescript@5.4.5):
+  /@rollup/plugin-typescript@11.1.6(rollup@4.14.1)(tslib@2.7.0)(typescript@5.4.5):
     resolution: {integrity: sha512-R92yOmIACgYdJ7dJ97p4K69I8gg6IEHt8M7dUBxN3W6nrO8uUxX5ixl0yU/N3aZTi8WhPuICvOHXQvF6FaykAA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -3604,7 +3604,7 @@ packages:
       '@rollup/pluginutils': 5.1.0(rollup@4.14.1)
       resolve: 1.22.8
       rollup: 4.14.1
-      tslib: 2.6.2
+      tslib: 2.7.0
       typescript: 5.4.5
     dev: true
 
@@ -6047,7 +6047,7 @@ packages:
       esbuild: '>=0.10.0'
     dependencies:
       esbuild: 0.18.20
-      tslib: 2.6.2
+      tslib: 2.7.0
     dev: true
 
   /@yarnpkg/esbuild-plugin-pnp@3.0.0-rc.15(esbuild@0.20.2):
@@ -6057,7 +6057,7 @@ packages:
       esbuild: '>=0.10.0'
     dependencies:
       esbuild: 0.20.2
-      tslib: 2.6.2
+      tslib: 2.7.0
     dev: true
 
   /@yarnpkg/fslib@2.10.3:
@@ -6399,7 +6399,7 @@ packages:
     resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}
     engines: {node: '>=4'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
     dev: true
 
   /async@3.2.5:
@@ -12707,7 +12707,7 @@ packages:
       ast-types: 0.16.1
       esprima: 4.0.1
       source-map: 0.6.1
-      tslib: 2.6.2
+      tslib: 2.7.0
     dev: true
 
   /recast@0.23.6:
@@ -12718,7 +12718,7 @@ packages:
       esprima: 4.0.1
       source-map: 0.6.1
       tiny-invariant: 1.3.3
-      tslib: 2.6.2
+      tslib: 2.7.0
     dev: true
 
   /redent@3.0.0:
@@ -13115,7 +13115,7 @@ packages:
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   /safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
@@ -13807,7 +13807,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.2
+      tslib: 2.7.0
     dev: true
 
   /tapable@2.2.1:
@@ -14180,8 +14180,8 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
-  /tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+  /tslib@2.7.0:
+    resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
   /tsup@8.0.2(postcss@8.4.41)(ts-node@10.9.2)(typescript@5.4.5):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
