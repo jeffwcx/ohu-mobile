@@ -332,8 +332,8 @@ importers:
         specifier: ^20.11.20
         version: 20.11.20
       '@types/postcss-pxtorem':
-        specifier: ^6.0.3
-        version: 6.0.3
+        specifier: ^6.1.0
+        version: 6.1.0
       '@types/yargs':
         specifier: ^17.0.33
         version: 17.0.33
@@ -5037,8 +5037,8 @@ packages:
     resolution: {integrity: sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==}
     dev: true
 
-  /@types/postcss-pxtorem@6.0.3:
-    resolution: {integrity: sha512-G3nPvxYvDc3xrBn+frsMCTeHqz77grbpUXkCJpkoLXO09LjvTznoiZBWGPmTYB2w2JXutRTkQtlJx2JNEYbMMg==}
+  /@types/postcss-pxtorem@6.1.0:
+    resolution: {integrity: sha512-kHsYTjQgllOfhi3J+xunjMKUZ3APARV/JYeOOcIVLhvPVS162S8Ir8LsZwioFFyYCSnQp+aisupiSaRWVwKyDA==}
     dependencies:
       postcss: 8.4.47
     dev: true
