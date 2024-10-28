@@ -404,8 +404,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       rollup-plugin-sass:
-        specifier: ^1.12.22
-        version: 1.12.22(rollup@4.24.2)
+        specifier: ^1.13.2
+        version: 1.13.2(rollup@4.24.2)
       sass:
         specifier: ^1.74.1
         version: 1.74.1
@@ -5097,13 +5097,13 @@ packages:
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
     dependencies:
       '@types/eslint': 8.56.5
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
     dev: true
 
   /@types/eslint@8.56.5:
     resolution: {integrity: sha512-u5/YPJHo1tvkSF2CE0USEkxon82Z5DBy2xR+qfyYNszpX9qcs4sT6uq2kBbj4BXY1+DBGDPnrhMZV3pKWGNukw==}
     dependencies:
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
       '@types/json-schema': 7.0.15
     dev: true
 
@@ -12931,8 +12931,8 @@ packages:
       chalk: 2.4.2
     dev: true
 
-  /rollup-plugin-sass@1.12.22(rollup@4.24.2):
-    resolution: {integrity: sha512-bwlXqkmRDc1rVjkbN+wxXFh1jfnMEi3vHr5TufM+loUFYKd6RskGMx5Xz4sIVdxIu1oAilZkM4Px8P3QlmwfUA==}
+  /rollup-plugin-sass@1.13.2(rollup@4.24.2):
+    resolution: {integrity: sha512-Ff+NePHCWpLKzcb7k8D+v1c7+I6DyFXJyLYF6MBkt24ei6Gsp4WMRZv1i/EtTZF980b5eWKjQpxLXDZh2CSXwA==}
     engines: {node: '>=10'}
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.24.2)
@@ -14950,7 +14950,7 @@ packages:
         optional: true
     dependencies:
       '@types/eslint-scope': 3.7.7
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
       '@webassemblyjs/ast': 1.11.6
       '@webassemblyjs/wasm-edit': 1.11.6
       '@webassemblyjs/wasm-parser': 1.11.6
