@@ -217,8 +217,8 @@ importers:
         specifier: ^18.2.79
         version: 18.2.79
       mock-fs:
-        specifier: ^5.4.0
-        version: 5.4.0
+        specifier: ^5.4.1
+        version: 5.4.1
       pkg-dir:
         specifier: ^8.0.0
         version: 8.0.0
@@ -11411,8 +11411,8 @@ packages:
       ufo: 1.4.0
     dev: true
 
-  /mock-fs@5.4.0:
-    resolution: {integrity: sha512-3ROPnEMgBOkusBMYQUW2rnT3wZwsgfOKzJDLvx/TZ7FL1WmWvwSwn3j4aDR5fLDGtgcc1WF0Z1y0di7c9L4FKw==}
+  /mock-fs@5.4.1:
+    resolution: {integrity: sha512-sz/Q8K1gXXXHR+qr0GZg2ysxCRr323kuN10O7CtQjraJsFDJ4SJ+0I5MzALz7aRp9lHk8Cc/YdsT95h9Ka1aFw==}
     engines: {node: '>=12.0.0'}
     dev: true
 
