@@ -305,8 +305,8 @@ importers:
         specifier: ^25.0.8
         version: 25.0.8(rollup@4.27.2)
       '@rollup/plugin-node-resolve':
-        specifier: ^15.3.0
-        version: 15.3.0(rollup@4.27.2)
+        specifier: ^15.3.1
+        version: 15.3.1(rollup@4.27.2)
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@4.27.2)
@@ -3635,8 +3635,8 @@ packages:
       rollup: 4.27.2
     dev: true
 
-  /@rollup/plugin-node-resolve@15.3.0(rollup@4.27.2):
-    resolution: {integrity: sha512-9eO5McEICxMzJpDW9OnMYSv4Sta3hmt7VtBFz5zR9273suNOydOyq/FrGeGy+KsTRFm8w0SLVhzig2ILFT63Ag==}
+  /@rollup/plugin-node-resolve@15.3.1(rollup@4.27.2):
+    resolution: {integrity: sha512-tgg6b91pAybXHJQMAAwW9VuWBO6Thi+q7BCNARLwSqlmsHz0XYURtGvh/AuwSADXSI4h/2uHbs7s4FzlZDGSGA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.78.0||^3.0.0||^4.0.0
@@ -3696,7 +3696,7 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 4.27.2
