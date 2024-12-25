@@ -80,7 +80,7 @@
     "cross-env": "^7.0.3",
     "fs-extra": "^11.2.0",
     "glob": "^10.4.5",
-    "highlight.js": "^11.10.0",
+    "highlight.js": "^11.11.1",
     "jsdom": "^24.0.0",
     "markdown-it": "^14.1.0",
     "ora": "^8.1.1",
