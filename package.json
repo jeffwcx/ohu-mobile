@@ -75,7 +75,7 @@
     "husky": "^9.1.7",
     "inquirer": "^9.2.23",
     "jsdom": "^24.0.0",
-    "lint-staged": "^15.3.0",
+    "lint-staged": "^15.4.1",
     "postcss-pxtorem": "^6.1.0",
     "prettier": "^3.4.2",
     "react": "^18.2.0",
