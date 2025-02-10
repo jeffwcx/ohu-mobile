@@ -35,7 +35,7 @@
     "url": "https://github.com/jeffwcx/ohu-mobile/issues"
   },
   "devDependencies": {
-    "sass": "^1.83.4",
+    "sass": "^1.84.0",
     "sassdoc": "^2.7.4"
   },
   "publishConfig": {
