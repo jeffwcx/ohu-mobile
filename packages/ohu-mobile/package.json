@@ -85,7 +85,7 @@
     "markdown-it": "^14.1.0",
     "ora": "^8.1.1",
     "post-style": "^1.1.0",
-    "postcss": "^8.5.1",
+    "postcss": "^8.5.2",
     "postcss-pxtorem": "^6.1.0",
     "resolve": "^1.22.10",
     "rollup": "^4.34.6",
