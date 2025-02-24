@@ -94,7 +94,7 @@
     "rollup-plugin-sass": "^1.15.2",
     "sass": "^1.85.0",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.4.5",
     "vue": "^2.7.16",
     "vue-router": "^3.6.5",
