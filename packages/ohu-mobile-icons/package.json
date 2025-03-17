@@ -43,7 +43,7 @@
     "typescript": "^5.4.5",
     "@types/fs-extra": "^11.0.4",
     "@types/yargs": "^17.0.33",
-    "art-template": "^4.13.2",
+    "art-template": "^4.13.4",
     "chalk": "^5.4.1",
     "glob": "^10.4.5",
     "rimraf": "^5.0.10",
