@@ -81,7 +81,7 @@
   },
   "devDependencies": {
     "@types/mock-fs": "^4.13.4",
-    "@types/react": "^18.3.18",
+    "@types/react": "^18.3.19",
     "mock-fs": "^5.5.0",
     "pkg-dir": "^8.0.0",
     "react": "^18.3.1",
