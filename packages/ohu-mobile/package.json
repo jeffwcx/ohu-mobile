@@ -91,7 +91,7 @@
     "rollup": "^4.40.1",
     "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-progress": "^1.1.2",
-    "rollup-plugin-sass": "^1.15.2",
+    "rollup-plugin-sass": "^1.15.3",
     "sass": "^1.86.3",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",

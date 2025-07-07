@@ -404,8 +404,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       rollup-plugin-sass:
-        specifier: ^1.15.2
-        version: 1.15.2(rollup@4.40.1)
+        specifier: ^1.15.3
+        version: 1.15.3(rollup@4.40.1)
       sass:
         specifier: ^1.86.3
         version: 1.86.3
@@ -12013,8 +12013,8 @@ packages:
       chalk: 2.4.2
     dev: true
 
-  /rollup-plugin-sass@1.15.2(rollup@4.40.1):
-    resolution: {integrity: sha512-YhTYW0rgvc/2VqpbGXAWrGQjexLcRJvvS5lpG15OAnhVqHDOGMlEXN8u4ctCpmdJiuk2nzxQDWEPbJkqJijb2g==}
+  /rollup-plugin-sass@1.15.3(rollup@4.40.1):
+    resolution: {integrity: sha512-HPRjdUR/Ymu/v/H9qaPytqBAAYVN/5Agmu9RH+PMpTS22lcAvz3FWzqjs1cUaWh5ln1VvtwIcNykBOQkWkpUig==}
     engines: {node: '>=10'}
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.40.1)
