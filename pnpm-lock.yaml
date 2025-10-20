@@ -72,8 +72,8 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2(eslint@8.57.0)(typescript@5.4.5)
       '@vitejs/plugin-vue2':
-        specifier: ^2.3.3
-        version: 2.3.3(vite@5.4.20)(vue@2.7.16)
+        specifier: ^2.3.4
+        version: 2.3.4(vite@5.4.20)(vue@2.7.16)
       '@vitejs/plugin-vue2-jsx':
         specifier: ^1.1.1
         version: 1.1.1(rollup@4.40.1)(vite@5.4.20)(vue@2.7.16)
@@ -338,8 +338,8 @@ importers:
         specifier: ^17.0.33
         version: 17.0.33
       '@vitejs/plugin-vue2':
-        specifier: ^2.3.3
-        version: 2.3.3(vite@5.4.20)(vue@2.7.16)
+        specifier: ^2.3.4
+        version: 2.3.4(vite@5.4.20)(vue@2.7.16)
       '@vitejs/plugin-vue2-jsx':
         specifier: ^1.1.1
         version: 1.1.1(rollup@4.40.1)(vite@5.4.20)(vue@2.7.16)
@@ -5051,11 +5051,11 @@ packages:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue2@2.3.3(vite@5.4.20)(vue@2.7.16):
-    resolution: {integrity: sha512-qexY6+bbwY8h0AZerzUuGywNTi0cLOkbiSbggr0R3WEW95iB2hblQFyv4MAkkc2vm4gZN1cO5kzT1Kp6xlVzZw==}
+  /@vitejs/plugin-vue2@2.3.4(vite@5.4.20)(vue@2.7.16):
+    resolution: {integrity: sha512-LgqtRRedJb1KdmgcllwGX0gtlPvOvtR6pITXmqxGwQhBZaAysg0Hd7wvj3sjCsj4+PENWsqS7O+ceYSOgJ+H9g==}
     engines: {node: ^14.18.0 || >= 16.0.0}
     peerDependencies:
-      vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
       vue: ^2.7.0-0
     dependencies:
       vite: 5.4.20(@types/node@20.17.32)(sass@1.86.3)

@@ -60,7 +60,7 @@
     "@types/node": "^20.17.32",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
-    "@vitejs/plugin-vue2": "^2.3.3",
+    "@vitejs/plugin-vue2": "^2.3.4",
     "@vitejs/plugin-vue2-jsx": "^1.1.1",
     "@vitest/coverage-istanbul": "^1.6.1",
     "@vue/babel-preset-jsx": "^1.4.0",
