@@ -165,8 +165,8 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
       '@types/yargs':
-        specifier: ^17.0.34
-        version: 17.0.34
+        specifier: ^17.0.35
+        version: 17.0.35
       art-template:
         specifier: ^4.13.4
         version: 4.13.4
@@ -335,8 +335,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0
       '@types/yargs':
-        specifier: ^17.0.34
-        version: 17.0.34
+        specifier: ^17.0.35
+        version: 17.0.35
       '@vitejs/plugin-vue2':
         specifier: ^2.3.4
         version: 2.3.4(vite@5.4.21)(vue@2.7.16)
@@ -440,8 +440,8 @@ importers:
         specifier: ^11.0.4
         version: 11.0.4
       '@types/yargs':
-        specifier: ^17.0.34
-        version: 17.0.34
+        specifier: ^17.0.35
+        version: 17.0.35
       art-template:
         specifier: ^4.13.4
         version: 4.13.4
@@ -4847,8 +4847,8 @@ packages:
   /@types/yargs-parser@21.0.3:
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
 
-  /@types/yargs@17.0.34:
-    resolution: {integrity: sha512-KExbHVa92aJpw9WDQvzBaGVE2/Pz+pLZQloT2hjL8IqsZnV62rlPOYvNnLmf/L2dyllfVUOVBj64M0z/46eR2A==}
+  /@types/yargs@17.0.35:
+    resolution: {integrity: sha512-qUHkeCyQFxMXg79wQfTtfndEC+N9ZZg76HJftDJp+qH2tV7Gj4OJi7l+PiWwJ+pWtW8GwSmqsDj/oymhrTWXjg==}
     dependencies:
       '@types/yargs-parser': 21.0.3
 

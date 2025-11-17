@@ -68,7 +68,7 @@
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20.17.32",
     "@types/postcss-pxtorem": "^6.1.0",
-    "@types/yargs": "^17.0.34",
+    "@types/yargs": "^17.0.35",
     "@vitejs/plugin-vue2": "^2.3.4",
     "@vitejs/plugin-vue2-jsx": "^1.1.1",
     "@vue/babel-preset-jsx": "^1.4.0",
