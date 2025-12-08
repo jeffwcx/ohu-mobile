@@ -88,7 +88,7 @@
     "postcss": "^8.5.6",
     "postcss-pxtorem": "^6.1.0",
     "resolve": "^1.22.11",
-    "rollup": "^4.40.1",
+    "rollup": "^4.53.3",
     "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-progress": "^1.1.2",
     "rollup-plugin-sass": "^1.15.3",
