@@ -253,8 +253,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       core-js:
-        specifier: ^3.41.0
-        version: 3.41.0
+        specifier: ^3.47.0
+        version: 3.47.0
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -7174,8 +7174,8 @@ packages:
     requiresBuild: true
     dev: true
 
-  /core-js@3.41.0:
-    resolution: {integrity: sha512-SJ4/EHwS36QMJd6h/Rg+GyR4A5xE0FSI3eZ+iBVpfqf1x0eTSg1smWLHrA+2jQThZSh97fmSgFSU8B61nxosxA==}
+  /core-js@3.47.0:
+    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
     requiresBuild: true
     dev: false
 
