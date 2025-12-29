@@ -109,7 +109,7 @@
     "@ohu-mobile/styles": "workspace:*",
     "@types/raf": "^3.4.3",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
-    "core-js": "^3.41.0",
+    "core-js": "^3.47.0",
     "deepmerge": "^4.3.1",
     "intersection-observer": "^0.12.2",
     "raf": "^3.4.1",
