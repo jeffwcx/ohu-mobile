@@ -192,8 +192,8 @@ importers:
         specifier: ^17.13.3
         version: 17.13.3
       lodash-es:
-        specifier: ^4.17.22
-        version: 4.17.22
+        specifier: ^4.17.23
+        version: 4.17.23
       ora:
         specifier: ^8.2.0
         version: 8.2.0
@@ -10270,8 +10270,8 @@ packages:
       p-locate: 5.0.0
     dev: true
 
-  /lodash-es@4.17.22:
-    resolution: {integrity: sha512-XEawp1t0gxSi9x01glktRZ5HDy0HXqrM0x5pXQM98EaI0NxO6jVM7omDOxsuEo5UIASAnm2bRp1Jt/e0a2XU8Q==}
+  /lodash-es@4.17.23:
+    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
     dev: false
 
   /lodash._basebind@2.4.1:
