@@ -25,7 +25,7 @@ importers:
         version: 18.6.1(@types/node@20.19.33)(typescript@5.9.3)
       '@storybook/addon-essentials':
         specifier: ^8.6.14
-        version: 8.6.14(@types/react@18.3.27)(storybook@8.6.15)
+        version: 8.6.14(@types/react@18.3.28)(storybook@8.6.15)
       '@storybook/addon-interactions':
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.15)
@@ -214,8 +214,8 @@ importers:
         specifier: ^4.13.4
         version: 4.13.4
       '@types/react':
-        specifier: ^18.3.27
-        version: 18.3.27
+        specifier: ^18.3.28
+        version: 18.3.28
       mock-fs:
         specifier: ^5.5.0
         version: 5.5.0
@@ -3390,14 +3390,14 @@ packages:
       read-yaml-file: 1.1.0
     dev: true
 
-  /@mdx-js/react@3.0.1(@types/react@18.3.27)(react@18.3.1):
+  /@mdx-js/react@3.0.1(@types/react@18.3.28)(react@18.3.1):
     resolution: {integrity: sha512-9ZrPIU4MGf6et1m1ov3zKf+q9+deetI51zprKB1D/z3NOb+rUxxtEl3mCjW5wTGh6VhRdwPueh1oRzi6ezkA8A==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
     dependencies:
       '@types/mdx': 2.0.11
-      '@types/react': 18.3.27
+      '@types/react': 18.3.28
       react: 18.3.1
     dev: true
 
@@ -4195,12 +4195,12 @@ packages:
       ts-dedent: 2.2.0
     dev: true
 
-  /@storybook/addon-docs@8.6.14(@types/react@18.3.27)(storybook@8.6.15):
+  /@storybook/addon-docs@8.6.14(@types/react@18.3.28)(storybook@8.6.15):
     resolution: {integrity: sha512-Obpd0OhAF99JyU5pp5ci17YmpcQtMNgqW2pTXV8jAiiipWpwO++hNDeQmLmlSXB399XjtRDOcDVkoc7rc6JzdQ==}
     peerDependencies:
       storybook: ^8.6.14
     dependencies:
-      '@mdx-js/react': 3.0.1(@types/react@18.3.27)(react@18.3.1)
+      '@mdx-js/react': 3.0.1(@types/react@18.3.28)(react@18.3.1)
       '@storybook/blocks': 8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.15)
       '@storybook/csf-plugin': 8.6.14(storybook@8.6.15)
       '@storybook/react-dom-shim': 8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.15)
@@ -4212,7 +4212,7 @@ packages:
       - '@types/react'
     dev: true
 
-  /@storybook/addon-essentials@8.6.14(@types/react@18.3.27)(storybook@8.6.15):
+  /@storybook/addon-essentials@8.6.14(@types/react@18.3.28)(storybook@8.6.15):
     resolution: {integrity: sha512-5ZZSHNaW9mXMOFkoPyc3QkoNGdJHETZydI62/OASR0lmPlJ1065TNigEo5dJddmZNn0/3bkE8eKMAzLnO5eIdA==}
     peerDependencies:
       storybook: ^8.6.14
@@ -4220,7 +4220,7 @@ packages:
       '@storybook/addon-actions': 8.6.14(storybook@8.6.15)
       '@storybook/addon-backgrounds': 8.6.14(storybook@8.6.15)
       '@storybook/addon-controls': 8.6.14(storybook@8.6.15)
-      '@storybook/addon-docs': 8.6.14(@types/react@18.3.27)(storybook@8.6.15)
+      '@storybook/addon-docs': 8.6.14(@types/react@18.3.28)(storybook@8.6.15)
       '@storybook/addon-highlight': 8.6.14(storybook@8.6.15)
       '@storybook/addon-measure': 8.6.14(storybook@8.6.15)
       '@storybook/addon-outline': 8.6.14(storybook@8.6.15)
@@ -5218,8 +5218,8 @@ packages:
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
     dev: true
 
-  /@types/react@18.3.27:
-    resolution: {integrity: sha512-cisd7gxkzjBKU2GgdYrTdtQx1SORymWyaAFhaxQPK9bYO9ot3Y5OikQRvY0VYQtvwjeQnizCINJAenh/V7MK2w==}
+  /@types/react@18.3.28:
+    resolution: {integrity: sha512-z9VXpC7MWrhfWipitjNdgCauoMLRdIILQsAEV+ZesIzBq/oUlxk0m3ApZuMFCXdnS4U7KrI+l3WRUEGQ8K1QKw==}
     dependencies:
       '@types/prop-types': 15.7.11
       csstype: 3.2.3
