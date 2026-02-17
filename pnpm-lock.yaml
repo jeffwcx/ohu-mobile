@@ -305,8 +305,8 @@ importers:
         specifier: ^25.0.8
         version: 25.0.8(rollup@4.54.0)
       '@rollup/plugin-node-resolve':
-        specifier: ^15.3.1
-        version: 15.3.1(rollup@4.54.0)
+        specifier: ^16.0.3
+        version: 16.0.3(rollup@4.54.0)
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@4.54.0)
@@ -3685,8 +3685,8 @@ packages:
       rollup: 4.54.0
     dev: true
 
-  /@rollup/plugin-node-resolve@15.3.1(rollup@4.54.0):
-    resolution: {integrity: sha512-tgg6b91pAybXHJQMAAwW9VuWBO6Thi+q7BCNARLwSqlmsHz0XYURtGvh/AuwSADXSI4h/2uHbs7s4FzlZDGSGA==}
+  /@rollup/plugin-node-resolve@16.0.3(rollup@4.54.0):
+    resolution: {integrity: sha512-lUYM3UBGuM93CnMPG1YocWu7X802BrNF3jW2zny5gQyLQgRFJhV1Sq0Zi74+dh/6NBx1DxFC4b4GXg9wUCG5Qg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.78.0||^3.0.0||^4.0.0
