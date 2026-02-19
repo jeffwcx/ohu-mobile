@@ -41,9 +41,9 @@
   "devDependencies": {
     "@changesets/changelog-git": "^0.2.1",
     "@changesets/cli": "^2.29.8",
-    "@commitlint/cli": "^18.6.1",
-    "@commitlint/config-conventional": "^18.6.3",
-    "@commitlint/prompt-cli": "^18.6.1",
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
+    "@commitlint/prompt-cli": "^20.4.2",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-interactions": "^8.6.14",
     "@storybook/addon-links": "^8.6.15",
