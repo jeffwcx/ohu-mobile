@@ -159,8 +159,8 @@ importers:
         specifier: ^11.0.4
         version: 11.0.4
       '@types/inquirer':
-        specifier: ^9.0.9
-        version: 9.0.9
+        specifier: ^9.0.10
+        version: 9.0.10
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -5122,8 +5122,8 @@ packages:
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
     dev: true
 
-  /@types/inquirer@9.0.9:
-    resolution: {integrity: sha512-/mWx5136gts2Z2e5izdoRCo46lPp5TMs9R15GTSsgg/XnZyxDWVqoVU3R9lWnccKpqwsJLvRoxbCjoJtZB7DSw==}
+  /@types/inquirer@9.0.10:
+    resolution: {integrity: sha512-vFW2WbXwO9eZpRT5GJGFJ/shgyMNnYozmnjakt9jCQSS1lvqX8pZEQMjJ9RdDPct/YxwciQ8+V8OYn9euIrZDA==}
     dependencies:
       '@types/through': 0.0.33
       rxjs: 7.8.1
