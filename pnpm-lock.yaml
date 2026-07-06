@@ -180,8 +180,8 @@ importers:
         specifier: ^3.1.10
         version: 3.1.10
       fs-extra:
-        specifier: ^11.3.5
-        version: 11.3.5
+        specifier: ^11.3.6
+        version: 11.3.6
       glob:
         specifier: ^10.5.0
         version: 10.5.0
@@ -365,8 +365,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       fs-extra:
-        specifier: ^11.3.5
-        version: 11.3.5
+        specifier: ^11.3.6
+        version: 11.3.6
       glob:
         specifier: ^10.5.0
         version: 10.5.0
@@ -4402,7 +4402,7 @@ packages:
       esbuild-plugin-alias: 0.2.1
       express: 4.18.2
       find-cache-dir: 3.3.2
-      fs-extra: 11.3.5
+      fs-extra: 11.3.6
       process: 0.11.10
       util: 0.12.5
     transitivePeerDependencies:
@@ -4438,7 +4438,7 @@ packages:
       es-module-lexer: 0.9.3
       express: 4.18.2
       find-cache-dir: 3.3.2
-      fs-extra: 11.3.5
+      fs-extra: 11.3.6
       magic-string: 0.30.7
       rollup: 3.29.4
       typescript: 5.9.3
@@ -4501,7 +4501,7 @@ packages:
       file-system-cache: 2.3.0
       find-cache-dir: 3.3.2
       find-up: 5.0.0
-      fs-extra: 11.3.5
+      fs-extra: 11.3.6
       glob: 10.5.0
       handlebars: 4.7.7
       lazy-universal-dotenv: 4.0.0
@@ -4550,7 +4550,7 @@ packages:
       compression: 1.7.4
       detect-port: 1.5.1
       express: 4.18.2
-      fs-extra: 11.3.5
+      fs-extra: 11.3.6
       globby: 11.1.0
       ip: 2.0.1
       lodash: 4.17.21
@@ -4636,7 +4636,7 @@ packages:
       '@babel/types': 7.29.0
       '@storybook/csf': 0.1.5
       '@storybook/types': 7.6.17
-      fs-extra: 11.3.5
+      fs-extra: 11.3.6
       recast: 0.23.6
       ts-dedent: 2.2.0
     transitivePeerDependencies:
@@ -4780,7 +4780,7 @@ packages:
       chalk: 4.1.2
       detect-package-manager: 2.0.1
       fetch-retry: 5.0.6
-      fs-extra: 11.3.5
+      fs-extra: 11.3.6
       read-pkg-up: 7.0.1
     transitivePeerDependencies:
       - encoding
@@ -8821,8 +8821,8 @@ packages:
       universalify: 2.0.1
     dev: true
 
-  /fs-extra@11.3.5:
-    resolution: {integrity: sha512-eKpRKAovdpZtR1WopLHxlBWvAgPny3c4gX1G5Jhwmmw4XJj0ifSD5qB5TOo8hmA0wlRKDAOAhEE1yVPgs6Fgcg==}
+  /fs-extra@11.3.6:
+    resolution: {integrity: sha512-w8ZNZr2mKIc7qeNaQ9AVPT1+iFaI+Avd4xudVOvdDJ8VytREi1Ft5Ih7hd9jjehod8vAM5GMsfQ/TpPf4EyoEA==}
     engines: {node: '>=14.14'}
     dependencies:
       graceful-fs: 4.2.11
