@@ -168,8 +168,8 @@ importers:
         specifier: ^17.0.35
         version: 17.0.35
       art-template:
-        specifier: ^4.13.4
-        version: 4.13.4
+        specifier: ^4.13.7
+        version: 4.13.7
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -443,8 +443,8 @@ importers:
         specifier: ^17.0.35
         version: 17.0.35
       art-template:
-        specifier: ^4.13.4
-        version: 4.13.4
+        specifier: ^4.13.7
+        version: 4.13.7
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -6282,8 +6282,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /art-template@4.13.4:
-    resolution: {integrity: sha512-SoCdwWrj6VNoErheIKnDSzBEO0SsZJK9p34nliZUuChkfiReu8x4hLP/jBTLG6yEr+tWxdANufophDYsau52Fg==}
+  /art-template@4.13.7:
+    resolution: {integrity: sha512-bH0BRHjnVxuJMeTXLd2fHG93GBP76cPmVFmi4EEdvl4mJDQFu4CX5geOzL2WhboS/euzJgsdd/PK8aGlYPYe2Q==}
     engines: {node: '>= 1.0.0'}
     dependencies:
       acorn: 5.7.4
@@ -11000,7 +11000,7 @@ packages:
   /mlly@1.6.1:
     resolution: {integrity: sha512-vLgaHvaeunuOXHSmEbZ9izxPx3USsk8KCQ8iC+aTlp5sKRSoZvwhHh5L9VbKSaVC6sJDqbyohIS76E2VmHIPAA==}
     dependencies:
-      acorn: 8.11.3
+      acorn: 8.15.0
       pathe: 1.1.2
       pkg-types: 1.0.3
       ufo: 1.4.0
@@ -13959,7 +13959,7 @@ packages:
   /unplugin@1.7.1:
     resolution: {integrity: sha512-JqzORDAPxxs8ErLV4x+LL7bk5pk3YlcWqpSNsIkAZj972KzFZLClc/ekppahKkOczGkwIG6ElFgdOgOlK4tXZw==}
     dependencies:
-      acorn: 8.11.3
+      acorn: 8.15.0
       chokidar: 3.5.3
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
