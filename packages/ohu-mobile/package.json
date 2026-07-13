@@ -99,7 +99,7 @@
     "vue": "^2.7.16",
     "vue-router": "^3.6.5",
     "vue-template-compiler": "^2.7.16",
-    "yargs": "^17.7.2"
+    "yargs": "^17.7.3"
   },
   "peerDependencies": {
     "vue": "^2"
