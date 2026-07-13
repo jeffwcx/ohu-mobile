@@ -189,8 +189,8 @@ importers:
         specifier: ^9.3.8
         version: 9.3.8(@types/node@20.19.43)
       joi:
-        specifier: ^17.13.3
-        version: 17.13.3
+        specifier: ^17.13.4
+        version: 17.13.4
       lodash-es:
         specifier: ^4.17.23
         version: 4.17.23
@@ -10010,8 +10010,8 @@ packages:
     requiresBuild: true
     dev: true
 
-  /joi@17.13.3:
-    resolution: {integrity: sha512-otDA4ldcIx+ZXsKHWmp0YizCweVRZG96J10b0FevjfuncLO1oX59THoAmHkNubYJ+9gWsYsp5k8v4ib6oDv1fA==}
+  /joi@17.13.4:
+    resolution: {integrity: sha512-1RuuER6kmt8K8I3nIWvPZKi5RQCb568ZPyY4Pwjlua+yo+63ZTmIwxLZH0heBmiKN4uxjvCiarDrjaeH84xicQ==}
     dependencies:
       '@hapi/hoek': 9.3.0
       '@hapi/topo': 5.1.0
